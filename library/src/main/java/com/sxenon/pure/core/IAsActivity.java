@@ -1,0 +1,30 @@
+package com.sxenon.pure.core;
+
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.FragmentActivity;
+
+/**
+ * 部分透明化Activity与Fragment
+ * Created by Sui on 2016/11/20.
+ */
+
+public interface IAsActivity {
+
+    void startActivity(Intent intent);
+
+    void startActivity(Intent intent, Bundle options);
+
+    void startActivityForResult(Intent intent, int requestCode);
+
+    void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options);
+
+    FragmentActivity getActivity();
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    void requestPermissions(@NonNull String[] permissions, int requestCode);
+}
