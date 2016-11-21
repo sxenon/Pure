@@ -13,7 +13,7 @@ import android.support.v4.app.FragmentActivity;
  * Created by Sui on 2016/11/20.
  */
 
-public interface IAsActivity {
+public interface IRouter {
 
     void startActivity(Intent intent);
 
