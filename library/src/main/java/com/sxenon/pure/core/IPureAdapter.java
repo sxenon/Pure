@@ -7,30 +7,28 @@ import java.util.List;
  * Created by Sui on 2016/11/20.
  */
 
-public interface IModelViewBridge<T> {
+public interface IPureAdapter<T> {
     int getItemCount();
 
     void addItemFromEnd(T value);
 
     void addItemFromStart(T value);
 
-    void addAllItemFromStart(List<T> value);
+    void addItemsFromStart(List<T> value);
 
-    void addAllItemFromEnd(List<T> value);
+    void addItemsFromEnd(List<T> value);
 
     void addItem(T value, int position);
 
-    void removeItemFromEnd(T value);
-
-    void removeItemFromStart(T value);
-
-    void removeAllItemFromStart(List<T> value);
-
-    void removeAllItemFromEnd(List<T> value);
+    void removeItems(List<T> value);
 
     void removeItem(int position);
 
     void removeItem(T value);
 
     List<T> getValues();
+
+    void resetAllItems(List<T> values);
+
+    void clear();
 }
