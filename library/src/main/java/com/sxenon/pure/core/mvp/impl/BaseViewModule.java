@@ -9,7 +9,7 @@ import com.sxenon.pure.core.mvp.interfaces.IPresenter;
 import com.sxenon.pure.core.mvp.interfaces.IViewModule;
 
 /**
- * 包含{@link android.view.View} & {@link IViewComponentGroup}
+ * 包含{@link android.view.View} & {@link IViewComponentGroup
  * Created by Sui on 2016/11/22.
  */
 
