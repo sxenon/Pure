@@ -23,15 +23,15 @@ android {
 
 dependencies {
     def leakCanaryVersion='1.5'
-    def rxLifeCycleVersion='1.0'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
     testCompile 'junit:junit:4.12'
+
+    //support
+    compile 'com.android.support:appcompat-v7:24.2.1'
 
     //Debug
     compile 'com.facebook.stetho:stetho:1.4.1'
@@ -40,8 +40,7 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:'+leakCanaryVersion
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:'+leakCanaryVersion
 
-    compile 'com.trello:rxlifecycle:'+rxLifeCycleVersion
-    compile 'com.trello:rxlifecycle-android:'+rxLifeCycleVersion
-    compile 'com.trello:rxlifecycle-components:'+rxLifeCycleVersion
-
+    //Rx
+    compile 'com.trello:rxlifecycle:1.0'
+    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
 }
