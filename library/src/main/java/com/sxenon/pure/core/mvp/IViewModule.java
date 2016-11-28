@@ -1,4 +1,4 @@
-package com.sxenon.pure.core.mvp.interfaces;
+package com.sxenon.pure.core.mvp;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

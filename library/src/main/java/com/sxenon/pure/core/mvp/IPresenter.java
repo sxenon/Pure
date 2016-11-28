@@ -1,10 +1,10 @@
-package com.sxenon.pure.core.mvp.interfaces;
+package com.sxenon.pure.core.mvp;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.IRouter;
-import com.sxenon.pure.core.mvp.interfaces.root.IRootPresenter;
+import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
 /**
  * MVP中 Presenter基础接口
@@ -20,5 +20,5 @@ public interface IPresenter<VM extends IViewModule> {
     @NonNull
     IRouter getRouter();
 
-    IRootPresenter getRootPresenter();
+    BaseRootPresenter getRootPresenter();
 }

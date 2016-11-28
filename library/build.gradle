@@ -23,6 +23,7 @@ android {
 
 dependencies {
     def leakCanaryVersion='1.5'
+    def rxLifeCycleVersion='1.0'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -38,5 +39,9 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:'+leakCanaryVersion
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:'+leakCanaryVersion
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:'+leakCanaryVersion
+
+    compile 'com.trello:rxlifecycle:'+rxLifeCycleVersion
+    compile 'com.trello:rxlifecycle-android:'+rxLifeCycleVersion
+    compile 'com.trello:rxlifecycle-components:'+rxLifeCycleVersion
 
 }

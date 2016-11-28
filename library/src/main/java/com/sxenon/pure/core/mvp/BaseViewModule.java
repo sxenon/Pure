@@ -1,12 +1,12 @@
-package com.sxenon.pure.core.mvp.impl;
+package com.sxenon.pure.core.mvp;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.core.IViewComponentGroup;
-import com.sxenon.pure.core.mvp.interfaces.IPresenter;
-import com.sxenon.pure.core.mvp.interfaces.IViewModule;
+import com.sxenon.pure.core.mvp.IPresenter;
+import com.sxenon.pure.core.mvp.IViewModule;
 
 /**
  * 包含{@link android.view.View} & {@link IViewComponentGroup

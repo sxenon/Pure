@@ -1,13 +1,10 @@
-package com.sxenon.pure.core.mvp.impl;
+package com.sxenon.pure.core.mvp;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.IRouter;
-import com.sxenon.pure.core.mvp.impl.root.BaseRootPresenter;
-import com.sxenon.pure.core.mvp.interfaces.IPresenter;
-import com.sxenon.pure.core.mvp.interfaces.IViewModule;
-import com.sxenon.pure.core.mvp.interfaces.root.IRootPresenter;
+import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
 /**
  * 不应该再包含子Presenter了，一个UI界面上的业务不应该过于复杂
@@ -27,7 +24,7 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
     }
 
     @Override
-    public IRootPresenter getRootPresenter() {
+    public BaseRootPresenter getRootPresenter() {
         return mRootPresenter;
     }
 

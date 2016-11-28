@@ -8,12 +8,15 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
 
+import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
+import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
+
 /**
  * 部分透明化Activity与Fragment
  * Created by Sui on 2016/11/20.
  */
 
-public interface IRouter {
+public interface IRouter<P extends BaseRootPresenter> {
 
     void startActivity(Intent intent);
 
@@ -27,4 +30,10 @@ public interface IRouter {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     void requestPermissions(@NonNull String[] permissions, int requestCode);
+
+    void saveEvent(Event event);
+
+    BaseRootViewModule<P> groupViewModule();
+
+    P getRootPresenter();
 }
