@@ -20,7 +20,7 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        BaseRootViewModule<P> rootViewModule=groupViewModule();
+        BaseRootViewModule<P> rootViewModule=groupViewModule(view);
         mRootPresenter=rootViewModule.getPresenter();
         mRootPresenter.onCreate(mSavedEvent);
     }
@@ -58,4 +58,6 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
     public void saveEvent(Event event) {
         mSavedEvent=event;
     }
+
+    protected abstract BaseRootViewModule<P> groupViewModule(View view);
 }

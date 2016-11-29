@@ -63,4 +63,6 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
     public FragmentActivity getActivity() {
         return this;
     }
+
+    protected abstract BaseRootViewModule<P> groupViewModule();
 }
