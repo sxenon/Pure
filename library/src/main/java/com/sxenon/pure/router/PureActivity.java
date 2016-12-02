@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
+import com.sxenon.pure.global.GlobalContext;
 
 /**
  * 做最纯净的Activity二次封装
@@ -27,6 +28,7 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
         BaseRootViewModule<P> rootViewModule=groupViewModule();
         mRootPresenter=rootViewModule.getPresenter();
         mRootPresenter.onCreate(mSavedEvent);
+        GlobalContext.INSTANCE.onActivityCreate(this);
     }
 
     @Override
@@ -51,6 +53,7 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
     protected void onDestroy() {
         super.onDestroy();
         mRootPresenter.onDestroy();
+        GlobalContext.INSTANCE.onActivityDestroy(this);
     }
 
     @Override

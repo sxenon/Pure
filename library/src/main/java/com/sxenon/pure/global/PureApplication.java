@@ -15,6 +15,7 @@ public abstract class PureApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        GlobalContext.INSTANCE.value=this;
         initDebugConfig();
     }
 
