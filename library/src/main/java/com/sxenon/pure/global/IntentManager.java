@@ -1,12 +1,10 @@
 package com.sxenon.pure.global;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
 import com.hwangjr.rxbus.RxBus;
@@ -54,26 +52,14 @@ public class IntentManager {
         context.startActivity(intent);
     }
 
-    public static void openSettingsScreen(IRouter router){
+    public static void openSettingsScreen(IRouter router) {
         openSettingsScreen(router.getFragmentActivity());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static void requestSystemAlertPermission(IRouter router,int requestCode){
+    public static void requestSystemAlertPermission(IRouter router, int requestCode) {
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + router.getFragmentActivity().getPackageName()));
         router.startActivityForResult(intent, requestCode);
-    }
-
-    /**
-     * @return true if {@link android.Manifest.permission#SYSTEM_ALERT_WINDOW} is granted
-     */
-    @TargetApi(Build.VERSION_CODES.M)
-    public static boolean isSystemAlertGranted(@NonNull Context context) {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(context);
-    }
-
-    public static boolean isSystemAlertGranted(@NonNull IRouter router){
-        return isSystemAlertGranted(router.getFragmentActivity());
     }
 
 }

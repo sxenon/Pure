@@ -9,7 +9,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
 
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
-import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 
 /**
  * 部分透明化Activity与Fragment
