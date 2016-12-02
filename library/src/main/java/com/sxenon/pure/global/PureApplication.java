@@ -7,6 +7,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 
 /**
+ * 做最纯粹的Application二次封装
  * Created by Sui on 2016/11/24.
  */
 

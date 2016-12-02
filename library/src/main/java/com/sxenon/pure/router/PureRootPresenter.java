@@ -1,9 +1,15 @@
 package com.sxenon.pure.router;
 
+import android.Manifest;
+import android.support.annotation.NonNull;
+
 import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
+import com.sxenon.pure.permission.OnPermissionCallback;
+import com.sxenon.pure.permission.OnRequestPermissionsResult;
+import com.sxenon.pure.permission.PermissionHelper;
 import com.trello.rxlifecycle.LifecycleProvider;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.OutsideLifecycleException;
@@ -12,17 +18,21 @@ import com.trello.rxlifecycle.RxLifecycle;
 import javax.annotation.Nonnull;
 
 import rx.Observable;
+import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
 
 /**
  * TODO RxLifeCycle 学习
+ * TODO {@link Manifest.permission#SYSTEM_ALERT_WINDOW} 暂时不支持
  * Created by Sui on 2016/11/28.
  */
 
-public class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements LifecycleProvider<RouterEvent> {
+public class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements LifecycleProvider<RouterEvent>,OnRequestPermissionsResult,OnPermissionCallback {
 
     private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
+    private final PermissionHelper permissionHelper;
+
 
     private static final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
             new Func1<RouterEvent, RouterEvent>() {
@@ -47,6 +57,7 @@ public class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPr
 
     public PureRootPresenter(VM viewModule) {
         super(viewModule);
+        permissionHelper=PermissionHelper.getInstance(getRouter(),this);
     }
 
     //LifecycleProvider start
@@ -102,6 +113,52 @@ public class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPr
         lifecycleSubject.onNext(RouterEvent.DESTROY);
         RxBus.get().unregister(this);
     }
+
     //LifeCycle end
 
+    //Permission start
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        permissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
+    @Override
+    public void onActivityForResult(int requestCode) {
+        permissionHelper.onActivityForResult(requestCode);
+    }
+
+    @Override
+    public void requestPermissions(@NonNull String[] permissions, int what, Action0 action) {
+        permissionHelper.request(permissions,what,action);
+    }
+
+    public boolean shouldPermissionExplainBeforeRequest(String[] permissions, int what){
+        return false;
+    }
+
+    @Override
+    public final void onPermissionGranted(@NonNull String[] permissions, Action0 action) {
+        action.call();
+    }
+
+    @Override
+    public void onPermissionDeclined(@NonNull String[] permissions, int permissionWhat) {
+
+    }
+
+    @Override
+    public void onPermissionNeedExplanation(@NonNull String[] permissions,int permissionWhat) {
+
+    }
+
+    @Override
+    public void onPermissionReallyDeclined(@NonNull String[] permissions,int permissionWhat) {
+
+    }
+
+    public void requestAfterExplanation(@NonNull String[] permissions){
+        permissionHelper.requestAfterExplanation(permissions);
+    }
+    //Permission end
 }

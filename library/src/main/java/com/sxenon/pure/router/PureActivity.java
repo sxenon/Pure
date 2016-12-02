@@ -72,6 +72,11 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
         ActivityCompat.requestPermissions(this, permissions, requestCode);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        mRootPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
     protected abstract BaseRootViewModule<P> groupViewModule();
 
 }

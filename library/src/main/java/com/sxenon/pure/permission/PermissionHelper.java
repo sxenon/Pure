@@ -5,20 +5,24 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
+import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.global.IntentManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.functions.Action0;
+
 /**
- * Inspire from https://github.com/k0shk0sh/PermissionHelper
+ * Inspire by https://github.com/k0shk0sh/PermissionHelper
  * Created by Sui on 2016/12/2.
  */
 
-public class PermissionHelper implements OnActivityPermissionCallback {
+public class PermissionHelper implements OnRequestPermissionsResult {
     private static final int OVERLAY_PERMISSION_REQ_CODE = 1117;
     private static final int REQUEST_PERMISSIONS = 1;
+    private Event permissionEvent;
 
     @NonNull
     private final OnPermissionCallback permissionCallback;
@@ -38,13 +42,13 @@ public class PermissionHelper implements OnActivityPermissionCallback {
     @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_PERMISSIONS) {
             if (verifyPermissions(grantResults)) {
-                permissionCallback.onPermissionGranted(permissions);
+                permissionCallback.onPermissionGranted(permissions, (Action0) permissionEvent.obj);
             } else {
                 String[] declinedPermissions = PermissionCompat.declinedPermissions(router, permissions);
                 List<Boolean> deniedPermissionsLength = new ArrayList<>();//needed
                 for (String permissionName : declinedPermissions) {
                     if (permissionName != null && !PermissionCompat.isExplanationNeeded(router,permissionName)) {
-                        permissionCallback.onPermissionReallyDeclined(permissionName);
+                        permissionCallback.onPermissionReallyDeclined(new String[]{permissionName},permissionEvent.what);
                         deniedPermissionsLength.add(false);
                     }
                 }
@@ -53,7 +57,7 @@ public class PermissionHelper implements OnActivityPermissionCallback {
                         requestAfterExplanation(declinedPermissions);
                         return;
                     }
-                    permissionCallback.onPermissionDeclined(declinedPermissions);
+                    permissionCallback.onPermissionDeclined(declinedPermissions,permissionEvent.what);
                 }
             }
         }
@@ -66,13 +70,11 @@ public class PermissionHelper implements OnActivityPermissionCallback {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
                 if (PermissionCompat.isSystemAlertGranted(router)) {
-                    permissionCallback.onPermissionGranted(new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW});
+                    permissionCallback.onPermissionGranted(new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW}, (Action0) permissionEvent.obj);
                 } else {
-                    permissionCallback.onPermissionDeclined(new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW});
+                    permissionCallback.onPermissionDeclined(new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW},permissionEvent.what);
                 }
             }
-        } else {
-            permissionCallback.onPermissionPreGranted(Manifest.permission.SYSTEM_ALERT_WINDOW);
         }
     }
 
@@ -84,24 +86,25 @@ public class PermissionHelper implements OnActivityPermissionCallback {
         return this;
     }
 
-    /**
-     * @param permissionName
-     *         (it can be one of these types (String), (String[])
-     */
-    @NonNull public PermissionHelper request(@NonNull Object permissionName) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (permissionName instanceof String) {
-                handleSingle((String) permissionName);
-            } else if (permissionName instanceof String[]) {
-                handleMulti((String[]) permissionName);
-            } else {
-                throw new IllegalArgumentException("Permissions can only be one of these types (String) or (String[])" +
-                        ". given type is " + permissionName.getClass().getSimpleName());
-            }
-        } else {
-            permissionCallback.onNoPermissionNeeded();
+    public void request(@NonNull String[] permissions, int what, Action0 action){
+        List<String> permissionsNeeded= PermissionCompat.declinedPermissionsAsList(router,permissions);
+        if (permissionsNeeded.isEmpty()){
+            action.call();
+            return;
         }
-        return this;
+        Event event=new Event();
+        event.what=what;
+        event.obj=action;
+        permissionEvent=event;
+        String[] permissionsNeedArray=(String[]) permissionsNeeded.toArray();
+        List<String> permissionPermanentlyDeniedList=PermissionCompat.getPermissionPermanentlyDeniedList(router,permissionsNeedArray);
+        if (!permissionPermanentlyDeniedList.isEmpty()){
+            permissionCallback.onPermissionReallyDeclined(permissions,permissionEvent.what);
+            return;
+        }
+        if (!permissionCallback.shouldPermissionExplainBeforeRequest(permissionsNeedArray,what)){
+            handleMulti(permissions);
+        }
     }
 
     /**
@@ -112,12 +115,8 @@ public class PermissionHelper implements OnActivityPermissionCallback {
             try {
                 if (!PermissionCompat.isSystemAlertGranted(router)) {
                     IntentManager.requestSystemAlertPermission(router,OVERLAY_PERMISSION_REQ_CODE);
-                } else {
-                    permissionCallback.onPermissionPreGranted(Manifest.permission.SYSTEM_ALERT_WINDOW);
                 }
             } catch (Exception ignored) {}
-        } else {
-            permissionCallback.onPermissionPreGranted(Manifest.permission.SYSTEM_ALERT_WINDOW);
         }
     }
 
@@ -130,18 +129,16 @@ public class PermissionHelper implements OnActivityPermissionCallback {
             if (!permissionName.equalsIgnoreCase(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                 if (PermissionCompat.isPermissionDeclined(router,permissionName)) {
                     if (PermissionCompat.isExplanationNeeded(router,permissionName)) {
-                        permissionCallback.onPermissionNeedExplanation(permissionName);
+                        permissionCallback.onPermissionNeedExplanation(new String[]{permissionName},permissionEvent.what);
                     } else {
                         router.requestPermissionsCompact(new String[]{permissionName}, REQUEST_PERMISSIONS);
                     }
-                } else {
-                    permissionCallback.onPermissionPreGranted(permissionName);
                 }
             } else {
                 requestSystemAlertPermission();
             }
         } else {
-            permissionCallback.onPermissionDeclined(new String[]{permissionName});
+            permissionCallback.onPermissionDeclined(new String[]{permissionName},permissionEvent.what);
         }
     }
 
@@ -151,7 +148,7 @@ public class PermissionHelper implements OnActivityPermissionCallback {
     private void handleMulti(@NonNull String[] permissionNames) {
         List<String> permissions = PermissionCompat.declinedPermissionsAsList(router, permissionNames);
         if (permissions.isEmpty()) {
-            permissionCallback.onPermissionGranted(permissionNames);
+            permissionCallback.onPermissionGranted(permissionNames, (Action0) permissionEvent.obj);
             return;
         }
         boolean hasAlertWindowPermission = permissions.contains(Manifest.permission.SYSTEM_ALERT_WINDOW);
@@ -166,27 +163,13 @@ public class PermissionHelper implements OnActivityPermissionCallback {
      * to be called when explanation is presented to the user
      */
     public void requestAfterExplanation(@NonNull String permissionName) {
-        if (PermissionCompat.isPermissionDeclined(router,permissionName)) {
-            router.requestPermissionsCompact(new String[]{permissionName}, REQUEST_PERMISSIONS);
-        } else {
-            permissionCallback.onPermissionPreGranted(permissionName);
-        }
+        requestAfterExplanation(new String[]{permissionName});
     }
 
     /**
      * to be called when explanation is presented to the user
      */
     public void requestAfterExplanation(@NonNull String[] permissions) {
-        ArrayList<String> permissionsToRequest = new ArrayList<>();
-        for (String permissionName : permissions) {
-            if (PermissionCompat.isPermissionDeclined(router,permissionName)) {
-                permissionsToRequest.add(permissionName); // add permission to request
-            } else {
-                permissionCallback.onPermissionPreGranted(permissionName); // do not request, since it is already granted
-            }
-        }
-        if (permissionsToRequest.isEmpty()) return;
-        permissions = permissionsToRequest.toArray(new String[permissionsToRequest.size()]);
         router.requestPermissionsCompact(permissions, REQUEST_PERMISSIONS);
     }
 

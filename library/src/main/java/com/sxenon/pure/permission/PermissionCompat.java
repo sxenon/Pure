@@ -88,6 +88,16 @@ public class PermissionCompat {
         return isPermissionDeclined(router, permission) && !isExplanationNeeded(router, permission);
     }
 
+    public static List<String> getPermissionPermanentlyDeniedList(@NonNull IRouter router,@NonNull String[] permissions){
+        List<String> permissionPermanentlyDeniedList=new ArrayList<>();
+        for (String permission:permissions){
+            if (isPermissionPermanentlyDenied(router,permission)){
+                permissionPermanentlyDeniedList.add(permission);
+            }
+        }
+        return permissionPermanentlyDeniedList;
+    }
+
     /**
      * @return true if permission exists in the manifest, false otherwise.
      */

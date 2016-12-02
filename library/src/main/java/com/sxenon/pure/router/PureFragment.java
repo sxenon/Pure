@@ -73,6 +73,11 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         FragmentCompat.requestPermissions(this, permissions, requestCode);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        mRootPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
     protected abstract BaseRootViewModule<P> groupViewModule(View view);
 
 }

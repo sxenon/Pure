@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
+import rx.functions.Action0;
+
 /**
  * 不应该再包含子Presenter了，一个UI界面上的业务不应该过于复杂
  * Created by Sui on 2016/11/22.
@@ -51,5 +53,9 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
     @Override
     public IRouter getRouter() {
         return mRouter;
+    }
+
+    public void requestPermissionsForAction(@NonNull String[] permissions, int what, Action0 action){
+        mRootPresenter.requestPermissions(permissions,what,action);
     }
 }
