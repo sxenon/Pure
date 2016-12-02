@@ -55,12 +55,12 @@ public class IntentManager {
     }
 
     public static void openSettingsScreen(IRouter router){
-        openSettingsScreen(router.getActivity());
+        openSettingsScreen(router.getFragmentActivity());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static void requestSystemAlertPermission(IRouter router,int requestCode){
-        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + router.getActivity().getPackageName()));
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + router.getFragmentActivity().getPackageName()));
         router.startActivityForResult(intent, requestCode);
     }
 
@@ -73,7 +73,7 @@ public class IntentManager {
     }
 
     public static boolean isSystemAlertGranted(@NonNull IRouter router){
-        return isSystemAlertGranted(router.getActivity());
+        return isSystemAlertGranted(router.getFragmentActivity());
     }
 
 }

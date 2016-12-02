@@ -10,7 +10,7 @@ import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
 /**
- * TODO RxAppCompatActivity研究
+ *
  * Created by Sui on 2016/11/21.
  */
 
@@ -61,7 +61,7 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
     }
 
     @Override
-    public FragmentActivity getActivity() {
+    public FragmentActivity getFragmentActivity() {
         return this;
     }
 }

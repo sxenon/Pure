@@ -26,7 +26,7 @@ public interface IRouter<P extends BaseRootPresenter> {
 
     void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options);
 
-    FragmentActivity getActivity();
+    FragmentActivity getFragmentActivity();
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     void requestPermissions(@NonNull String[] permissions, int requestCode);
