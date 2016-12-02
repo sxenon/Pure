@@ -1,15 +1,12 @@
 package com.sxenon.pure.permission;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 
 import com.sxenon.pure.core.IRouter;
+import com.sxenon.pure.global.IntentManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +17,7 @@ import java.util.List;
  */
 
 public class PermissionHelper implements OnActivityPermissionCallback {
-    private static final int OVERLAY_PERMISSION_REQ_CODE = 2;
+    private static final int OVERLAY_PERMISSION_REQ_CODE = 1117;
     private static final int REQUEST_PERMISSIONS = 1;
 
     @NonNull
@@ -114,8 +111,7 @@ public class PermissionHelper implements OnActivityPermissionCallback {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
                 if (!PermissionCompat.isSystemAlertGranted(router)) {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + router.getFragmentActivity().getPackageName()));
-                    router.startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+                    IntentManager.requestSystemAlertPermission(router,OVERLAY_PERMISSION_REQ_CODE);
                 } else {
                     permissionCallback.onPermissionPreGranted(Manifest.permission.SYSTEM_ALERT_WINDOW);
                 }
@@ -136,7 +132,7 @@ public class PermissionHelper implements OnActivityPermissionCallback {
                     if (PermissionCompat.isExplanationNeeded(router,permissionName)) {
                         permissionCallback.onPermissionNeedExplanation(permissionName);
                     } else {
-                        ActivityCompat.requestPermissions(router.getFragmentActivity(), new String[]{permissionName}, REQUEST_PERMISSIONS);
+                        router.requestPermissionsCompact(new String[]{permissionName}, REQUEST_PERMISSIONS);
                     }
                 } else {
                     permissionCallback.onPermissionPreGranted(permissionName);
@@ -163,7 +159,7 @@ public class PermissionHelper implements OnActivityPermissionCallback {
             int index = permissions.indexOf(Manifest.permission.SYSTEM_ALERT_WINDOW);
             permissions.remove(index);
         }
-        ActivityCompat.requestPermissions(router.getFragmentActivity(), permissions.toArray(new String[permissions.size()]), REQUEST_PERMISSIONS);
+        router.requestPermissionsCompact(permissions.toArray(new String[permissions.size()]), REQUEST_PERMISSIONS);
     }
 
     /**
@@ -171,7 +167,7 @@ public class PermissionHelper implements OnActivityPermissionCallback {
      */
     public void requestAfterExplanation(@NonNull String permissionName) {
         if (PermissionCompat.isPermissionDeclined(router,permissionName)) {
-            ActivityCompat.requestPermissions(router.getFragmentActivity(), new String[]{permissionName}, REQUEST_PERMISSIONS);
+            router.requestPermissionsCompact(new String[]{permissionName}, REQUEST_PERMISSIONS);
         } else {
             permissionCallback.onPermissionPreGranted(permissionName);
         }
@@ -191,7 +187,7 @@ public class PermissionHelper implements OnActivityPermissionCallback {
         }
         if (permissionsToRequest.isEmpty()) return;
         permissions = permissionsToRequest.toArray(new String[permissionsToRequest.size()]);
-        ActivityCompat.requestPermissions(router.getFragmentActivity(), permissions, REQUEST_PERMISSIONS);
+        router.requestPermissionsCompact(permissions, REQUEST_PERMISSIONS);
     }
 
     /**

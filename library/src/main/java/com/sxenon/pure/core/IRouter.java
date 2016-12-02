@@ -1,12 +1,10 @@
 package com.sxenon.pure.core;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentActivity;
 
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
@@ -25,10 +23,11 @@ public interface IRouter<P extends BaseRootPresenter> {
 
     void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options);
 
-    FragmentActivity getFragmentActivity();
+    Activity getActivityCompact();
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    void requestPermissions(@NonNull String[] permissions, int requestCode);
+    void requestPermissionsCompact(@NonNull String[] permissions, int requestCode);
+
+    boolean shouldShowRequestPermissionRationale(String permission);
 
     void saveEvent(Event event);
 

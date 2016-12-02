@@ -53,12 +53,12 @@ public class IntentManager {
     }
 
     public static void openSettingsScreen(IRouter router) {
-        openSettingsScreen(router.getFragmentActivity());
+        openSettingsScreen(router.getActivityCompact());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static void requestSystemAlertPermission(IRouter router, int requestCode) {
-        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + router.getFragmentActivity().getPackageName()));
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + router.getActivityCompact().getPackageName()));
         router.startActivityForResult(intent, requestCode);
     }
 

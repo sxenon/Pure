@@ -1,21 +1,24 @@
 package com.sxenon.pure.router;
 
+import android.app.Activity;
+import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatDialogFragment;
+import android.support.v13.app.FragmentCompat;
 import android.view.View;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
+import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 
 /**
- *
+ * 做最纯净的DialogFragment二次封装
  * Created by Sui on 2016/11/21.
  */
 
-public abstract class PureDialogFragment<P extends PureRootPresenter> extends AppCompatDialogFragment implements IRouter<P> {
+public abstract class PureDialogFragment<P extends PureRootPresenter> extends DialogFragment implements IRouter<P> {
     private Event mSavedEvent;
     private P mRootPresenter;
 
@@ -23,7 +26,7 @@ public abstract class PureDialogFragment<P extends PureRootPresenter> extends Ap
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //noinspection unchecked
-        mRootPresenter= (P) new BaseRootPresenter<>(groupViewModule());
+        mRootPresenter= (P) new BaseRootPresenter<>(groupViewModule(view));
         mRootPresenter.onCreate(mSavedEvent);
     }
 
@@ -62,7 +65,15 @@ public abstract class PureDialogFragment<P extends PureRootPresenter> extends Ap
     }
 
     @Override
-    public FragmentActivity getFragmentActivity() {
+    public Activity getActivityCompact() {
         return getActivity();
     }
+
+    protected abstract BaseRootViewModule<P> groupViewModule(View view);
+
+    @Override
+    public void requestPermissionsCompact(@NonNull String[] permissions, int requestCode) {
+        FragmentCompat.requestPermissions(this,permissions,requestCode);
+    }
+
 }

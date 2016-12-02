@@ -17,7 +17,7 @@ public abstract class BaseViewModule<P extends IPresenter> implements IViewModul
     private final IRouter mRouter;
 
     public BaseViewModule(IRouter router){
-        mContext=router.getActivity();
+        mContext=router.getActivityCompact();
         mRouter=router;
         mPresenter= bindPresenter();
     }

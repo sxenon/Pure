@@ -8,7 +8,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.global.IntentManager;
@@ -60,7 +60,7 @@ public class PermissionCompat {
      * can be used outside of activity.
      */
     public static boolean isPermissionGranted(@NonNull IRouter router, @NonNull String permission) {
-        return ActivityCompat.checkSelfPermission(router.getFragmentActivity(), permission) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(router.getActivityCompact(), permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     /**
@@ -69,14 +69,14 @@ public class PermissionCompat {
      * can be used outside of activity.
      */
     public static boolean isPermissionDeclined(@NonNull IRouter router, @NonNull String permission) {
-        return ActivityCompat.checkSelfPermission(router.getFragmentActivity(), permission) != PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(router.getActivityCompact(), permission) != PackageManager.PERMISSION_GRANTED;
     }
 
     /**
      * @return true if explanation needed.
      */
     public static boolean isExplanationNeeded(@NonNull IRouter router, @NonNull String permissionName) {
-        return ActivityCompat.shouldShowRequestPermissionRationale(router.getFragmentActivity(), permissionName);
+        return router.shouldShowRequestPermissionRationale(permissionName);
     }
 
     /**
@@ -92,8 +92,9 @@ public class PermissionCompat {
      * @return true if permission exists in the manifest, false otherwise.
      */
     public static boolean permissionExists(@NonNull IRouter router, @NonNull String permissionName) {
+        Context context=router.getActivityCompact();
         try {
-            PackageInfo packageInfo = router.getFragmentActivity().getPackageManager().getPackageInfo(router.getFragmentActivity().getPackageName(), PackageManager.GET_PERMISSIONS);
+            PackageInfo packageInfo =context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
             if (packageInfo.requestedPermissions != null) {
                 for (String p : packageInfo.requestedPermissions) {
                     if (p.equals(permissionName)) {
@@ -116,7 +117,7 @@ public class PermissionCompat {
     }
 
     public static boolean isSystemAlertGranted(@NonNull IRouter router){
-        return isSystemAlertGranted(router.getFragmentActivity());
+        return isSystemAlertGranted(router.getActivityCompact());
     }
 
 
