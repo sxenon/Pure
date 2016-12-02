@@ -1,6 +1,7 @@
 package com.sxenon.pure.router;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -75,6 +76,12 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         mRootPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mRootPresenter.onActivityForResult(requestCode);
     }
 
     protected abstract BaseRootViewModule<P> groupViewModule();

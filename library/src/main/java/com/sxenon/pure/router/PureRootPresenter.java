@@ -24,7 +24,6 @@ import rx.subjects.BehaviorSubject;
 
 /**
  * TODO RxLifeCycle 学习
- * TODO {@link Manifest.permission#SYSTEM_ALERT_WINDOW} 暂时不支持
  * Created by Sui on 2016/11/28.
  */
 
@@ -129,9 +128,15 @@ public class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPr
     }
 
     @Override
-    public void requestPermissions(@NonNull String[] permissions, int what, Action0 action) {
-        permissionHelper.request(permissions,what,action);
+    public void requestCommonPermissions(@NonNull String[] permissions, int what, Action0 action) {
+        permissionHelper.requestCommonPermissions(permissions,what,action);
+
     }
+
+    public void requestSystemAlertPermission(int what, Action0 action){
+        permissionHelper.requestSystemAlertPermission(what,action);
+    }
+
 
     public boolean shouldPermissionExplainBeforeRequest(String[] permissions, int what){
         return false;

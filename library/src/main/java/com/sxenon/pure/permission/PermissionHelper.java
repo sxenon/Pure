@@ -1,6 +1,7 @@
 package com.sxenon.pure.permission;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.global.IntentManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import rx.functions.Action0;
@@ -21,7 +23,7 @@ import rx.functions.Action0;
 
 public class PermissionHelper implements OnRequestPermissionsResult {
     private static final int OVERLAY_PERMISSION_REQ_CODE = 1117;
-    private static final int REQUEST_PERMISSIONS = 1;
+    private static final int REQUEST_PERMISSIONS = 130;
     private Event permissionEvent;
 
     @NonNull
@@ -86,7 +88,7 @@ public class PermissionHelper implements OnRequestPermissionsResult {
         return this;
     }
 
-    public void request(@NonNull String[] permissions, int what, Action0 action){
+    public void requestCommonPermissions(@NonNull String[] permissions, int what, Action0 action){
         List<String> permissionsNeeded= PermissionCompat.declinedPermissionsAsList(router,permissions);
         if (permissionsNeeded.isEmpty()){
             action.call();
@@ -110,53 +112,27 @@ public class PermissionHelper implements OnRequestPermissionsResult {
     /**
      * used only for {@link android.Manifest.permission#SYSTEM_ALERT_WINDOW}
      */
-    public void requestSystemAlertPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            try {
-                if (!PermissionCompat.isSystemAlertGranted(router)) {
-                    IntentManager.requestSystemAlertPermission(router,OVERLAY_PERMISSION_REQ_CODE);
-                }
-            } catch (Exception ignored) {}
+    @TargetApi(Build.VERSION_CODES.M)
+    public void requestSystemAlertPermission(int what,Action0 action) {
+        if (!PermissionCompat.isSystemAlertGranted(router)) {
+            Event event=new Event();
+            event.what=what;
+            event.obj=action;
+            permissionEvent=event;
+            IntentManager.requestSystemAlertPermission(router,OVERLAY_PERMISSION_REQ_CODE);
+        }else {
+            action.call();
         }
     }
 
     /**
      * internal usage.
      */
-    private void handleSingle(@NonNull String permissionName) {
-        if (PermissionCompat.permissionExists(router,permissionName)) {// android M throws exception when requesting
-            // run time permission that does not exists in AndroidManifest.
-            if (!permissionName.equalsIgnoreCase(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
-                if (PermissionCompat.isPermissionDeclined(router,permissionName)) {
-                    if (PermissionCompat.isExplanationNeeded(router,permissionName)) {
-                        permissionCallback.onPermissionNeedExplanation(new String[]{permissionName},permissionEvent.what);
-                    } else {
-                        router.requestPermissionsCompact(new String[]{permissionName}, REQUEST_PERMISSIONS);
-                    }
-                }
-            } else {
-                requestSystemAlertPermission();
-            }
-        } else {
-            permissionCallback.onPermissionDeclined(new String[]{permissionName},permissionEvent.what);
+    private void handleMulti(@NonNull String[] permissions) {
+        if (Arrays.binarySearch(permissions,Manifest.permission.SYSTEM_ALERT_WINDOW)>=0){
+            throw new IllegalArgumentException("Please Call requestSystemAlertPermission() for SYSTEM_ALERT_WINDOW!");
         }
-    }
-
-    /**
-     * internal usage.
-     */
-    private void handleMulti(@NonNull String[] permissionNames) {
-        List<String> permissions = PermissionCompat.declinedPermissionsAsList(router, permissionNames);
-        if (permissions.isEmpty()) {
-            permissionCallback.onPermissionGranted(permissionNames, (Action0) permissionEvent.obj);
-            return;
-        }
-        boolean hasAlertWindowPermission = permissions.contains(Manifest.permission.SYSTEM_ALERT_WINDOW);
-        if (hasAlertWindowPermission) {
-            int index = permissions.indexOf(Manifest.permission.SYSTEM_ALERT_WINDOW);
-            permissions.remove(index);
-        }
-        router.requestPermissionsCompact(permissions.toArray(new String[permissions.size()]), REQUEST_PERMISSIONS);
+        router.requestPermissionsCompact(permissions, REQUEST_PERMISSIONS);
     }
 
     /**

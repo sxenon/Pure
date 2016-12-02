@@ -50,5 +50,7 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
 
     }
 
-    public abstract void requestPermissions(@NonNull String[] permissions,int what,Action0 action);
+    public abstract void requestCommonPermissions(@NonNull String[] permissions, int what, Action0 action);
+
+    public abstract void requestSystemAlertPermission(int what, Action0 action);
 }

@@ -55,7 +55,13 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
         return mRouter;
     }
 
-    public void requestPermissionsForAction(@NonNull String[] permissions, int what, Action0 action){
-        mRootPresenter.requestPermissions(permissions,what,action);
+    public void requestCommonPermissionsForAction(@NonNull String[] permissions, int what, Action0 action){
+        mRootPresenter.requestCommonPermissions(permissions,what,action);
+
     }
+
+    public void requestSystemAlertPermissionForAction(int what, Action0 action){
+        mRootPresenter.requestSystemAlertPermission(what, action);
+    }
+
 }
