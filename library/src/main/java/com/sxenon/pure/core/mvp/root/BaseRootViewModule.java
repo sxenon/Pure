@@ -12,7 +12,8 @@ import com.sxenon.pure.core.mvp.IViewModule;
  * Created by Sui on 2016/11/22.
  */
 
-public class BaseRootViewModule<P extends BaseRootPresenter> extends BaseViewModule<P> implements IViewModule<P>,ILifeCycle {
+public abstract class BaseRootViewModule<P extends BaseRootPresenter> extends BaseViewModule<P> implements IViewModule<P>,ILifeCycle {
+
     public BaseRootViewModule(IRouter router) {
         super(router);
     }

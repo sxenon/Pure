@@ -7,10 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IRouter;
-import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
+import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 
 /**
- *
  * Created by Sui on 2016/11/21.
  */
 
@@ -21,8 +20,8 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //noinspection unchecked
-        mRootPresenter= (P) new BaseRootPresenter<>(groupViewModule());
+        BaseRootViewModule<P> rootViewModule=groupViewModule();
+        mRootPresenter=rootViewModule.getPresenter();
         mRootPresenter.onCreate(mSavedEvent);
     }
 
@@ -64,4 +63,6 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
     public FragmentActivity getFragmentActivity() {
         return this;
     }
+
+    protected abstract BaseRootViewModule<P> groupViewModule();
 }

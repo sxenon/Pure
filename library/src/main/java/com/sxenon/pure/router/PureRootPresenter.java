@@ -1,5 +1,6 @@
 package com.sxenon.pure.router;
 
+import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
@@ -15,6 +16,7 @@ import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
 
 /**
+ * TODO RxLifeCycle 学习
  * Created by Sui on 2016/11/28.
  */
 
@@ -73,6 +75,7 @@ public class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPr
     public void onCreate(Event savedEvent) {
         super.onCreate(savedEvent);
         lifecycleSubject.onNext(RouterEvent.CREATE);
+        RxBus.get().register(this);
     }
 
     @Override
@@ -97,6 +100,7 @@ public class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPr
     public void onDestroy() {
         super.onDestroy();
         lifecycleSubject.onNext(RouterEvent.DESTROY);
+        RxBus.get().unregister(this);
     }
     //LifeCycle end
 

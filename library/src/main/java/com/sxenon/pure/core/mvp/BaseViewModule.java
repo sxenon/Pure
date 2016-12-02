@@ -5,26 +5,21 @@ import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.core.IViewComponentGroup;
-import com.sxenon.pure.core.mvp.IPresenter;
-import com.sxenon.pure.core.mvp.IViewModule;
 
 /**
  * 包含{@link android.view.View} & {@link IViewComponentGroup
  * Created by Sui on 2016/11/22.
  */
 
-public class BaseViewModule<P extends IPresenter> implements IViewModule<P> {
-    private P mPresenter;
+public abstract class BaseViewModule<P extends IPresenter> implements IViewModule<P> {
+    private final P mPresenter;
     private final Context mContext;
     private final IRouter mRouter;
 
     public BaseViewModule(IRouter router){
         mContext=router.getActivity();
         mRouter=router;
-    }
-
-    public void setPresenter(P presenter) {
-        mPresenter=presenter;
+        mPresenter= bindPresenter();
     }
 
     @Override
@@ -43,4 +38,6 @@ public class BaseViewModule<P extends IPresenter> implements IViewModule<P> {
     public IRouter getRouter() {
         return mRouter;
     }
+
+    protected abstract P bindPresenter();
 }

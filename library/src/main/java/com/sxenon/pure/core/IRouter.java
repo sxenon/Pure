@@ -33,7 +33,5 @@ public interface IRouter<P extends BaseRootPresenter> {
 
     void saveEvent(Event event);
 
-    BaseRootViewModule<P> groupViewModule();
-
     P getRootPresenter();
 }

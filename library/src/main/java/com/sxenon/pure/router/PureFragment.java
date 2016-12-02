@@ -8,10 +8,9 @@ import android.view.View;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IRouter;
-import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
+import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 
 /**
- *
  * Created by Sui on 2016/11/21.
  */
 
@@ -22,8 +21,8 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //noinspection unchecked
-        mRootPresenter= (P) new BaseRootPresenter<>(groupViewModule());
+        BaseRootViewModule<P> rootViewModule=groupViewModule(view);
+        mRootPresenter=rootViewModule.getPresenter();
         mRootPresenter.onCreate(mSavedEvent);
     }
 
@@ -65,4 +64,6 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
     public FragmentActivity getFragmentActivity() {
         return getActivity();
     }
+
+    protected abstract BaseRootViewModule<P> groupViewModule(View view);
 }
