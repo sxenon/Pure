@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.Stack;
 
 /**
+ * 保存全局的Context相关
  * Created by Sui on 2016/12/2.
  */
 

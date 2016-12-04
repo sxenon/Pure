@@ -28,7 +28,7 @@ public class PermissionCompat {
      * can be used outside of activity.
      */
     @Nullable
-    public static String declinedPermission(@NonNull IRouter router, @NonNull String[] permissions) {
+    public static String getFirstDeclinedPermission(@NonNull IRouter router, @NonNull String[] permissions) {
         for (String permission : permissions) {
             if (isPermissionDeclined(router, permission)) {
                 return permission;
@@ -40,14 +40,14 @@ public class PermissionCompat {
     /**
      * @return list of permissions that the user declined or not yet granted.
      */
-    public static String[] declinedPermissions(@NonNull IRouter router, @NonNull String[] permissions) {
-        return (String[]) declinedPermissionsAsList(router, permissions).toArray();
+    public static String[] getDeclinedPermissionArray(@NonNull IRouter router, @NonNull String[] permissions) {
+        return (String[]) getDeclinedPermissionList(router, permissions).toArray();
     }
 
-    public static List<String> declinedPermissionsAsList(@NonNull IRouter router, @NonNull String[] permissions) {
+    public static List<String> getDeclinedPermissionList(@NonNull IRouter router, @NonNull String[] permissions) {
         List<String> permissionsNeeded = new ArrayList<>();
         for (String permission : permissions) {
-            if (isPermissionDeclined(router, permission) && permissionExists(router, permission)) {
+            if (isPermissionDeclined(router, permission) && isPermissionExisted(router, permission)) {
                 permissionsNeeded.add(permission);
             }
         }
@@ -101,13 +101,13 @@ public class PermissionCompat {
     /**
      * @return true if permission exists in the manifest, false otherwise.
      */
-    public static boolean permissionExists(@NonNull IRouter router, @NonNull String permissionName) {
+    public static boolean isPermissionExisted(@NonNull IRouter router, @NonNull String permission) {
         Context context=router.getActivityCompact();
         try {
             PackageInfo packageInfo =context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
             if (packageInfo.requestedPermissions != null) {
                 for (String p : packageInfo.requestedPermissions) {
-                    if (p.equals(permissionName)) {
+                    if (p.equals(permission)) {
                         return true;
                     }
                 }

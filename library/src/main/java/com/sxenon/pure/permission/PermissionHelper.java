@@ -10,7 +10,6 @@ import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.global.IntentManager;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,17 +45,15 @@ public class PermissionHelper implements OnRequestPermissionsResult {
             if (verifyPermissions(grantResults)) {
                 permissionCallback.onPermissionGranted(permissions, (Action0) permissionEvent.obj);
             } else {
-                String[] declinedPermissions = PermissionCompat.declinedPermissions(router, permissions);
-                List<Boolean> deniedPermissionsLength = new ArrayList<>();//needed
-                for (String permissionName : declinedPermissions) {
-                    if (permissionName != null && !PermissionCompat.isExplanationNeeded(router,permissionName)) {
-                        permissionCallback.onPermissionReallyDeclined(new String[]{permissionName},permissionEvent.what);
-                        deniedPermissionsLength.add(false);
-                    }
-                }
-                if (deniedPermissionsLength.size() == 0) {
+                String[] declinedPermissions = PermissionCompat.getDeclinedPermissionArray(router, permissions);
+                List<String> permissionPermanentlyDeniedList=PermissionCompat.getPermissionPermanentlyDeniedList(router,declinedPermissions);
+                if (!permissionPermanentlyDeniedList.isEmpty()){
+                    permissionCallback.onPermissionReallyDeclined((String[]) permissionPermanentlyDeniedList.toArray(),permissionEvent.what);
+                }else{
                     if (forceAccepting) {
-                        requestAfterExplanation(declinedPermissions);
+                        if (!permissionCallback.shouldPermissionExplainBeforeRequest(declinedPermissions,permissionEvent.what)){
+                            requestAfterExplanation(declinedPermissions);
+                        }
                         return;
                     }
                     permissionCallback.onPermissionDeclined(declinedPermissions,permissionEvent.what);
@@ -89,7 +86,7 @@ public class PermissionHelper implements OnRequestPermissionsResult {
     }
 
     public void requestCommonPermissions(@NonNull String[] permissions, int what, Action0 action){
-        List<String> permissionsNeeded= PermissionCompat.declinedPermissionsAsList(router,permissions);
+        List<String> permissionsNeeded= PermissionCompat.getDeclinedPermissionList(router,permissions);
         if (permissionsNeeded.isEmpty()){
             action.call();
             return;
@@ -105,7 +102,7 @@ public class PermissionHelper implements OnRequestPermissionsResult {
             return;
         }
         if (!permissionCallback.shouldPermissionExplainBeforeRequest(permissionsNeedArray,what)){
-            handleMulti(permissions);
+            internalRequest(permissions);
         }
     }
 
@@ -128,7 +125,7 @@ public class PermissionHelper implements OnRequestPermissionsResult {
     /**
      * internal usage.
      */
-    private void handleMulti(@NonNull String[] permissions) {
+    private void internalRequest(@NonNull String[] permissions) {
         if (Arrays.binarySearch(permissions,Manifest.permission.SYSTEM_ALERT_WINDOW)>=0){
             throw new IllegalArgumentException("Please Call requestSystemAlertPermission() for SYSTEM_ALERT_WINDOW!");
         }

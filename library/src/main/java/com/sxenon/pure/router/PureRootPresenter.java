@@ -1,6 +1,5 @@
 package com.sxenon.pure.router;
 
-import android.Manifest;
 import android.support.annotation.NonNull;
 
 import com.hwangjr.rxbus.RxBus;
@@ -149,11 +148,6 @@ public class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPr
 
     @Override
     public void onPermissionDeclined(@NonNull String[] permissions, int permissionWhat) {
-
-    }
-
-    @Override
-    public void onPermissionNeedExplanation(@NonNull String[] permissions,int permissionWhat) {
 
     }
 

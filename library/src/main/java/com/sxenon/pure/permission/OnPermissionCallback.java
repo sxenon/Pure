@@ -10,10 +10,9 @@ public interface OnPermissionCallback {
 
     void onPermissionDeclined(@NonNull String[] permissions,int permissionWhat);
 
-    void onPermissionNeedExplanation(@NonNull String[] permissions,int permissionWhat);
-
     void onPermissionReallyDeclined(@NonNull String[] permissions,int permissionWhat);
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     boolean shouldPermissionExplainBeforeRequest(String[] permissions, int what);
 
 }

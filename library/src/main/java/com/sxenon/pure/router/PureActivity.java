@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
@@ -28,6 +29,7 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
         BaseRootViewModule<P> rootViewModule=groupViewModule();
         mRootPresenter=rootViewModule.getPresenter();
         mRootPresenter.onCreate(mSavedEvent);
+        RxBus.get().register(this);
         GlobalContext.INSTANCE.onActivityCreate(this);
     }
 
@@ -53,6 +55,7 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
     protected void onDestroy() {
         super.onDestroy();
         mRootPresenter.onDestroy();
+        RxBus.get().unregister(this);
         GlobalContext.INSTANCE.onActivityDestroy(this);
     }
 
