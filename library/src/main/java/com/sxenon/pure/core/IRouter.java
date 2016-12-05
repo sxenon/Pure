@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
 /**
- * 部分透明化Activity与Fragment
+ * Treat Activity & Fragment as router
  * Created by Sui on 2016/11/20.
  */
 
@@ -25,7 +25,7 @@ public interface IRouter<P extends BaseRootPresenter> {
 
     Activity getActivityCompact();
 
-    void requestPermissionsCompact(@NonNull String[] permissions, int requestCode);
+    void requestPermissionsCompact(@NonNull String[] permissions);
 
     boolean shouldShowRequestPermissionRationale(String permission);
 

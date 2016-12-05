@@ -1,7 +1,7 @@
 package com.sxenon.pure.core;
 
 /**
- * 包含业务层与非业务层
+ * Include all kind of exception
  * Created by Sui on 2016/11/20.
  */
 

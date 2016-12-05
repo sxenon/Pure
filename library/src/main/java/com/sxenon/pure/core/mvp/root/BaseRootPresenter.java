@@ -11,7 +11,8 @@ import com.sxenon.pure.core.mvp.IPresenter;
 import rx.functions.Action0;
 
 /**
- * * 包含多个{@link BasePresenter}，各自对应一个{@link BaseViewModule}
+ * * Include several {@link BasePresenter}，with its related {@link BaseViewModule}
+ * Don`t use it directly,use PureRootPresenter instead.
  * Created by Sui on 2016/11/22.
  */
 
@@ -53,4 +54,6 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
     public abstract void requestCommonPermissions(@NonNull String[] permissions, int what, Action0 action);
 
     public abstract void requestSystemAlertPermission(int what, Action0 action);
+
+    public abstract Event getEventForSave();
 }

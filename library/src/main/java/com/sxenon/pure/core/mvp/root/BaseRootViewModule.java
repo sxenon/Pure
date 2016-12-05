@@ -8,7 +8,7 @@ import com.sxenon.pure.core.mvp.ILifeCycle;
 import com.sxenon.pure.core.mvp.IViewModule;
 
 /**
- * 包含多个{@link BaseViewModule}，各自对应一个{@link BasePresenter}
+ * Include several {@link BaseViewModule}，with its related{@link BasePresenter}
  * Created by Sui on 2016/11/22.
  */
 

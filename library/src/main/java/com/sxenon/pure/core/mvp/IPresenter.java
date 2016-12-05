@@ -7,7 +7,7 @@ import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
 /**
- * MVP中 Presenter基础接口
+ * Presenter For Mvp
  * Created by Sui on 2016/11/21.
  */
 

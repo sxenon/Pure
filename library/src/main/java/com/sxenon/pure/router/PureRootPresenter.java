@@ -26,7 +26,7 @@ import rx.subjects.BehaviorSubject;
  * Created by Sui on 2016/11/28.
  */
 
-public class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements LifecycleProvider<RouterEvent>,OnRequestPermissionsResult,OnPermissionCallback {
+public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements LifecycleProvider<RouterEvent>,OnRequestPermissionsResult,OnPermissionCallback {
 
     private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
@@ -116,8 +116,8 @@ public class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPr
 
     //Permission start
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        permissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    public void onRequestPermissionsResult(@NonNull String[] permissions, @NonNull int[] grantResults) {
+        permissionHelper.onRequestPermissionsResult(permissions, grantResults);
     }
 
 

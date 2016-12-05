@@ -3,7 +3,7 @@ package com.sxenon.pure.core;
 import java.util.List;
 
 /**
- * 数据与视图的中间层，例如各种adapter
+ * adapter
  * Created by Sui on 2016/11/20.
  */
 

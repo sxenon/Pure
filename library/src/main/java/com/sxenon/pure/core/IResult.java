@@ -1,7 +1,7 @@
 package com.sxenon.pure.core;
 
 /**
- * 通用请求结果
+ * Common result for common request
  * Created by Sui on 2016/11/20.
  */
 

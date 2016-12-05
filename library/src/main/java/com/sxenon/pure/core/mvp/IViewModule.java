@@ -6,8 +6,7 @@ import android.support.annotation.NonNull;
 import com.sxenon.pure.core.IRouter;
 
 /**
- * MVP中 View基础接口
- *
+ * View for MVP,include common view and viewComponentGroup
  * Created by Sui on 2016/11/21.
  */
 

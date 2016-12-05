@@ -9,7 +9,7 @@ import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 import rx.functions.Action0;
 
 /**
- * 不应该再包含子Presenter了，一个UI界面上的业务不应该过于复杂
+ * Normal presenter should not has its child presenter,or it will be too complex.
  * Created by Sui on 2016/11/22.
  */
 

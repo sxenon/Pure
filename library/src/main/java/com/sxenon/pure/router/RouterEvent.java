@@ -1,7 +1,7 @@
 package com.sxenon.pure.router;
 
 /**
- * Router的生命周期事件
+ * LifeCycle for router
  * Created by Sui on 2016/11/28.
  */
 

@@ -13,6 +13,7 @@ import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.global.GlobalContext;
+import com.sxenon.pure.permission.PermissionHelper;
 
 /**
  * 做最纯净的Activity二次封装
@@ -54,6 +55,7 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        saveEvent(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
         RxBus.get().unregister(this);
         GlobalContext.INSTANCE.onActivityDestroy(this);
@@ -75,13 +77,13 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
     }
 
     @Override
-    public void requestPermissionsCompact(@NonNull String[] permissions, int requestCode) {
-        ActivityCompat.requestPermissions(this, permissions, requestCode);
+    public void requestPermissionsCompact(@NonNull String[] permissions) {
+        ActivityCompat.requestPermissions(this, permissions, PermissionHelper.REQUEST_PERMISSIONS);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mRootPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        mRootPresenter.onRequestPermissionsResult( permissions, grantResults);
     }
 
     @Override

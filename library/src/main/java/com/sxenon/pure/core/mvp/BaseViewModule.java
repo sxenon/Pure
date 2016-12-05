@@ -7,7 +7,7 @@ import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.core.IViewComponentGroup;
 
 /**
- * 包含{@link android.view.View} & {@link IViewComponentGroup
+ * Include {@link android.view.View} & {@link IViewComponentGroup
  * Created by Sui on 2016/11/22.
  */
 

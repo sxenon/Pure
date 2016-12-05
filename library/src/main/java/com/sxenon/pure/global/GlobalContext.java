@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Stack;
 
 /**
- * 保存全局的Context相关
+ * Save global context
  * Created by Sui on 2016/12/2.
  */
 
