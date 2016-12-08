@@ -13,21 +13,24 @@
  */
 package com.sxenon.pure.util;
 
+/**
+ * Copy from RxBinding
+ */
 public final class Preconditions {
-  public static void checkArgument(boolean assertion, String message) {
-    if (!assertion) {
-      throw new IllegalArgumentException(message);
+    public static void checkArgument(boolean assertion, String message) {
+        if (!assertion) {
+            throw new IllegalArgumentException(message);
+        }
     }
-  }
 
-  public static <T> T checkNotNull(T value, String message) {
-    if (value == null) {
-      throw new NullPointerException(message);
+    public static <T> T checkNotNull(T value, String message) {
+        if (value == null) {
+            throw new NullPointerException(message);
+        }
+        return value;
     }
-    return value;
-  }
 
-  private Preconditions() {
-    throw new AssertionError("No instances.");
-  }
+    private Preconditions() {
+        throw new AssertionError("No instances.");
+    }
 }

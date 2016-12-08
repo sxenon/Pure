@@ -1,5 +1,8 @@
 package com.sxenon.pure.filler;
 
+import android.os.Looper;
+import android.os.MessageQueue;
+
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IPureAdapter;
@@ -16,20 +19,26 @@ public abstract class FillerGroup<T> implements ISingleDataFiller<T>, IListDataF
     private int mCurrentPageCount;
     private int tempPageCount;
     private int eventWhat = EventWhat.WHAT_UNINITIALIZED;
+    private ApiException mException;
 
     private T mValue;
 
     private IPureAdapter<T> mAdapter;
     private ISingleDataResult<T> mSingleDataResult;
 
-    public Event getEventForSave() {
+    public Event getCurrentEvent() {
         Event event = new Event();
         event.what = eventWhat;
         event.arg1 = mCurrentPageCount;
-        if (mAdapter != null) {
-            event.obj = getValues();
+
+        if (eventWhat == EventWhat.WHAT_EXCEPTION) {
+            event.obj = mException;
         } else {
-            event.obj = getValue();
+            if (mAdapter != null) {
+                event.obj = getValues();
+            } else {
+                event.obj = getValue();
+            }
         }
         return event;
     }
@@ -38,14 +47,34 @@ public abstract class FillerGroup<T> implements ISingleDataFiller<T>, IListDataF
         mCurrentPageCount = tempPageCount = savedEvent.arg1;
         eventWhat = savedEvent.what;
         Object object = savedEvent.obj;
-        if (object instanceof List) {
-            Preconditions.checkNotNull(mAdapter, "");
-            //noinspection unchecked
-            mAdapter.resetAllItems((List<T>) object);
-        } else {
-            Preconditions.checkNotNull(mSingleDataResult, "");
-            //noinspection unchecked
-            mSingleDataResult.onSingleDataFetched((T) object);
+
+        switch (eventWhat) {
+            case EventWhat.WHAT_EMPTY:
+                onEmpty();
+                break;
+            case EventWhat.WHAT_EXCEPTION:
+                onException((ApiException) savedEvent.obj);
+                break;
+            case EventWhat.WHAT_UNINITIALIZED:
+                Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
+                    @Override
+                    public boolean queueIdle() {
+                        beginRefreshing();
+                        return false;
+                    }
+                });
+                break;
+            case EventWhat.WHAT_NORMAL:
+                if (object instanceof List) {
+                    Preconditions.checkNotNull(mAdapter, "");
+                    //noinspection unchecked
+                    mAdapter.resetAllItems((List<T>) object);
+                } else {
+                    Preconditions.checkNotNull(mSingleDataResult, "");
+                    //noinspection unchecked
+                    mSingleDataResult.onSingleDataFetched((T) object);
+                }
+                break;
         }
     }
 
@@ -80,23 +109,27 @@ public abstract class FillerGroup<T> implements ISingleDataFiller<T>, IListDataF
 
     @Override
     public void onCancel() {
-        eventWhat = EventWhat.WHAT_CANCEL;
+
     }
 
     @Override
     public void onException(ApiException exception) {
         eventWhat = EventWhat.WHAT_EXCEPTION;
+        mException = exception;
     }
 
-    public int getEventWhat() {
-        return eventWhat;
+    public void beginRefreshing() {
+
+    }
+
+    public void beginLoadingMore() {
+
     }
 
     public class EventWhat {
         public static final int WHAT_UNINITIALIZED = 1;
         public static final int WHAT_NORMAL = 2;
         public static final int WHAT_EMPTY = 3;
-        public static final int WHAT_CANCEL = 4;
-        public static final int WHAT_EXCEPTION = 5;
+        public static final int WHAT_EXCEPTION = 4;
     }
 }
