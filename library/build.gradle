@@ -46,4 +46,5 @@ dependencies {
     //Rx
     compile 'com.trello:rxlifecycle:1.0'
     compile 'com.hwangjr.rxbus:rxbus:1.0.5'
+    compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
 }
