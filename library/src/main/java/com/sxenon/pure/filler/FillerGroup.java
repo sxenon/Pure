@@ -1,11 +1,14 @@
 package com.sxenon.pure.filler;
 
+import android.content.Context;
 import android.os.Looper;
 import android.os.MessageQueue;
+import android.view.View;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IPureAdapter;
+import com.sxenon.pure.filler.pull.IPullLayout;
 import com.sxenon.pure.util.Preconditions;
 
 import java.util.List;
@@ -15,16 +18,72 @@ import java.util.List;
  * Created by Sui on 2016/12/8.
  */
 
-public abstract class FillerGroup<T> implements ISingleDataFiller<T>, IListDataFiller<T>, ISingleDataResult<T>, IListDataResult<T> {
+public abstract class FillerGroup<T, PL extends IPullLayout> implements ISingleDataFiller<T>, IListDataFiller<T>, ISingleDataResult<T>, IListDataResult<T> {
     private int mCurrentPageCount;
     private int tempPageCount;
     private int eventWhat = EventWhat.WHAT_UNINITIALIZED;
     private ApiException mException;
 
+    private final IPureAdapter<T> mAdapter;
+    private final ISingleDataResult<T> mSingleDataResult;
     private T mValue;
 
-    private IPureAdapter<T> mAdapter;
-    private ISingleDataResult<T> mSingleDataResult;
+    private final PL mPullLayout;
+    private final Context mContext;
+    private final boolean mRefreshForAdd;
+
+    private View mEmptyView;
+    private View mExceptionView;
+    private View mClickToRefreshView;
+
+    public FillerGroup(Context context, PL pullLayout, ISingleDataResult<T> singleDataResult) {
+        this(context, pullLayout, null, singleDataResult, false);
+    }
+
+    public FillerGroup(Context context, PL pullLayout, IPureAdapter<T> adapter) {
+        this(context, pullLayout, adapter, null, false);
+    }
+
+    public FillerGroup(Context context, PL pullLayout, IPureAdapter<T> adapter, boolean freshForAdd) {
+        this(context, pullLayout, adapter, null, freshForAdd);
+    }
+
+    private FillerGroup(Context context, PL pullLayout, IPureAdapter<T> adapter, ISingleDataResult<T> singleDataResult, boolean freshForAdd) {
+        mContext = context;
+        mPullLayout = pullLayout;
+        mAdapter = adapter;
+        mSingleDataResult = singleDataResult;
+        mRefreshForAdd = freshForAdd;
+    }
+
+    public void setMinorComponents(View emptyView,View exceptionView,View clickToRefreshView){
+        mEmptyView=emptyView;
+        mExceptionView=exceptionView;
+        mClickToRefreshView=clickToRefreshView;
+
+        resetMinorComponents();
+        if (mClickToRefreshView!=null){
+            //TODO RxBinding subscribe and unSubscribe
+            mClickToRefreshView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    beginRefreshing();
+                }
+            });
+        }
+    }
+
+    private void resetMinorComponents(){
+        if (mClickToRefreshView!=null){
+            mClickToRefreshView.setVisibility(View.GONE);
+        }
+        if (mEmptyView!=null){
+            mEmptyView.setVisibility(View.GONE);
+        }
+        if (mExceptionView!=null){
+            mExceptionView.setVisibility(View.GONE);
+        }
+    }
 
     public Event getCurrentEvent() {
         Event event = new Event();
@@ -66,13 +125,11 @@ public abstract class FillerGroup<T> implements ISingleDataFiller<T>, IListDataF
                 break;
             case EventWhat.WHAT_NORMAL:
                 if (object instanceof List) {
-                    Preconditions.checkNotNull(mAdapter, "");
                     //noinspection unchecked
-                    mAdapter.resetAllItems((List<T>) object);
+                    Preconditions.checkNotNull(mAdapter, "").resetAllItems((List<T>) object);
                 } else {
-                    Preconditions.checkNotNull(mSingleDataResult, "");
                     //noinspection unchecked
-                    mSingleDataResult.onSingleDataFetched((T) object);
+                    Preconditions.checkNotNull(mSingleDataResult, "").onSingleDataFetched((T) object);
                 }
                 break;
         }
@@ -86,8 +143,7 @@ public abstract class FillerGroup<T> implements ISingleDataFiller<T>, IListDataF
 
     @Override
     public List<T> getValues() {
-        Preconditions.checkNotNull(mAdapter, "");
-        return mAdapter.getValues();
+        return Preconditions.checkNotNull(mAdapter, "").getValues();
     }
 
     @Override
@@ -100,31 +156,52 @@ public abstract class FillerGroup<T> implements ISingleDataFiller<T>, IListDataF
     @Override
     public void onEmpty() {
         eventWhat = EventWhat.WHAT_EMPTY;
+        if (mEmptyView!=null){
+            mEmptyView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onListDataFetched(List<T> data) {
         eventWhat = EventWhat.WHAT_NORMAL;
+        resetMinorComponents();
     }
 
     @Override
     public void onCancel() {
-
+        mCurrentPageCount=tempPageCount;
     }
 
     @Override
     public void onException(ApiException exception) {
         eventWhat = EventWhat.WHAT_EXCEPTION;
         mException = exception;
+        resetMinorComponents();
+        if (mExceptionView!=null){
+            mExceptionView.setVisibility(View.VISIBLE);
+            if (mClickToRefreshView!=null){
+                mClickToRefreshView.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     public void beginRefreshing() {
-
+        mPullLayout.beginRefreshing();
     }
 
     public void beginLoadingMore() {
-
+        mPullLayout.beginLoadingMore();
     }
+
+    //Getter start
+    public PL getpullLayout() {
+        return mPullLayout;
+    }
+
+    public Context getContext() {
+        return mContext;
+    }
+    //Getter end
 
     public class EventWhat {
         public static final int WHAT_UNINITIALIZED = 1;
