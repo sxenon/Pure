@@ -8,6 +8,7 @@ import android.view.View;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IPureAdapter;
+import com.sxenon.pure.filler.pull.BasePullLayout;
 import com.sxenon.pure.filler.pull.IPullLayout;
 import com.sxenon.pure.util.Preconditions;
 
@@ -18,14 +19,14 @@ import java.util.List;
  * Created by Sui on 2016/12/8.
  */
 
-public abstract class FillerGroup<T, PL extends IPullLayout> implements ISingleDataFiller<T>, IListDataFiller<T>, ISingleDataResult<T>, IListDataResult<T> {
+public abstract class FillerGroup<T, PL extends BasePullLayout> implements ISingleDataFiller<T>, IListDataFiller<T>, IFetchSingleResultHandler<T>, IFetchListResultHandler<T> {
     private int mCurrentPageCount;
     private int tempPageCount;
     private int eventWhat = EventWhat.WHAT_UNINITIALIZED;
     private ApiException mException;
 
     private final IPureAdapter<T> mAdapter;
-    private final ISingleDataResult<T> mSingleDataResult;
+    private final IFetchSingleResultHandler<T> mSingleDataResult;
     private T mValue;
 
     private final PL mPullLayout;
@@ -36,7 +37,7 @@ public abstract class FillerGroup<T, PL extends IPullLayout> implements ISingleD
     private View mExceptionView;
     private View mClickToRefreshView;
 
-    public FillerGroup(Context context, PL pullLayout, ISingleDataResult<T> singleDataResult) {
+    public FillerGroup(Context context, PL pullLayout, IFetchSingleResultHandler<T> singleDataResult) {
         this(context, pullLayout, null, singleDataResult, false);
     }
 
@@ -48,12 +49,28 @@ public abstract class FillerGroup<T, PL extends IPullLayout> implements ISingleD
         this(context, pullLayout, adapter, null, freshForAdd);
     }
 
-    private FillerGroup(Context context, PL pullLayout, IPureAdapter<T> adapter, ISingleDataResult<T> singleDataResult, boolean freshForAdd) {
+    private FillerGroup(Context context, PL pullLayout, IPureAdapter<T> adapter, IFetchSingleResultHandler<T> singleDataResult, boolean freshForAdd) {
         mContext = context;
         mPullLayout = pullLayout;
         mAdapter = adapter;
         mSingleDataResult = singleDataResult;
         mRefreshForAdd = freshForAdd;
+    }
+
+    public void setRefreshDelegate(final IPullLayout.RefreshDelegate delegate){
+        mPullLayout.setDelegate(new IPullLayout.RefreshDelegate() {
+            @Override
+            public void onBeginRefreshing() {
+                //TODO
+                delegate.onBeginRefreshing();
+            }
+
+            @Override
+            public boolean onBeginLoadingMore() {
+                //TODO
+                return delegate.onBeginLoadingMore();
+            }
+        });
     }
 
     public void setMinorComponents(View emptyView,View exceptionView,View clickToRefreshView){
@@ -194,7 +211,7 @@ public abstract class FillerGroup<T, PL extends IPullLayout> implements ISingleD
     }
 
     //Getter start
-    public PL getpullLayout() {
+    public PL getPullLayout() {
         return mPullLayout;
     }
 

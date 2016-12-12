@@ -5,7 +5,7 @@ package com.sxenon.pure.core;
  * Created by Sui on 2016/11/20.
  */
 
-public interface IResult {
+public interface IResultHandler {
     void onCancel();
 
     void onException(ApiException exception);

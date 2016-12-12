@@ -7,12 +7,16 @@ package com.sxenon.pure.filler.pull;
 
 public interface IPullLayout {
     void beginRefreshing();
+
     void beginLoadingMore();
+
     void setVisibility(int visibility);
+
     void setDelegate(RefreshDelegate delegate);
 
-    interface RefreshDelegate{
+    interface RefreshDelegate {
         void onBeginRefreshing();
-        void onBeginLoadingMore();
+
+        boolean onBeginLoadingMore();
     }
 }

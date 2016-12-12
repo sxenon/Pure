@@ -1,12 +1,11 @@
 package com.sxenon.pure.filler.pull;
 
 /**
- * Not support pull up or down
- * Created by Sui on 2016/12/11.
+ * Empty implement for IPullLayout
+ * Created by Sui on 2016/12/12.
  */
 
-public class NonPullLayout implements IPullLayout {
-
+public class BasePullLayout implements IPullLayout {
     @Override
     public void beginRefreshing() {
 
