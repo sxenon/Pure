@@ -38,7 +38,6 @@ dependencies {
 
     //Debug
     compile 'com.facebook.stetho:stetho:1.4.1'
-    compile 'com.tencent.bugly:crashreport:2.3.6'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:'+leakCanaryVersion
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:'+leakCanaryVersion
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:'+leakCanaryVersion

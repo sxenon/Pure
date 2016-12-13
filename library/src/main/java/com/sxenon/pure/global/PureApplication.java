@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
-import com.tencent.bugly.crashreport.CrashReport;
 
 /**
  * 做最纯粹的Application二次封装
@@ -27,6 +26,5 @@ public abstract class PureApplication extends Application {
         }
         LeakCanary.install(this);
         Stetho.initializeWithDefaults(this);
-        CrashReport.initCrashReport(this);
     }
 }
