@@ -1,1 +1,1 @@
-include ':app', ':pure', ':pure-okhttp3'
+include ':pure-demo', ':pure', ':pure-okhttp3', ':pure-okhttp3-demo'

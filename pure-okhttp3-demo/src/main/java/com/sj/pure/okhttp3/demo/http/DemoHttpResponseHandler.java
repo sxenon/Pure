@@ -1,4 +1,4 @@
-package com.sj.pure.okhttp3.demo;
+package com.sj.pure.okhttp3.demo.http;
 
 import com.sxenon.pure.core.IResponseHandler;
 
@@ -12,7 +12,7 @@ import okhttp3.Response;
  * Created by Sui on 2016/12/13.
  */
 
-public class DemoResponseHandler implements IResponseHandler {
+public class DemoHttpResponseHandler implements IResponseHandler {
     public void handleCall(Call call){
 
     }

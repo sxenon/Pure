@@ -1,6 +1,6 @@
-package com.sj.pure.okhttp3.demo;
+package com.sj.pure.okhttp3.demo.http;
 
-import com.sj.pure.okhttp3.PureOkHttpClient;
+import com.sj.pure.okhttp3.PureHttpClient;
 import com.sxenon.pure.util.Preconditions;
 
 import java.io.IOException;
@@ -14,32 +14,32 @@ import okhttp3.Response;
  * Created by Sui on 2016/12/13.
  */
 
-public class DemoOkHttpClient extends PureOkHttpClient<DemoResponseHandler> {
-    private volatile static DemoOkHttpClient mInstance;
+public class DemoHttpClient extends PureHttpClient<DemoHttpResponseHandler> {
+    private volatile static DemoHttpClient mInstance;
 
     public static void initClient(OkHttpClient client) {
-        mInstance = new DemoOkHttpClient(client);
+        mInstance = new DemoHttpClient(client);
     }
 
-    private DemoOkHttpClient(OkHttpClient client) {
+    private DemoHttpClient(OkHttpClient client) {
         super(client);
     }
 
     @Override
-    protected void preParseFailure(Call call, IOException e, DemoResponseHandler responseHandler) {
+    protected void preParseFailure(Call call, IOException e, DemoHttpResponseHandler responseHandler) {
         //Just a demo
         responseHandler.handleCall(call);
         responseHandler.handleException(e);
     }
 
     @Override
-    protected void preParseResponse(Call call, Response response, DemoResponseHandler responseHandler) {
+    protected void preParseResponse(Call call, Response response, DemoHttpResponseHandler responseHandler) {
         //Just a demo
         responseHandler.handleResponse(response);
         responseHandler.handleCall(call);
     }
 
-    public static DemoOkHttpClient getInstance() {
+    public static DemoHttpClient getInstance() {
         return Preconditions.checkNotNull(mInstance, "Call init first!");
     }
 

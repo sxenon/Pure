@@ -21,15 +21,13 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 /**
- * Copy from https://github.com/hongyangAndroid/okhttputils
+ * Inspire by https://github.com/hongyangAndroid/okhttputils
  * Created by Sui on 2016/12/13.
  */
 
-public class SSLHelper {
-    public static class SSLParams {
-        public SSLSocketFactory sSLSocketFactory;
-        public X509TrustManager trustManager;
-    }
+public class SSLParams {
+    private SSLSocketFactory sslSocketFactory;
+    private X509TrustManager trustManager;
 
     /**
      * Java平台默认识别jks格式的证书文件，但是android平台只识别bks格式的证书文件。
@@ -39,7 +37,7 @@ public class SSLHelper {
      * @param password     the password used to check the integrity of 本地证书的密码
      *                     the keystore, the password used to unlock the keystore,
      */
-    public static SSLParams getSslSocketFactory(InputStream[] certificates, InputStream bksFile, String password) {
+    public static SSLParams genSSLParams(InputStream[] certificates, InputStream bksFile, String password) {
         SSLParams sslParams = new SSLParams();
         try {
             TrustManager[] trustManagers = prepareTrustManager(certificates);
@@ -52,7 +50,7 @@ public class SSLHelper {
                 trustManager = new UnSafeTrustManager();
             }
             sslContext.init(keyManagers, new TrustManager[]{trustManager}, null);
-            sslParams.sSLSocketFactory = sslContext.getSocketFactory();
+            sslParams.sslSocketFactory = sslContext.getSocketFactory();
             sslParams.trustManager = trustManager;
             return sslParams;
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
@@ -60,21 +58,29 @@ public class SSLHelper {
         }
     }
 
-    public static SSLParams getSslSocketFactory(InputStream[] certificates) {
-        return getSslSocketFactory(certificates, null, null);
+    public static SSLParams genSSLParams(InputStream[] certificates) {
+        return genSSLParams(certificates, null, null);
+    }
+
+    public SSLSocketFactory getSSLSocketFactory() {
+        return sslSocketFactory;
+    }
+
+    public X509TrustManager getTrustManager() {
+        return trustManager;
     }
 
     @SuppressLint("TrustAllX509TrustManager")
     private static class UnSafeTrustManager implements X509TrustManager {
 
         @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType)
-                throws CertificateException {
+        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+
         }
 
         @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType)
-                throws CertificateException {
+        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+
         }
 
         @Override
@@ -86,7 +92,6 @@ public class SSLHelper {
     private static TrustManager[] prepareTrustManager(InputStream... certificates) {
         if (certificates == null || certificates.length <= 0) return null;
         try {
-
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
             keyStore.load(null);
@@ -95,18 +100,16 @@ public class SSLHelper {
                 String certificateAlias = Integer.toString(index++);
                 keyStore.setCertificateEntry(certificateAlias, certificateFactory.generateCertificate(certificate));
                 try {
-                    if (certificate != null)
+                    if (certificate != null){
                         certificate.close();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            TrustManagerFactory trustManagerFactory = null;
 
-            trustManagerFactory = TrustManagerFactory.
-                    getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             trustManagerFactory.init(keyStore);
-
             return trustManagerFactory.getTrustManagers();
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,7 +120,9 @@ public class SSLHelper {
 
     private static KeyManager[] prepareKeyManager(InputStream bksFile, String password) {
         try {
-            if (bksFile == null || password == null) return null;
+            if (bksFile == null || password == null) {
+                return null;
+            }
 
             KeyStore clientKeyStore = KeyStore.getInstance("BKS");
             clientKeyStore.load(bksFile, password.toCharArray());

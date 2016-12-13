@@ -25,11 +25,11 @@ import okio.Okio;
 import okio.Source;
 
 /**
- * PureOkHttpClient
+ * PureHttpClient
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class PureOkHttpClient<RH extends IResponseHandler> implements IHttpClient<RH> {
+public abstract class PureHttpClient<RH extends IResponseHandler> implements IHttpClient<RH> {
 
     public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse(IHttpClient.MEDIA_TYPE_MARKDOWN);
     public static final MediaType MEDIA_TYPE_PNG = MediaType.parse(IHttpClient.MEDIA_TYPE_PNG);
@@ -38,7 +38,7 @@ public abstract class PureOkHttpClient<RH extends IResponseHandler> implements I
     private Request.Builder mRequestBuilder;
     private MultipartBody mMultipartBody;
 
-    public PureOkHttpClient(OkHttpClient client) {
+    public PureHttpClient(OkHttpClient client) {
         mClient = client;
         mClient.newBuilder()
                 .addNetworkInterceptor(new StethoInterceptor())
@@ -106,12 +106,12 @@ public abstract class PureOkHttpClient<RH extends IResponseHandler> implements I
                 .post(formBody);
     }
 
-    public PureOkHttpClient resetRequestBuilder(Request.Builder builder) {
+    public PureHttpClient resetRequestBuilder(Request.Builder builder) {
         mRequestBuilder = builder;
         return this;
     }
 
-    public PureOkHttpClient resetMultipartBody(MultipartBody body) {
+    public PureHttpClient resetMultipartBody(MultipartBody body) {
         mMultipartBody = body;
         return this;
     }
