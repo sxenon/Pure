@@ -5,5 +5,5 @@ package com.sxenon.pure.core;
  * Created by Sui on 2016/12/13.
  */
 
-public class ICallBackHandler {
+public interface ICallBackHandler {
 }
