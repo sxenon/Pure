@@ -1,6 +1,5 @@
 package com.sxenon.pure.protocol.http;
 
-import com.sxenon.pure.core.ICallBackHandler;
 import com.sxenon.pure.core.IResponseHandler;
 
 import java.io.File;
@@ -13,7 +12,7 @@ import java.util.Map;
  * Created by Sui on 2016/12/12.
  */
 
-public interface IHttpClient<CB extends ICallBackHandler, R extends IResponseHandler> {
+public interface IHttpClient<RH extends IResponseHandler> {
     String MEDIA_TYPE_MARKDOWN = "text/x-markdown; charset=utf-8";
     String MEDIA_TYPE_PNG = "image/png";
 
@@ -31,7 +30,7 @@ public interface IHttpClient<CB extends ICallBackHandler, R extends IResponseHan
 
     void cancel(Object tag);
 
-    void execute(R responseHandler) throws IOException;
+    void execute(RH responseHandler) throws IOException;
 
-    void enqueue(CB callBackHandler);
+    void enqueue(RH responseHandler);
 }

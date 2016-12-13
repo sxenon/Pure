@@ -1,6 +1,7 @@
 package com.sj.pure.okhttp3;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.sxenon.pure.core.IResponseHandler;
 import com.sxenon.pure.protocol.http.IHttpClient;
 import com.sxenon.pure.util.Preconditions;
 
@@ -28,7 +29,7 @@ import okio.Source;
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class PureOkHttpClient implements IHttpClient<IOkHttpCallBackHandler, IOkHttpResponseHandler> {
+public abstract class PureOkHttpClient<RH extends IResponseHandler> implements IHttpClient<RH> {
 
     public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse(IHttpClient.MEDIA_TYPE_MARKDOWN);
     public static final MediaType MEDIA_TYPE_PNG = MediaType.parse(IHttpClient.MEDIA_TYPE_PNG);
@@ -130,25 +131,36 @@ public abstract class PureOkHttpClient implements IHttpClient<IOkHttpCallBackHan
     }
 
     @Override
-    public void execute(IOkHttpResponseHandler responseHandler) throws IOException {
-        Response response = mClient.newCall(mRequestBuilder.build()).execute();
-        responseHandler.handleResponse(response);
+    public void execute(RH responseHandler) {
+        Response response;
+        Call newCall = mClient.newCall(mRequestBuilder.build());
+        try {
+            response = newCall.execute();
+            preParseResponse(newCall, response, responseHandler);
+        } catch (IOException e) {
+            preParseFailure(newCall, e, responseHandler);
+        }
     }
 
     @Override
-    public void enqueue(final IOkHttpCallBackHandler callBackHandler) {
+    public void enqueue(final RH responseHandler) {
         mClient.newCall(mRequestBuilder.build()).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                callBackHandler.onFailure(call, e);
+                preParseFailure(call, e, responseHandler);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                callBackHandler.onResponse(call, response);
+                preParseResponse(call, response, responseHandler);
             }
         });
     }
+
+    protected abstract void preParseFailure(Call call, IOException e, RH responseHandler);
+
+    protected abstract void preParseResponse(Call call, Response response, RH responseHandler);
+
 
     public HttpLoggingInterceptor.Level getLoggingLevel() {
         return HttpLoggingInterceptor.Level.BASIC;

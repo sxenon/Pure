@@ -1,7 +1,7 @@
 package com.sxenon.pure.core;
 
 /**
- * Synchronous
+ * Common response handler for common request
  * Created by Sui on 2016/12/13.
  */
 
