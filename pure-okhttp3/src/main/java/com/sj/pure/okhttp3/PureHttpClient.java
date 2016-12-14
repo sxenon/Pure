@@ -162,7 +162,7 @@ public abstract class PureHttpClient<RH extends IResponseHandler> implements IHt
     protected abstract void preParseResponse(Call call, Response response, RH responseHandler);
 
 
-    public HttpLoggingInterceptor.Level getLoggingLevel() {
+    protected HttpLoggingInterceptor.Level getLoggingLevel() {
         return HttpLoggingInterceptor.Level.BASIC;
     }
 }
