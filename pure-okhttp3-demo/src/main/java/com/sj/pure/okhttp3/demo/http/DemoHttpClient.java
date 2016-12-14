@@ -15,7 +15,7 @@ import okhttp3.Response;
  */
 
 public class DemoHttpClient extends PureHttpClient<DemoHttpResponseHandler> {
-    private volatile static DemoHttpClient mInstance;
+    private static DemoHttpClient mInstance;
 
     public static void initClient(OkHttpClient client) {
         mInstance = new DemoHttpClient(client);

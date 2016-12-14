@@ -19,6 +19,8 @@ public abstract class PureWebSocketClient<RH extends IResponseHandler> implement
     private OkHttpClient mClient;
     private Request.Builder mRequestBuilder;
     private WebSocket mWebSocket;
+    private IWebSocketClient.ReadyState mReadyState = ReadyState.CLOSED;
+    private PureWebSocketListener mWebSocketListener;
 
     public PureWebSocketClient(OkHttpClient client) {
         mClient = client;
@@ -31,47 +33,23 @@ public abstract class PureWebSocketClient<RH extends IResponseHandler> implement
 
     @Override
     public void connect(String url, final RH responseHandler) {
-        mWebSocket = mClient.newWebSocket(mRequestBuilder.url(url).build(), new WebSocketListener() {
-            @Override
-            public void onOpen(WebSocket webSocket, Response response) {
-                preParseOnOpen(webSocket, response, responseHandler);
-            }
-
-            @Override
-            public void onMessage(WebSocket webSocket, String text) {
-                preParseOnMessage(webSocket, text, responseHandler);
-            }
-
-            @Override
-            public void onMessage(WebSocket webSocket, ByteString bytes) {
-                preParseOnMessage(webSocket, bytes, responseHandler);
-            }
-
-            @Override
-            public void onClosing(WebSocket webSocket, int code, String reason) {
-                preParseOnClosing(webSocket, code, reason, responseHandler);
-            }
-
-            @Override
-            public void onClosed(WebSocket webSocket, int code, String reason) {
-                preParseOnClosed(webSocket, code, reason, responseHandler);
-            }
-
-            @Override
-            public void onFailure(WebSocket webSocket, Throwable t, Response response) {
-                preParseOnFailure(webSocket, t, response, responseHandler);
-            }
-        });
+        mWebSocketListener = new PureWebSocketListener(responseHandler);
+        mWebSocket = mClient.newWebSocket(mRequestBuilder.url(url).build(), mWebSocketListener);
     }
 
     @Override
-    public boolean close(int code, String reason) {
-        return mWebSocket.close(code, reason);
+    public boolean closeBySelf() {
+        return mWebSocket.close(IWebSocketClient.CLOSE_NORMAL, "A normal closure");
     }
 
     @Override
     public void cancel() {
         mWebSocket.cancel();
+    }
+
+    @Override
+    public void reconnect() {
+        mWebSocket = mClient.newWebSocket(mWebSocket.request(), mWebSocketListener);
     }
 
     @Override
@@ -82,6 +60,52 @@ public abstract class PureWebSocketClient<RH extends IResponseHandler> implement
             return mWebSocket.send((ByteString) data);
         } else {
             throw new IllegalArgumentException("OkHttpWebSocketClient can only send String or ByteString");
+        }
+    }
+
+    public ReadyState getReadyState() {
+        return mReadyState;
+    }
+
+    private class PureWebSocketListener extends WebSocketListener {
+        private RH responseHandler;
+
+        PureWebSocketListener(RH responseHandler) {
+            this.responseHandler = responseHandler;
+        }
+
+        @Override
+        public void onOpen(WebSocket webSocket, Response response) {
+            mReadyState = ReadyState.OPEN;
+            preParseOnOpen(webSocket, response, responseHandler);
+        }
+
+        @Override
+        public void onMessage(WebSocket webSocket, String text) {
+            preParseOnMessage(webSocket, text, responseHandler);
+        }
+
+        @Override
+        public void onMessage(WebSocket webSocket, ByteString bytes) {
+            preParseOnMessage(webSocket, bytes, responseHandler);
+        }
+
+        @Override
+        public void onClosing(WebSocket webSocket, int code, String reason) {
+            mReadyState = ReadyState.CLOSING;
+            preParseOnClosing(webSocket, code, reason, responseHandler);
+        }
+
+        @Override
+        public void onClosed(WebSocket webSocket, int code, String reason) {
+            mReadyState = ReadyState.CLOSED;
+            preParseOnClosed(webSocket, code, reason, responseHandler);
+        }
+
+        @Override
+        public void onFailure(WebSocket webSocket, Throwable t, Response response) {
+            mReadyState = ReadyState.CLOSED;
+            preParseOnFailure(webSocket, t, response, responseHandler);
         }
     }
 

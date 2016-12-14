@@ -1,6 +1,7 @@
 package com.sj.pure.okhttp3.demo.websocket;
 
 import com.sj.pure.okhttp3.PureWebSocketClient;
+import com.sxenon.pure.util.Preconditions;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -12,9 +13,20 @@ import okio.ByteString;
  */
 
 public class DemoWebSocketClient extends PureWebSocketClient<DemoWebSocketResponseHandler> {
-    public DemoWebSocketClient(OkHttpClient client) {
+    private static DemoWebSocketClient mInstance;
+
+    public static void init(OkHttpClient client) {
+        mInstance = new DemoWebSocketClient(client);
+    }
+
+    private DemoWebSocketClient(OkHttpClient client) {
         super(client);
     }
+
+    public static DemoWebSocketClient getInstance() {
+        return Preconditions.checkNotNull(mInstance, "Call init first!");
+    }
+
 
     @Override
     protected void preParseOnOpen(WebSocket webSocket, Response response, DemoWebSocketResponseHandler responseHandler) {

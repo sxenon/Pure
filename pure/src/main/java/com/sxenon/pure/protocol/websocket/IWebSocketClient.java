@@ -8,11 +8,27 @@ import com.sxenon.pure.core.IResponseHandler;
  */
 
 public interface IWebSocketClient<RH extends IResponseHandler> {
+    enum ReadyState {
+        OPEN,
+        CLOSING,
+        CLOSED
+    }
+
+    /**
+     * Status code as defined by <a
+     * href="http://tools.ietf.org/html/rfc6455#section-7.4">Section 7.4 of RFC 6455</a>
+     */
+    int CLOSE_NORMAL = 1000;
+
     void connect(String url, RH IResponseHandler);
 
-    boolean close(int code, String reason);
+    void reconnect();
+
+    boolean closeBySelf();
 
     void cancel();
 
     boolean send(Object data);
+
+
 }
