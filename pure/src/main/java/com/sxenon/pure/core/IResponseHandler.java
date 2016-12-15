@@ -7,5 +7,5 @@ package com.sxenon.pure.core;
  */
 
 public interface IResponseHandler {
-    IResultHandler getInnerResultHandler();
+    IResultHandler getResultHandler();
 }
