@@ -1,10 +1,11 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
 
     defaultConfig {
+        applicationId "com.sj.pure_retrofit2.demo"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
@@ -23,7 +24,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile project(':pure-okhttp3')
+    compile project(':pure-retrofit2')
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 }

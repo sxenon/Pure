@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/pure-okhttp3" />
             <option value="$PROJECT_DIR$/pure-okhttp3-demo" />
             <option value="$PROJECT_DIR$/pure-retrofit2" />
+            <option value="$PROJECT_DIR$/pure-retrofit2-demo" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

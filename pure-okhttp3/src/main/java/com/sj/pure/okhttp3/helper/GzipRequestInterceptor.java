@@ -1,4 +1,4 @@
-package com.sj.pure.okhttp3.interceptor;
+package com.sj.pure.okhttp3.helper;
 
 import java.io.IOException;
 
@@ -12,6 +12,7 @@ import okio.GzipSink;
 import okio.Okio;
 
 /**
+ * Copy form https://github.com/square/okhttp/blob/master/samples/guide/src/main/java/okhttp3/recipes/RequestBodyCompression.java
  * This interceptor compresses the HTTP request body. Many webServers can't handle this!
  * Created by Sui on 2016/12/13.
  */

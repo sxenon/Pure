@@ -31,7 +31,7 @@ public class DemoWebSocketClient extends PureWebSocketClient<DemoWebSocketRespon
     @Override
     protected void preParseOnOpen(WebSocket webSocket, Response response, DemoWebSocketResponseHandler responseHandler) {
         responseHandler.handleWebSocket(webSocket);
-        responseHandler.handleResopnse(response);
+        responseHandler.handleResponse(response);
     }
 
     @Override
@@ -62,6 +62,6 @@ public class DemoWebSocketClient extends PureWebSocketClient<DemoWebSocketRespon
     protected void preParseOnFailure(WebSocket webSocket, Throwable t, Response response, DemoWebSocketResponseHandler responseHandler) {
         responseHandler.handleWebSocket(webSocket);
         responseHandler.handleException(t);
-        responseHandler.handleResopnse(response);
+        responseHandler.handleResponse(response);
     }
 }

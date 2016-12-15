@@ -1,1 +1,1 @@
-include ':pure', ':pure-okhttp3', ':pure-okhttp3-demo', ':pure-retrofit2'
+include ':pure', ':pure-okhttp3', ':pure-okhttp3-demo', ':pure-retrofit2', ':pure-retrofit2-demo'
