@@ -1,6 +1,5 @@
 package com.sj.pure.okhttp3;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.sxenon.pure.core.IResponseHandler;
 import com.sxenon.pure.protocol.http.IHttpClient;
 import com.sxenon.pure.util.Preconditions;
@@ -19,7 +18,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 import okio.BufferedSink;
 import okio.Okio;
 import okio.Source;
@@ -40,9 +38,6 @@ public abstract class PureHttpClient<RH extends IResponseHandler> implements IHt
 
     public PureHttpClient(OkHttpClient client) {
         mClient = client;
-        mClient.newBuilder()
-                .addNetworkInterceptor(new StethoInterceptor())
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(getLoggingLevel()));
     }
 
     @Override
@@ -161,8 +156,4 @@ public abstract class PureHttpClient<RH extends IResponseHandler> implements IHt
 
     protected abstract void preParseResponse(Call call, Response response, RH responseHandler);
 
-
-    protected HttpLoggingInterceptor.Level getLoggingLevel() {
-        return HttpLoggingInterceptor.Level.BASIC;
-    }
 }

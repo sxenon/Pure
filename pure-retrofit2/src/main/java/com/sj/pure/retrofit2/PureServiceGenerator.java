@@ -1,6 +1,5 @@
 package com.sj.pure.retrofit2;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.sxenon.pure.core.IResponseHandler;
 import com.sxenon.pure.util.Preconditions;
 
@@ -8,7 +7,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -19,15 +17,8 @@ import retrofit2.Retrofit;
 public abstract class PureServiceGenerator<RH extends IResponseHandler> {
     private Retrofit mRetrofit;
 
-    public PureServiceGenerator(Retrofit.Builder builder, String baseUrl, OkHttpClient httpClient) {
-        mRetrofit = builder
-                .baseUrl(baseUrl)
-                .addConverterFactory(getConverterFactory())
-                .client(httpClient.newBuilder()
-                        .addNetworkInterceptor(new StethoInterceptor())
-                        .addInterceptor(new HttpLoggingInterceptor().setLevel(getLoggingLevel()))
-                        .build())
-                .build();
+    public PureServiceGenerator(Retrofit retrofit) {
+        mRetrofit = retrofit;
     }
 
     /**
@@ -41,8 +32,6 @@ public abstract class PureServiceGenerator<RH extends IResponseHandler> {
      * {@link Call#execute()} IOException
      */
     protected abstract <T> void preParseFailure(Call<T> call, Throwable t, RH responseHandler);
-
-    protected abstract Converter.Factory getConverterFactory();
 
     protected HttpLoggingInterceptor.Level getLoggingLevel() {
         return HttpLoggingInterceptor.Level.BASIC;

@@ -1,6 +1,7 @@
 package com.sj.pure.okhttp3.demo.http;
 
 import com.sj.pure.okhttp3.PureHttpClient;
+import com.sj.pure.okhttp3.decorator.OkHttpClientDecorator;
 import com.sxenon.pure.util.Preconditions;
 
 import java.io.IOException;
@@ -15,10 +16,16 @@ import okhttp3.Response;
  */
 
 public class DemoHttpClient extends PureHttpClient<DemoHttpResponseHandler> {
-    private static DemoHttpClient mInstance;
+    private static DemoHttpClient mBaseInstance;
+    private static OkHttpClient innerHttpClient;
 
     public static void initClient(OkHttpClient client) {
-        mInstance = new DemoHttpClient(client);
+        innerHttpClient=client;
+        mBaseInstance = new DemoHttpClient(client);
+    }
+
+    public DemoHttpClient update(OkHttpClientDecorator clientDecorator){
+        return new DemoHttpClient(clientDecorator.update(innerHttpClient));
     }
 
     private DemoHttpClient(OkHttpClient client) {
@@ -39,8 +46,8 @@ public class DemoHttpClient extends PureHttpClient<DemoHttpResponseHandler> {
         responseHandler.handleCall(call);
     }
 
-    public static DemoHttpClient getInstance() {
-        return Preconditions.checkNotNull(mInstance, "Call init first!");
+    public static DemoHttpClient getBaseInstance() {
+        return Preconditions.checkNotNull(mBaseInstance, "Call init first!");
     }
 
 

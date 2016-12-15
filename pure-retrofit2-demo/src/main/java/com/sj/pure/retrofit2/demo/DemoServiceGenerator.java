@@ -1,14 +1,14 @@
 package com.sj.pure.retrofit2.demo;
 
+import com.sj.pure.okhttp3.decorator.OkHttpClientDecorator;
 import com.sj.pure.retrofit2.PureServiceGenerator;
+import com.sj.pure.retrofit2.RetrofitDecorator;
 import com.sxenon.pure.util.Preconditions;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
-import retrofit2.Converter;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * DemoServiceGenerator
@@ -16,18 +16,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class DemoServiceGenerator extends PureServiceGenerator<DemoRetrofitResponseHandler> {
-    private static DemoServiceGenerator mInstance;
+    private static DemoServiceGenerator mBaseInstance;
+    private static Retrofit innerRetrofit;
 
-    public static void init(Retrofit.Builder builder, String baseUrl, OkHttpClient httpClient) {
-        mInstance = new DemoServiceGenerator(builder, baseUrl, httpClient);
+    public static void init(Retrofit retrofit) {
+        innerRetrofit = retrofit;
+        mBaseInstance = new DemoServiceGenerator(innerRetrofit);
     }
 
-    public static DemoServiceGenerator getInstance() {
-        return Preconditions.checkNotNull(mInstance, "Please call init first");
+    public DemoServiceGenerator update(RetrofitDecorator retrofitDecorator, OkHttpClientDecorator clientDecorator) {
+        return new DemoServiceGenerator(retrofitDecorator.update(innerRetrofit, clientDecorator != null ? clientDecorator.update((OkHttpClient) innerRetrofit.callFactory()) : null));
     }
 
-    private DemoServiceGenerator(Retrofit.Builder builder, String baseUrl, OkHttpClient httpClient) {
-        super(builder, baseUrl, httpClient);
+    public static DemoServiceGenerator getBaseInstance() {
+        return Preconditions.checkNotNull(mBaseInstance, "Please call init first");
+    }
+
+    private DemoServiceGenerator(Retrofit retrofit) {
+        super(retrofit);
     }
 
     @SuppressWarnings("unchecked")
@@ -42,10 +48,5 @@ public class DemoServiceGenerator extends PureServiceGenerator<DemoRetrofitRespo
     protected <T> void preParseFailure(Call<T> call, Throwable t, DemoRetrofitResponseHandler responseHandler) {
         responseHandler.handleCall(call);
         responseHandler.handleException(t);
-    }
-
-    @Override
-    protected Converter.Factory getConverterFactory() {
-        return GsonConverterFactory.create();
     }
 }
