@@ -24,6 +24,10 @@ public class DemoServiceGenerator extends PureServiceGenerator<DemoRetrofitRespo
         mBaseInstance = new DemoServiceGenerator(innerRetrofit);
     }
 
+    public DemoServiceGenerator update(RetrofitDecorator retrofitDecorator){
+        return update(retrofitDecorator,null);
+    }
+
     public DemoServiceGenerator update(RetrofitDecorator retrofitDecorator, OkHttpClientDecorator clientDecorator) {
         return new DemoServiceGenerator(retrofitDecorator.update(innerRetrofit, clientDecorator != null ? clientDecorator.update((OkHttpClient) innerRetrofit.callFactory()) : null));
     }

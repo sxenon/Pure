@@ -9,6 +9,7 @@ import com.sxenon.pure.core.IResponseHandler;
 
 public interface IWebSocketClient<RH extends IResponseHandler> {
     enum ReadyState {
+        CONNECTING,
         OPEN,
         CLOSING,
         CLOSED

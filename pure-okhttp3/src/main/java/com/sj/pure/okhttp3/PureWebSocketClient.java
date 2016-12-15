@@ -1,5 +1,7 @@
 package com.sj.pure.okhttp3;
 
+import android.util.Log;
+
 import com.sxenon.pure.core.IResponseHandler;
 import com.sxenon.pure.protocol.websocket.IWebSocketClient;
 
@@ -21,6 +23,7 @@ public abstract class PureWebSocketClient<RH extends IResponseHandler> implement
     private WebSocket mWebSocket;
     private IWebSocketClient.ReadyState mReadyState = ReadyState.CLOSED;
     private PureWebSocketListener mWebSocketListener;
+    public static final String TAG="PureWebSocketClient";
 
     public PureWebSocketClient(OkHttpClient client) {
         mClient = client;
@@ -35,6 +38,7 @@ public abstract class PureWebSocketClient<RH extends IResponseHandler> implement
     public void connect(String url, final RH responseHandler) {
         mWebSocketListener = new PureWebSocketListener(responseHandler);
         mWebSocket = mClient.newWebSocket(mRequestBuilder.url(url).build(), mWebSocketListener);
+        mReadyState=ReadyState.CONNECTING;
     }
 
     @Override
@@ -49,7 +53,12 @@ public abstract class PureWebSocketClient<RH extends IResponseHandler> implement
 
     @Override
     public void reconnect() {
-        mWebSocket = mClient.newWebSocket(mWebSocket.request(), mWebSocketListener);
+        if (mReadyState==ReadyState.CLOSED){
+            mWebSocket = mClient.newWebSocket(mWebSocket.request(), mWebSocketListener);
+            mReadyState=ReadyState.CONNECTING;
+        }else {
+            Log.w(TAG,"Cannot reconnect because status is not right!");
+        }
     }
 
     @Override
