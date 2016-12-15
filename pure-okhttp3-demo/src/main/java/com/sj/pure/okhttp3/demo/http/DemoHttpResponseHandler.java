@@ -14,7 +14,7 @@ import okhttp3.Response;
  * Created by Sui on 2016/12/13.
  */
 
-public class DemoHttpResponseHandler implements IResponseHandler {
+public abstract class DemoHttpResponseHandler implements IResponseHandler {
     private static final String TAG = "Demo";
 
     public void handleCall(Call call) {

@@ -12,7 +12,7 @@ import retrofit2.Response;
  * Created by Sui on 2016/12/15.
  */
 
-public class DemoRetrofitResponseHandler<T> implements IResponseHandler {
+public abstract class DemoRetrofitResponseHandler<T> implements IResponseHandler {
     private static final String TAG = "Demo";
 
     public void handleCall(Call<T> call) {

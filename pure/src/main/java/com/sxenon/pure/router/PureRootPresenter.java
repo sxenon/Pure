@@ -26,13 +26,11 @@ import rx.subjects.BehaviorSubject;
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements LifecycleProvider<RouterEvent>,OnRequestPermissionsResult,OnPermissionCallback {
+public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements LifecycleProvider<RouterEvent>, OnRequestPermissionsResult, OnPermissionCallback {
 
     private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
-
-
-    private static final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
+    private final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
             new Func1<RouterEvent, RouterEvent>() {
                 @Override
                 public RouterEvent call(RouterEvent lastEvent) {
@@ -55,7 +53,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
 
     public PureRootPresenter(VM viewModule) {
         super(viewModule);
-        permissionHelper=PermissionHelper.getInstance(getRouter(),this);
+        permissionHelper = PermissionHelper.getInstance(getRouter(), this);
     }
 
     //LifecycleProvider start
@@ -128,16 +126,16 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
 
     @Override
     public void requestCommonPermissions(@NonNull String[] permissions, int what, Action0 action) {
-        permissionHelper.requestCommonPermissions(permissions,what,action);
+        permissionHelper.requestCommonPermissions(permissions, what, action);
 
     }
 
-    public void requestSystemAlertPermission(int what, Action0 action){
-        permissionHelper.requestSystemAlertPermission(what,action);
+    public void requestSystemAlertPermission(int what, Action0 action) {
+        permissionHelper.requestSystemAlertPermission(what, action);
     }
 
 
-    public boolean shouldPermissionExplainBeforeRequest(String[] permissions, int what){
+    public boolean shouldPermissionExplainBeforeRequest(String[] permissions, int what) {
         return false;
     }
 
@@ -152,11 +150,11 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
 
     @Override
-    public void onPermissionReallyDeclined(@NonNull String[] permissions,int permissionWhat) {
+    public void onPermissionReallyDeclined(@NonNull String[] permissions, int permissionWhat) {
 
     }
 
-    public void requestAfterExplanation(@NonNull String[] permissions){
+    public void requestAfterExplanation(@NonNull String[] permissions) {
         permissionHelper.requestAfterExplanation(permissions);
     }
     //Permission end

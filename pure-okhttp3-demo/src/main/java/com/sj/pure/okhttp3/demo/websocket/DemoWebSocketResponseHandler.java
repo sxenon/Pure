@@ -12,7 +12,7 @@ import okio.ByteString;
  * Created by Sui on 2016/12/13.
  */
 
-public class DemoWebSocketResponseHandler implements IResponseHandler {
+public abstract class DemoWebSocketResponseHandler implements IResponseHandler {
     private static final String TAG = "Demo";
 
     public void handleResponse(Response response){
