@@ -12,11 +12,11 @@ import okhttp3.ResponseBody;
 
 
 /**
- * Utils
+ * OKHttpUtils
  * Created by Sui on 2016/12/14.
  */
 
-public class Utils {
+public class OKHttpUtils {
     private static final String TAG = "";
 
     public static boolean writeResponseBodyToDisk(ResponseBody body, String outputFileName) {

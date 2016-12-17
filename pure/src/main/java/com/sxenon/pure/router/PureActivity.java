@@ -81,6 +81,11 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
         ActivityCompat.requestPermissions(this, permissions, PermissionHelper.REQUEST_PERMISSIONS);
     }
 
+    @SuppressWarnings("unchecked")
+    public AppCompatActivity castToComponent(){
+        return this;
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         mRootPresenter.onRequestPermissionsResult( permissions, grantResults);

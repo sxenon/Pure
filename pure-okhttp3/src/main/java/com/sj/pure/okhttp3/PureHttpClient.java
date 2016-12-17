@@ -47,7 +47,7 @@ public abstract class PureHttpClient<RH extends IResponseHandler> implements IHt
         mRequestBuilder
                 .url(url)
                 .tag(tag)
-                .post(RequestBody.create(ConstantCollection.MEDIA_TYPE_MARKDOWN, postBody));
+                .post(RequestBody.create(OkHttpConstants.MEDIA_TYPE_MARKDOWN, postBody));
     }
 
     @Override
@@ -58,7 +58,7 @@ public abstract class PureHttpClient<RH extends IResponseHandler> implements IHt
                 .post(new RequestBody() {
                     @Override
                     public MediaType contentType() {
-                        return ConstantCollection.MEDIA_TYPE_MARKDOWN;
+                        return OkHttpConstants.MEDIA_TYPE_MARKDOWN;
                     }
 
                     @Override
@@ -74,7 +74,7 @@ public abstract class PureHttpClient<RH extends IResponseHandler> implements IHt
         mRequestBuilder
                 .url(url)
                 .tag(tag)
-                .post(RequestBody.create(ConstantCollection.MEDIA_TYPE_MARKDOWN, file));
+                .post(RequestBody.create(OkHttpConstants.MEDIA_TYPE_MARKDOWN, file));
     }
 
     @Override

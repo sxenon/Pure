@@ -1,7 +1,7 @@
 package com.sj.pure.retrofit2.demo;
 
 import com.sj.pure.retrofit2.RetrofitDecorator;
-import com.sj.pure.retrofit2.Utils;
+import com.sj.pure.retrofit2.RetrofitUtils;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -21,7 +21,7 @@ public class DemoRetrofitDecorator implements RetrofitDecorator {
 
     @Override
     public Retrofit update(Retrofit originalRetrofit, OkHttpClient newClient) {
-        return Utils.newRetrofitBuilder(originalRetrofit, newClient)
+        return RetrofitUtils.newRetrofitBuilder(originalRetrofit, newClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

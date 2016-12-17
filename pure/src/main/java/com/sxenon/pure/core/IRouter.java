@@ -1,6 +1,7 @@
 package com.sxenon.pure.core;
 
 import android.app.Activity;
+import android.content.ComponentCallbacks2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,4 +33,7 @@ public interface IRouter<P extends BaseRootPresenter> {
     void saveEvent(Event event);
 
     P getRootPresenter();
+
+    //Cast to AppCompatActivity or Fragment
+    <C extends ComponentCallbacks2> C castToComponent();
 }

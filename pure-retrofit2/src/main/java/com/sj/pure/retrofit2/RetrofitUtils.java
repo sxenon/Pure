@@ -9,7 +9,7 @@ import retrofit2.Retrofit;
  * Created by Sui on 2016/12/15.
  */
 
-public class Utils {
+public class RetrofitUtils {
     public static Retrofit.Builder newRetrofitBuilder(Retrofit retrofit) {
         return newRetrofitBuilder(retrofit, null);
     }
