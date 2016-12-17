@@ -11,24 +11,24 @@ import java.util.List;
  * Created by Sui on 2016/12/15.
  */
 
-public class BaseResponseHandler<R> implements IResponseHandler,ISubmitResultHandler<R>,IFetchListResultHandler<R>,IFetchSingleResultHandler<R> {
+public class BaseResponseHandler<R> implements IResponseHandler<R> {
     private IResultHandler mResultHandler;
-    private ResultHandlerType mResultHandlerType =ResultHandlerType.NONE;
+    private ResultHandlerType mResultHandlerType = ResultHandlerType.NONE;
 
     public BaseResponseHandler(IResultHandler resultHandler) {
-        mResultHandler=resultHandler;
+        mResultHandler = resultHandler;
     }
 
-    public ResultHandlerType getResultHandlerType(){
-        if (ResultHandlerType.NONE== mResultHandlerType){
-            if (mResultHandler instanceof ISubmitResultHandler){
-                mResultHandlerType=ResultHandlerType.SUBMIT;
-            }else if(mResultHandler instanceof IFetchListResultHandler){
-                mResultHandlerType=ResultHandlerType.FETCH_LIST;
-            }else if (mResultHandler instanceof IFetchSingleResultHandler){
-                mResultHandlerType=ResultHandlerType.FETCH_SINGLE;
-            }else {
-                mResultHandlerType=ResultHandlerType.SIMPLE;
+    public ResultHandlerType getResultHandlerType() {
+        if (ResultHandlerType.NONE == mResultHandlerType) {
+            if (mResultHandler instanceof ISubmitResultHandler) {
+                mResultHandlerType = ResultHandlerType.SUBMIT;
+            } else if (mResultHandler instanceof IFetchListResultHandler) {
+                mResultHandlerType = ResultHandlerType.FETCH_LIST;
+            } else if (mResultHandler instanceof IFetchSingleResultHandler) {
+                mResultHandlerType = ResultHandlerType.FETCH_SINGLE;
+            } else {
+                mResultHandlerType = ResultHandlerType.SIMPLE;
             }
         }
         return mResultHandlerType;
@@ -40,7 +40,7 @@ public class BaseResponseHandler<R> implements IResponseHandler,ISubmitResultHan
     @Override
     public void onListDataFetched(List<R> data) {
         //noinspection unchecked
-        ((IFetchListResultHandler<R>)mResultHandler).onListDataFetched(data);
+        ((IFetchListResultHandler<R>) mResultHandler).onListDataFetched(data);
     }
 
     /**
@@ -49,7 +49,7 @@ public class BaseResponseHandler<R> implements IResponseHandler,ISubmitResultHan
     @Override
     public void onSingleDataFetched(R data) {
         //noinspection unchecked
-        ((IFetchSingleResultHandler<R>)mResultHandler).onSingleDataFetched(data);
+        ((IFetchSingleResultHandler<R>) mResultHandler).onSingleDataFetched(data);
     }
 
     /**
@@ -58,7 +58,7 @@ public class BaseResponseHandler<R> implements IResponseHandler,ISubmitResultHan
     @Override
     public void onSuccess(R result) {
         //noinspection unchecked
-        ((ISubmitResultHandler<R>)mResultHandler).onSuccess(result);
+        ((ISubmitResultHandler<R>) mResultHandler).onSuccess(result);
     }
 
     /**
@@ -67,7 +67,7 @@ public class BaseResponseHandler<R> implements IResponseHandler,ISubmitResultHan
     @Override
     public void onFail(R result) {
         //noinspection unchecked
-        ((ISubmitResultHandler<R>)mResultHandler).onFail(result);
+        ((ISubmitResultHandler<R>) mResultHandler).onFail(result);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class BaseResponseHandler<R> implements IResponseHandler,ISubmitResultHan
         mResultHandler.onException(exception);
     }
 
-    public enum ResultHandlerType{
+    public enum ResultHandlerType {
         NONE,
         SIMPLE,
         SUBMIT,

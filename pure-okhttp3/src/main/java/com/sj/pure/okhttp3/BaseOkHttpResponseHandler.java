@@ -13,7 +13,7 @@ import okhttp3.ResponseBody;
  */
 
 public abstract class BaseOkHttpResponseHandler extends BaseResponseHandler {
-    private Type mTypeForConvert;
+    private final Type mTypeForConvert;
 
     public BaseOkHttpResponseHandler(IResultHandler resultHandler, Type type) {
         super(resultHandler);

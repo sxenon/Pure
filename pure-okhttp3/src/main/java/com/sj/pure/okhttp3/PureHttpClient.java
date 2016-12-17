@@ -29,10 +29,7 @@ import okio.Source;
 
 public abstract class PureHttpClient<RH extends IResponseHandler> implements IHttpClient<RH> {
 
-    public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse(IHttpClient.MEDIA_TYPE_MARKDOWN);
-    public static final MediaType MEDIA_TYPE_PNG = MediaType.parse(IHttpClient.MEDIA_TYPE_PNG);
-
-    private OkHttpClient mClient;
+    private final OkHttpClient mClient;
     private Request.Builder mRequestBuilder;
     private MultipartBody mMultipartBody;
 
@@ -50,7 +47,7 @@ public abstract class PureHttpClient<RH extends IResponseHandler> implements IHt
         mRequestBuilder
                 .url(url)
                 .tag(tag)
-                .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody));
+                .post(RequestBody.create(ConstantCollection.MEDIA_TYPE_MARKDOWN, postBody));
     }
 
     @Override
@@ -61,7 +58,7 @@ public abstract class PureHttpClient<RH extends IResponseHandler> implements IHt
                 .post(new RequestBody() {
                     @Override
                     public MediaType contentType() {
-                        return MEDIA_TYPE_MARKDOWN;
+                        return ConstantCollection.MEDIA_TYPE_MARKDOWN;
                     }
 
                     @Override
@@ -77,7 +74,7 @@ public abstract class PureHttpClient<RH extends IResponseHandler> implements IHt
         mRequestBuilder
                 .url(url)
                 .tag(tag)
-                .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, file));
+                .post(RequestBody.create(ConstantCollection.MEDIA_TYPE_MARKDOWN, file));
     }
 
     @Override

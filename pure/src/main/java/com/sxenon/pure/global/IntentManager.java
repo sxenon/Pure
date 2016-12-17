@@ -57,7 +57,7 @@ public class IntentManager {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static void requestSystemAlertPermission(IRouter router, int requestCode) {
+    public static void requestSystemAlertPermission(IRouter router, @SuppressWarnings("SameParameterValue") int requestCode) {
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + router.getActivityCompact().getPackageName()));
         router.startActivityForResult(intent, requestCode);
     }

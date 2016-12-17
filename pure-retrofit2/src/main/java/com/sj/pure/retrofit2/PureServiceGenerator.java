@@ -3,7 +3,6 @@ package com.sj.pure.retrofit2;
 import com.sxenon.pure.core.IResponseHandler;
 import com.sxenon.pure.util.Preconditions;
 
-import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;

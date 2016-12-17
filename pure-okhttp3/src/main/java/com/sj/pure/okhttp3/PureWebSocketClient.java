@@ -18,7 +18,7 @@ import okio.ByteString;
  */
 
 public abstract class PureWebSocketClient<RH extends IResponseHandler> implements IWebSocketClient<RH> {
-    private OkHttpClient mClient;
+    private final OkHttpClient mClient;
     private Request.Builder mRequestBuilder;
     private WebSocket mWebSocket;
     private IWebSocketClient.ReadyState mReadyState = ReadyState.CLOSED;
@@ -77,7 +77,7 @@ public abstract class PureWebSocketClient<RH extends IResponseHandler> implement
     }
 
     private class PureWebSocketListener extends WebSocketListener {
-        private RH responseHandler;
+        private final RH responseHandler;
 
         PureWebSocketListener(RH responseHandler) {
             this.responseHandler = responseHandler;
