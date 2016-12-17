@@ -19,15 +19,15 @@ import java.util.List;
  * Created by Sui on 2016/12/8.
  */
 
-public abstract class FillerGroup<T, PL extends BasePullLayout> implements ISingleDataFiller<T>, IListDataFiller<T>, IFetchSingleResultHandler<T>, IFetchListResultHandler<T> {
+public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISingleDataFiller<R>, IListDataFiller<R>, IFetchSingleResultHandler<R>, IFetchListResultHandler<R> {
     private int mCurrentPageCount;
     private int tempPageCount;
     private int eventWhat = EventWhat.WHAT_UNINITIALIZED;
     private ApiException mException;
 
-    private final IPureAdapter<T> mAdapter;
-    private final IFetchSingleResultHandler<T> mSingleDataResult;
-    private T mValue;
+    private final IPureAdapter<R> mAdapter;
+    private final IFetchSingleResultHandler<R> mSingleDataResult;
+    private R mValue;
 
     private final PL mPullLayout;
     private final Context mContext;
@@ -37,19 +37,19 @@ public abstract class FillerGroup<T, PL extends BasePullLayout> implements ISing
     private View mExceptionView;
     private View mClickToRefreshView;
 
-    public FillerGroup(Context context, PL pullLayout, IFetchSingleResultHandler<T> singleDataResult) {
+    public FillerGroup(Context context, PL pullLayout, IFetchSingleResultHandler<R> singleDataResult) {
         this(context, pullLayout, null, singleDataResult, false);
     }
 
-    public FillerGroup(Context context, PL pullLayout, IPureAdapter<T> adapter) {
+    public FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter) {
         this(context, pullLayout, adapter, null, false);
     }
 
-    public FillerGroup(Context context, PL pullLayout, IPureAdapter<T> adapter, boolean freshForAdd) {
+    public FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, boolean freshForAdd) {
         this(context, pullLayout, adapter, null, freshForAdd);
     }
 
-    private FillerGroup(Context context, PL pullLayout, IPureAdapter<T> adapter, IFetchSingleResultHandler<T> singleDataResult, boolean freshForAdd) {
+    private FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResult, boolean freshForAdd) {
         mContext = context;
         mPullLayout = pullLayout;
         mAdapter = adapter;
@@ -143,31 +143,31 @@ public abstract class FillerGroup<T, PL extends BasePullLayout> implements ISing
             case EventWhat.WHAT_NORMAL:
                 if (object instanceof List) {
                     //noinspection unchecked
-                    Preconditions.checkNotNull(mAdapter, "").resetAllItems((List<T>) object);
+                    Preconditions.checkNotNull(mAdapter, "").resetAllItems((List<R>) object);
                 } else {
                     //noinspection unchecked
-                    Preconditions.checkNotNull(mSingleDataResult, "").onSingleDataFetched((T) object);
+                    Preconditions.checkNotNull(mSingleDataResult, "").onSingleDataFetched((R) object);
                 }
                 break;
         }
     }
 
     @Override
-    public T getValue() {
+    public R getValue() {
         Preconditions.checkNotNull(mSingleDataResult, "");
         return mValue;
     }
 
     @Override
-    public List<T> getValues() {
+    public List<R> getValues() {
         return Preconditions.checkNotNull(mAdapter, "").getValues();
     }
 
     @Override
-    public void onSingleDataFetched(T value) {
-        mValue = value;
+    public void onSingleDataFetched(R data) {
+        mValue = data;
         eventWhat = EventWhat.WHAT_NORMAL;
-        mSingleDataResult.onSingleDataFetched(value);
+        mSingleDataResult.onSingleDataFetched(data);
     }
 
     @Override
@@ -179,7 +179,7 @@ public abstract class FillerGroup<T, PL extends BasePullLayout> implements ISing
     }
 
     @Override
-    public void onListDataFetched(List<T> data) {
+    public void onListDataFetched(List<R> data) {
         eventWhat = EventWhat.WHAT_NORMAL;
         resetMinorComponents();
     }

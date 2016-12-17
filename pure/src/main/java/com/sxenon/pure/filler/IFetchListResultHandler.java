@@ -9,6 +9,6 @@ import java.util.List;
  * Created by Sui on 2016/12/8.
  */
 
-public interface IFetchListResultHandler<T> extends IResultHandler {
-    void onListDataFetched(List<T> data);
+public interface IFetchListResultHandler<R> extends IResultHandler {
+    void onListDataFetched(List<R> data);
 }

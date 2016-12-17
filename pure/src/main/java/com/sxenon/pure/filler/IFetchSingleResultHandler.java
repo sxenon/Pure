@@ -7,6 +7,6 @@ import com.sxenon.pure.core.IResultHandler;
  * Created by Sui on 2016/12/8.
  */
 
-public interface IFetchSingleResultHandler<T> extends IResultHandler {
-    void onSingleDataFetched(T value);
+public interface IFetchSingleResultHandler<R> extends IResultHandler {
+    void onSingleDataFetched(R data);
 }
