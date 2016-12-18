@@ -79,9 +79,9 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         FragmentCompat.requestPermissions(this, permissions, PermissionHelper.REQUEST_PERMISSIONS);
     }
 
-    @SuppressWarnings("unchecked")
-    public Fragment castToComponent(){
-        return this;
+    @Override
+    public boolean isActivity() {
+        return false;
     }
 
     @Override

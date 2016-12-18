@@ -34,6 +34,9 @@ public interface IRouter<P extends BaseRootPresenter> {
 
     P getRootPresenter();
 
-    //Cast to AppCompatActivity or Fragment
-    <C extends ComponentCallbacks2> C castToComponent();
+    /**
+     * @return true,if the router is an activity,otherwise a fragment;
+     */
+    boolean isActivity();
+
 }
