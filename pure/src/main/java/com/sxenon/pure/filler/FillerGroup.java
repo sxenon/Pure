@@ -8,8 +8,9 @@ import android.view.View;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IPureAdapter;
+import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.filler.pull.BasePullLayout;
-import com.sxenon.pure.filler.pull.IPullLayout;
+import com.sxenon.pure.filler.pull.IBasePullLayout;
 import com.sxenon.pure.util.Preconditions;
 
 import java.util.List;
@@ -31,34 +32,36 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
 
     private final PL mPullLayout;
     private final Context mContext;
+    private final IRouter mRouter;
     private final boolean mRefreshForAdd;
 
     private View mEmptyView;
     private View mExceptionView;
     private View mClickToRefreshView;
 
-    public FillerGroup(Context context, PL pullLayout, IFetchSingleResultHandler<R> singleDataResult) {
-        this(context, pullLayout, null, singleDataResult, false);
+    public FillerGroup(IRouter router, PL pullLayout, IFetchSingleResultHandler<R> singleDataResult) {
+        this(router, pullLayout, null, singleDataResult, false);
     }
 
-    public FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter) {
-        this(context, pullLayout, adapter, null, false);
+    public FillerGroup(IRouter router, PL pullLayout, IPureAdapter<R> adapter) {
+        this(router, pullLayout, adapter, null, false);
     }
 
-    public FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, boolean freshForAdd) {
-        this(context, pullLayout, adapter, null, freshForAdd);
+    public FillerGroup(IRouter router, PL pullLayout, IPureAdapter<R> adapter, boolean freshForAdd) {
+        this(router, pullLayout, adapter, null, freshForAdd);
     }
 
-    private FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResult, boolean freshForAdd) {
-        mContext = context;
+    private FillerGroup(IRouter router, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResult, boolean freshForAdd) {
+        mRouter=router;
+        mContext = router.getActivityCompact();
         mPullLayout = pullLayout;
         mAdapter = adapter;
         mSingleDataResult = singleDataResult;
         mRefreshForAdd = freshForAdd;
     }
 
-    public void setRefreshDelegate(final IPullLayout.RefreshDelegate delegate){
-        mPullLayout.setDelegate(new IPullLayout.RefreshDelegate() {
+    public void setBasePullDelegate(final IBasePullLayout.PullDelegate delegate){
+        mPullLayout.setDelegate(new IBasePullLayout.PullDelegate() {
             @Override
             public void onBeginRefreshing() {
                 //TODO

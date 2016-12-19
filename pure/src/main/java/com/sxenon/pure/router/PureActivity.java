@@ -20,7 +20,7 @@ import com.sxenon.pure.permission.PermissionHelper;
  * Created by Sui on 2016/11/21.
  */
 
-public abstract class PureActivity<P extends PureRootPresenter> extends AppCompatActivity implements IRouter<P> {
+public abstract class PureActivity<P extends PureRootPresenter> extends Activity implements IRouter<P> {
     private Event mSavedEvent;
     private P mRootPresenter;
 
@@ -82,8 +82,8 @@ public abstract class PureActivity<P extends PureRootPresenter> extends AppCompa
     }
 
     @Override
-    public boolean isActivity() {
-        return true;
+    public RouterType getRouterType() {
+        return RouterType.ACTIVITY;
     }
 
     @Override

@@ -1,11 +1,11 @@
 package com.sxenon.pure.filler.pull;
 
 /**
- * Empty implement for IPullLayout
+ * Empty implement for IBasePullLayout
  * Created by Sui on 2016/12/12.
  */
 
-public class BasePullLayout implements IPullLayout {
+public class BasePullLayout implements IBasePullLayout {
     @Override
     public void beginRefreshing() {
 
@@ -22,7 +22,7 @@ public class BasePullLayout implements IPullLayout {
     }
 
     @Override
-    public void setDelegate(RefreshDelegate delegate) {
+    public void setDelegate(PullDelegate delegate) {
 
     }
 }

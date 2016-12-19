@@ -5,16 +5,16 @@ package com.sxenon.pure.filler.pull;
  * Created by Sui on 2016/12/11.
  */
 
-public interface IPullLayout {
+public interface IBasePullLayout {
     void beginRefreshing();
 
     void beginLoadingMore();
 
     void setVisibility(int visibility);
 
-    void setDelegate(RefreshDelegate delegate);
+    void setDelegate(PullDelegate delegate);
 
-    interface RefreshDelegate {
+    interface PullDelegate {
         void onBeginRefreshing();
 
         boolean onBeginLoadingMore();

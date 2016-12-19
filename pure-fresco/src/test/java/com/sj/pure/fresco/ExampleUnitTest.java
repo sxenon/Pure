@@ -1,4 +1,4 @@
-package com.sj.pure.glide;
+package com.sj.pure.fresco;
 
 import org.junit.Test;
 

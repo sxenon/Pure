@@ -80,8 +80,8 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
     }
 
     @Override
-    public boolean isActivity() {
-        return false;
+    public RouterType getRouterType() {
+        return RouterType.FRAGMENT;
     }
 
     @Override

@@ -34,9 +34,12 @@ public interface IRouter<P extends BaseRootPresenter> {
 
     P getRootPresenter();
 
-    /**
-     * @return true,if the router is an activity,otherwise a fragment;
-     */
-    boolean isActivity();
+    RouterType getRouterType();
 
+    public enum RouterType{
+        ACTIVITY,
+        FRAGMENT_ACTIVITY,
+        SUPPORT_FRAGMENT,
+        FRAGMENT,
+    }
 }

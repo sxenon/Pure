@@ -1,4 +1,4 @@
-package com.sj.pure.glide;
+package com.sj.pure.fresco;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.sj.pure.glide.test", appContext.getPackageName());
+        assertEquals("com.sj.pure.fresco.test", appContext.getPackageName());
     }
 }
