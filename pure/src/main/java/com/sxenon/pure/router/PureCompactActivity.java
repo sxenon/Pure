@@ -20,15 +20,15 @@ import com.sxenon.pure.permission.PermissionHelper;
  * Created by Sui on 2016/11/21.
  */
 
-public abstract class PureActivity<P extends PureRootPresenter> extends Activity implements IRouter<P> {
+public abstract class PureCompactActivity<P extends PureRootPresenter> extends AppCompatActivity implements IRouter<P> {
     private Event mSavedEvent;
     private P mRootPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BaseRootViewModule<P> rootViewModule=groupViewModule();
-        mRootPresenter=rootViewModule.getPresenter();
+        BaseRootViewModule<P> rootViewModule = groupViewModule();
+        mRootPresenter = rootViewModule.getPresenter();
         mRootPresenter.onCreate(mSavedEvent);
         RxBus.get().register(this);
         GlobalContext.INSTANCE.onActivityCreate(this);
@@ -68,7 +68,7 @@ public abstract class PureActivity<P extends PureRootPresenter> extends Activity
 
     @Override
     public void saveEvent(Event event) {
-        mSavedEvent=event;
+        mSavedEvent = event;
     }
 
     @Override
@@ -83,12 +83,12 @@ public abstract class PureActivity<P extends PureRootPresenter> extends Activity
 
     @Override
     public RouterType getRouterType() {
-        return RouterType.ACTIVITY;
+        return RouterType.FRAGMENT_ACTIVITY;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mRootPresenter.onRequestPermissionsResult( permissions, grantResults);
+        mRootPresenter.onRequestPermissionsResult(permissions, grantResults);
     }
 
     @Override

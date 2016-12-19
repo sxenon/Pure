@@ -36,7 +36,7 @@ public interface IRouter<P extends BaseRootPresenter> {
 
     RouterType getRouterType();
 
-    public enum RouterType{
+    enum RouterType {
         ACTIVITY,
         FRAGMENT_ACTIVITY,
         SUPPORT_FRAGMENT,
