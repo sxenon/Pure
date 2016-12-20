@@ -26,5 +26,4 @@ public class GlideUtils {
                 throw new IllegalArgumentException("Glide.with don`t support:" + router.getClass());
         }
     }
-
 }
