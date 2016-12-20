@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/pure" />
             <option value="$PROJECT_DIR$/pure-fresco" />
             <option value="$PROJECT_DIR$/pure-glide" />
+            <option value="$PROJECT_DIR$/pure-greenDao" />
             <option value="$PROJECT_DIR$/pure-okhttp3" />
             <option value="$PROJECT_DIR$/pure-okhttp3-demo" />
             <option value="$PROJECT_DIR$/pure-picasso" />

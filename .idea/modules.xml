@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/pure/pure.iml" filepath="$PROJECT_DIR$/pure/pure.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-fresco/pure-fresco.iml" filepath="$PROJECT_DIR$/pure-fresco/pure-fresco.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-glide/pure-glide.iml" filepath="$PROJECT_DIR$/pure-glide/pure-glide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pure-greenDao/pure-greenDao.iml" filepath="$PROJECT_DIR$/pure-greenDao/pure-greenDao.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-okhttp3/pure-okhttp3.iml" filepath="$PROJECT_DIR$/pure-okhttp3/pure-okhttp3.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-okhttp3-demo/pure-okhttp3-demo.iml" filepath="$PROJECT_DIR$/pure-okhttp3-demo/pure-okhttp3-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-picasso/pure-picasso.iml" filepath="$PROJECT_DIR$/pure-picasso/pure-picasso.iml" />
