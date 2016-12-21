@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class BaseResponseHandler<R> implements IResponseHandler<R> {
-    private IResultHandler mResultHandler;
+    private final IResultHandler mResultHandler;
     private ResultHandlerType mResultHandlerType = ResultHandlerType.NONE;
 
     public BaseResponseHandler(IResultHandler resultHandler) {

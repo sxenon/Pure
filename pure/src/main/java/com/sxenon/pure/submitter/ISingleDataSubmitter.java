@@ -7,6 +7,6 @@ import com.sxenon.pure.core.IViewComponentGroup;
  * Created by Sui on 2016/12/12.
  */
 
-public interface ISubmitter<T> extends IViewComponentGroup {
+public interface ISingleDataSubmitter<T> extends IViewComponentGroup {
     T getDataForSubmit();
 }
