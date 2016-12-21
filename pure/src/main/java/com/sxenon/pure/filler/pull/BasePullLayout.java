@@ -17,6 +17,16 @@ public class BasePullLayout implements IBasePullLayout {
     }
 
     @Override
+    public void endLoadingMore() {
+
+    }
+
+    @Override
+    public void endRefreshing() {
+
+    }
+
+    @Override
     public void setVisibility(int visibility) {
 
     }

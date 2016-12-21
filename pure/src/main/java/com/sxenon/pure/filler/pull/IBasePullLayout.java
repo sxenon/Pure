@@ -10,6 +10,10 @@ public interface IBasePullLayout {
 
     void beginLoadingMore();
 
+    void endLoadingMore();
+
+    void endRefreshing();
+
     void setVisibility(int visibility);
 
     void setDelegate(PullDelegate delegate);

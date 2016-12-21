@@ -33,7 +33,7 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
     private final PL mPullLayout;
     private final Context mContext;
     private final IRouter mRouter;
-    private final boolean mRefreshForAdd;
+    private final boolean mIsRefreshForAdd;
 
     private View mEmptyView;
     private View mExceptionView;
@@ -52,37 +52,47 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
     }
 
     private FillerGroup(IRouter router, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResult, boolean freshForAdd) {
-        mRouter=router;
+        mRouter = router;
         mContext = router.getActivityCompact();
         mPullLayout = pullLayout;
         mAdapter = adapter;
         mSingleDataResult = singleDataResult;
-        mRefreshForAdd = freshForAdd;
+        mIsRefreshForAdd = freshForAdd;
     }
 
-    public void setBasePullDelegate(final IBasePullLayout.PullDelegate delegate){
+    public void setBasePullDelegate(final IBasePullLayout.PullDelegate delegate) {
         mPullLayout.setDelegate(new IBasePullLayout.PullDelegate() {
             @Override
             public void onBeginRefreshing() {
-                //TODO
+                if (mCurrentPageCount == 0) {
+                    beforeInitializing();
+                } else {
+                    beforeRefreshing();
+                }
+                if (!mIsRefreshForAdd) {
+                    tempPageCount = 1;
+                } else {
+                    tempPageCount = mCurrentPageCount;
+                }
                 delegate.onBeginRefreshing();
             }
 
             @Override
             public boolean onBeginLoadingMore() {
-                //TODO
+                beforeLoadingMore();
+                tempPageCount = mCurrentPageCount + 1;
                 return delegate.onBeginLoadingMore();
             }
         });
     }
 
-    public void setMinorComponents(View emptyView,View exceptionView,View clickToRefreshView){
-        mEmptyView=emptyView;
-        mExceptionView=exceptionView;
-        mClickToRefreshView=clickToRefreshView;
+    public void setMinorComponents(View emptyView, View exceptionView, View clickToRefreshView) {
+        mEmptyView = emptyView;
+        mExceptionView = exceptionView;
+        mClickToRefreshView = clickToRefreshView;
 
         resetMinorComponents();
-        if (mClickToRefreshView!=null){
+        if (mClickToRefreshView != null) {
             //TODO RxBinding subscribe and unSubscribe
             mClickToRefreshView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -93,14 +103,22 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
         }
     }
 
-    private void resetMinorComponents(){
-        if (mClickToRefreshView!=null){
+    private void resetAllComponents() {
+        if (mAdapter != null) {
+            mAdapter.clear();
+        }
+        mCurrentPageCount = tempPageCount = 0;
+        resetMinorComponents();
+    }
+
+    private void resetMinorComponents() {
+        if (mClickToRefreshView != null) {
             mClickToRefreshView.setVisibility(View.GONE);
         }
-        if (mEmptyView!=null){
+        if (mEmptyView != null) {
             mEmptyView.setVisibility(View.GONE);
         }
-        if (mExceptionView!=null){
+        if (mExceptionView != null) {
             mExceptionView.setVisibility(View.GONE);
         }
     }
@@ -166,18 +184,54 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
         return Preconditions.checkNotNull(mAdapter, "").getValues();
     }
 
-    @Override
-    public void onSingleDataFetched(R data) {
-        mValue = data;
-        eventWhat = EventWhat.WHAT_NORMAL;
-        mSingleDataResult.onSingleDataFetched(data);
+    private void endAllAnim() {
+        mPullLayout.endLoadingMore();
+        mPullLayout.endRefreshing();
+    }
+
+    protected void onNoMoreData() {
+
+    }
+
+    protected void onNoNewData() {
+
+    }
+
+
+    protected void onMoreDataFetched(List<R> data) {
+        mAdapter.addItemsFromEnd(data);
+    }
+
+    protected void onNewDataFetched(List<R> data) {
+        mAdapter.addItemsFromStart(data);
+    }
+
+    protected void onInitDataFetched(List<R> data) {
+        mAdapter.resetAllItems(data);
     }
 
     @Override
     public void onEmpty() {
         eventWhat = EventWhat.WHAT_EMPTY;
-        if (mEmptyView!=null){
+        resetAllComponents();
+        if (mEmptyView != null) {
             mEmptyView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onSingleDataFetched(R data) {
+        mValue = data;
+        Preconditions.checkNotNull(mSingleDataResult, "single data but no singleDataResult!");
+        endAllAnim();
+        if (data == null) {
+            onEmpty();
+        } else {
+            eventWhat = EventWhat.WHAT_NORMAL;
+            mCurrentPageCount = tempPageCount = 1;
+            onDataFetched();
+            resetMinorComponents();
+            mSingleDataResult.onSingleDataFetched(data);
         }
     }
 
@@ -185,23 +239,61 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
     public void onListDataFetched(List<R> data) {
         eventWhat = EventWhat.WHAT_NORMAL;
         resetMinorComponents();
+        onDataFetched();
+        Preconditions.checkNotNull(mAdapter, "list data but no adapter!");
+        endAllAnim();
+        if (data == null || data.isEmpty()) {
+            if (mCurrentPageCount == 0) {
+                onEmpty();
+            } else if (tempPageCount == mCurrentPageCount) {//mIsRefreshForAdd and refresh
+                onNoNewData();
+            } else {
+                onNoMoreData();
+            }
+            tempPageCount = mCurrentPageCount;
+        } else {
+            if (mIsRefreshForAdd) {
+                if (mCurrentPageCount == 0) {
+                    onInitDataFetched(data);
+                } else if (tempPageCount == mCurrentPageCount) {//refresh
+                    onNewDataFetched(data);
+                } else {
+                    onMoreDataFetched(data);
+                }
+            } else {
+                if (tempPageCount == 1) {
+                    onInitDataFetched(data);
+                } else {
+                    onMoreDataFetched(data);
+                }
+            }
+            mCurrentPageCount = tempPageCount;
+        }
     }
 
     @Override
     public void onCancel() {
-        mCurrentPageCount=tempPageCount;
+        endAllAnim();
+        if (mSingleDataResult != null) {
+            mSingleDataResult.onCancel();
+        }
+        mCurrentPageCount = tempPageCount;
     }
 
     @Override
     public void onException(ApiException exception) {
         eventWhat = EventWhat.WHAT_EXCEPTION;
         mException = exception;
-        resetMinorComponents();
-        if (mExceptionView!=null){
+        endAllAnim();
+        resetAllComponents();
+        if (mExceptionView != null) {
             mExceptionView.setVisibility(View.VISIBLE);
-            if (mClickToRefreshView!=null){
-                mClickToRefreshView.setVisibility(View.VISIBLE);
-            }
+        }
+        if (mClickToRefreshView != null) {
+            mClickToRefreshView.setVisibility(View.VISIBLE);
+        }
+        if (mSingleDataResult != null) {
+            mSingleDataResult.onException(exception);
         }
     }
 
@@ -221,8 +313,48 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
     public Context getContext() {
         return mContext;
     }
+
+    public IPureAdapter<R> getAdapter() {
+        return mAdapter;
+    }
+
+    public View getExceptionView() {
+        return mExceptionView;
+    }
+
+    public View getClickToRefreshView() {
+        return mClickToRefreshView;
+    }
+
+    public View getEmptyView() {
+        return mEmptyView;
+    }
+
+    public int getCurrentPageCount() {
+        return mCurrentPageCount;
+    }
     //Getter end
 
+    //before start
+    protected void beforeInitializing() {
+
+    }
+
+    protected void beforeRefreshing() {
+
+    }
+
+    protected void beforeLoadingMore() {
+
+    }
+    //before end
+
+    //after start
+    protected void onDataFetched() {
+
+    }
+
+    //after end
     public class EventWhat {
         public static final int WHAT_UNINITIALIZED = 1;
         public static final int WHAT_NORMAL = 2;
