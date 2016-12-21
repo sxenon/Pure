@@ -15,7 +15,7 @@ import okhttp3.Response;
  * Created by Sui on 2016/12/13.
  */
 
-public class DemoHttpClient extends PureHttpClient<DemoHttpResponseHandler> {
+public class DemoHttpClient extends PureHttpClient<DemoHttpResultDispatcher> {
     private static DemoHttpClient mBaseInstance;
     private static OkHttpClient innerHttpClient;
 
@@ -33,14 +33,14 @@ public class DemoHttpClient extends PureHttpClient<DemoHttpResponseHandler> {
     }
 
     @Override
-    protected void preParseFailure(Call call, IOException e, DemoHttpResponseHandler responseHandler) {
+    protected void preParseFailure(Call call, IOException e, DemoHttpResultDispatcher responseHandler) {
         //Just a demo
         responseHandler.handleCall(call);
         responseHandler.handleException(e);
     }
 
     @Override
-    protected void preParseResponse(Call call, Response response, DemoHttpResponseHandler responseHandler) {
+    protected void preParseResponse(Call call, Response response, DemoHttpResultDispatcher responseHandler) {
         //Just a demo
         responseHandler.handleResponse(response);
         responseHandler.handleCall(call);

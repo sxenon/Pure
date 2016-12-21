@@ -1,6 +1,6 @@
 package com.sj.pure.retrofit2;
 
-import com.sxenon.pure.core.IResponseHandler;
+import com.sxenon.pure.result.IResultDispatcher;
 import com.sxenon.pure.util.Preconditions;
 
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -13,7 +13,7 @@ import retrofit2.Retrofit;
  * Created by Sui on 2016/12/14.
  */
 
-public abstract class PureServiceGenerator<RH extends IResponseHandler> {
+public abstract class PureServiceGenerator<RH extends IResultDispatcher> {
     private Retrofit mRetrofit;
 
     public PureServiceGenerator(Retrofit retrofit) {

@@ -8,7 +8,7 @@ import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 
 import com.hwangjr.rxbus.RxBus;
-import com.sxenon.pure.core.IRouter;
+import com.sxenon.pure.router.IRouter;
 
 import java.io.File;
 

@@ -1,6 +1,6 @@
 package com.sj.pure.okhttp3;
 
-import com.sxenon.pure.core.IResponseHandler;
+import com.sxenon.pure.result.IResultDispatcher;
 import com.sxenon.pure.protocol.http.IHttpClient;
 import com.sxenon.pure.util.Preconditions;
 
@@ -27,7 +27,7 @@ import okio.Source;
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class PureHttpClient<RH extends IResponseHandler> implements IHttpClient<RH> {
+public abstract class PureHttpClient<RH extends IResultDispatcher> implements IHttpClient<RH> {
 
     private final OkHttpClient mClient;
     private Request.Builder mRequestBuilder;

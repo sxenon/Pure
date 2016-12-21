@@ -7,7 +7,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.IRouter;
+import com.sxenon.pure.router.IRouter;
 import com.sxenon.pure.global.IntentManager;
 
 import java.util.Arrays;

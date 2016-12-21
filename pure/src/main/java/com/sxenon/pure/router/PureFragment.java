@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.permission.PermissionHelper;
 

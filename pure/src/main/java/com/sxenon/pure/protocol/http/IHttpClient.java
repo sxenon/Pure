@@ -1,6 +1,6 @@
 package com.sxenon.pure.protocol.http;
 
-import com.sxenon.pure.core.IResponseHandler;
+import com.sxenon.pure.result.IResultDispatcher;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by Sui on 2016/12/12.
  */
 
-public interface IHttpClient<RH extends IResponseHandler> {
+public interface IHttpClient<RH extends IResultDispatcher> {
     String MEDIA_TYPE_MARKDOWN = "text/x-markdown; charset=utf-8";
     String MEDIA_TYPE_PNG = "image/png";
 

@@ -5,7 +5,7 @@ import android.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.sxenon.pure.core.IRouter;
+import com.sxenon.pure.router.IRouter;
 
 /**
  * Created by Sui on 2016/12/19.

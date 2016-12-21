@@ -1,13 +1,13 @@
 package com.sxenon.pure.protocol.websocket;
 
-import com.sxenon.pure.core.IResponseHandler;
+import com.sxenon.pure.result.IResultDispatcher;
 
 /**
  * Common interface for any webSocket library`s wrapper
  * Created by Sui on 2016/12/13.
  */
 
-public interface IWebSocketClient<RH extends IResponseHandler> {
+public interface IWebSocketClient<RH extends IResultDispatcher> {
     enum ReadyState {
         CONNECTING,
         OPEN,

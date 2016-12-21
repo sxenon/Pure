@@ -1,6 +1,6 @@
 package com.sxenon.pure.router.empty;
 
-import com.sxenon.pure.core.IRouter;
+import com.sxenon.pure.router.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 
 /**

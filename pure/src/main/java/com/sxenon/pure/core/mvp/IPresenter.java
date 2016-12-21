@@ -3,7 +3,7 @@ package com.sxenon.pure.core.mvp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.sxenon.pure.core.IRouter;
+import com.sxenon.pure.router.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
 /**

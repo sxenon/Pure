@@ -15,7 +15,7 @@ import retrofit2.Retrofit;
  * Created by Sui on 2016/12/15.
  */
 
-public class DemoServiceGenerator extends PureServiceGenerator<DemoRetrofitResponseHandler> {
+public class DemoServiceGenerator extends PureServiceGenerator<DemoRetrofitResultDispatcher> {
     private static DemoServiceGenerator mBaseInstance;
     private static Retrofit innerRetrofit;
 
@@ -42,14 +42,14 @@ public class DemoServiceGenerator extends PureServiceGenerator<DemoRetrofitRespo
 
     @SuppressWarnings("unchecked")
     @Override
-    protected <T> void preParseResponse(Call<T> call, Response<T> response, DemoRetrofitResponseHandler responseHandler) {
+    protected <T> void preParseResponse(Call<T> call, Response<T> response, DemoRetrofitResultDispatcher responseHandler) {
         responseHandler.handleCall(call);
         responseHandler.handleResponse(response);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected <T> void preParseFailure(Call<T> call, Throwable t, DemoRetrofitResponseHandler responseHandler) {
+    protected <T> void preParseFailure(Call<T> call, Throwable t, DemoRetrofitResultDispatcher responseHandler) {
         responseHandler.handleCall(call);
         responseHandler.handleException(t);
     }
