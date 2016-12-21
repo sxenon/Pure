@@ -1,6 +1,6 @@
-package com.sxenon.pure.filler.pull.extend;
+package com.sxenon.pure.view.filler.pull.extend;
 
-import com.sxenon.pure.filler.pull.IBasePullLayout;
+import com.sxenon.pure.view.filler.pull.IBasePullLayout;
 
 /**
  * Created by Sui on 2016/12/19.

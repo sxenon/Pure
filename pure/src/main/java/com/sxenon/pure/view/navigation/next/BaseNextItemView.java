@@ -1,4 +1,4 @@
-package com.sxenon.pure.navigation.next;
+package com.sxenon.pure.view.navigation.next;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
+ * Base implement for INextItemView
  * Created by Sui on 2016/11/11.
  */
 

@@ -1,4 +1,4 @@
-package com.sxenon.pure.navigation.search;
+package com.sxenon.pure.view.navigation.search;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

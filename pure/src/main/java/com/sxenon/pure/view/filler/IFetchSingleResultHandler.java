@@ -1,4 +1,4 @@
-package com.sxenon.pure.filler;
+package com.sxenon.pure.view.filler;
 
 import com.sxenon.pure.core.IResultHandler;
 

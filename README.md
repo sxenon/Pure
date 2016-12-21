@@ -1,6 +1,6 @@
 #Pure
-做最纯粹的框架
+To be the purest framework for Android app developing.
 
 TODO
 
-1、ViewComponentGroup若干
+1、RxJava

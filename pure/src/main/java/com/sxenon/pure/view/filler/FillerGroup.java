@@ -1,4 +1,4 @@
-package com.sxenon.pure.filler;
+package com.sxenon.pure.view.filler;
 
 import android.content.Context;
 import android.os.Looper;
@@ -9,8 +9,8 @@ import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.IPureAdapter;
 import com.sxenon.pure.core.IRouter;
-import com.sxenon.pure.filler.pull.BasePullLayout;
-import com.sxenon.pure.filler.pull.IBasePullLayout;
+import com.sxenon.pure.view.filler.pull.BasePullLayout;
+import com.sxenon.pure.view.filler.pull.IBasePullLayout;
 import com.sxenon.pure.util.Preconditions;
 
 import java.util.List;

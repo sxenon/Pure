@@ -1,4 +1,4 @@
-package com.sxenon.pure.submitter;
+package com.sxenon.pure.view.submitter;
 
 import com.sxenon.pure.core.IViewComponentGroup;
 

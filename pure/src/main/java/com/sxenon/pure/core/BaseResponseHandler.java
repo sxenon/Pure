@@ -1,8 +1,8 @@
 package com.sxenon.pure.core;
 
-import com.sxenon.pure.filler.IFetchListResultHandler;
-import com.sxenon.pure.filler.IFetchSingleResultHandler;
-import com.sxenon.pure.submitter.ISubmitResultHandler;
+import com.sxenon.pure.view.filler.IFetchListResultHandler;
+import com.sxenon.pure.view.filler.IFetchSingleResultHandler;
+import com.sxenon.pure.view.submitter.ISubmitResultHandler;
 
 import java.util.List;
 

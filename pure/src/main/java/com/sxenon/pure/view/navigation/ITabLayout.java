@@ -1,4 +1,4 @@
-package com.sxenon.pure.navigation;
+package com.sxenon.pure.view.navigation;
 
 
 import com.sxenon.pure.core.IViewComponentGroup;

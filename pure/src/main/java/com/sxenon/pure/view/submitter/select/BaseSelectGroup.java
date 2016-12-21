@@ -1,4 +1,4 @@
-package com.sxenon.pure.submitter.select;
+package com.sxenon.pure.view.submitter.select;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

@@ -1,4 +1,4 @@
-package com.sxenon.pure.navigation.search;
+package com.sxenon.pure.view.navigation.search;
 
 
 import com.sxenon.pure.core.IViewComponentGroup;

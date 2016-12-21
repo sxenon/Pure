@@ -1,6 +1,6 @@
-package com.sxenon.pure.submitter.select;
+package com.sxenon.pure.view.submitter.select;
 
-import com.sxenon.pure.submitter.IListDataSubmitter;
+import com.sxenon.pure.view.submitter.IListDataSubmitter;
 
 import java.util.List;
 
