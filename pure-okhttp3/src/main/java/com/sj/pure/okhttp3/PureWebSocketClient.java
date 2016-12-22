@@ -17,7 +17,7 @@ import okio.ByteString;
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class PureWebSocketClient<RH extends IResultDispatcher> implements IWebSocketClient<RH> {
+public abstract class PureWebSocketClient<R extends IResultDispatcher> implements IWebSocketClient<R> {
     private final OkHttpClient mClient;
     private Request.Builder mRequestBuilder;
     private WebSocket mWebSocket;
@@ -35,8 +35,8 @@ public abstract class PureWebSocketClient<RH extends IResultDispatcher> implemen
     }
 
     @Override
-    public void connect(String url, final RH responseHandler) {
-        mWebSocketListener = new PureWebSocketListener(responseHandler);
+    public void connect(String url, final R resultDispatcher) {
+        mWebSocketListener = new PureWebSocketListener(resultDispatcher);
         mWebSocket = mClient.newWebSocket(mRequestBuilder.url(url).build(), mWebSocketListener);
         mReadyState=ReadyState.CONNECTING;
     }
@@ -77,56 +77,56 @@ public abstract class PureWebSocketClient<RH extends IResultDispatcher> implemen
     }
 
     private class PureWebSocketListener extends WebSocketListener {
-        private final RH responseHandler;
+        private final R resultDispatcher;
 
-        PureWebSocketListener(RH responseHandler) {
-            this.responseHandler = responseHandler;
+        PureWebSocketListener(R resultDispatcher) {
+            this.resultDispatcher = resultDispatcher;
         }
 
         @Override
         public void onOpen(WebSocket webSocket, Response response) {
             mReadyState = ReadyState.OPEN;
-            preParseOnOpen(webSocket, response, responseHandler);
+            preParseOnOpen(webSocket, response, resultDispatcher);
         }
 
         @Override
         public void onMessage(WebSocket webSocket, String text) {
-            preParseOnMessage(webSocket, text, responseHandler);
+            preParseOnMessage(webSocket, text, resultDispatcher);
         }
 
         @Override
         public void onMessage(WebSocket webSocket, ByteString bytes) {
-            preParseOnMessage(webSocket, bytes, responseHandler);
+            preParseOnMessage(webSocket, bytes, resultDispatcher);
         }
 
         @Override
         public void onClosing(WebSocket webSocket, int code, String reason) {
             mReadyState = ReadyState.CLOSING;
-            preParseOnClosing(webSocket, code, reason, responseHandler);
+            preParseOnClosing(webSocket, code, reason, resultDispatcher);
         }
 
         @Override
         public void onClosed(WebSocket webSocket, int code, String reason) {
             mReadyState = ReadyState.CLOSED;
-            preParseOnClosed(webSocket, code, reason, responseHandler);
+            preParseOnClosed(webSocket, code, reason, resultDispatcher);
         }
 
         @Override
         public void onFailure(WebSocket webSocket, Throwable t, Response response) {
             mReadyState = ReadyState.CLOSED;
-            preParseOnFailure(webSocket, t, response, responseHandler);
+            preParseOnFailure(webSocket, t, response, resultDispatcher);
         }
     }
 
-    protected abstract void preParseOnOpen(WebSocket webSocket, Response response, RH responseHandler);
+    protected abstract void preParseOnOpen(WebSocket webSocket, Response response, R resultDispatcher);
 
-    protected abstract void preParseOnMessage(WebSocket webSocket, String text, RH responseHandler);
+    protected abstract void preParseOnMessage(WebSocket webSocket, String text, R resultDispatcher);
 
-    protected abstract void preParseOnMessage(WebSocket webSocket, ByteString bytes, RH responseHandler);
+    protected abstract void preParseOnMessage(WebSocket webSocket, ByteString bytes, R resultDispatcher);
 
-    protected abstract void preParseOnClosing(WebSocket webSocket, int code, String reason, RH responseHandler);
+    protected abstract void preParseOnClosing(WebSocket webSocket, int code, String reason, R resultDispatcher);
 
-    protected abstract void preParseOnClosed(WebSocket webSocket, int code, String reason, RH responseHandler);
+    protected abstract void preParseOnClosed(WebSocket webSocket, int code, String reason, R resultDispatcher);
 
-    protected abstract void preParseOnFailure(WebSocket webSocket, Throwable t, Response response, RH responseHandler);
+    protected abstract void preParseOnFailure(WebSocket webSocket, Throwable t, Response response, R resultDispatcher);
 }

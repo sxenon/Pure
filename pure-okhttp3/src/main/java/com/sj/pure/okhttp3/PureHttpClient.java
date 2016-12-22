@@ -27,32 +27,34 @@ import okio.Source;
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class PureHttpClient<RH extends IResultDispatcher> implements IHttpClient<RH> {
+public abstract class PureHttpClient<R extends IResultDispatcher> implements IHttpClient<R> {
 
     private final OkHttpClient mClient;
-    private Request.Builder mRequestBuilder;
-    private MultipartBody mMultipartBody;
+    private ThreadLocal<Request.Builder> requestBuilderThreadLocal =new ThreadLocal<>();
+    private ThreadLocal<MultipartBody> multipartBodyThreadLocal=new ThreadLocal<>();
 
     public PureHttpClient(OkHttpClient client) {
         mClient = client;
     }
 
     @Override
-    public void get(String url, Object tag) {
-        mRequestBuilder.url(url);
+    public IHttpClient buildGetRequest(String url, Object tag) {
+        requestBuilderThreadLocal.get().url(url);
+        return this;
     }
 
     @Override
-    public void postString(String url, String postBody, Object tag) {
-        mRequestBuilder
+    public IHttpClient buildPostStringRequest(String url, String postBody, Object tag) {
+        requestBuilderThreadLocal.get()
                 .url(url)
                 .tag(tag)
                 .post(RequestBody.create(OkHttpConstants.MEDIA_TYPE_MARKDOWN, postBody));
+        return this;
     }
 
     @Override
-    public void postStreaming(String url, final InputStream in, Object tag) {
-        mRequestBuilder
+    public IHttpClient buildPostStreamingRequest(String url, final InputStream in, Object tag) {
+        requestBuilderThreadLocal.get()
                 .url(url)
                 .tag(tag)
                 .post(new RequestBody() {
@@ -67,44 +69,48 @@ public abstract class PureHttpClient<RH extends IResultDispatcher> implements IH
                         sink.writeAll(source);
                     }
                 });
+        return this;
     }
 
     @Override
-    public void postFile(String url, File file, Object tag) {
-        mRequestBuilder
+    public IHttpClient buildPostFileRequest(String url, File file, Object tag) {
+        requestBuilderThreadLocal.get()
                 .url(url)
                 .tag(tag)
                 .post(RequestBody.create(OkHttpConstants.MEDIA_TYPE_MARKDOWN, file));
+        return this;
     }
 
     @Override
-    public void postMultiPart(String url, Object tag) {
-        mRequestBuilder
+    public IHttpClient buildPostMultiPartRequest(String url, Object tag) {
+        requestBuilderThreadLocal.get()
                 .url(url)
                 .tag(tag)
-                .post(Preconditions.checkNotNull(mMultipartBody, ""));
+                .post(Preconditions.checkNotNull(multipartBodyThreadLocal.get(), ""));
+        return this;
     }
 
     @Override
-    public void postForm(String url, Map<String, String> form, Object tag) {
+    public IHttpClient buildPostFormRequest(String url, Map<String, String> form, Object tag) {
         FormBody.Builder builder = new FormBody.Builder();
         for (String name : form.keySet()) {
             builder.add(name, form.get(name));
         }
         RequestBody formBody = builder.build();
-        mRequestBuilder
+        requestBuilderThreadLocal.get()
                 .url(url)
                 .tag(tag)
                 .post(formBody);
+        return this;
     }
 
     public PureHttpClient resetRequestBuilder(Request.Builder builder) {
-        mRequestBuilder = builder;
+        requestBuilderThreadLocal.set(builder);
         return this;
     }
 
     public PureHttpClient resetMultipartBody(MultipartBody body) {
-        mMultipartBody = body;
+        multipartBodyThreadLocal.set(body);
         return this;
     }
 
@@ -123,9 +129,9 @@ public abstract class PureHttpClient<RH extends IResultDispatcher> implements IH
     }
 
     @Override
-    public void execute(RH responseHandler) {
+    public void execute(R responseHandler) {
         Response response;
-        Call newCall = mClient.newCall(mRequestBuilder.build());
+        Call newCall = mClient.newCall(requestBuilderThreadLocal.get().build());
         try {
             response = newCall.execute();
             preParseResponse(newCall, response, responseHandler);
@@ -135,8 +141,8 @@ public abstract class PureHttpClient<RH extends IResultDispatcher> implements IH
     }
 
     @Override
-    public void enqueue(final RH responseHandler) {
-        mClient.newCall(mRequestBuilder.build()).enqueue(new Callback() {
+    public void enqueue(final R responseHandler) {
+        mClient.newCall(requestBuilderThreadLocal.get().build()).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 preParseFailure(call, e, responseHandler);
@@ -149,8 +155,8 @@ public abstract class PureHttpClient<RH extends IResultDispatcher> implements IH
         });
     }
 
-    protected abstract void preParseFailure(Call call, IOException e, RH responseHandler);
+    protected abstract void preParseFailure(Call call, IOException e, R resultDispatcher);
 
-    protected abstract void preParseResponse(Call call, Response response, RH responseHandler);
+    protected abstract void preParseResponse(Call call, Response response, R resultDispatcher);
 
 }

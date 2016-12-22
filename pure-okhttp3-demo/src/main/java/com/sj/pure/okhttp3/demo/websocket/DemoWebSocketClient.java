@@ -35,39 +35,39 @@ public class DemoWebSocketClient extends PureWebSocketClient<DemoWebSocketResult
 
 
     @Override
-    protected void preParseOnOpen(WebSocket webSocket, Response response, DemoWebSocketResultDispatcher responseHandler) {
-        responseHandler.handleWebSocket(webSocket);
-        responseHandler.handleResponse(response);
+    protected void preParseOnOpen(WebSocket webSocket, Response response, DemoWebSocketResultDispatcher resultDispatcher) {
+        resultDispatcher.handleWebSocket(webSocket);
+        resultDispatcher.handleResponse(response);
     }
 
     @Override
-    protected void preParseOnMessage(WebSocket webSocket, String text, DemoWebSocketResultDispatcher responseHandler) {
-        responseHandler.handleWebSocket(webSocket);
-        responseHandler.handleMessage(text);
+    protected void preParseOnMessage(WebSocket webSocket, String text, DemoWebSocketResultDispatcher resultDispatcher) {
+        resultDispatcher.handleWebSocket(webSocket);
+        resultDispatcher.handleMessage(text);
     }
 
     @Override
-    protected void preParseOnMessage(WebSocket webSocket, ByteString bytes, DemoWebSocketResultDispatcher responseHandler) {
-        responseHandler.handleWebSocket(webSocket);
-        responseHandler.handleMessage(bytes);
+    protected void preParseOnMessage(WebSocket webSocket, ByteString bytes, DemoWebSocketResultDispatcher resultDispatcher) {
+        resultDispatcher.handleWebSocket(webSocket);
+        resultDispatcher.handleMessage(bytes);
     }
 
     @Override
-    protected void preParseOnClosing(WebSocket webSocket, int code, String reason, DemoWebSocketResultDispatcher responseHandler) {
-        responseHandler.handleWebSocket(webSocket);
-        responseHandler.handleCloseInfo(code, reason);
+    protected void preParseOnClosing(WebSocket webSocket, int code, String reason, DemoWebSocketResultDispatcher resultDispatcher) {
+        resultDispatcher.handleWebSocket(webSocket);
+        resultDispatcher.handleCloseInfo(code, reason);
     }
 
     @Override
-    protected void preParseOnClosed(WebSocket webSocket, int code, String reason, DemoWebSocketResultDispatcher responseHandler) {
-        responseHandler.handleWebSocket(webSocket);
-        responseHandler.handleCloseInfo(code, reason);
+    protected void preParseOnClosed(WebSocket webSocket, int code, String reason, DemoWebSocketResultDispatcher resultDispatcher) {
+        resultDispatcher.handleWebSocket(webSocket);
+        resultDispatcher.handleCloseInfo(code, reason);
     }
 
     @Override
-    protected void preParseOnFailure(WebSocket webSocket, Throwable t, Response response, DemoWebSocketResultDispatcher responseHandler) {
-        responseHandler.handleWebSocket(webSocket);
-        responseHandler.handleException(t);
-        responseHandler.handleResponse(response);
+    protected void preParseOnFailure(WebSocket webSocket, Throwable t, Response response, DemoWebSocketResultDispatcher resultDispatcher) {
+        resultDispatcher.handleWebSocket(webSocket);
+        resultDispatcher.handleException(t);
+        resultDispatcher.handleResponse(response);
     }
 }

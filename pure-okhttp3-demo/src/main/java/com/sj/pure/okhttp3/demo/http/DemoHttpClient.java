@@ -33,17 +33,17 @@ public class DemoHttpClient extends PureHttpClient<DemoHttpResultDispatcher> {
     }
 
     @Override
-    protected void preParseFailure(Call call, IOException e, DemoHttpResultDispatcher responseHandler) {
+    protected void preParseFailure(Call call, IOException e, DemoHttpResultDispatcher resultDispatcher) {
         //Just a demo
-        responseHandler.handleCall(call);
-        responseHandler.handleException(e);
+        resultDispatcher.handleCall(call);
+        resultDispatcher.handleException(e);
     }
 
     @Override
-    protected void preParseResponse(Call call, Response response, DemoHttpResultDispatcher responseHandler) {
+    protected void preParseResponse(Call call, Response response, DemoHttpResultDispatcher resultDispatcher) {
         //Just a demo
-        responseHandler.handleResponse(response);
-        responseHandler.handleCall(call);
+        resultDispatcher.handleResponse(response);
+        resultDispatcher.handleCall(call);
     }
 
     public static DemoHttpClient getBaseInstance() {

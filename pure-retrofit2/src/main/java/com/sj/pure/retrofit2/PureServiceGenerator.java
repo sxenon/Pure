@@ -13,7 +13,7 @@ import retrofit2.Retrofit;
  * Created by Sui on 2016/12/14.
  */
 
-public abstract class PureServiceGenerator<RH extends IResultDispatcher> {
+public abstract class PureServiceGenerator<R extends IResultDispatcher> {
     private Retrofit mRetrofit;
 
     public PureServiceGenerator(Retrofit retrofit) {
@@ -24,13 +24,13 @@ public abstract class PureServiceGenerator<RH extends IResultDispatcher> {
      * {@link Callback#onResponse(Call, Response)}
      * {@link Call#execute()} normal
      */
-    protected abstract <T> void preParseResponse(Call<T> call, Response<T> response, RH responseHandler);
+    protected abstract <T> void preParseResponse(Call<T> call, Response<T> response, R resultDispatcher);
 
     /**
      * {@link Callback#onFailure(Call, Throwable)}
      * {@link Call#execute()} IOException
      */
-    protected abstract <T> void preParseFailure(Call<T> call, Throwable t, RH responseHandler);
+    protected abstract <T> void preParseFailure(Call<T> call, Throwable t, R resultDispatcher);
 
     protected HttpLoggingInterceptor.Level getLoggingLevel() {
         return HttpLoggingInterceptor.Level.BASIC;

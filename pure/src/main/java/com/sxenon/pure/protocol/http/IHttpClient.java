@@ -16,17 +16,17 @@ public interface IHttpClient<RH extends IResultDispatcher> {
     String MEDIA_TYPE_MARKDOWN = "text/x-markdown; charset=utf-8";
     String MEDIA_TYPE_PNG = "image/png";
 
-    void get(String url, Object tag);
+    IHttpClient buildGetRequest(String url, Object tag);
 
-    void postString(String url, String postBody, Object tag);
+    IHttpClient buildPostStringRequest(String url, String postBody, Object tag);
 
-    void postStreaming(String url, InputStream in, Object tag);
+    IHttpClient buildPostStreamingRequest(String url, InputStream in, Object tag);
 
-    void postFile(String url, File file, Object tag);
+    IHttpClient buildPostFileRequest(String url, File file, Object tag);
 
-    void postForm(String url, Map<String, String> form, Object tag);
+    IHttpClient buildPostFormRequest(String url, Map<String, String> form, Object tag);
 
-    void postMultiPart(String url, Object tag);
+    IHttpClient buildPostMultiPartRequest(String url, Object tag);
 
     void cancel(Object tag);
 

@@ -42,15 +42,15 @@ public class DemoServiceGenerator extends PureServiceGenerator<DemoRetrofitResul
 
     @SuppressWarnings("unchecked")
     @Override
-    protected <T> void preParseResponse(Call<T> call, Response<T> response, DemoRetrofitResultDispatcher responseHandler) {
-        responseHandler.handleCall(call);
-        responseHandler.handleResponse(response);
+    protected <T> void preParseResponse(Call<T> call, Response<T> response, DemoRetrofitResultDispatcher resultDispatcher) {
+        resultDispatcher.handleCall(call);
+        resultDispatcher.handleResponse(response);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected <T> void preParseFailure(Call<T> call, Throwable t, DemoRetrofitResultDispatcher responseHandler) {
-        responseHandler.handleCall(call);
-        responseHandler.handleException(t);
+    protected <T> void preParseFailure(Call<T> call, Throwable t, DemoRetrofitResultDispatcher resultDispatcher) {
+        resultDispatcher.handleCall(call);
+        resultDispatcher.handleException(t);
     }
 }
