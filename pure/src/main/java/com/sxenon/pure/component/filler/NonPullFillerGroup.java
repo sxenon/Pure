@@ -1,6 +1,6 @@
 package com.sxenon.pure.component.filler;
 
-import com.sxenon.pure.adapter.IPureAdapter;
+import com.sxenon.pure.component.adapter.IPureAdapter;
 import com.sxenon.pure.router.IRouter;
 import com.sxenon.pure.component.filler.pull.BasePullLayout;
 

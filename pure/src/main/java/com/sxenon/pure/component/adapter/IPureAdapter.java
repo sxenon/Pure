@@ -1,4 +1,4 @@
-package com.sxenon.pure.adapter;
+package com.sxenon.pure.component.adapter;
 
 import java.util.List;
 

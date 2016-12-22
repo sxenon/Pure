@@ -7,14 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
 /**
  * Treat Activity & Fragment as router
  * Created by Sui on 2016/11/20.
  */
 
-public interface IRouter<P extends BaseRootPresenter> {
+public interface IRouter<P extends PureRootPresenter> {
 
     void startActivity(Intent intent);
 

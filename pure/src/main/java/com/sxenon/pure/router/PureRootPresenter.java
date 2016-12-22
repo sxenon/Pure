@@ -3,6 +3,8 @@ package com.sxenon.pure.router;
 import android.support.annotation.NonNull;
 
 import com.hwangjr.rxbus.RxBus;
+import com.sxenon.pure.component.binder.IViewBinder;
+import com.sxenon.pure.component.binder.ViewBinderImpl;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
@@ -14,9 +16,16 @@ import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.OutsideLifecycleException;
 import com.trello.rxlifecycle.RxLifecycle;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Nonnull;
 
 import rx.Observable;
+import rx.Subscription;
 import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
@@ -30,6 +39,8 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
 
     private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
+    private final List<Subscription> subscriptions = new ArrayList<>();
+    private IViewBinder mViewBinder;
     private final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
             new Func1<RouterEvent, RouterEvent>() {
                 @Override
@@ -50,6 +61,11 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
                     }
                 }
             };
+    private boolean mResumed;
+    private boolean mPaused;
+    private boolean mStopped;
+    private boolean mDestroyed;
+
 
     public PureRootPresenter(VM viewModule) {
         super(viewModule);
@@ -88,26 +104,53 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     @Override
     public void onResume() {
         super.onResume();
+        mResumed = true;
+        mPaused = false;
+        mStopped = false;
         lifecycleSubject.onNext(RouterEvent.RESUME);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        mResumed = false;
+        mPaused = true;
+        mStopped = false;
         lifecycleSubject.onNext(RouterEvent.PAUSE);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        mResumed = false;
+        mPaused = true;
+        mStopped = true;
         lifecycleSubject.onNext(RouterEvent.STOP);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mDestroyed = true;
         lifecycleSubject.onNext(RouterEvent.DESTROY);
         RxBus.get().unregister(this);
+        unSubscribeSubscription();
+    }
+
+    protected boolean isResumed() {
+        return mResumed;
+    }
+
+    protected boolean isPaused() {
+        return mPaused;
+    }
+
+    protected boolean isStopped() {
+        return mStopped;
+    }
+
+    protected boolean isDestroyed() {
+        return mDestroyed;
     }
 
     //LifeCycle end
@@ -158,4 +201,30 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
         permissionHelper.requestAfterExplanation(permissions);
     }
     //Permission end
+
+    //Binding start
+    public IViewBinder getViewBinder() {
+        if (mViewBinder == null) {
+            final IViewBinder viewBinder = new ViewBinderImpl();
+            mViewBinder = (IViewBinder) Proxy.newProxyInstance(viewBinder.getClass().getClassLoader(), viewBinder.getClass().getInterfaces(), new InvocationHandler() {
+                @Override
+                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                    Subscription subscription = (Subscription) method.invoke(viewBinder, args);
+                    subscriptions.add(subscription);
+                    return subscription;
+                }
+            });
+        }
+        return mViewBinder;
+    }
+
+    private void unSubscribeSubscription() {
+        for (Subscription subscription : subscriptions) {
+            if (!subscription.isUnsubscribed()) {
+                subscription.unsubscribe();
+            }
+        }
+    }
+
+    //Binding end
 }

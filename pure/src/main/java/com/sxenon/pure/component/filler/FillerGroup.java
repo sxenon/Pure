@@ -7,13 +7,15 @@ import android.view.View;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.adapter.IPureAdapter;
+import com.sxenon.pure.component.adapter.IPureAdapter;
 import com.sxenon.pure.router.IRouter;
 import com.sxenon.pure.component.filler.pull.BasePullLayout;
 import com.sxenon.pure.component.filler.pull.IBasePullLayout;
 import com.sxenon.pure.util.Preconditions;
 
 import java.util.List;
+
+import rx.functions.Action1;
 
 /**
  * Process single,list data together.
@@ -93,10 +95,9 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
 
         resetMinorComponents();
         if (mClickToRefreshView != null) {
-            //TODO RxBinding subscribe and unSubscribe
-            mClickToRefreshView.setOnClickListener(new View.OnClickListener() {
+            mRouter.getRootPresenter().getViewBinder().bindViewClickButEmitOnlyFirst(mClickToRefreshView, new Action1<Void>() {
                 @Override
-                public void onClick(View v) {
+                public void call(Void aVoid) {
                     beginRefreshing();
                 }
             });
@@ -332,6 +333,10 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
 
     public int getCurrentPageCount() {
         return mCurrentPageCount;
+    }
+
+    public IRouter getRouter(){
+        return mRouter;
     }
     //Getter end
 

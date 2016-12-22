@@ -3,7 +3,7 @@ package com.sxenon.pure.component.submitter.select;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.sxenon.pure.adapter.IPureAdapter;
+import com.sxenon.pure.component.adapter.IPureAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
