@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
+import com.sxenon.pure.core.binder.IViewBinder;
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.mvp.BaseViewModule;
 import com.sxenon.pure.core.mvp.ILifeCycle;
@@ -17,7 +18,12 @@ import rx.functions.Action0;
  * Created by Sui on 2016/11/22.
  */
 
-public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends BasePresenter<VM> implements IPresenter<VM>,ILifeCycle {
+public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends BasePresenter<VM> implements IPresenter<VM>, ILifeCycle {
+
+    private boolean mResumed;
+    private boolean mPaused;
+    private boolean mStopped;
+    private boolean mDestroyed;
 
     public BaseRootPresenter(VM viewModule) {
         super(viewModule);
@@ -34,22 +40,45 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
 
     @Override
     public void onResume() {
-
+        mResumed = true;
+        mPaused = false;
+        mStopped = false;
     }
 
     @Override
     public void onPause() {
-
+        mResumed = false;
+        mPaused = true;
+        mStopped = false;
     }
 
     @Override
     public void onStop() {
-
+        mResumed = false;
+        mPaused = true;
+        mStopped = true;
     }
 
     @Override
     public void onDestroy() {
+        mDestroyed = true;
         RxBus.get().unregister(this);
+    }
+
+    public boolean isResumed() {
+        return mResumed;
+    }
+
+    public boolean isPaused() {
+        return mPaused;
+    }
+
+    public boolean isStopped() {
+        return mStopped;
+    }
+
+    public boolean isDestroyed() {
+        return mDestroyed;
     }
 
     public abstract void requestCommonPermissions(@NonNull String[] permissions, int what, Action0 action);
@@ -57,4 +86,6 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
     public abstract void requestSystemAlertPermission(int what, Action0 action);
 
     public abstract Event getEventForSave();
+
+    public abstract IViewBinder getViewBinder();
 }

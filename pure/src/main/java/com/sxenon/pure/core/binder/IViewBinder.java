@@ -1,6 +1,10 @@
-package com.sxenon.pure.component.binder;
+package com.sxenon.pure.core.binder;
 
 import android.view.View;
+
+import com.sxenon.pure.core.mvp.BasePresenter;
+import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
+import com.sxenon.pure.router.IRouter;
 
 import rx.Subscription;
 import rx.functions.Action1;
@@ -8,6 +12,7 @@ import rx.functions.Action1;
 /**
  * {@link ViewBinderImpl}
  * Dynamic Proxy
+ * {@link BaseRootPresenter#getViewBinder()}} or {@link BasePresenter#getViewBinderForBinding()}
  * Created by Sui on 2016/10/26.
  */
 

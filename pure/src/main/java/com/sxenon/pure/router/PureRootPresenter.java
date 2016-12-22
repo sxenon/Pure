@@ -2,9 +2,8 @@ package com.sxenon.pure.router;
 
 import android.support.annotation.NonNull;
 
-import com.hwangjr.rxbus.RxBus;
-import com.sxenon.pure.component.binder.IViewBinder;
-import com.sxenon.pure.component.binder.ViewBinderImpl;
+import com.sxenon.pure.core.binder.IViewBinder;
+import com.sxenon.pure.core.binder.ViewBinderImpl;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
@@ -61,11 +60,6 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
                     }
                 }
             };
-    private boolean mResumed;
-    private boolean mPaused;
-    private boolean mStopped;
-    private boolean mDestroyed;
-
 
     public PureRootPresenter(VM viewModule) {
         super(viewModule);
@@ -98,61 +92,32 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     public void onCreate(Event savedEvent) {
         super.onCreate(savedEvent);
         lifecycleSubject.onNext(RouterEvent.CREATE);
-        RxBus.get().register(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mResumed = true;
-        mPaused = false;
-        mStopped = false;
         lifecycleSubject.onNext(RouterEvent.RESUME);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mResumed = false;
-        mPaused = true;
-        mStopped = false;
         lifecycleSubject.onNext(RouterEvent.PAUSE);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mResumed = false;
-        mPaused = true;
-        mStopped = true;
         lifecycleSubject.onNext(RouterEvent.STOP);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mDestroyed = true;
         lifecycleSubject.onNext(RouterEvent.DESTROY);
-        RxBus.get().unregister(this);
         unSubscribeSubscription();
     }
-
-    protected boolean isResumed() {
-        return mResumed;
-    }
-
-    protected boolean isPaused() {
-        return mPaused;
-    }
-
-    protected boolean isStopped() {
-        return mStopped;
-    }
-
-    protected boolean isDestroyed() {
-        return mDestroyed;
-    }
-
     //LifeCycle end
 
     //Permission start
@@ -225,6 +190,5 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
             }
         }
     }
-
     //Binding end
 }

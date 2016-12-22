@@ -1,4 +1,4 @@
-package com.sxenon.pure.component.binder;
+package com.sxenon.pure.core.binder;
 
 import android.view.View;
 

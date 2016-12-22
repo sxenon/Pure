@@ -3,6 +3,7 @@ package com.sxenon.pure.core.mvp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.sxenon.pure.core.binder.IViewBinder;
 import com.sxenon.pure.router.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
@@ -57,11 +58,13 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
 
     public void requestCommonPermissionsForAction(@NonNull String[] permissions, int what, Action0 action){
         mRootPresenter.requestCommonPermissions(permissions,what,action);
-
     }
 
     public void requestSystemAlertPermissionForAction(int what, Action0 action){
         mRootPresenter.requestSystemAlertPermission(what, action);
     }
 
+    public IViewBinder getViewBinderForBinding(){
+        return mRootPresenter.getViewBinder();
+    }
 }

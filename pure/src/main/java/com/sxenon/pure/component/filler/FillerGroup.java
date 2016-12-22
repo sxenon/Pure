@@ -49,17 +49,17 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
         this(router, pullLayout, adapter, null, false);
     }
 
-    public FillerGroup(IRouter router, PL pullLayout, IPureAdapter<R> adapter, boolean freshForAdd) {
-        this(router, pullLayout, adapter, null, freshForAdd);
+    public FillerGroup(IRouter router, PL pullLayout, IPureAdapter<R> adapter, boolean isFreshForAdd) {
+        this(router, pullLayout, adapter, null, isFreshForAdd);
     }
 
-    private FillerGroup(IRouter router, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResult, boolean freshForAdd) {
+    private FillerGroup(IRouter router, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResult, boolean isFreshForAdd) {
         mRouter = router;
         mContext = router.getActivityCompact();
         mPullLayout = pullLayout;
         mAdapter = adapter;
         mSingleDataResult = singleDataResult;
-        mIsRefreshForAdd = freshForAdd;
+        mIsRefreshForAdd = isFreshForAdd;
     }
 
     public void setBasePullDelegate(final IBasePullLayout.PullDelegate delegate) {
@@ -197,8 +197,7 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
     protected void onNoNewData() {
 
     }
-
-
+    
     protected void onMoreDataFetched(List<R> data) {
         mAdapter.addItemsFromEnd(data);
     }
