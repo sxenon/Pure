@@ -10,6 +10,8 @@ import com.sxenon.pure.core.mvp.BaseViewModule;
 import com.sxenon.pure.core.mvp.ILifeCycle;
 import com.sxenon.pure.core.mvp.IPresenter;
 
+import java.util.List;
+
 import rx.functions.Action0;
 
 /**
@@ -34,7 +36,7 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
     }
 
     @Override
-    public void onCreate(Event savedEvent) {
+    public void onCreate(List<Event> savedEventList) {
         RxBus.get().register(this);
     }
 
@@ -85,7 +87,7 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
 
     public abstract void requestSystemAlertPermission(int what, Action0 action);
 
-    public abstract Event getEventForSave();
+    public abstract List<Event> getEventForSave();
 
     public abstract IViewBinder getViewBinder();
 }

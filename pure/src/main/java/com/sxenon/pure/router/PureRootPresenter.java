@@ -89,8 +89,8 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
 
     //LifeCycle start
     @Override
-    public void onCreate(Event savedEvent) {
-        super.onCreate(savedEvent);
+    public void onCreate(List<Event> savedEventList) {
+        super.onCreate(savedEventList);
         lifecycleSubject.onNext(RouterEvent.CREATE);
     }
 

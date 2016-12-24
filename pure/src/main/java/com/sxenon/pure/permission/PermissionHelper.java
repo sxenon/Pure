@@ -138,13 +138,6 @@ public class PermissionHelper implements OnRequestPermissionsResult {
     /**
      * to be called when explanation is presented to the user
      */
-    public void requestAfterExplanation(@NonNull String permissionName) {
-        requestAfterExplanation(new String[]{permissionName});
-    }
-
-    /**
-     * to be called when explanation is presented to the user
-     */
     public void requestAfterExplanation(@NonNull String[] permissions) {
         router.requestPermissionsCompact(permissions);
     }

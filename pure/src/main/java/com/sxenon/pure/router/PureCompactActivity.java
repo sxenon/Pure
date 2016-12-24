@@ -3,6 +3,7 @@ package com.sxenon.pure.router;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -14,13 +15,14 @@ import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.global.GlobalContext;
 import com.sxenon.pure.permission.PermissionHelper;
 
+import java.util.List;
+
 /**
  * 做最纯净的Activity二次封装
  * Created by Sui on 2016/11/21.
  */
 
 public abstract class PureCompactActivity<P extends PureRootPresenter> extends AppCompatActivity implements IRouter<P> {
-    private Event mSavedEvent;
     private P mRootPresenter;
 
     @Override
@@ -28,9 +30,10 @@ public abstract class PureCompactActivity<P extends PureRootPresenter> extends A
         super.onCreate(savedInstanceState);
         BaseRootViewModule<P> rootViewModule = groupViewModule();
         mRootPresenter = rootViewModule.getPresenter();
-        mRootPresenter.onCreate(mSavedEvent);
+        mRootPresenter.onCreate(savedInstanceState==null?null:GlobalContext.INSTANCE.savedEventList);
+        //To replace intent with data
         RxBus.get().register(this);
-        GlobalContext.INSTANCE.onActivityCreate(this);
+        GlobalContext.INSTANCE.activityHistoryManager.add(this);
     }
 
     @Override
@@ -51,13 +54,15 @@ public abstract class PureCompactActivity<P extends PureRootPresenter> extends A
         mRootPresenter.onStop();
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        saveEvent(mRootPresenter.getEventForSave());
+        //noinspection unchecked
+        saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
         RxBus.get().unregister(this);
-        GlobalContext.INSTANCE.onActivityDestroy(this);
+        GlobalContext.INSTANCE.activityHistoryManager.remove(this);
     }
 
     @Override
@@ -66,8 +71,8 @@ public abstract class PureCompactActivity<P extends PureRootPresenter> extends A
     }
 
     @Override
-    public void saveEvent(Event event) {
-        mSavedEvent = event;
+    public void saveEventList(List<Event> eventList) {
+        GlobalContext.INSTANCE.savedEventList=eventList;
     }
 
     @Override
@@ -88,6 +93,16 @@ public abstract class PureCompactActivity<P extends PureRootPresenter> extends A
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         mRootPresenter.onRequestPermissionsResult(permissions, grantResults);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override

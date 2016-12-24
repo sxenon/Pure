@@ -4,6 +4,8 @@ import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.router.PureRootPresenter;
 
+import java.util.List;
+
 /**
  * EmptyRootPresenter
  * Created by Sui on 2016/12/15.
@@ -15,7 +17,7 @@ public class EmptyRootPresenter extends PureRootPresenter<BaseRootViewModule> {
     }
 
     @Override
-    public Event getEventForSave() {
+    public List<Event> getEventForSave() {
         return null;
     }
 }

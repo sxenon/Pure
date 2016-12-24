@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 
 import com.sxenon.pure.core.Event;
 
+import java.util.List;
+
 /**
  * Treat Activity & Fragment as router
  * Created by Sui on 2016/11/20.
@@ -29,7 +31,7 @@ public interface IRouter<P extends PureRootPresenter> {
 
     boolean shouldShowRequestPermissionRationale(String permission);
 
-    void saveEvent(Event event);
+    void saveEventList(List<Event> eventList);
 
     P getRootPresenter();
 

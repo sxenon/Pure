@@ -14,13 +14,15 @@ import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.permission.PermissionHelper;
 
+import java.util.List;
+
 /**
  * 做最纯净的Fragment二次封装
  * Created by Sui on 2016/11/21.
  */
 
 public abstract class PureFragment<P extends PureRootPresenter> extends Fragment implements IRouter<P> {
-    private Event mSavedEvent;
+    private List<Event> mSavedEventList;
     private P mRootPresenter;
 
     @Override
@@ -28,7 +30,8 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         super.onViewCreated(view, savedInstanceState);
         BaseRootViewModule<P> rootViewModule = groupViewModule(view);
         mRootPresenter = rootViewModule.getPresenter();
-        mRootPresenter.onCreate(mSavedEvent);
+        mRootPresenter.onCreate(mSavedEventList);
+        //To replace "setArguments"
         RxBus.get().register(this);
     }
 
@@ -53,7 +56,8 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        saveEvent(mRootPresenter.getEventForSave());
+        //noinspection unchecked
+        saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
         RxBus.get().unregister(this);
     }
@@ -64,8 +68,8 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
     }
 
     @Override
-    public void saveEvent(Event event) {
-        mSavedEvent = event;
+    public void saveEventList(List<Event> eventList) {
+        mSavedEventList = eventList;
     }
 
     @Override
