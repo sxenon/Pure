@@ -24,15 +24,27 @@ import java.util.List;
 public abstract class PureFragment<P extends PureRootPresenter> extends Fragment implements IRouter<P> {
     private List<Event> mSavedEventList;
     private P mRootPresenter;
+    private boolean mCreated;
+    private boolean shouldInitRootPresenter;
+    /**
+     * 真正的对用户可见的状态！！！
+     */
+    private boolean mVisible;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         BaseRootViewModule<P> rootViewModule = groupViewModule(view);
         mRootPresenter = rootViewModule.getPresenter();
-        mRootPresenter.onCreate(mSavedEventList);
         //To replace "setArguments"
         RxBus.get().register(this);
+        mCreated=true;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initRootPresenterIfNeeded();
     }
 
     @Override
@@ -60,6 +72,21 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
         RxBus.get().unregister(this);
+        shouldInitRootPresenter =true;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        mVisible = mCreated && isVisibleToUser;
+        initRootPresenterIfNeeded();
+    }
+
+    private void initRootPresenterIfNeeded() {
+        if (mVisible && shouldInitRootPresenter) {
+            mRootPresenter.onCreate(mSavedEventList);
+            shouldInitRootPresenter = false;
+        }
     }
 
     @Override
