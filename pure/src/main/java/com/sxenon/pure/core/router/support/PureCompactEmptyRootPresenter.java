@@ -14,17 +14,17 @@ public class PureCompactEmptyRootPresenter extends PureCompactRootPresenter<Pure
     }
 
     @Override
-    protected boolean requestCommonPermissionsSelf(int requestCode) {
+    protected boolean requestCommonPermissionsBySelf(int requestCode) {
         return false;
     }
 
     @Override
-    protected boolean requestSystemAlertPermissionSelf(int requestCode) {
+    protected boolean requestSystemAlertPermissionBySelf(int requestCode) {
         return false;
     }
 
     @Override
-    protected boolean startActivitySelf(int requestCode) {
+    protected boolean startActivityForResultBySelf(int requestCode) {
         return false;
     }
 

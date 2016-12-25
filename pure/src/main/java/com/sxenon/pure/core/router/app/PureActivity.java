@@ -1,6 +1,7 @@
 package com.sxenon.pure.core.router.app;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -97,6 +98,20 @@ public abstract class PureActivity<P extends PureRootPresenter> extends Activity
     @Override
     protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
         mRootPresenter.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    //TODO
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    public void clearFragmentBackStackImmediate(){
+        FragmentManager manager = getFragmentManager();
+        if (manager.getBackStackEntryCount()>0){
+            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
+            manager.popBackStackImmediate(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 
     protected abstract BaseRootViewModule<P> groupViewModule();

@@ -130,7 +130,7 @@ public abstract class PureBaseRootPresenter<VM extends BaseRootViewModule> exten
 
     //Permission start
     public boolean onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCommonPermissionsSelf(requestCode)) {
+        if (requestCommonPermissionsBySelf(requestCode)) {
             permissionHelper.onRequestPermissionsResult(permissions, grantResults);
             return true;
         }
@@ -138,31 +138,30 @@ public abstract class PureBaseRootPresenter<VM extends BaseRootViewModule> exten
     }
 
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (startActivitySelf(requestCode)) {
-            if (requestSystemAlertPermissionSelf(requestCode)) {
-                permissionHelper.onRequestSystemAlertPermissionResult(resultCode);
-            } else {
-                handleActivityResult(requestCode, resultCode, data);
-            }
-            return true;
+        if (requestSystemAlertPermissionBySelf(requestCode)) {
+            permissionHelper.onRequestSystemAlertPermissionResult(resultCode);
+        } else if (startActivityForResultBySelf(requestCode)) {
+            handleActivityResult(requestCode, resultCode, data);
+        }else{
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
-     * @return false, if the router is instance of FragmentActivity and its supportFragment request the permission,otherwise true.
+     * @return Return false if the router is instance of FragmentActivity and its supportFragment request the permission,otherwise true.
      */
-    protected abstract boolean requestCommonPermissionsSelf(int requestCode);
+    protected abstract boolean requestCommonPermissionsBySelf(int requestCode);
 
     /**
-     * @return false, if the router is instance of FragmentActivity and its supportFragment request the permission,otherwise true.
+     * @return Return true if the router request the system alert permission bySelf.otherwise false.
      */
-    protected abstract boolean requestSystemAlertPermissionSelf(int requestCode);
+    protected abstract boolean requestSystemAlertPermissionBySelf(int requestCode);
 
     /**
-     * @return false, if the router is instance of FragmentActivity and its supportFragment start activity,otherwise true.
+     * @return Return false, if the router is instance of FragmentActivity and its supportFragment start activity,otherwise true.
      */
-    protected abstract boolean startActivitySelf(int requestCode);
+    protected abstract boolean startActivityForResultBySelf(int requestCode);
 
     protected void handleActivityResult(int requestCode, int resultCode, Intent data) {
     }

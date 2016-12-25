@@ -12,17 +12,17 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends P
     }
 
     @Override
-    protected final boolean requestCommonPermissionsSelf(int requestCode) {
+    protected final boolean requestCommonPermissionsBySelf(int requestCode) {
         return true;
     }
 
     @Override
-    protected final boolean requestSystemAlertPermissionSelf(int requestCode) {
-        return true;
+    protected boolean requestSystemAlertPermissionBySelf(int requestCode) {
+        return false;
     }
 
     @Override
-    protected final boolean startActivitySelf(int requestCode) {
+    protected final boolean startActivityForResultBySelf(int requestCode) {
         return true;
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 
 import com.hwangjr.rxbus.RxBus;
@@ -122,6 +123,15 @@ public abstract class PureSupportFragment<P extends PureRootPresenter> extends F
     @Override
     public final void onActivityResult(int requestCode, int resultCode, Intent data) {
         mRootPresenter.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void clearFragmentBackStackImmediate() {
+        FragmentManager manager=getChildFragmentManager();
+        if (manager.getBackStackEntryCount()>0){
+            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
+            manager.popBackStackImmediate(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 
     protected abstract BaseRootViewModule<P> groupViewModule(View view);

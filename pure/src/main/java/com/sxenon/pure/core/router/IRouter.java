@@ -37,6 +37,8 @@ public interface IRouter<P extends PureBaseRootPresenter> {
 
     RouterType getRouterType();
 
+    void clearFragmentBackStackImmediate();
+
     enum RouterType {
         ACTIVITY,
         FRAGMENT_ACTIVITY,
