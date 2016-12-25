@@ -106,7 +106,7 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
 
     private void resetAllComponents() {
         if (mAdapter != null) {
-            mAdapter.clear();
+            mAdapter.clearAllItems();
         }
         mCurrentPageCount = tempPageCount = 0;
         resetMinorComponents();

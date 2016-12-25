@@ -80,7 +80,7 @@ public class BaseSearchView implements ISearchView {
     }
 
     @Override
-    public void resetKeyword(CharSequence keyword) {
+    public void setKeyword(CharSequence keyword) {
         mEditText.setText(keyword);
         mEditText.setSelection(keyword.toString().length());
     }

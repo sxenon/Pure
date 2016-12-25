@@ -143,7 +143,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
 
 
-    public boolean shouldPermissionExplainBeforeRequest(String[] permissions, int what) {
+    public boolean shouldPermissionExplainBeforeRequest(String[] permissions, int permissionWhat) {
         return false;
     }
 

@@ -16,5 +16,5 @@ public interface ISearchView extends IViewComponentGroup {
 
     void setSearchAction(Func1<CharSequence, Boolean> searchAction);
 
-    void resetKeyword(CharSequence keyword);
+    void setKeyword(CharSequence keyword);
 }
