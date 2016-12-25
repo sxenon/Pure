@@ -40,7 +40,7 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         mRootPresenter = rootViewModule.getPresenter();
         //To replace "setArguments"
         RxBus.get().register(this);
-        mCreated=true;
+        mCreated = true;
     }
 
     @Override
@@ -74,7 +74,7 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
         RxBus.get().unregister(this);
-        shouldInitRootPresenter =true;
+        shouldInitRootPresenter = true;
     }
 
     @Override
@@ -82,6 +82,12 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         super.setUserVisibleHint(isVisibleToUser);
         mVisible = mCreated && isVisibleToUser;
         initRootPresenterIfNeeded();
+        PureActivity activity = (PureActivity) getActivity();
+        if (mVisible) {
+            activity.addToVisibleSet(this);
+        } else {
+            activity.removeFromVisibleSet(this);
+        }
     }
 
     private void initRootPresenterIfNeeded() {
@@ -118,7 +124,7 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
 
     @Override
     public final void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mRootPresenter.onRequestPermissionsResult(requestCode,permissions, grantResults);
+        mRootPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -126,10 +132,14 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         mRootPresenter.onActivityResult(requestCode, resultCode, data);
     }
 
+    boolean onBackPressed() {
+        return mRootPresenter.onBackPressed();
+    }
+
     @Override
     public void clearFragmentBackStackImmediate() {
-        FragmentManager manager=getChildFragmentManager();
-        if (manager.getBackStackEntryCount()>0){
+        FragmentManager manager = getChildFragmentManager();
+        if (manager.getBackStackEntryCount() > 0) {
             FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
             manager.popBackStackImmediate(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }

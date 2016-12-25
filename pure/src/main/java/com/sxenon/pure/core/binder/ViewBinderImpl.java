@@ -10,6 +10,7 @@ import rx.Subscription;
 import rx.functions.Action1;
 
 /**
+ * Dynamic proxy.
  * Created by Sui on 2016/10/25.
  */
 

@@ -41,7 +41,7 @@ public interface IRouter<P extends PureBaseRootPresenter> {
 
     enum RouterType {
         ACTIVITY,
-        FRAGMENT_ACTIVITY,
+        COMPACT_ACTIVITY,
         SUPPORT_FRAGMENT,
         FRAGMENT,
     }

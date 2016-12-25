@@ -15,7 +15,9 @@ import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.router.PureRootPresenter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 做最纯净的Activity二次封装
@@ -24,6 +26,7 @@ import java.util.List;
 
 public abstract class PureActivity<P extends PureRootPresenter> extends Activity implements IRouter<P> {
     private P mRootPresenter;
+    private final Set<PureFragment> mVisibleFragmentSet=new HashSet<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +56,6 @@ public abstract class PureActivity<P extends PureRootPresenter> extends Activity
         super.onStop();
         mRootPresenter.onStop();
     }
-
 
     @Override
     protected void onDestroy() {
@@ -101,9 +103,24 @@ public abstract class PureActivity<P extends PureRootPresenter> extends Activity
     }
 
     @Override
-    //TODO
     public void onBackPressed() {
-        super.onBackPressed();
+        boolean handled=false;
+        for (PureFragment visibleFragment:mVisibleFragmentSet){
+            if (visibleFragment.onBackPressed()){
+                handled=true;
+            }
+        }
+        if (!mRootPresenter.onBackPressed()&&!handled){
+            super.onBackPressed();
+        }
+    }
+
+    void addToVisibleSet(PureFragment pureFragment){
+        mVisibleFragmentSet.add(pureFragment);
+    }
+
+    void removeFromVisibleSet(PureFragment pureFragment){
+        mVisibleFragmentSet.remove(pureFragment);
     }
 
     public void clearFragmentBackStackImmediate(){

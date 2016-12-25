@@ -12,11 +12,6 @@ public abstract class PureCompactRootPresenter<VM extends BaseRootViewModule> ex
         super(viewModule);
     }
 
-    @Override
-    protected boolean requestSystemAlertPermissionBySelf(int requestCode) {
-        return false;
-    }
-
     protected boolean startActivityForResultBySelf(int requestCode) {
         return false;
     }

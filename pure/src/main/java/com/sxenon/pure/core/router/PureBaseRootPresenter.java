@@ -128,6 +128,10 @@ public abstract class PureBaseRootPresenter<VM extends BaseRootViewModule> exten
     }
     //LifeCycle end
 
+    public boolean onBackPressed(){
+        return false;
+    }
+
     //Permission start
     public boolean onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCommonPermissionsBySelf(requestCode)) {
@@ -156,7 +160,9 @@ public abstract class PureBaseRootPresenter<VM extends BaseRootViewModule> exten
     /**
      * @return Return true if the router request the system alert permission bySelf.otherwise false.
      */
-    protected abstract boolean requestSystemAlertPermissionBySelf(int requestCode);
+    protected boolean requestSystemAlertPermissionBySelf(int requestCode){
+        return false;
+    }
 
     /**
      * @return Return false, if the router is instance of FragmentActivity and its supportFragment start activity,otherwise true.

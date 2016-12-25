@@ -15,7 +15,9 @@ import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.core.router.IRouter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 做最纯净的Activity二次封装
@@ -24,6 +26,7 @@ import java.util.List;
 
 public abstract class PureCompactActivity<P extends PureCompactRootPresenter> extends AppCompatActivity implements IRouter<P> {
     private P mRootPresenter;
+    private final Set<PureSupportFragment> mVisibleFragmentSet=new HashSet<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,7 +90,7 @@ public abstract class PureCompactActivity<P extends PureCompactRootPresenter> ex
 
     @Override
     public RouterType getRouterType() {
-        return RouterType.FRAGMENT_ACTIVITY;
+        return RouterType.COMPACT_ACTIVITY;
     }
 
     @Override
@@ -106,10 +109,25 @@ public abstract class PureCompactActivity<P extends PureCompactRootPresenter> ex
         }
     }
 
+    void addToVisibleSet(PureSupportFragment pureSupportFragment){
+        mVisibleFragmentSet.add(pureSupportFragment);
+    }
+
+    void removeFromVisibleSet(PureSupportFragment pureSupportFragment){
+        mVisibleFragmentSet.remove(pureSupportFragment);
+    }
+
     @Override
-    //TODO
     public void onBackPressed() {
-        super.onBackPressed();
+        boolean handled=false;
+        for (PureSupportFragment visibleFragment:mVisibleFragmentSet){
+            if (visibleFragment.onBackPressed()){
+                handled=true;
+            }
+        }
+        if (!mRootPresenter.onBackPressed()&&!handled){
+            super.onBackPressed();
+        }
     }
 
     public void clearFragmentBackStackImmediate(){

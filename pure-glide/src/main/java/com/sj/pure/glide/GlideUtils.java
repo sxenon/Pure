@@ -15,7 +15,7 @@ public class GlideUtils {
     public static RequestManager with(IRouter router) {
         switch (router.getRouterType()) {
             case ACTIVITY:
-            case FRAGMENT_ACTIVITY:
+            case COMPACT_ACTIVITY:
                 return Glide.with((Activity) router);
             case FRAGMENT:
                 return Glide.with((Fragment) router);
