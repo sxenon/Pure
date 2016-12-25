@@ -16,7 +16,7 @@ import rx.functions.Action0;
 
 /**
  * * Include several {@link BasePresenter}，with its related {@link BaseViewModule}
- * Don`t use it directly,use PureRootPresenter instead.
+ * Don`t use it directly,use PureBaseRootPresenter instead.
  * Created by Sui on 2016/11/22.
  */
 
@@ -83,9 +83,9 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
         return mDestroyed;
     }
 
-    public abstract void requestCommonPermissions(@NonNull String[] permissions, int what, Action0 action);
+    public abstract void requestCommonPermissions(int requestCode, @NonNull String[] permissions, Action0 action);
 
-    public abstract void requestSystemAlertPermission(int what, Action0 action);
+    public abstract void requestSystemAlertPermission(int requestCode, Action0 action);
 
     public abstract List<Event> getEventForSave();
 

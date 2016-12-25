@@ -1,8 +1,7 @@
-package com.sxenon.pure.core.router.empty;
+package com.sxenon.pure.core.router;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
-import com.sxenon.pure.core.router.PureRootPresenter;
 
 import java.util.List;
 

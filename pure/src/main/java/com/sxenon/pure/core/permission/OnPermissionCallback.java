@@ -6,12 +6,12 @@ import rx.functions.Action0;
 
 public interface OnPermissionCallback {
 
-    void onPermissionGranted(@NonNull String[] permissions,Action0 action);
+    void onPermissionGranted(Action0 action);
 
-    void onPermissionDeclined(@NonNull String[] permissions,int permissionWhat);
+    void onPermissionDeclined(int requestCode, @NonNull String[] permissions);
 
-    void onPermissionReallyDeclined(@NonNull String[] permissions,int permissionWhat);
+    void onPermissionReallyDeclined(int requestCode, @NonNull String[] permissions);
 
-    boolean shouldPermissionExplainBeforeRequest(String[] permissions, int permissionWhat);
+    boolean shouldPermissionExplainBeforeRequest(int requestCode, String[] permissions);
 
 }

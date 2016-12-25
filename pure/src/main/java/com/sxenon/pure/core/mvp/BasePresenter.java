@@ -57,7 +57,7 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
     }
 
     public void requestCommonPermissionsForAction(@NonNull String[] permissions, int what, Action0 action){
-        mRootPresenter.requestCommonPermissions(permissions,what,action);
+        mRootPresenter.requestCommonPermissions(what, permissions, action);
     }
 
     public void requestSystemAlertPermissionForAction(int what, Action0 action){

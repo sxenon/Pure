@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Sui on 2016/11/20.
  */
 
-public interface IRouter<P extends PureRootPresenter> {
+public interface IRouter<P extends PureBaseRootPresenter> {
 
     void startActivity(Intent intent);
 
@@ -27,7 +27,7 @@ public interface IRouter<P extends PureRootPresenter> {
 
     Activity getActivityCompact();
 
-    void requestPermissionsCompact(@NonNull String[] permissions);
+    void requestPermissionsCompact(@NonNull String[] permissions, int requestCode);
 
     boolean shouldShowRequestPermissionRationale(String permission);
 
