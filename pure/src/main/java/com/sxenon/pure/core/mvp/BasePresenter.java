@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.binder.IViewBinder;
-import com.sxenon.pure.router.IRouter;
+import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
 import rx.functions.Action0;

@@ -2,8 +2,8 @@ package com.sj.pure.okhttp3;
 
 import android.util.Log;
 
-import com.sxenon.pure.result.IResultDispatcher;
-import com.sxenon.pure.protocol.websocket.IWebSocketClient;
+import com.sxenon.pure.core.result.IResultDispatcher;
+import com.sxenon.pure.core.protocol.websocket.IWebSocketClient;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

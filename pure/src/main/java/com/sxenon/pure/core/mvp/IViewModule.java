@@ -3,7 +3,7 @@ package com.sxenon.pure.core.mvp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.sxenon.pure.router.IRouter;
+import com.sxenon.pure.core.router.IRouter;
 
 /**
  * View for MVP,include common view and viewComponentGroup

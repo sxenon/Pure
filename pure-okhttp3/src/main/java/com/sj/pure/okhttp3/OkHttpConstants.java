@@ -1,6 +1,6 @@
 package com.sj.pure.okhttp3;
 
-import com.sxenon.pure.protocol.http.IHttpClient;
+import com.sxenon.pure.core.protocol.http.IHttpClient;
 
 import okhttp3.MediaType;
 

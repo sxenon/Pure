@@ -3,8 +3,8 @@ package com.sxenon.pure.core.mvp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.sxenon.pure.router.IRouter;
-import com.sxenon.pure.component.IViewComponentGroup;
+import com.sxenon.pure.core.router.IRouter;
+import com.sxenon.pure.core.component.IViewComponentGroup;
 
 /**
  * Include {@link android.view.View} & {@link IViewComponentGroup

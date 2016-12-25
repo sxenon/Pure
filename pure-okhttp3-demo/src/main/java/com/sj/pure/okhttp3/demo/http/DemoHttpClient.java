@@ -2,7 +2,7 @@ package com.sj.pure.okhttp3.demo.http;
 
 import com.sj.pure.okhttp3.PureHttpClient;
 import com.sj.pure.okhttp3.decorator.OkHttpClientDecorator;
-import com.sxenon.pure.util.Preconditions;
+import com.sxenon.pure.core.util.Preconditions;
 
 import java.io.IOException;
 

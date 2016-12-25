@@ -1,8 +1,8 @@
 package com.sj.pure.okhttp3;
 
-import com.sxenon.pure.result.IResultDispatcher;
-import com.sxenon.pure.protocol.http.IHttpClient;
-import com.sxenon.pure.util.Preconditions;
+import com.sxenon.pure.core.result.IResultDispatcher;
+import com.sxenon.pure.core.protocol.http.IHttpClient;
+import com.sxenon.pure.core.util.Preconditions;
 
 import java.io.File;
 import java.io.IOException;

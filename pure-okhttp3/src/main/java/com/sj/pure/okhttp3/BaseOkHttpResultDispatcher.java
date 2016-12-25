@@ -1,7 +1,7 @@
 package com.sj.pure.okhttp3;
 
-import com.sxenon.pure.result.BaseResultDispatcher;
-import com.sxenon.pure.result.IResultHandler;
+import com.sxenon.pure.core.result.BaseResultDispatcher;
+import com.sxenon.pure.core.result.IResultHandler;
 
 import java.lang.reflect.Type;
 

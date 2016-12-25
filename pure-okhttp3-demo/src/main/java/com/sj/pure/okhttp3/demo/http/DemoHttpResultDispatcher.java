@@ -3,7 +3,7 @@ package com.sj.pure.okhttp3.demo.http;
 import android.util.Log;
 
 import com.sj.pure.okhttp3.BaseOkHttpResultDispatcher;
-import com.sxenon.pure.result.IResultHandler;
+import com.sxenon.pure.core.result.IResultHandler;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

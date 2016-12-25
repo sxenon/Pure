@@ -4,7 +4,6 @@ import android.view.View;
 
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
-import com.sxenon.pure.router.IRouter;
 
 import rx.Subscription;
 import rx.functions.Action1;

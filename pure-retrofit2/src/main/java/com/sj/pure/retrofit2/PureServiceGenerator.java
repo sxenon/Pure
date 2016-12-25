@@ -1,7 +1,7 @@
 package com.sj.pure.retrofit2;
 
-import com.sxenon.pure.result.IResultDispatcher;
-import com.sxenon.pure.util.Preconditions;
+import com.sxenon.pure.core.result.IResultDispatcher;
+import com.sxenon.pure.core.util.Preconditions;
 
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;

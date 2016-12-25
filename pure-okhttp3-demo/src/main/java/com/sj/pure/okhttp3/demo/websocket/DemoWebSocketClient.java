@@ -2,7 +2,7 @@ package com.sj.pure.okhttp3.demo.websocket;
 
 import com.sj.pure.okhttp3.PureWebSocketClient;
 import com.sj.pure.okhttp3.decorator.OkHttpClientDecorator;
-import com.sxenon.pure.util.Preconditions;
+import com.sxenon.pure.core.util.Preconditions;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Response;

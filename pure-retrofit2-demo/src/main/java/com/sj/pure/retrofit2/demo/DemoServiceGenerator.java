@@ -3,7 +3,7 @@ package com.sj.pure.retrofit2.demo;
 import com.sj.pure.okhttp3.decorator.OkHttpClientDecorator;
 import com.sj.pure.retrofit2.PureServiceGenerator;
 import com.sj.pure.retrofit2.RetrofitDecorator;
-import com.sxenon.pure.util.Preconditions;
+import com.sxenon.pure.core.util.Preconditions;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;

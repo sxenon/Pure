@@ -2,8 +2,8 @@ package com.sj.pure.retrofit2.demo;
 
 import android.util.Log;
 
-import com.sxenon.pure.result.BaseResultDispatcher;
-import com.sxenon.pure.result.IResultHandler;
+import com.sxenon.pure.core.result.BaseResultDispatcher;
+import com.sxenon.pure.core.result.IResultHandler;
 
 import retrofit2.Call;
 import retrofit2.Response;
