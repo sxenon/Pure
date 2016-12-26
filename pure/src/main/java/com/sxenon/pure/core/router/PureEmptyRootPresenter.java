@@ -6,12 +6,12 @@ import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import java.util.List;
 
 /**
- * EmptyRootPresenter
+ * PureEmptyRootPresenter
  * Created by Sui on 2016/12/15.
  */
 
-public class EmptyRootPresenter extends PureRootPresenter<BaseRootViewModule> {
-    public EmptyRootPresenter(BaseRootViewModule viewModule) {
+public class PureEmptyRootPresenter extends PureRootPresenter<BaseRootViewModule> {
+    public PureEmptyRootPresenter(BaseRootViewModule viewModule) {
         super(viewModule);
     }
 

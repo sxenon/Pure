@@ -118,14 +118,14 @@ public abstract class PureCompactActivity<P extends PureCompactRootPresenter> ex
     }
 
     @Override
-    public void onBackPressed() {
+    public final void onBackPressed() {
         boolean handled=false;
         for (PureSupportFragment visibleFragment:mVisibleFragmentSet){
             if (visibleFragment.onBackPressed()){
                 handled=true;
             }
         }
-        if (!mRootPresenter.onBackPressed()&&!handled){
+        if (!handled&&!mRootPresenter.onBackPressed()){
             super.onBackPressed();
         }
     }

@@ -131,7 +131,7 @@ public abstract class PureSupportFragment<P extends PureRootPresenter> extends F
         mRootPresenter.onActivityResult(requestCode, resultCode, data);
     }
 
-    boolean onBackPressed() {
+    public final boolean onBackPressed() {
         return mRootPresenter.onBackPressed();
     }
 

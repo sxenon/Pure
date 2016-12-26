@@ -132,7 +132,7 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         mRootPresenter.onActivityResult(requestCode, resultCode, data);
     }
 
-    boolean onBackPressed() {
+    public final boolean onBackPressed() {
         return mRootPresenter.onBackPressed();
     }
 

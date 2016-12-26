@@ -103,14 +103,14 @@ public abstract class PureActivity<P extends PureRootPresenter> extends Activity
     }
 
     @Override
-    public void onBackPressed() {
+    public final void onBackPressed() {
         boolean handled=false;
         for (PureFragment visibleFragment:mVisibleFragmentSet){
             if (visibleFragment.onBackPressed()){
                 handled=true;
             }
         }
-        if (!mRootPresenter.onBackPressed()&&!handled){
+        if (!handled&&!mRootPresenter.onBackPressed()){
             super.onBackPressed();
         }
     }
