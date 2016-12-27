@@ -11,7 +11,7 @@ import rx.functions.Action1;
 /**
  * {@link ViewBinderImpl}
  * Dynamic Proxy
- * {@link BaseRootPresenter#getViewBinder()}} or {@link BasePresenter#getViewBinderForBinding()}
+ * {@link BaseRootPresenter#getViewBinder()}} or {@link BasePresenter#getRootViewBinder()}
  * Created by Sui on 2016/10/26.
  */
 

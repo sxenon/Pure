@@ -239,9 +239,9 @@ public abstract class PureAbsListAdapter<T> extends ArrayAdapter<T> implements I
             convertView= LayoutInflater.from(getContext()).inflate(itemViewTypeEntity.getResourceId(),null);
             Class<? extends PureAbsViewHolder> viewHolderClass=itemViewTypeEntity.getViewHolderClass();
             try {
-                Constructor<? extends PureAbsViewHolder> constructor=viewHolderClass.getConstructor(Integer.class);
-                viewHolder=constructor.newInstance(position);
-            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                Constructor<? extends PureAbsViewHolder> constructor=viewHolderClass.getConstructor(PureAbsListAdapter.class,Integer.class);
+                viewHolder=constructor.newInstance(PureAbsListAdapter.this,position);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             convertView.setTag(viewHolder);

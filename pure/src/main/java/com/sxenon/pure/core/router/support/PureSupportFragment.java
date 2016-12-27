@@ -25,7 +25,7 @@ import java.util.List;
 public abstract class PureSupportFragment<P extends PureRootPresenter> extends Fragment implements IRouter<P> {
     private List<Event> mSavedEventList;
     private P mRootPresenter;
-    private boolean mCreated;
+    private boolean mViewCreated;
     private boolean shouldInitRootPresenter;
     /**
      * 真正的对用户可见的状态！！！
@@ -39,7 +39,7 @@ public abstract class PureSupportFragment<P extends PureRootPresenter> extends F
         mRootPresenter = rootViewModule.getPresenter();
         //To replace "setArguments"
         RxBus.get().register(this);
-        mCreated = true;
+        mViewCreated = true;
     }
 
     @Override
@@ -73,19 +73,22 @@ public abstract class PureSupportFragment<P extends PureRootPresenter> extends F
         saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
         RxBus.get().unregister(this);
+        mViewCreated=false;
         shouldInitRootPresenter = true;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        mVisible = mCreated && isVisibleToUser;
+        mVisible = mViewCreated && isVisibleToUser;
         initRootPresenterIfNeeded();
         PureCompactActivity activity = (PureCompactActivity) getActivity();
         if (mVisible) {
             activity.addToVisibleSet(this);
         } else {
-            activity.removeFromVisibleSet(this);
+            if (activity!=null){
+                activity.removeFromVisibleSet(this);
+            }
         }
     }
 
