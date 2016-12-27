@@ -2,6 +2,7 @@ package com.sxenon.pure.core.global;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -11,6 +12,7 @@ import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.router.IRouter;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * 跳转路由
@@ -56,8 +58,30 @@ public class IntentManager {
         openSettingsScreen(router.getActivityCompact());
     }
 
+    public static Intent getSettingWireLessIntent() {
+        return new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
+    }
+
+    public static void openMarket(Context context) {
+        Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (isIntentAvailable(context, intent)) {
+            context.startActivity(intent);
+        }
+    }
+
+    public static void openMarket(IRouter router) {
+        openMarket(router.getActivityCompact());
+    }
+
+    public static boolean isIntentAvailable(Context context, Intent intent) {
+        List<ResolveInfo> resolves = context.getPackageManager().queryIntentActivities(intent, 0);
+        return resolves.size() > 0;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static void requestSystemAlertPermission(IRouter router, @SuppressWarnings("SameParameterValue") int requestCode) {
+    public static void requestSystemAlertPermission(IRouter router, int requestCode) {
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + router.getActivityCompact().getPackageName()));
         router.startActivityForResult(intent, requestCode);
     }

@@ -1,11 +1,13 @@
-package com.sxenon.pure.core.component.filler.pull;
+package com.sxenon.pure.core.component.filler.non;
+
+import com.sxenon.pure.core.component.filler.BasePullLayout;
 
 /**
- * Empty implement for IBasePullLayout
- * Created by Sui on 2016/12/12.
+ * Created by Sui on 2016/12/27.
  */
 
-public class BasePullLayout implements IBasePullLayout {
+public class NonPullLayout extends BasePullLayout {
+
     @Override
     public void beginRefreshing() {
 
@@ -28,11 +30,6 @@ public class BasePullLayout implements IBasePullLayout {
 
     @Override
     public void setVisibility(int visibility) {
-
-    }
-
-    @Override
-    public void setDelegate(PullDelegate delegate) {
 
     }
 }

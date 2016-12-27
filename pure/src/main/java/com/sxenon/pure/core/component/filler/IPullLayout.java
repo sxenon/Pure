@@ -1,11 +1,11 @@
-package com.sxenon.pure.core.component.filler.pull;
+package com.sxenon.pure.core.component.filler;
 
 /**
  * Layout for pull down or up
  * Created by Sui on 2016/12/11.
  */
 
-public interface IBasePullLayout {
+public interface IPullLayout {
     void beginRefreshing();
 
     void beginLoadingMore();
@@ -16,11 +16,10 @@ public interface IBasePullLayout {
 
     void setVisibility(int visibility);
 
-    void setDelegate(PullDelegate delegate);
-
-    interface PullDelegate {
-        void onBeginRefreshing();
+    interface Delegate {
+        boolean onBeginRefreshing();
 
         boolean onBeginLoadingMore();
     }
+
 }

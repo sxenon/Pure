@@ -11,7 +11,6 @@ import com.sxenon.pure.core.component.adapter.IPureAdapter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.List;
 

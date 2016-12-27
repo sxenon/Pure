@@ -9,8 +9,6 @@ import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.component.adapter.IPureAdapter;
 import com.sxenon.pure.core.router.IRouter;
-import com.sxenon.pure.core.component.filler.pull.BasePullLayout;
-import com.sxenon.pure.core.component.filler.pull.IBasePullLayout;
 import com.sxenon.pure.core.util.Preconditions;
 
 import java.util.List;
@@ -60,12 +58,14 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
         mAdapter = adapter;
         mSingleDataResult = singleDataResult;
         mIsRefreshForAdd = isFreshForAdd;
+
+        mPullLayout.bindFillerGroup(this);
     }
 
-    public void setBasePullDelegate(final IBasePullLayout.PullDelegate delegate) {
-        mPullLayout.setDelegate(new IBasePullLayout.PullDelegate() {
+    IPullLayout.Delegate processDelegate(final IPullLayout.Delegate delegate) {
+        return new IPullLayout.Delegate() {
             @Override
-            public void onBeginRefreshing() {
+            public boolean onBeginRefreshing() {
                 if (mCurrentPageCount == 0) {
                     beforeInitializing();
                 } else {
@@ -76,7 +76,7 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
                 } else {
                     tempPageCount = mCurrentPageCount;
                 }
-                delegate.onBeginRefreshing();
+                return delegate.onBeginRefreshing();
             }
 
             @Override
@@ -85,7 +85,7 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
                 tempPageCount = mCurrentPageCount + 1;
                 return delegate.onBeginLoadingMore();
             }
-        });
+        };
     }
 
     public void setMinorComponents(View emptyView, View exceptionView, View clickToRefreshView) {
@@ -197,7 +197,7 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
     protected void onNoNewData() {
 
     }
-    
+
     protected void onMoreDataFetched(List<R> data) {
         mAdapter.addItemsFromEnd(data);
     }
@@ -334,7 +334,7 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
         return mCurrentPageCount;
     }
 
-    public IRouter getRouter(){
+    public IRouter getRouter() {
         return mRouter;
     }
     //Getter end
