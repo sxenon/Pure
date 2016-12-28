@@ -15,6 +15,7 @@ import com.sxenon.pure.core.router.app.PureFragment;
 import com.sxenon.pure.core.router.support.PureCompactActivity;
 import com.sxenon.pure.core.router.support.PureCompactRootPresenter;
 import com.sxenon.pure.core.router.support.PureSupportFragment;
+import com.sxenon.pure.core.util.PureKeyboardUtil;
 import com.trello.rxlifecycle.LifecycleProvider;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.OutsideLifecycleException;
@@ -28,6 +29,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import rx.Observable;
 import rx.Subscription;
 import rx.functions.Action0;
@@ -128,7 +130,7 @@ public abstract class PureBaseRootPresenter<VM extends BaseRootViewModule> exten
     }
     //LifeCycle end
 
-    public boolean onBackPressed(){
+    public boolean onBackPressed() {
         return false;
     }
 
@@ -146,7 +148,7 @@ public abstract class PureBaseRootPresenter<VM extends BaseRootViewModule> exten
             permissionHelper.onRequestSystemAlertPermissionResult(resultCode);
         } else if (startActivityForResultBySelf(requestCode)) {
             handleActivityResult(requestCode, resultCode, data);
-        }else{
+        } else {
             return false;
         }
         return true;
@@ -160,7 +162,7 @@ public abstract class PureBaseRootPresenter<VM extends BaseRootViewModule> exten
     /**
      * @return Return true if the router request the system alert permission bySelf.otherwise false.
      */
-    protected boolean requestSystemAlertPermissionBySelf(int requestCode){
+    protected boolean requestSystemAlertPermissionBySelf(int requestCode) {
         return false;
     }
 
@@ -228,5 +230,11 @@ public abstract class PureBaseRootPresenter<VM extends BaseRootViewModule> exten
             }
         }
     }
+
+    @Override
+    public void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener) {
+        PureKeyboardUtil.attach(this, listener);
+    }
+
     //Binding end
 }

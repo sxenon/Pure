@@ -1,4 +1,4 @@
-package com.sj.pure.retrofit2.demo;
+package com.sj.pure.demo.retrofit2;
 
 import android.util.Log;
 

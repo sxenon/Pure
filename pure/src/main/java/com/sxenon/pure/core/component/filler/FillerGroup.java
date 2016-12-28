@@ -8,19 +8,17 @@ import android.view.View;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.component.adapter.IPureAdapter;
-import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.util.Preconditions;
 
 import java.util.List;
 
-import rx.functions.Action1;
 
 /**
  * Process single,list data together.
  * Created by Sui on 2016/12/8.
  */
 
-public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISingleDataFiller<R>, IListDataFiller<R>, IFetchSingleResultHandler<R>, IFetchListResultHandler<R> {
+public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleDataFiller<R>, IListDataFiller<R>, IFetchSingleResultHandler<R>, IFetchListResultHandler<R> {
     private int mCurrentPageCount;
     private int tempPageCount;
     private int eventWhat = EventWhat.WHAT_UNINITIALIZED;
@@ -32,76 +30,54 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
 
     private final PL mPullLayout;
     private final Context mContext;
-    private final IRouter mRouter;
     private final boolean mIsRefreshForAdd;
 
     private View mEmptyView;
     private View mExceptionView;
-    private View mClickToRefreshView;
 
-    public FillerGroup(IRouter router, PL pullLayout, IFetchSingleResultHandler<R> singleDataResult) {
-        this(router, pullLayout, null, singleDataResult, false);
+    public FillerGroup(Context context, PL pullLayout, IFetchSingleResultHandler<R> singleDataResult) {
+        this(context, pullLayout, null, singleDataResult, false);
     }
 
-    public FillerGroup(IRouter router, PL pullLayout, IPureAdapter<R> adapter) {
-        this(router, pullLayout, adapter, null, false);
+    public FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter) {
+        this(context, pullLayout, adapter, null, false);
     }
 
-    public FillerGroup(IRouter router, PL pullLayout, IPureAdapter<R> adapter, boolean isFreshForAdd) {
-        this(router, pullLayout, adapter, null, isFreshForAdd);
+    public FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, boolean isFreshForAdd) {
+        this(context, pullLayout, adapter, null, isFreshForAdd);
     }
 
-    private FillerGroup(IRouter router, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResult, boolean isFreshForAdd) {
-        mRouter = router;
-        mContext = router.getActivityCompact();
+    private FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResult, boolean isFreshForAdd) {
+        mContext = context;
         mPullLayout = pullLayout;
         mAdapter = adapter;
         mSingleDataResult = singleDataResult;
         mIsRefreshForAdd = isFreshForAdd;
-
-        mPullLayout.bindFillerGroup(this);
     }
 
-    IPullLayout.Delegate processDelegate(final IPullLayout.Delegate delegate) {
-        return new IPullLayout.Delegate() {
-            @Override
-            public boolean onBeginRefreshing() {
-                if (mCurrentPageCount == 0) {
-                    beforeInitializing();
-                } else {
-                    beforeRefreshing();
-                }
-                if (!mIsRefreshForAdd) {
-                    tempPageCount = 1;
-                } else {
-                    tempPageCount = mCurrentPageCount;
-                }
-                return delegate.onBeginRefreshing();
-            }
+    protected final void onBeginRefreshing() {
+        if (mCurrentPageCount == 0) {
+            beforeInitializing();
+        } else {
+            beforeRefreshing();
+        }
+        if (!mIsRefreshForAdd) {
+            tempPageCount = 1;
+        } else {
+            tempPageCount = mCurrentPageCount;
+        }
+    }
 
-            @Override
-            public boolean onBeginLoadingMore() {
-                beforeLoadingMore();
-                tempPageCount = mCurrentPageCount + 1;
-                return delegate.onBeginLoadingMore();
-            }
-        };
+    protected final void onBeginLoadingMore() {
+        beforeLoadingMore();
+        tempPageCount = mCurrentPageCount + 1;
     }
 
     public void setMinorComponents(View emptyView, View exceptionView, View clickToRefreshView) {
         mEmptyView = emptyView;
         mExceptionView = exceptionView;
-        mClickToRefreshView = clickToRefreshView;
 
         resetMinorComponents();
-        if (mClickToRefreshView != null) {
-            mRouter.getRootPresenter().getViewBinder().bindViewClickButEmitOnlyFirst(mClickToRefreshView, new Action1<Void>() {
-                @Override
-                public void call(Void aVoid) {
-                    beginRefreshing();
-                }
-            });
-        }
     }
 
     private void resetAllComponents() {
@@ -113,9 +89,6 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
     }
 
     private void resetMinorComponents() {
-        if (mClickToRefreshView != null) {
-            mClickToRefreshView.setVisibility(View.GONE);
-        }
         if (mEmptyView != null) {
             mEmptyView.setVisibility(View.GONE);
         }
@@ -289,9 +262,6 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
         if (mExceptionView != null) {
             mExceptionView.setVisibility(View.VISIBLE);
         }
-        if (mClickToRefreshView != null) {
-            mClickToRefreshView.setVisibility(View.VISIBLE);
-        }
         if (mSingleDataResult != null) {
             mSingleDataResult.onException(exception);
         }
@@ -322,10 +292,6 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
         return mExceptionView;
     }
 
-    public View getClickToRefreshView() {
-        return mClickToRefreshView;
-    }
-
     public View getEmptyView() {
         return mEmptyView;
     }
@@ -334,9 +300,6 @@ public abstract class FillerGroup<R, PL extends BasePullLayout> implements ISing
         return mCurrentPageCount;
     }
 
-    public IRouter getRouter() {
-        return mRouter;
-    }
     //Getter end
 
     //before start

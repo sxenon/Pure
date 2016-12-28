@@ -1,4 +1,4 @@
-package com.sj.pure.okhttp3.demo.websocket;
+package com.sj.pure.demo.okhttp3.websocket;
 
 import com.sj.pure.okhttp3.PureWebSocketClient;
 import com.sj.pure.okhttp3.decorator.OkHttpClientDecorator;

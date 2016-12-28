@@ -1,12 +1,12 @@
 package com.sxenon.pure.core.component.filler.non;
 
-import com.sxenon.pure.core.component.filler.BasePullLayout;
+import com.sxenon.pure.core.component.filler.IPullLayout;
 
 /**
  * Created by Sui on 2016/12/27.
  */
 
-public class NonPullLayout extends BasePullLayout {
+public class NonPullLayout implements IPullLayout {
 
     @Override
     public void beginRefreshing() {

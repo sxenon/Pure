@@ -1,4 +1,4 @@
-package com.sj.pure.retrofit2.demo;
+package com.sj.pure.demo.retrofit2;
 
 import com.sj.pure.retrofit2.RetrofitDecorator;
 import com.sj.pure.retrofit2.RetrofitUtils;

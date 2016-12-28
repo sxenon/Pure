@@ -16,10 +16,4 @@ public interface IPullLayout {
 
     void setVisibility(int visibility);
 
-    interface Delegate {
-        boolean onBeginRefreshing();
-
-        boolean onBeginLoadingMore();
-    }
-
 }

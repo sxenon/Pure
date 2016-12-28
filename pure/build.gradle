@@ -35,6 +35,7 @@ dependencies {
     //support
     compile 'com.android.support:appcompat-v7:'+supportVersion
     compile 'com.android.support:support-v13:'+supportVersion
+    compile 'com.android.support:recyclerview-v7:'+supportVersion
 
     //Debug
     compile 'com.facebook.stetho:stetho:1.4.1'
@@ -46,4 +47,7 @@ dependencies {
     compile 'com.trello:rxlifecycle:1.0'
     compile 'com.hwangjr.rxbus:rxbus:1.0.5'
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
+
+    //KeyBoard should always need!
+    compile 'cn.dreamtobe.kpswitch:library:1.6.0'
 }

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.sxenon.pure.core.util.PureKeyboardUtil;
 import com.sxenon.pure.core.util.Preconditions;
 
 import rx.functions.Action0;
@@ -22,18 +23,18 @@ import rx.functions.Func1;
 public class BaseSearchView implements ISearchView {
     private final EditText mEditText;
     private Action0 mOnCancel;
-    private Func1<CharSequence,Boolean> mSearchAction;
+    private Func1<CharSequence, Boolean> mSearchAction;
     private final View mCancelView;
 
-    public BaseSearchView(@NonNull EditText editText, @NonNull Func1<CharSequence,Boolean> searchAction) {
+    public BaseSearchView(@NonNull EditText editText, @NonNull Func1<CharSequence, Boolean> searchAction) {
         this(editText, searchAction, null, null);
     }
 
-    public BaseSearchView(@NonNull EditText editText, @NonNull Func1<CharSequence,Boolean> searchAction, @Nullable View cancelView, @Nullable Action0 onCancel) {
+    public BaseSearchView(@NonNull EditText editText, @NonNull Func1<CharSequence, Boolean> searchAction, @Nullable View cancelView, @Nullable Action0 onCancel) {
         mEditText = editText;
         mCancelView = cancelView;
-        setCancelAction(onCancel);
-        setSearchAction(searchAction);
+        mOnCancel = onCancel;
+        mSearchAction = searchAction;
 
         //IME_ACTION_SEARCH：work when
         mEditText.setInputType(EditorInfo.TYPE_CLASS_TEXT);//or android:singleLine="true" or android:inputType="text"
@@ -41,12 +42,7 @@ public class BaseSearchView implements ISearchView {
         mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    String keyword = mEditText.getText().toString();
-                    Preconditions.checkNotNull(mSearchAction, "");
-                    return  mSearchAction.call(keyword);
-                }
-                return false;
+                return actionId == EditorInfo.IME_ACTION_SEARCH && performSearch();
             }
         });
 
@@ -69,23 +65,26 @@ public class BaseSearchView implements ISearchView {
         return mCancelView;
     }
 
-    @Override
     public void setCancelAction(Action0 onCancel) {
         mOnCancel = onCancel;
     }
 
-    @Override
     public void setSearchAction(Func1<CharSequence, Boolean> searchAction) {
-        mSearchAction=searchAction;
+        mSearchAction = searchAction;
     }
 
     @Override
     public void setKeyword(CharSequence keyword) {
         mEditText.setText(keyword);
+        mEditText.getSelectionEnd();
         mEditText.setSelection(keyword.toString().length());
     }
 
-    public void performSearch(){
-        mSearchAction.call(mEditText.getText().toString());
+    public boolean performSearch() {
+        return Preconditions.checkNotNull(mSearchAction, "").call(mEditText.getText().toString());
+    }
+
+    public void hideKeyBoard() {
+        PureKeyboardUtil.hideKeyboard(mEditText);
     }
 }

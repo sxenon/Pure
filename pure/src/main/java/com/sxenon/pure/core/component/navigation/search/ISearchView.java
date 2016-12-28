@@ -12,9 +12,5 @@ import rx.functions.Func1;
  */
 
 public interface ISearchView extends IViewComponentGroup {
-    void setCancelAction(Action0 onCancel);
-
-    void setSearchAction(Func1<CharSequence, Boolean> searchAction);
-
     void setKeyword(CharSequence keyword);
 }

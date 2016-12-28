@@ -7,6 +7,7 @@ import com.sxenon.pure.core.binder.IViewBinder;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
+import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import rx.functions.Action0;
 
 /**
@@ -32,11 +33,7 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
     }
 
     public void bindRootPresenter(BaseRootPresenter rootPresenter){
-        if (mRootPresenter!=null){
-            mRootPresenter=rootPresenter;
-        }else {
-            throw new IllegalStateException("This presenter is a root presenter,or has already bind one");
-        }
+        mRootPresenter=rootPresenter;
     }
 
     @Override
@@ -56,12 +53,16 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
         return mRouter;
     }
 
-    public void requestCommonPermissionsViaRoot(@NonNull String[] permissions, int requestCode, Action0 action){
+    public void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action){
         mRootPresenter.requestCommonPermissions(requestCode, permissions, action);
     }
 
-    public void requestSystemAlertPermissionViaRoot(int requestCode, Action0 action){
+    public void requestSystemAlertPermission(int requestCode, Action0 action){
         mRootPresenter.requestSystemAlertPermission(requestCode, action);
+    }
+
+    public void registerOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener){
+        mRootPresenter.setOnKeyboardShowingListener(listener);
     }
 
     public IViewBinder getRootViewBinder(){

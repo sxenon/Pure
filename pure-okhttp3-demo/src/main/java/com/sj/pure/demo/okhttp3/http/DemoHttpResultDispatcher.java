@@ -1,4 +1,4 @@
-package com.sj.pure.okhttp3.demo.http;
+package com.sj.pure.demo.okhttp3.http;
 
 import android.util.Log;
 

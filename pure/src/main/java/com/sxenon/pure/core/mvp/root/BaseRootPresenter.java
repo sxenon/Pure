@@ -1,5 +1,6 @@
 package com.sxenon.pure.core.mvp.root;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.hwangjr.rxbus.RxBus;
@@ -9,9 +10,11 @@ import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.mvp.BaseViewModule;
 import com.sxenon.pure.core.mvp.ILifeCycle;
 import com.sxenon.pure.core.mvp.IPresenter;
+import com.sxenon.pure.core.router.IRouter;
 
 import java.util.List;
 
+import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import rx.functions.Action0;
 
 /**
@@ -20,7 +23,11 @@ import rx.functions.Action0;
  * Created by Sui on 2016/11/22.
  */
 
-public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends BasePresenter<VM> implements IPresenter<VM>, ILifeCycle {
+public abstract class BaseRootPresenter<VM extends BaseRootViewModule>  implements IPresenter<VM>, ILifeCycle {
+
+    private final VM mViewModule;
+    private final Context mContext;
+    private final IRouter mRouter;
 
     private boolean mResumed;
     private boolean mPaused;
@@ -28,11 +35,9 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
     private boolean mDestroyed;
 
     public BaseRootPresenter(VM viewModule) {
-        super(viewModule);
-    }
-
-    {
-        bindRootPresenter(this);
+        mViewModule = viewModule;
+        mContext=mViewModule.getContext();
+        mRouter=mViewModule.getRouter();
     }
 
     @Override
@@ -67,6 +72,28 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
         RxBus.get().unregister(this);
     }
 
+    @Override
+    public VM getViewModule() {
+        return mViewModule;
+    }
+
+    @NonNull
+    @Override
+    public Context getContext() {
+        return mContext;
+    }
+
+    @NonNull
+    @Override
+    public IRouter getRouter() {
+        return mRouter;
+    }
+
+    @Override
+    public BaseRootPresenter getRootPresenter() {
+        return this;
+    }
+
     public boolean isResumed() {
         return mResumed;
     }
@@ -90,4 +117,6 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
     public abstract List<Event> getEventForSave();
 
     public abstract IViewBinder getViewBinder();
+
+    public abstract void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener);
 }

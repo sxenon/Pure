@@ -11,7 +11,7 @@ import com.sxenon.pure.core.component.IViewComponentGroup;
  * Created by Sui on 2016/11/22.
  */
 
-public abstract class BaseViewModule<P extends BasePresenter> implements IViewModule<P> {
+public abstract class BaseViewModule<P extends IPresenter> implements IViewModule<P> {
     private final P mPresenter;
     private final Context mContext;
     private final IRouter mRouter;
