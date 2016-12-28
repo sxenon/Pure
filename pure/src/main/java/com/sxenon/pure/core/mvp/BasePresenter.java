@@ -61,7 +61,7 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
         mRootPresenter.requestSystemAlertPermission(requestCode, action);
     }
 
-    public void registerOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener){
+    public void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener){
         mRootPresenter.setOnKeyboardShowingListener(listener);
     }
 

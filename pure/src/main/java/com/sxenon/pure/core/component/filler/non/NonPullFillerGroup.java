@@ -1,9 +1,10 @@
 package com.sxenon.pure.core.component.filler.non;
 
+import android.content.Context;
+
 import com.sxenon.pure.core.component.adapter.IPureAdapter;
 import com.sxenon.pure.core.component.filler.FillerGroup;
 import com.sxenon.pure.core.component.filler.IFetchSingleResultHandler;
-import com.sxenon.pure.core.router.IRouter;
 
 /**
  * UnSupport pull!
@@ -11,11 +12,11 @@ import com.sxenon.pure.core.router.IRouter;
  */
 
 public class NonPullFillerGroup<T> extends FillerGroup<T, NonPullLayout> {
-    public NonPullFillerGroup(IRouter router, IFetchSingleResultHandler<T> singleDataResult) {
-        super(router, new NonPullLayout(), singleDataResult);
+    public NonPullFillerGroup(Context context, IFetchSingleResultHandler<T> singleDataResult) {
+        super(context, new NonPullLayout(), singleDataResult);
     }
 
-    public NonPullFillerGroup(IRouter router, IPureAdapter<T> adapter) {
-        super(router, new NonPullLayout(), adapter);
+    public NonPullFillerGroup(Context context, IPureAdapter<T> adapter) {
+        super(context, new NonPullLayout(), adapter);
     }
 }
