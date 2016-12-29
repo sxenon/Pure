@@ -27,7 +27,7 @@ public abstract class PureAbsListAdapter<T> extends ArrayAdapter<T> implements I
     private final List<PureAbsListItemViewTypeEntity> mItemViewTypeEntryList;
 
     public PureAbsListAdapter(Context context, int resource,@NonNull List<PureAbsListItemViewTypeEntity> itemViewTypeEntryList) {
-        super(context, resource);
+        super(context.getApplicationContext(), resource);
         mItemViewTypeEntryList=itemViewTypeEntryList;
     }
 
@@ -76,26 +76,26 @@ public abstract class PureAbsListAdapter<T> extends ArrayAdapter<T> implements I
 
     @Override
     public void addItemFromEnd(T value) {
-        addItem(value,getItemCount());
+        addItem(getItemCount(), value);
     }
 
     @Override
     public void addItemFromStart(T value) {
-        addItem(value, 0);
+        addItem(0, value);
     }
 
     @Override
     public void addItemsFromStart(List<T> values) {
-        addItems(values, 0);
+        addItems(0, values);
     }
 
     @Override
     public void addItemsFromEnd(List<T> values) {
-        addItems(values, getItemCount());
+        addItems(getItemCount(), values);
     }
 
     @Override
-    public void addItem(T value, int position) {
+    public void addItem(int position, T value) {
         if (position < 0 || position > getCount() || value == null) {
             return;
         }
@@ -103,7 +103,7 @@ public abstract class PureAbsListAdapter<T> extends ArrayAdapter<T> implements I
     }
 
     @Override
-    public void addItems(List<T> values, int position) {
+    public void addItems(int position, List<T> values) {
         if (position < 0 || position > getCount() || values == null) {
             return;
         }

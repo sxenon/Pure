@@ -10,4 +10,6 @@ import com.sxenon.pure.core.component.IViewComponentGroup;
 
 public interface ISearchView extends IViewComponentGroup {
     void setKeyword(CharSequence keyword);
+
+    boolean performSearch();
 }

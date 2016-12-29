@@ -18,9 +18,9 @@ public interface IPureAdapter<T> {
 
     void addItemsFromEnd(List<T> values);
 
-    void addItem(T value, int position);
+    void addItem(int position, T value);
 
-    void addItems(List<T> values, int position);
+    void addItems(int position, List<T> values);
 
     void removeItems(List<T> values);
 

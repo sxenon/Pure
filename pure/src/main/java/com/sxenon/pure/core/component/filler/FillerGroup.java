@@ -8,6 +8,7 @@ import android.view.View;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.component.adapter.IPureAdapter;
+import com.sxenon.pure.core.util.CommonUtils;
 import com.sxenon.pure.core.util.Preconditions;
 
 import java.util.List;
@@ -77,24 +78,15 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
         mEmptyView = emptyView;
         mExceptionView = exceptionView;
 
-        resetMinorComponents();
+        CommonUtils.setViewVisibility(mEmptyView, View.GONE);
+        CommonUtils.setViewVisibility(mExceptionView, View.GONE);
     }
 
-    private void resetAllComponents() {
+    public void resetPageCount() {
         if (mAdapter != null) {
             mAdapter.clearAllItems();
         }
         mCurrentPageCount = tempPageCount = 0;
-        resetMinorComponents();
-    }
-
-    private void resetMinorComponents() {
-        if (mEmptyView != null) {
-            mEmptyView.setVisibility(View.GONE);
-        }
-        if (mExceptionView != null) {
-            mExceptionView.setVisibility(View.GONE);
-        }
     }
 
     public Event getCurrentEvent() {
@@ -186,10 +178,8 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
     @Override
     public void onEmpty() {
         eventWhat = EventWhat.WHAT_EMPTY;
-        resetAllComponents();
-        if (mEmptyView != null) {
-            mEmptyView.setVisibility(View.VISIBLE);
-        }
+        CommonUtils.setViewVisibility(mExceptionView, View.GONE);
+        CommonUtils.setViewVisibility(mEmptyView, View.VISIBLE);
     }
 
     @Override
@@ -202,8 +192,8 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
         } else {
             eventWhat = EventWhat.WHAT_NORMAL;
             mCurrentPageCount = tempPageCount = 1;
-            onDataFetched();
-            resetMinorComponents();
+            CommonUtils.setViewVisibility(mEmptyView, View.GONE);
+            CommonUtils.setViewVisibility(mExceptionView, View.GONE);
             mSingleDataResult.onSingleDataFetched(data);
         }
     }
@@ -211,8 +201,8 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
     @Override
     public void onListDataFetched(List<R> data) {
         eventWhat = EventWhat.WHAT_NORMAL;
-        resetMinorComponents();
-        onDataFetched();
+        CommonUtils.setViewVisibility(mEmptyView, View.GONE);
+        CommonUtils.setViewVisibility(mExceptionView, View.GONE);
         Preconditions.checkNotNull(mAdapter, "list data but no adapter!");
         endAllAnim();
         if (data == null || data.isEmpty()) {
@@ -258,10 +248,9 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
         eventWhat = EventWhat.WHAT_EXCEPTION;
         mException = exception;
         endAllAnim();
-        resetAllComponents();
-        if (mExceptionView != null) {
-            mExceptionView.setVisibility(View.VISIBLE);
-        }
+        resetPageCount();
+        CommonUtils.setViewVisibility(mEmptyView, View.GONE);
+        CommonUtils.setViewVisibility(mExceptionView, View.VISIBLE);
         if (mSingleDataResult != null) {
             mSingleDataResult.onException(exception);
         }
@@ -317,9 +306,6 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
     //before end
 
     //after start
-    protected void onDataFetched() {
-
-    }
 
     //after end
     public class EventWhat {

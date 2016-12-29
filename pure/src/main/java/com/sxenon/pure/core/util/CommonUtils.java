@@ -2,6 +2,7 @@ package com.sxenon.pure.core.util;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.view.View;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Created by Sui on 2016/12/24.
  */
 
-public class AppUtils {
+public class CommonUtils {
 
     public static boolean isAppOnForeground(Context context) {
         // Returns a list of application processes that are running on the
@@ -27,5 +28,11 @@ public class AppUtils {
             }
         }
         return false;
+    }
+
+    public static void setViewVisibility(View view,int visibility){
+        if (view!=null){
+            view.setVisibility(visibility);
+        }
     }
 }
