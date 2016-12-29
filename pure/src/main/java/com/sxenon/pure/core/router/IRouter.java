@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Sui on 2016/11/20.
  */
 
-public interface IRouter<P extends PureBaseRootPresenter> {
+public interface IRouter<P extends PureRootPresenter> {
 
     void startActivity(Intent intent);
 

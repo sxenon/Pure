@@ -104,9 +104,12 @@ public class PermissionHelper {
 
     /**
      * used only for {@link android.Manifest.permission#SYSTEM_ALERT_WINDOW}
+     *
+     * @return Return true if isSystemAlertGranted already;
      */
     @TargetApi(Build.VERSION_CODES.M)
-    public void requestSystemAlertPermission(int what, Action0 action) {
+    public boolean showSystemAlertAtOnce(int what, Action0 action) {
+        boolean actionAtOnce = false;
         if (!PermissionCompat.isSystemAlertGranted(router)) {
             Event event = new Event();
             event.what = what;
@@ -115,7 +118,9 @@ public class PermissionHelper {
             IntentManager.requestSystemAlertPermission(router, what);
         } else {
             action.call();
+            actionAtOnce = true;
         }
+        return actionAtOnce;
     }
 
     /**
@@ -123,7 +128,7 @@ public class PermissionHelper {
      */
     private void internalRequest(int requestCode, @NonNull String[] permissions) {
         if (Arrays.binarySearch(permissions, Manifest.permission.SYSTEM_ALERT_WINDOW) >= 0) {
-            throw new IllegalArgumentException("Please Call requestSystemAlertPermission() for SYSTEM_ALERT_WINDOW!");
+            throw new IllegalArgumentException("Please Call showSystemAlertAtOnce() for SYSTEM_ALERT_WINDOW!");
         }
         router.requestPermissionsCompact(permissions, requestCode);
     }

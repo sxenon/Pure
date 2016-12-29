@@ -9,7 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.sxenon.pure.core.router.PureBaseRootPresenter;
+import com.sxenon.pure.core.router.PureRootPresenter;
 import com.sxenon.pure.core.router.RouterEvent;
 
 import cn.dreamtobe.kpswitch.IPanelHeightTarget;
@@ -56,7 +56,7 @@ public class PureKeyboardUtil {
     }
 
     //TODO RxLifeCycle 是否是正确的打开方式
-    public static void attach(PureBaseRootPresenter rootPresenter, IPanelHeightTarget target, KeyboardUtil.OnKeyboardShowingListener listener) {
+    public static void attach(PureRootPresenter rootPresenter, IPanelHeightTarget target, KeyboardUtil.OnKeyboardShowingListener listener) {
         final Activity activity = rootPresenter.getRouter().getActivityCompact();
         final ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = KeyboardUtil.attach(activity, target, listener);
         //noinspection unchecked
@@ -71,11 +71,11 @@ public class PureKeyboardUtil {
                 .subscribe();
     }
 
-    public static void attach(PureBaseRootPresenter rootPresenter, IPanelHeightTarget target) {
+    public static void attach(PureRootPresenter rootPresenter, IPanelHeightTarget target) {
         attach(rootPresenter, target, null);
     }
 
-    public static void attach(PureBaseRootPresenter rootPresenter, KeyboardUtil.OnKeyboardShowingListener listener) {
+    public static void attach(PureRootPresenter rootPresenter, KeyboardUtil.OnKeyboardShowingListener listener) {
         attach(rootPresenter, new IPanelHeightTarget() {
             @Override
             public void refreshHeight(int panelHeight) {

@@ -19,7 +19,7 @@ import rx.functions.Action0;
 
 /**
  * * Include several {@link BasePresenter}，with its related {@link BaseViewModule}
- * Don`t use it directly,use PureBaseRootPresenter instead.
+ * Don`t use it directly,use PureRootPresenter instead.
  * Created by Sui on 2016/11/22.
  */
 
