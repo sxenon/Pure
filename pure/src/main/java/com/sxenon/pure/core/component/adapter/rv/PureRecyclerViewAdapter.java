@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sxenon.pure.core.component.adapter.IPureAdapter;
+import com.sxenon.pure.core.mvp.IViewModule;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -18,14 +19,16 @@ import java.util.List;
 
 public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<PureRecyclerViewHolder> implements IPureAdapter<T> {
     private final List<PureRecyclerViewItemViewTypeEntity> mItemViewTypeEntryList;
+    private final IViewModule mViewHolder;
     private final Object mLock = new Object();
     private List<T> mData = new ArrayList<>();
 
     /**
      * @param itemViewTypeEntryList {@link #onCreateViewHolder(ViewGroup, int)} int相对应
      */
-    public PureRecyclerViewAdapter(List<PureRecyclerViewItemViewTypeEntity> itemViewTypeEntryList) {
+    public PureRecyclerViewAdapter(IViewModule viewHolder,List<PureRecyclerViewItemViewTypeEntity> itemViewTypeEntryList) {
         mItemViewTypeEntryList = itemViewTypeEntryList;
+        mViewHolder=viewHolder;
     }
 
     @Override
@@ -183,8 +186,8 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
         View itemView = LayoutInflater.from(parent.getContext()).inflate(resourceId, null);
         Class<? extends PureRecyclerViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
         try {
-            Constructor<? extends PureRecyclerViewHolder> constructor = viewHolderClass.getConstructor(View.class, PureRecyclerViewAdapter.class);
-            viewHolder = constructor.newInstance(itemView, PureRecyclerViewAdapter.this);
+            Constructor<? extends PureRecyclerViewHolder> constructor = viewHolderClass.getConstructor(IViewModule.class,View.class, PureRecyclerViewAdapter.class);
+            viewHolder = constructor.newInstance(mViewHolder,itemView, PureRecyclerViewAdapter.this);
         } catch (Exception e) {
             e.printStackTrace();
         }

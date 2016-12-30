@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 
 import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.binder.IViewBinder;
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.mvp.BaseViewModule;
 import com.sxenon.pure.core.mvp.ILifeCycle;
@@ -14,16 +13,13 @@ import com.sxenon.pure.core.router.IRouter;
 
 import java.util.List;
 
-import cn.dreamtobe.kpswitch.util.KeyboardUtil;
-import rx.functions.Action0;
-
 /**
  * * Include several {@link BasePresenter}，with its related {@link BaseViewModule}
  * Don`t use it directly,use PureRootPresenter instead.
  * Created by Sui on 2016/11/22.
  */
 
-public abstract class BaseRootPresenter<VM extends BaseRootViewModule>  implements IPresenter<VM>, ILifeCycle {
+public abstract class BaseRootPresenter<VM extends BaseRootViewModule> implements IPresenter<VM>, ILifeCycle {
 
     private final VM mViewModule;
     private final Context mContext;
@@ -36,8 +32,8 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule>  implemen
 
     public BaseRootPresenter(VM viewModule) {
         mViewModule = viewModule;
-        mContext=mViewModule.getContext();
-        mRouter=mViewModule.getRouter();
+        mContext = mViewModule.getContext();
+        mRouter = mViewModule.getRouter();
     }
 
     @Override
@@ -110,13 +106,6 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule>  implemen
         return mDestroyed;
     }
 
-    public abstract void requestCommonPermissions(int requestCode, @NonNull String[] permissions, Action0 action);
-
-    public abstract void requestSystemAlertPermission(int requestCode, Action0 action);
-
     public abstract List<Event> getEventForSave();
 
-    public abstract IViewBinder getViewBinder();
-
-    public abstract void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener);
 }

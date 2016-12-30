@@ -1,6 +1,5 @@
 package com.sxenon.pure.core.component.adapter.abs;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.sxenon.pure.core.component.adapter.IPureAdapter;
+import com.sxenon.pure.core.mvp.IViewModule;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -25,20 +25,24 @@ public abstract class PureAbsListAdapter<T> extends ArrayAdapter<T> implements I
     private final Field mObjectsField;
     private final Field mNotifyOnChangeField;
     private final List<PureAbsListItemViewTypeEntity> mItemViewTypeEntryList;
+    private final IViewModule mViewHolder;
 
-    public PureAbsListAdapter(Context context, int resource,@NonNull List<PureAbsListItemViewTypeEntity> itemViewTypeEntryList) {
-        super(context.getApplicationContext(), resource);
+    public PureAbsListAdapter(IViewModule viewHolder, int resource,@NonNull List<PureAbsListItemViewTypeEntity> itemViewTypeEntryList) {
+        super(viewHolder.getContext(),resource);
         mItemViewTypeEntryList=itemViewTypeEntryList;
+        mViewHolder=viewHolder;
     }
 
-    public PureAbsListAdapter(Context context, int resource, T[] objects,@NonNull List<PureAbsListItemViewTypeEntity> itemViewTypeEntryList) {
-        super(context, resource, objects);
+    public PureAbsListAdapter(IViewModule viewHolder, int resource, T[] objects,@NonNull List<PureAbsListItemViewTypeEntity> itemViewTypeEntryList) {
+        super(viewHolder.getContext(), resource, objects);
         mItemViewTypeEntryList=itemViewTypeEntryList;
+        mViewHolder=viewHolder;
     }
 
-    public PureAbsListAdapter(Context context, int resource, List<T> objects,@NonNull List<PureAbsListItemViewTypeEntity> itemViewTypeEntryList) {
-        super(context, resource, objects);
+    public PureAbsListAdapter(IViewModule viewHolder, int resource, List<T> objects,@NonNull List<PureAbsListItemViewTypeEntity> itemViewTypeEntryList) {
+        super(viewHolder.getContext(), resource, objects);
         mItemViewTypeEntryList=itemViewTypeEntryList;
+        mViewHolder=viewHolder;
     }
 
     {
@@ -238,8 +242,8 @@ public abstract class PureAbsListAdapter<T> extends ArrayAdapter<T> implements I
             convertView= LayoutInflater.from(getContext()).inflate(itemViewTypeEntity.getResourceId(),null);
             Class<? extends PureAbsViewHolder> viewHolderClass=itemViewTypeEntity.getViewHolderClass();
             try {
-                Constructor<? extends PureAbsViewHolder> constructor=viewHolderClass.getConstructor(PureAbsListAdapter.class,Integer.class);
-                viewHolder=constructor.newInstance(PureAbsListAdapter.this,position);
+                Constructor<? extends PureAbsViewHolder> constructor=viewHolderClass.getConstructor(IViewModule.class,PureAbsListAdapter.class,Integer.class);
+                viewHolder=constructor.newInstance(mViewHolder,PureAbsListAdapter.this,position);
             } catch (Exception e) {
                 e.printStackTrace();
             }

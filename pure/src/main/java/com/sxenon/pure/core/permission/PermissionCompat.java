@@ -82,7 +82,7 @@ public class PermissionCompat {
     /**
      * @return true if the permission is patently denied by the user and only can be granted via settings Screen
      * <p/>
-     * consider using {@link IntentManager#openSettingsScreen(Context)} to open settings screen
+     * consider using {@link IntentManager#getOpenSettingsScreen(Context)} to open settings screen
      */
     public static boolean isPermissionPermanentlyDenied(@NonNull IRouter router, @NonNull String permission) {
         return isPermissionDeclined(router, permission) && !isExplanationNeeded(router, permission);

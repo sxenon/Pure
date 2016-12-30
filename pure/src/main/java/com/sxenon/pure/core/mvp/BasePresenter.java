@@ -23,8 +23,8 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
 
     public BasePresenter(VM viewModule) {
         mViewModule = viewModule;
-        mContext=mViewModule.getContext();
-        mRouter=mViewModule.getRouter();
+        mContext = mViewModule.getContext();
+        mRouter = mViewModule.getRouter();
     }
 
     @Override
@@ -32,8 +32,8 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
         return mRootPresenter;
     }
 
-    public void bindRootPresenter(BaseRootPresenter rootPresenter){
-        mRootPresenter=rootPresenter;
+    public void bindRootPresenter(BaseRootPresenter rootPresenter) {
+        mRootPresenter = rootPresenter;
     }
 
     @Override
@@ -53,19 +53,19 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
         return mRouter;
     }
 
-    public void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action){
-        mRootPresenter.requestCommonPermissions(requestCode, permissions, action);
+    public void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action) {
+        mRootPresenter.requestCommonPermissions(permissions, requestCode, action);
     }
 
-    public void requestSystemAlertPermission(int requestCode, Action0 action){
+    public void requestSystemAlertPermission(int requestCode, Action0 action) {
         mRootPresenter.requestSystemAlertPermission(requestCode, action);
     }
 
-    public void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener){
+    public void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener) {
         mRootPresenter.setOnKeyboardShowingListener(listener);
     }
 
-    public IViewBinder getRootViewBinder(){
+    public IViewBinder getViewBinder() {
         return mRootPresenter.getViewBinder();
     }
 }

@@ -2,15 +2,11 @@ package com.sxenon.pure.core.binder;
 
 import android.view.View;
 
-import com.sxenon.pure.core.mvp.BasePresenter;
-import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
-
 import rx.Observable;
 
 /**
  * {@link ViewBinderImpl}
  * Dynamic Proxy
- * {@link BaseRootPresenter#getViewBinder()}} or {@link BasePresenter#getRootViewBinder()}
  * Created by Sui on 2016/10/26.
  */
 

@@ -1,7 +1,7 @@
 package com.sxenon.pure.core.component.adapter.abs;
 
 import com.sxenon.pure.core.component.adapter.IPureViewHolder;
-import com.sxenon.pure.core.router.IRouter;
+import com.sxenon.pure.core.mvp.IViewModule;
 
 /**
  * Created by Sui on 2016/12/25.
@@ -10,12 +10,12 @@ import com.sxenon.pure.core.router.IRouter;
 public abstract class PureAbsViewHolder<T> implements IPureViewHolder<T> {
     private final int position;
     private final PureAbsListAdapter adapter;
-    private final IRouter router;
+    private final IViewModule viewModule;
 
-    public PureAbsViewHolder(PureAbsListAdapter adapter,int position){
+    public PureAbsViewHolder(IViewModule viewModule,PureAbsListAdapter adapter, int position){
         this.position=position;
         this.adapter=adapter;
-        router= (IRouter) this.adapter.getContext();
+        this.viewModule=viewModule;
     }
 
     @Override
@@ -28,7 +28,7 @@ public abstract class PureAbsViewHolder<T> implements IPureViewHolder<T> {
         return adapter;
     }
 
-    public IRouter getRouter(){
-        return router;
+    public IViewModule getViewModule() {
+        return viewModule;
     }
 }

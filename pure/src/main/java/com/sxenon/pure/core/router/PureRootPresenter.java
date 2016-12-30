@@ -132,9 +132,9 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
 
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (isRequestingSystemAlertPermission){
+        if (isRequestingSystemAlertPermission) {
             permissionHelper.onRequestSystemAlertPermissionResult(resultCode);
-            isRequestingSystemAlertPermission =false;
+            isRequestingSystemAlertPermission = false;
         } else if (startActivityForResultBySelf(requestCode)) {
             handleActivityResult(requestCode, resultCode, data);
         } else {
@@ -161,12 +161,12 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
 
     @Override
-    public void requestCommonPermissions(int requestCode, @NonNull String[] permissions, Action0 action) {
+    public void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action) {
         permissionHelper.requestCommonPermissions(permissions, requestCode, action);
     }
 
     public void requestSystemAlertPermission(int requestCode, Action0 action) {
-        isRequestingSystemAlertPermission =!permissionHelper.showSystemAlertAtOnce(requestCode, action);
+        isRequestingSystemAlertPermission = !permissionHelper.showSystemAlertAtOnce(requestCode, action);
     }
 
     public boolean shouldPermissionExplainBeforeRequest(int requestCode, String[] permissions) {
@@ -200,7 +200,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
             mViewBinder = (IViewBinder) Proxy.newProxyInstance(viewBinder.getClass().getClassLoader(), viewBinder.getClass().getInterfaces(), new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                    Observable observable= (Observable) method.invoke(viewBinder,args);
+                    Observable observable = (Observable) method.invoke(viewBinder, args);
                     //noinspection unchecked
                     return observable.compose(bindUntilEvent(RouterEvent.DESTROY));
                 }

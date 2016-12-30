@@ -1,6 +1,6 @@
 package com.sxenon.pure.core.component.adapter;
 
-import com.sxenon.pure.core.router.IRouter;
+import com.sxenon.pure.core.mvp.IViewModule;
 
 /**
  * Created by Sui on 2016/12/25.
@@ -11,7 +11,7 @@ public interface IPureViewHolder<T> {
 
     void fillViewByData(T data);
 
-    IRouter getRouter();
-
     <A extends IPureAdapter> A getAdapter();
+
+    IViewModule getViewModule();
 }
