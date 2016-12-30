@@ -5,8 +5,7 @@ import android.view.View;
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
-import rx.Subscription;
-import rx.functions.Action1;
+import rx.Observable;
 
 /**
  * {@link ViewBinderImpl}
@@ -21,17 +20,15 @@ public interface IViewBinder {
      * 在默认的间隔内只执行第一次
      *
      * @param view   被点击的view
-     * @param onNext action
      */
-    Subscription bindViewClickButEmitOnlyFirst(View view, final Action1<? super Void> onNext);
+    Observable<Void> bindViewClickButEmitOnlyFirstInDuration(View view);
 
     /**
      * 在指定的间隔内只执行第一次
      *
      * @param view     被点击的view
-     * @param onNext   action
      * @param duration 指定的间隔时间 单位ms
      */
-    Subscription bindViewClickButEmitOnlyFirstInDuration(View view, Action1<? super Void> onNext, int duration);
+    Observable<Void> bindViewClickButEmitOnlyFirstInDuration(View view,int duration);
 
 }

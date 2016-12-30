@@ -43,7 +43,7 @@ public class PureKeyboardUtil {
      * 2、当前布局必须已经完成加载，如果还未绘制完成，则showSoftInput()方法不起作用，比方说在Activity的onCreate()，onResume()，onAttachedToWindow()中
      */
     public static void showKeyboard(final View view) {
-       KeyboardUtil.showKeyboard(view);
+        KeyboardUtil.showKeyboard(view);
     }
 
     public static void hideKeyboard(final View view) {
@@ -60,7 +60,7 @@ public class PureKeyboardUtil {
         final Activity activity = rootPresenter.getRouter().getActivityCompact();
         final ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = KeyboardUtil.attach(activity, target, listener);
         //noinspection unchecked
-        Observable.just(onGlobalLayoutListener)
+        Observable.empty()
                 .doOnUnsubscribe(new Action0() {
                     @Override
                     public void call() {

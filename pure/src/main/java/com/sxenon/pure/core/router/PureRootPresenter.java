@@ -19,14 +19,12 @@ import com.trello.rxlifecycle.RxLifecycle;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import rx.Observable;
-import rx.Subscription;
 import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
@@ -39,7 +37,6 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
 
     private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
-    private final List<Subscription> subscriptions = new ArrayList<>();
     private IViewBinder mViewBinder;
     private boolean isRequestingSystemAlertPermission;
     private final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
@@ -118,7 +115,6 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     public void onDestroy() {
         super.onDestroy();
         lifecycleSubject.onNext(RouterEvent.DESTROY);
-        unSubscribeSubscription();
     }
     //LifeCycle end
 
@@ -204,21 +200,13 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
             mViewBinder = (IViewBinder) Proxy.newProxyInstance(viewBinder.getClass().getClassLoader(), viewBinder.getClass().getInterfaces(), new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                    Subscription subscription = (Subscription) method.invoke(viewBinder, args);
-                    subscriptions.add(subscription);
-                    return subscription;
+                    Observable observable= (Observable) method.invoke(viewBinder,args);
+                    //noinspection unchecked
+                    return observable.compose(bindUntilEvent(RouterEvent.DESTROY));
                 }
             });
         }
         return mViewBinder;
-    }
-
-    private void unSubscribeSubscription() {
-        for (Subscription subscription : subscriptions) {
-            if (!subscription.isUnsubscribed()) {
-                subscription.unsubscribe();
-            }
-        }
     }
 
     @Override

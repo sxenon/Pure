@@ -22,6 +22,8 @@ import java.util.List;
  * 以及Event本身和相对应的Tag，统一在一个路由里面处理
  * <p>
  * 可以把一些系统跳转放在这里
+ *
+ * startActivity by context is different from startActivity by router
  * Created by Sui on 2016/11/24.
  */
 
@@ -46,33 +48,23 @@ public class IntentManager {
         return intent;
     }
 
-    public static void openSettingsScreen(Context context) {
+    public static Intent getOpenSettingsScreen(Context context) {
         Intent intent = new Intent();
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         Uri uri = Uri.parse("package:" + context.getPackageName());
         intent.setData(uri);
-        context.startActivity(intent);
-    }
-
-    public static void openSettingsScreen(IRouter router) {
-        openSettingsScreen(router.getActivityCompact());
+        return intent;
     }
 
     public static Intent getSettingWireLessIntent() {
         return new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
     }
 
-    public static void openMarket(Context context) {
+    public static Intent openMarket(Context context) {
         Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (isIntentAvailable(context, intent)) {
-            context.startActivity(intent);
-        }
-    }
-
-    public static void openMarket(IRouter router) {
-        openMarket(router.getActivityCompact());
+        return intent;
     }
 
     public static boolean isIntentAvailable(Context context, Intent intent) {
