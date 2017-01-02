@@ -23,11 +23,13 @@ Activity,Fragment及它们的一些子类，有部分共同的方法，例如sta
 
 * show，纯粹展示用的，没什么好谈的。
 
-##4、IPureViewHolder(PureAbsViewHolder,PureRecyclerViewHolder)以及IPureAdapter(PureAbsListAdapter,PureRecyclerViewAdapter)
+##4、IPureViewHolder、IPureAdapter、IItemViewTypeEntity
 
-相信从此可以告别冗长的Adapter
+相信从此可以告别冗长的Adapter，具体见com.sxenon.pure.core.component.adapter
 
-##5、所有对M的请求结果，由IResultDispatcher来进行分发，交给合适的IResultHandler来处理(ISubmitResultHandler、IFetchListResultHandler、IFetchSingleResultHandler)
+##5、IResultDispatcher、IResultHandle
+
+所有对M的请求结果，由IResultDispatcher来进行分发，交给合适的IResultHandler来处理(ISubmitResultHandler、IFetchListResultHandler、IFetchSingleResultHandler)
 
 ##TODO
 1、完善文档，同时优化细节，之后打tag，上传
