@@ -90,7 +90,7 @@ public abstract class PureCompactActivity<P extends PureRootPresenter> extends A
     }
 
     @Override
-    public RouterType getRouterType() {
+    public final RouterType getRouterType() {
         return RouterType.COMPACT_ACTIVITY;
     }
 

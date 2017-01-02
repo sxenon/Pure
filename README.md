@@ -17,11 +17,15 @@ Activity,Fragment及它们的一些子类，有部分共同的方法，例如sta
 
 * submitter,例如**ISelectGroup**，处理列表的单选，多选，删除，插入操作。
 
-* filler,例如**FillerGroup**，第三方刷新容器有很多，但都仅仅处理了容器本身的事件，但它可以协助您方便地处理分页、刷新的数据加载，空白页，错误页显示逻辑，特别地，像Fragment下的数据缓存与恢复。最重要的是，它不需要您修改已有的刷新容器的内部逻辑，只需要简单地用一下**适配器**模式就可以了，不明白的可以看pure-pull-demo这个module。
+* filler,例如**FillerGroup**，第三方刷新容器有很多，但都仅仅处理了容器本身的事件，但有了它可以协助您方便地处理分页、刷新的数据加载，空白页，错误页显示逻辑，特别地，像Fragment下的数据缓存与恢复。最重要的是，它不需要您修改已有的刷新容器的内部逻辑，只需要简单地用一下**适配器**模式就可以了，不明白的可以看pure-pull-demo这个module。
 
 * navigation,例如**ISearchView**，官方的SearchView写的很辛苦，但实际却很少被使用，即使用了也会被嫌丑，可见做这些复合控件，是多么吃力不讨好，可自定义的属性再多，也满足不了所有人的需求。
 
 * show，纯粹展示用的，没什么好谈的。
+
+##4、IPureViewHolder(PureAbsViewHolder,PureRecyclerViewHolder)以及IPureAdapter(PureAbsListAdapter,PureRecyclerViewAdapter)
+
+相信从此可以告别冗长的Adapter
 
 ##TODO
 1、完善文档，同时优化细节，之后打tag，上传

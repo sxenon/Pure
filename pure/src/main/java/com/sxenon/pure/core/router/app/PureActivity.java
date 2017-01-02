@@ -88,7 +88,7 @@ public abstract class PureActivity<P extends PureRootPresenter> extends Activity
     }
 
     @Override
-    public RouterType getRouterType() {
+    public final RouterType getRouterType() {
         return RouterType.ACTIVITY;
     }
 

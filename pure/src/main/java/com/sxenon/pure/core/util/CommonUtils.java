@@ -13,8 +13,7 @@ import java.util.List;
 public class CommonUtils {
 
     public static boolean isAppOnForeground(Context context) {
-        // Returns a list of application processes that are running on the
-        // device
+        // Returns a list of application processes that are running on the device
         ActivityManager activityManager = (ActivityManager) context.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
         String packageName = context.getApplicationContext().getPackageName();
         List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();

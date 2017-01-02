@@ -1,5 +1,7 @@
 package com.sxenon.pure.core.component.adapter;
 
+import android.view.View;
+
 import com.sxenon.pure.core.mvp.IViewModule;
 
 /**
@@ -9,7 +11,7 @@ import com.sxenon.pure.core.mvp.IViewModule;
 public interface IPureViewHolder<T> {
     int getPosition();
 
-    void fillViewByData(T data);
+    void fillItemViewByData(View itemView,T data);
 
     <A extends IPureAdapter> A getAdapter();
 

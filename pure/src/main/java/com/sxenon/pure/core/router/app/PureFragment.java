@@ -121,7 +121,7 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
     }
 
     @Override
-    public RouterType getRouterType() {
+    public final RouterType getRouterType() {
         return RouterType.FRAGMENT;
     }
 

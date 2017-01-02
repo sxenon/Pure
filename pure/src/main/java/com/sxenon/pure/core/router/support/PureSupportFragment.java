@@ -120,7 +120,7 @@ public abstract class PureSupportFragment<P extends PureRootPresenter> extends F
     }
 
     @Override
-    public RouterType getRouterType() {
+    public final RouterType getRouterType() {
         return RouterType.SUPPORT_FRAGMENT;
     }
 
