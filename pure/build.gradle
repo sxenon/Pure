@@ -47,6 +47,7 @@ dependencies {
     compile 'com.trello:rxlifecycle:1.0'
     compile 'com.hwangjr.rxbus:rxbus:1.0.5'
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:1.0.0'
 
     //KeyBoard should always need!
     compile 'cn.dreamtobe.kpswitch:library:1.6.0'

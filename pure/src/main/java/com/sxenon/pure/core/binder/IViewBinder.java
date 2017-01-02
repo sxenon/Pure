@@ -1,6 +1,12 @@
 package com.sxenon.pure.core.binder;
 
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import rx.Observable;
 
@@ -12,19 +18,21 @@ import rx.Observable;
 
 @SuppressWarnings("UnusedReturnValue")
 public interface IViewBinder {
-    /**
-     * 在默认的间隔内只执行第一次
-     *
-     * @param view   被点击的view
-     */
-    Observable<Void> bindViewClickButEmitOnlyFirstInDuration(View view);
 
-    /**
-     * 在指定的间隔内只执行第一次
-     *
-     * @param view     被点击的view
-     * @param duration 指定的间隔时间 单位ms
-     */
-    Observable<Void> bindViewClickButEmitOnlyFirstInDuration(View view,int duration);
+    //View
+    Observable<Void> bindViewClicksThrottleFirst(View view);
 
+    Observable<Void> bindViewClicksThrottleFirst(View view, int duration);
+
+    //CompoundButton
+    Observable<Boolean> bindCompoundButtonCheckedChanges(CompoundButton compoundButton);
+
+    //TextView
+    Observable<CharSequence> bindTextViewTextChangesDebounce(TextView textView);
+
+    //AdapterView
+    <T extends Adapter> Observable<Integer> bindAdapterViewItemClicks(AdapterView<T> adapterView);
+
+    //RecyclerViewAdapter
+    <T extends RecyclerView.Adapter<? extends RecyclerView.ViewHolder>> Observable<T> bindRecyclerViewAdapterDataChanges(@NonNull T adapter);
 }

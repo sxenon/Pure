@@ -242,8 +242,8 @@ public abstract class PureAbsListAdapter<T> extends ArrayAdapter<T> implements I
             convertView= LayoutInflater.from(getContext()).inflate(itemViewTypeEntity.getResourceId(),null);
             Class<? extends PureAbsViewHolder> viewHolderClass=itemViewTypeEntity.getViewHolderClass();
             try {
-                Constructor<? extends PureAbsViewHolder> constructor=viewHolderClass.getConstructor(IViewModule.class,PureAbsListAdapter.class,Integer.class);
-                viewHolder=constructor.newInstance(mViewHolder,PureAbsListAdapter.this,position);
+                Constructor<? extends PureAbsViewHolder> constructor=viewHolderClass.getConstructor(IViewModule.class,View.class,PureAbsListAdapter.class,Integer.class);
+                viewHolder=constructor.newInstance(mViewHolder,convertView,PureAbsListAdapter.this,position);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -252,7 +252,7 @@ public abstract class PureAbsListAdapter<T> extends ArrayAdapter<T> implements I
             viewHolder= (PureAbsViewHolder) convertView.getTag();
         }
         //noinspection ConstantConditions,unchecked
-        viewHolder.fillItemViewByData(convertView,getItem(position));
+        viewHolder.fillItemViewByData(viewHolder.itemView,getItem(position));
         return convertView;
     }
 
