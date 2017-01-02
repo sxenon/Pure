@@ -1,7 +1,8 @@
 package com.sxenon.pure.core.global;
 
-import android.app.Activity;
 import android.util.Log;
+
+import com.sxenon.pure.core.router.IActivity;
 
 import java.util.Iterator;
 import java.util.Stack;
@@ -12,32 +13,31 @@ import java.util.Stack;
 
 public class ActivityHistoryManager {
     //结合Activity的LaunchMode统一管理
-    private final Stack<Activity> activityStack = new Stack<>();
+    private final Stack<IActivity> activityStack = new Stack<>();
     private final String TAG = "ActivityHistoryManager";
 
-    public Activity getCurrentActivity() {
+    public IActivity getCurrentActivity() {
         if (activityStack.isEmpty()) {
             return null;
         }
         return activityStack.lastElement();
     }
 
-    public void add(Activity activity) {
+    public void add(IActivity activity) {
         activityStack.add(activity);
     }
 
     /**
-     * 暂时不管onCreate()里面finish的情况
-     * 或者可以手动在onCreate()里面加上onActivityDestroy
+     * onCreate()里面finish的情况应该手动在onCreate()里面加上remove
      */
-    public void remove(Activity activity) {
+    public void remove(IActivity activity) {
         activityStack.remove(activity);
     }
 
-    public void finishActivity(Class<? extends Activity> activityClass) {
-        Iterator<Activity> iterator = activityStack.iterator();
+    public void finishActivity(Class<? extends IActivity> activityClass) {
+        Iterator<IActivity> iterator = activityStack.iterator();
         while (iterator.hasNext()) {
-            Activity activity = iterator.next();
+            IActivity activity = iterator.next();
             if (activity != null && activity.getClass().equals(activityClass)) {
                 iterator.remove();
                 activity.finish();
@@ -48,21 +48,21 @@ public class ActivityHistoryManager {
     }
 
     /**
+     * @deprecated {@link #finishBackgroundActivitiesIfNeed} is much better and more useful
      * 关闭当前与指定Activity之间的所有的Activity
      */
-    public void finishActivityInMiddle(
-            Class<? extends Activity> bottomActivityClass) {
-        Activity currentActivity = getCurrentActivity();
+    public void finishActivityInMiddle(Class<? extends IActivity> bottomActivityClass) {
+        IActivity currentActivity = getCurrentActivity();
         if (currentActivity == null) {
             Log.w(TAG, "There is no activity in history");
             return;
         }
-        Class<? extends Activity> currentActivityClass = currentActivity.getClass();
+        Class<? extends IActivity> currentActivityClass = currentActivity.getClass();
 
         boolean shouldFinish = false;
-        Iterator<Activity> iterator = activityStack.iterator();
+        Iterator<IActivity> iterator = activityStack.iterator();
         while (iterator.hasNext()) {
-            Activity activity = iterator.next();
+            IActivity activity = iterator.next();
             if (activity.getClass().equals(currentActivityClass)) {
                 shouldFinish = false;
             }
@@ -78,10 +78,32 @@ public class ActivityHistoryManager {
     }
 
     /**
+     * Keep what should keep,and finish others.
+     * @param what 区分事件
+     */
+    public void finishBackgroundActivitiesIfNeed(final int what) {
+        IActivity currentActivity = getCurrentActivity();
+        if (currentActivity == null) {
+            Log.w(TAG, "There is no activity in history");
+            return;
+        }
+
+        Iterator<IActivity> iterator = activityStack.iterator();
+        while (iterator.hasNext()) {
+            IActivity activity = iterator.next();
+            if (!activity.shouldKeepWhenBackground(what)) {
+                activity.finish();
+                iterator.remove();
+            }
+        }
+        Log.i(TAG,"finishBackgroundActivitiesIfNeedSuccess:what="+what);
+    }
+
+    /**
      * 结束所有Activity
      */
     public void finishAllActivity() {
-        for (Activity activity : activityStack) {
+        for (IActivity activity : activityStack) {
             if (activity != null && !activity.isFinishing()) {
                 activity.finish();
             }
@@ -95,8 +117,8 @@ public class ActivityHistoryManager {
      * @param activityClass Activity 类型
      * @return activity
      */
-    public Activity getActivity(Class<? extends Activity> activityClass) {
-        for (Activity activity : activityStack) {
+    public IActivity getActivity(Class<? extends IActivity> activityClass) {
+        for (IActivity activity : activityStack) {
             if (activity != null && activity.getClass().equals(activityClass)) {
                 return activity;
             }

@@ -13,7 +13,7 @@ import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
-import com.sxenon.pure.core.router.IRouter;
+import com.sxenon.pure.core.router.IActivity;
 import com.sxenon.pure.core.router.PureRootPresenter;
 
 import java.util.HashSet;
@@ -25,7 +25,7 @@ import java.util.Set;
  * Created by Sui on 2016/11/21.
  */
 
-public abstract class PureCompactActivity<P extends PureRootPresenter> extends AppCompatActivity implements IRouter<P> {
+public abstract class PureCompactActivity<P extends PureRootPresenter> extends AppCompatActivity implements IActivity<P> {
     private P mRootPresenter;
     private final Set<PureSupportFragment> mVisibleFragmentSet=new HashSet<>();
 
@@ -137,6 +137,11 @@ public abstract class PureCompactActivity<P extends PureRootPresenter> extends A
             FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
             manager.popBackStackImmediate(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
+    }
+
+    @Override
+    public boolean shouldKeepWhenBackground(int what) {
+        return true;
     }
 
     protected abstract BaseRootViewModule<P> groupViewModule();
