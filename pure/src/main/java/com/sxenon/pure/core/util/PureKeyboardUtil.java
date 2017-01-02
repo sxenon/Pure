@@ -55,12 +55,11 @@ public class PureKeyboardUtil {
         imm.hideSoftInputFromInputMethod(activity.getWindow().getDecorView().getWindowToken(), 0);
     }
 
-    //TODO RxLifeCycle 是否是正确的打开方式
     public static void attach(PureRootPresenter rootPresenter, IPanelHeightTarget target, KeyboardUtil.OnKeyboardShowingListener listener) {
         final Activity activity = rootPresenter.getRouter().getActivityCompact();
         final ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = KeyboardUtil.attach(activity, target, listener);
         //noinspection unchecked
-        Observable.empty()
+        Observable.never()
                 .doOnUnsubscribe(new Action0() {
                     @Override
                     public void call() {
