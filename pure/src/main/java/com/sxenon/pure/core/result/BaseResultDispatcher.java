@@ -1,8 +1,5 @@
 package com.sxenon.pure.core.result;
 
-import com.sxenon.pure.core.component.filler.IFetchListResultHandler;
-import com.sxenon.pure.core.component.filler.IFetchSingleResultHandler;
-import com.sxenon.pure.core.component.submitter.ISubmitResultHandler;
 import com.sxenon.pure.core.ApiException;
 
 import java.util.List;

@@ -1,9 +1,5 @@
 package com.sxenon.pure.core.result;
 
-import com.sxenon.pure.core.component.filler.IFetchListResultHandler;
-import com.sxenon.pure.core.component.filler.IFetchSingleResultHandler;
-import com.sxenon.pure.core.component.submitter.ISubmitResultHandler;
-
 /**
  * Common response handler for common request
  * Please use  {@link BaseResultDispatcher}

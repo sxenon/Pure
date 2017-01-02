@@ -1,6 +1,4 @@
-package com.sxenon.pure.core.component.submitter;
-
-import com.sxenon.pure.core.result.IResultHandler;
+package com.sxenon.pure.core.result;
 
 /**
  * ResultHandler for submitting

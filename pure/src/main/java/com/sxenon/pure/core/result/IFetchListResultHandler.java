@@ -1,6 +1,4 @@
-package com.sxenon.pure.core.component.filler;
-
-import com.sxenon.pure.core.result.IResultHandler;
+package com.sxenon.pure.core.result;
 
 import java.util.List;
 
