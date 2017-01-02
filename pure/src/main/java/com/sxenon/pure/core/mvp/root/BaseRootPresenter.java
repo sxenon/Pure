@@ -13,6 +13,8 @@ import com.sxenon.pure.core.router.IRouter;
 
 import java.util.List;
 
+import rx.Observable;
+
 /**
  * * Include several {@link BasePresenter}，with its related {@link BaseViewModule}
  * Don`t use it directly,use PureRootPresenter instead.
@@ -105,6 +107,8 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> implement
     public boolean isDestroyed() {
         return mDestroyed;
     }
+
+    public abstract <R> Observable<R> autoUnsubscribe(Observable<R> observable);
 
     public abstract List<Event> getEventForSave();
 

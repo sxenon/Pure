@@ -3,11 +3,11 @@ package com.sxenon.pure.core.mvp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.sxenon.pure.core.binder.IViewBinder;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
 import cn.dreamtobe.kpswitch.util.KeyboardUtil;
+import rx.Observable;
 import rx.functions.Action0;
 
 /**
@@ -65,7 +65,10 @@ public class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
         mRootPresenter.setOnKeyboardShowingListener(listener);
     }
 
-    public IViewBinder getViewBinder() {
-        return mRootPresenter.getViewBinder();
+    @Override
+    public <R> Observable<R> autoUnsubscribe(Observable<R> observable) {
+        //noinspection unchecked
+        return mRootPresenter.autoUnsubscribe(observable);
     }
+
 }

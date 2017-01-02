@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.binder.IViewBinder;
-import com.sxenon.pure.core.binder.ViewBinderImpl;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.core.permission.OnPermissionCallback;
@@ -16,9 +14,6 @@ import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.OutsideLifecycleException;
 import com.trello.rxlifecycle.RxLifecycle;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -37,7 +32,6 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
 
     private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
-    private IViewBinder mViewBinder;
     private boolean isRequestingSystemAlertPermission;
     private final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
             new Func1<RouterEvent, RouterEvent>() {
@@ -193,20 +187,10 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
     //Permission end
 
-    //Binding start
-    public IViewBinder getViewBinder() {
-        if (mViewBinder == null) {
-            final IViewBinder viewBinder = new ViewBinderImpl();
-            mViewBinder = (IViewBinder) Proxy.newProxyInstance(viewBinder.getClass().getClassLoader(), viewBinder.getClass().getInterfaces(), new InvocationHandler() {
-                @Override
-                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                    Observable observable = (Observable) method.invoke(viewBinder, args);
-                    //noinspection unchecked
-                    return observable.compose(bindUntilEvent(RouterEvent.DESTROY));
-                }
-            });
-        }
-        return mViewBinder;
+    @Override
+    public <R> Observable<R> autoUnsubscribe(Observable<R> observable){
+        //noinspection unchecked
+        return (Observable<R>) observable.compose(bindUntilEvent(RouterEvent.DESTROY));
     }
 
     @Override
