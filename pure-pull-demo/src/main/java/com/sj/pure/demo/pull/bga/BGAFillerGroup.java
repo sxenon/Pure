@@ -6,6 +6,8 @@ import com.sxenon.pure.core.component.adapter.IPureAdapter;
 import com.sxenon.pure.core.component.filler.FillerGroup;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
+import java.util.List;
+
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 /**
@@ -14,6 +16,8 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  */
 
 public class BGAFillerGroup<R> extends FillerGroup<R,BGAPullLayout> {
+    private CustomLister<R> mCustomLister;
+
     public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult) {
         super(context, new BGAPullLayout(refreshLayout), singleDataResult);
     }
@@ -35,14 +39,65 @@ public class BGAFillerGroup<R> extends FillerGroup<R,BGAPullLayout> {
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
                 onBeginRefreshing();
+                if (mCustomLister!=null){
+                    mCustomLister.onBeginRefreshingCustom(refreshLayout);
+                }
                 delegate.onBGARefreshLayoutBeginRefreshing(refreshLayout);
             }
 
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 onBeginLoadingMore();
+                if (mCustomLister!=null){
+                    mCustomLister.onBeginLoadingMoreCustom(refreshLayout);
+                }
                 return delegate.onBGARefreshLayoutBeginLoadingMore(refreshLayout);
             }
         });
+    }
+
+    @Override
+    protected void onMoreDataFetched(List<R> data) {
+        super.onMoreDataFetched(data);
+        if (mCustomLister!=null){
+            mCustomLister.onMoreDataFetchedCustom(data);
+        }
+    }
+
+    @Override
+    protected void onNewDataFetched(List<R> data) {
+        super.onNewDataFetched(data);
+        if (mCustomLister!=null){
+            mCustomLister.onNewDataFetchedCustom(data);
+        }
+    }
+
+    @Override
+    protected void onNoMoreData() {
+        super.onNoMoreData();
+        if (mCustomLister!=null){
+            mCustomLister.onNoMoreDataCustom();
+        }
+    }
+
+    @Override
+    protected void onNoNewData() {
+        super.onNoNewData();
+        if (mCustomLister!=null){
+            mCustomLister.onNoNewDataCustom();
+        }
+    }
+
+    public void setCustomLister(CustomLister<R> customLister){
+        mCustomLister=customLister;
+    }
+
+    public interface CustomLister<R>{
+        void onBeginRefreshingCustom(BGARefreshLayout refreshLayout);
+        void onBeginLoadingMoreCustom(BGARefreshLayout refreshLayout);
+        void onMoreDataFetchedCustom(List<R> data);
+        void onNewDataFetchedCustom(List<R> data);
+        void onNoMoreDataCustom();
+        void onNoNewDataCustom();
     }
 }

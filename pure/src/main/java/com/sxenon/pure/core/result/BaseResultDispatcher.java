@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * BaseResultDispatcher
+ * Base implement for IResultDispatcher
  * Created by Sui on 2016/12/15.
  */
 
