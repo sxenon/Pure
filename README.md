@@ -29,7 +29,7 @@ Activity,Fragment及它们的一些子类，有部分共同的方法，例如sta
 
 ##5、IResultDispatcher、IResultHandle
 
-所有对M的请求结果，由IResultDispatcher来进行分发，交给合适的IResultHandler来处理(ISubmitResultHandler、IFetchListResultHandler、IFetchSingleResultHandler)
+所有对M的请求结果，由IResultDispatcher来进行分发，交给合适的IResultHandler来处理(ISubmitResultHandler、IFetchListResultHandler、IFetchSingleResultHandler、IFetchSetResultHandler)
 
 ##TODO
 1、完善文档，同时优化细节，之后打tag，上传
