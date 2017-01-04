@@ -6,9 +6,9 @@ import android.support.annotation.NonNull;
 import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.sub.BaseSubPresenter;
-import com.sxenon.pure.core.mvp.BaseViewModule;
 import com.sxenon.pure.core.mvp.ILifeCycle;
 import com.sxenon.pure.core.mvp.IPresenter;
+import com.sxenon.pure.core.mvp.sub.BaseSubViewModule;
 import com.sxenon.pure.core.router.IRouter;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 import rx.Observable;
 
 /**
- * * Include several {@link BaseSubPresenter}，with its related {@link BaseViewModule}
+ * * Include several {@link BaseSubPresenter}，with its related {@link BaseSubViewModule}
  * Don`t use it directly,use PureRootPresenter instead.
  * Created by Sui on 2016/11/22.
  */
