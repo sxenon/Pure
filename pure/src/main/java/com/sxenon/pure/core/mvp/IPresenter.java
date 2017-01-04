@@ -33,4 +33,12 @@ public interface IPresenter<VM extends IViewModule> {
     void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener);
 
     <R> Observable<R> autoUnsubscribe(Observable<R> observable);
+
+    void registerActionOnResume(Action0 action);
+
+    void registerActionOnPause(Action0 action);
+
+    void registerActionOnStop(Action0 action);
+
+    void registerActionOnDestroy(Action0 action);
 }

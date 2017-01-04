@@ -193,6 +193,35 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
         return (Observable<R>) observable.compose(bindUntilEvent(RouterEvent.DESTROY));
     }
 
+    public void registerActionOnResume(Action0 action){
+        registerActionOnRouterEvent(RouterEvent.RESUME,action);
+    }
+
+    public void registerActionOnPause(Action0 action){
+        registerActionOnRouterEvent(RouterEvent.PAUSE,action);
+    }
+
+    public void registerActionOnStop(Action0 action){
+        registerActionOnRouterEvent(RouterEvent.STOP,action);
+    }
+
+    public void registerActionOnDestroy(Action0 action){
+        registerActionOnRouterEvent(RouterEvent.DESTROY,action);
+    }
+
+
+    private void registerActionOnRouterEvent(RouterEvent routerEvent,Action0 action){
+        Observable.never()
+                /**
+                 * RxLifecycle does not actually unsubscribe the sequence. Instead it terminates the sequence. The way in which it does so varies based on the type:
+                 Observable - emits onCompleted()
+                 Single and Completable - emits onError(CancellationException)
+                 */
+                .doOnTerminate(action)
+                .compose(bindUntilEvent(routerEvent))
+                .subscribe();
+    }
+
     @Override
     public void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener) {
         PureKeyboardUtil.attach(this, listener);

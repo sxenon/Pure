@@ -10,14 +10,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.sxenon.pure.core.router.PureRootPresenter;
-import com.sxenon.pure.core.router.RouterEvent;
 
 import cn.dreamtobe.kpswitch.IPanelHeightTarget;
 import cn.dreamtobe.kpswitch.util.KeyboardUtil;
-import rx.Observable;
 import rx.functions.Action0;
 
 /**
+ * Based on cn.dreamtobe.kpswitch.Thanks
  * Created by Sui on 2016/12/27.
  */
 
@@ -59,15 +58,12 @@ public class PureKeyboardUtil {
         final Activity activity = rootPresenter.getRouter().getActivityCompact();
         final ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = KeyboardUtil.attach(activity, target, listener);
         //noinspection unchecked
-        Observable.never()
-                .doOnUnsubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        KeyboardUtil.detach(activity, onGlobalLayoutListener);
-                    }
-                })
-                .compose(rootPresenter.<ViewTreeObserver.OnGlobalLayoutListener>bindUntilEvent(RouterEvent.DESTROY))
-                .subscribe();
+        rootPresenter.registerActionOnDestroy(new Action0() {
+            @Override
+            public void call() {
+                KeyboardUtil.detach(activity,onGlobalLayoutListener);
+            }
+        });
     }
 
     public static void attach(PureRootPresenter rootPresenter, IPanelHeightTarget target) {
