@@ -16,7 +16,7 @@ import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import rx.functions.Action0;
 
 /**
- * Based on cn.dreamtobe.kpswitch.Thanks
+ * Based on https://github.com/Jacksgong/JKeyboardPanelSwitch.Thanks
  * Created by Sui on 2016/12/27.
  */
 

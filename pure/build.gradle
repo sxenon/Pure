@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    def leakCanaryVersion='1.5'
+
     def supportVersion='25.1.0'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -38,10 +38,13 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:'+supportVersion
 
     //Debug
-    compile 'com.facebook.stetho:stetho:1.4.1'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:'+leakCanaryVersion
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:'+leakCanaryVersion
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:'+leakCanaryVersion
+    //Do least,just recommend.
+//    def leakCanaryVersion='latest.release'
+//    compile 'com.facebook.stetho:stetho:latest.release'
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:'+leakCanaryVersion
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:'+leakCanaryVersion
+//    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:'+leakCanaryVersion
+//    compile 'com.tencent.bugly:crashreport:latest.release'
 
     //Rx 1.x
     compile 'io.reactivex:rxjava:1.2.4'

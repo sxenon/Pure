@@ -75,6 +75,7 @@ public class BGAFillerGroup<R> extends FillerGroup<R,BGAPullLayout> {
     @Override
     protected void onNoMoreData() {
         super.onNoMoreData();
+        bgaCommonOnNoMoreData();
         if (mCustomLister!=null){
             mCustomLister.onNoMoreDataCustom();
         }
@@ -83,6 +84,7 @@ public class BGAFillerGroup<R> extends FillerGroup<R,BGAPullLayout> {
     @Override
     protected void onNoNewData() {
         super.onNoNewData();
+        bgaCommonOnNoNewData();
         if (mCustomLister!=null){
             mCustomLister.onNoNewDataCustom();
         }
@@ -90,6 +92,14 @@ public class BGAFillerGroup<R> extends FillerGroup<R,BGAPullLayout> {
 
     public void setCustomLister(CustomLister<R> customLister){
         mCustomLister=customLister;
+    }
+
+    private void bgaCommonOnNoNewData(){
+        //For project level
+    }
+
+    private void bgaCommonOnNoMoreData(){
+        //For project level
     }
 
     public interface CustomLister<R>{
