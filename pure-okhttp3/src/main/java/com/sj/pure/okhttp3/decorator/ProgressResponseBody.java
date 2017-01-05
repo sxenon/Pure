@@ -1,4 +1,4 @@
-package com.sj.pure.okhttp3.helper;
+package com.sj.pure.okhttp3.decorator;
 
 import java.io.IOException;
 

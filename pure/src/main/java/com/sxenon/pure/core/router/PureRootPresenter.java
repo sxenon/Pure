@@ -142,7 +142,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
      * @return Return false if the router is instance of FragmentActivity and its supportFragment request the permission,otherwise true.
      */
     private boolean requestCommonPermissionsBySelf(int requestCode) {
-        return getRouter().getRouterType() != IRouter.RouterType.COMPACT_ACTIVITY || shouldHandlePermissionsResultInCompactActivity(requestCode);
+        return getRouter().getRouterType() != IRouter.RouterType.COMPACT_ACTIVITY || shouldHandlePermissionsResultIfInCompactActivity(requestCode);
     }
 
     /**
@@ -251,7 +251,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     /**
      * Only work when router is compactActivity
      */
-    protected boolean shouldHandlePermissionsResultInCompactActivity(int requestCode) {
+    protected boolean shouldHandlePermissionsResultIfInCompactActivity(int requestCode) {
         return false;
     }
     //Binding end
