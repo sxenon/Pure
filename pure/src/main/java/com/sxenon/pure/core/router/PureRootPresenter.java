@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
+import com.sxenon.pure.core.mvp.root.RootPresenterEvent;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.core.permission.OnPermissionCallback;
@@ -28,24 +29,24 @@ import rx.subjects.BehaviorSubject;
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements LifecycleProvider<RouterEvent>, OnPermissionCallback {
+public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements LifecycleProvider<RootPresenterEvent>, OnPermissionCallback {
 
-    private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
+    private final BehaviorSubject<RootPresenterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
-    private final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
-            new Func1<RouterEvent, RouterEvent>() {
+    private final Func1<RootPresenterEvent, RootPresenterEvent> ROUTER_LIFECYCLE =
+            new Func1<RootPresenterEvent, RootPresenterEvent>() {
                 @Override
-                public RouterEvent call(RouterEvent lastEvent) {
+                public RootPresenterEvent call(RootPresenterEvent lastEvent) {
                     switch (lastEvent) {
                         case CREATE:
-                            return RouterEvent.DESTROY;
+                            return RootPresenterEvent.DESTROY;
                         case RESUME:
-                            return RouterEvent.PAUSE;
+                            return RootPresenterEvent.PAUSE;
                         case PAUSE:
-                            return RouterEvent.STOP;
+                            return RootPresenterEvent.STOP;
                         case STOP:
-                            return RouterEvent.DESTROY;
+                            return RootPresenterEvent.DESTROY;
                         case DESTROY:
                             throw new OutsideLifecycleException("Cannot bind to Router lifecycle when outside of it.");
                         default:
@@ -62,13 +63,13 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     //LifecycleProvider start
     @Nonnull
     @Override
-    public Observable<RouterEvent> lifecycle() {
+    public Observable<RootPresenterEvent> lifecycle() {
         return lifecycleSubject.asObservable();
     }
 
     @Nonnull
     @Override
-    public <T> LifecycleTransformer<T> bindUntilEvent(@Nonnull RouterEvent event) {
+    public <T> LifecycleTransformer<T> bindUntilEvent(@Nonnull RootPresenterEvent event) {
         return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
     }
 
@@ -84,31 +85,31 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     @Override
     public void onCreate(List<Event> savedEventList) {
         super.onCreate(savedEventList);
-        lifecycleSubject.onNext(RouterEvent.CREATE);
+        lifecycleSubject.onNext(RootPresenterEvent.CREATE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        lifecycleSubject.onNext(RouterEvent.RESUME);
+        lifecycleSubject.onNext(RootPresenterEvent.RESUME);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        lifecycleSubject.onNext(RouterEvent.PAUSE);
+        lifecycleSubject.onNext(RootPresenterEvent.PAUSE);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        lifecycleSubject.onNext(RouterEvent.STOP);
+        lifecycleSubject.onNext(RootPresenterEvent.STOP);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        lifecycleSubject.onNext(RouterEvent.DESTROY);
+        lifecycleSubject.onNext(RootPresenterEvent.DESTROY);
     }
     //LifeCycle end
 
@@ -141,14 +142,14 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
      * @return Return false if the router is instance of FragmentActivity and its supportFragment request the permission,otherwise true.
      */
     private boolean requestCommonPermissionsBySelf(int requestCode) {
-        return getRouter().getRouterType() != IRouter.RouterType.COMPACT_ACTIVITY || requestCommonPermissionsBySelfIfRouterIsCompactActivity(requestCode);
+        return getRouter().getRouterType() != IRouter.RouterType.COMPACT_ACTIVITY || shouldHandlePermissionsResultInCompactActivity(requestCode);
     }
 
     /**
      * @return Return false, if the router is instance of FragmentActivity and its supportFragment start activity,otherwise true.
      */
     private boolean startActivityForResultBySelf(int requestCode) {
-        return getRouter().getRouterType() != IRouter.RouterType.COMPACT_ACTIVITY || startActivityForResultBySelfIfRouterIsCompactActivity(requestCode);
+        return getRouter().getRouterType() != IRouter.RouterType.COMPACT_ACTIVITY || shouldHandleActivityResultIfInCompactActivity(requestCode);
     }
 
     protected void handleActivityResult(int requestCode, int resultCode, Intent data) {
@@ -190,27 +191,27 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     @Override
     public <R> Observable<R> autoUnsubscribe(Observable<R> observable){
         //noinspection unchecked
-        return (Observable<R>) observable.compose(bindUntilEvent(RouterEvent.DESTROY));
+        return (Observable<R>) observable.compose(bindUntilEvent(RootPresenterEvent.DESTROY));
     }
 
     public void registerActionOnResume(Action0 action){
-        registerActionOnRouterEvent(RouterEvent.RESUME,action);
+        registerActionOnEvent(RootPresenterEvent.RESUME,action);
     }
 
     public void registerActionOnPause(Action0 action){
-        registerActionOnRouterEvent(RouterEvent.PAUSE,action);
+        registerActionOnEvent(RootPresenterEvent.PAUSE,action);
     }
 
     public void registerActionOnStop(Action0 action){
-        registerActionOnRouterEvent(RouterEvent.STOP,action);
+        registerActionOnEvent(RootPresenterEvent.STOP,action);
     }
 
     public void registerActionOnDestroy(Action0 action){
-        registerActionOnRouterEvent(RouterEvent.DESTROY,action);
+        registerActionOnEvent(RootPresenterEvent.DESTROY,action);
     }
 
 
-    private void registerActionOnRouterEvent(RouterEvent routerEvent,Action0 action){
+    private void registerActionOnEvent(RootPresenterEvent rootPresenterEvent, Action0 action){
         Observable.never()
                 /**
                  * RxLifecycle does not actually unsubscribe the sequence. Instead it terminates the sequence. The way in which it does so varies based on the type:
@@ -218,7 +219,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
                  Single and Completable - emits onError(CancellationException)
                  */
                 .doOnTerminate(action)
-                .compose(bindUntilEvent(routerEvent))
+                .compose(bindUntilEvent(rootPresenterEvent))
                 .subscribe();
     }
 
@@ -227,11 +228,17 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
         PureKeyboardUtil.attach(this, listener);
     }
 
-    protected boolean startActivityForResultBySelfIfRouterIsCompactActivity(int requestCode) {
+    /**
+     * Only work when router is compactActivity
+     */
+    protected boolean shouldHandleActivityResultIfInCompactActivity(int requestCode) {
         return false;
     }
 
-    protected boolean requestCommonPermissionsBySelfIfRouterIsCompactActivity(int requestCode) {
+    /**
+     * Only work when router is compactActivity
+     */
+    protected boolean shouldHandlePermissionsResultInCompactActivity(int requestCode) {
         return false;
     }
     //Binding end

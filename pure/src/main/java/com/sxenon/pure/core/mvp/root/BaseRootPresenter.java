@@ -1,19 +1,13 @@
 package com.sxenon.pure.core.mvp.root;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-
 import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.mvp.sub.BaseSubPresenter;
+import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.mvp.ILifeCycle;
-import com.sxenon.pure.core.mvp.IPresenter;
+import com.sxenon.pure.core.mvp.sub.BaseSubPresenter;
 import com.sxenon.pure.core.mvp.sub.BaseSubViewModule;
-import com.sxenon.pure.core.router.IRouter;
 
 import java.util.List;
-
-import rx.Observable;
 
 /**
  * * Include several {@link BaseSubPresenter}，with its related {@link BaseSubViewModule}
@@ -21,70 +15,38 @@ import rx.Observable;
  * Created by Sui on 2016/11/22.
  */
 
-public abstract class BaseRootPresenter<VM extends BaseRootViewModule> implements IPresenter<VM>, ILifeCycle {
-
-    private final VM mViewModule;
-    private final Context mContext;
-    private final IRouter mRouter;
-
-    private boolean mResumed;
-    private boolean mPaused;
-    private boolean mStopped;
-    private boolean mDestroyed;
+public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends BasePresenter<VM> implements ILifeCycle {
+    private RootPresenterEvent currentEvent;
 
     public BaseRootPresenter(VM viewModule) {
-        mViewModule = viewModule;
-        mContext = mViewModule.getContext();
-        mRouter = mViewModule.getRouter();
+        super(viewModule);
     }
 
     @Override
     public void onCreate(List<Event> savedEventList) {
+        currentEvent = RootPresenterEvent.CREATE;
         RxBus.get().register(this);
     }
 
     @Override
     public void onResume() {
-        mResumed = true;
-        mPaused = false;
-        mStopped = false;
+        currentEvent = RootPresenterEvent.RESUME;
     }
 
     @Override
     public void onPause() {
-        mResumed = false;
-        mPaused = true;
-        mStopped = false;
+        currentEvent = RootPresenterEvent.PAUSE;
     }
 
     @Override
     public void onStop() {
-        mResumed = false;
-        mPaused = true;
-        mStopped = true;
+        currentEvent = RootPresenterEvent.STOP;
     }
 
     @Override
     public void onDestroy() {
-        mDestroyed = true;
+        currentEvent = RootPresenterEvent.DESTROY;
         RxBus.get().unregister(this);
-    }
-
-    @Override
-    public VM getViewModule() {
-        return mViewModule;
-    }
-
-    @NonNull
-    @Override
-    public Context getContext() {
-        return mContext;
-    }
-
-    @NonNull
-    @Override
-    public IRouter getRouter() {
-        return mRouter;
     }
 
     @Override
@@ -92,23 +54,9 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> implement
         return this;
     }
 
-    public boolean isResumed() {
-        return mResumed;
+    public RootPresenterEvent getCurrentEvent(){
+        return currentEvent;
     }
-
-    public boolean isPaused() {
-        return mPaused;
-    }
-
-    public boolean isStopped() {
-        return mStopped;
-    }
-
-    public boolean isDestroyed() {
-        return mDestroyed;
-    }
-
-    public abstract <R> Observable<R> autoUnsubscribe(Observable<R> observable);
 
     public abstract List<Event> getEventForSave();
 
