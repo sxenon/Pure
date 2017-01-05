@@ -4,9 +4,9 @@ import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
+import com.trello.rxlifecycle.LifecycleTransformer;
 
 import cn.dreamtobe.kpswitch.util.KeyboardUtil;
-import rx.Observable;
 import rx.functions.Action0;
 
 /**
@@ -40,25 +40,13 @@ public abstract class BaseSubPresenter<VM extends BaseSubViewModule> extends Bas
     }
 
     @Override
-    public <R> Observable<R> autoUnsubscribe(Observable<R> observable) {
+    public <T> LifecycleTransformer<T> autoUnsubscribe() {
         //noinspection unchecked
-        return mRootPresenter.autoUnsubscribe(observable);
+        return mRootPresenter.autoUnsubscribe();
     }
 
-    public void registerActionOnResume(Action0 action){
-        mRootPresenter.registerActionOnResume(action);
-    }
-
-    public void registerActionOnPause(Action0 action){
-        mRootPresenter.registerActionOnPause(action);
-    }
-
-    public void registerActionOnStop(Action0 action){
-        mRootPresenter.registerActionOnStop(action);
-    }
-
-    public void registerActionOnDestroy(Action0 action){
+    @Override
+    public void registerActionOnDestroy(Action0 action) {
         mRootPresenter.registerActionOnDestroy(action);
     }
-
 }

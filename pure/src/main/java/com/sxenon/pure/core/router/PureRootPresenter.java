@@ -48,7 +48,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
                         case STOP:
                             return RootPresenterEvent.DESTROY;
                         case DESTROY:
-                            throw new OutsideLifecycleException("Cannot bind to Router lifecycle when outside of it.");
+                            throw new OutsideLifecycleException("Cannot bind to RootPresenter lifecycle when outside of it.");
                         default:
                             throw new UnsupportedOperationException("Binding to " + lastEvent + " not yet implemented");
                     }
@@ -188,30 +188,30 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
     //Permission end
 
-    @Override
-    public <R> Observable<R> autoUnsubscribe(Observable<R> observable){
-        //noinspection unchecked
-        return (Observable<R>) observable.compose(bindUntilEvent(RootPresenterEvent.DESTROY));
-    }
-
-    public void registerActionOnResume(Action0 action){
-        registerActionOnEvent(RootPresenterEvent.RESUME,action);
-    }
-
-    public void registerActionOnPause(Action0 action){
-        registerActionOnEvent(RootPresenterEvent.PAUSE,action);
-    }
-
-    public void registerActionOnStop(Action0 action){
-        registerActionOnEvent(RootPresenterEvent.STOP,action);
+    public <T> LifecycleTransformer<T> autoUnsubscribe(){
+        return bindUntilEvent(RootPresenterEvent.DESTROY);
     }
 
     public void registerActionOnDestroy(Action0 action){
         registerActionOnEvent(RootPresenterEvent.DESTROY,action);
     }
 
+    //TODO Wait to support!
+    private void registerActionOnEvent(final RootPresenterEvent rootPresenterEvent, Action0 action, boolean once){
+        if (once){
+            registerActionOnEvent(rootPresenterEvent,action);
+            return;
+        }
+        if (RootPresenterEvent.DESTROY==rootPresenterEvent){
+            throw new IllegalArgumentException("RootPresenterEvent.DESTROY can`t be emitted twice");
+        }
+        throw new UnsupportedOperationException("Wait to support!");
+    }
 
     private void registerActionOnEvent(RootPresenterEvent rootPresenterEvent, Action0 action){
+        if (rootPresenterEvent!=RootPresenterEvent.DESTROY){
+            throw new UnsupportedOperationException("Wait to support!");
+        }
         Observable.never()
                 /**
                  * RxLifecycle does not actually unsubscribe the sequence. Instead it terminates the sequence. The way in which it does so varies based on the type:
