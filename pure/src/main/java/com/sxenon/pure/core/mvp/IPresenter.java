@@ -35,4 +35,10 @@ public interface IPresenter<VM extends IViewModule> {
     <T> LifecycleTransformer<T> autoUnsubscribe();
 
     void registerActionOnDestroy(Action0 action);
+
+    void registerActionOnResume(Action0 action,boolean once);
+
+    void registerActionOnPause(Action0 action,boolean once);
+
+    void registerActionOnStop(Action0 action,boolean once);
 }

@@ -192,36 +192,49 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
         return bindUntilEvent(RootPresenterEvent.DESTROY);
     }
 
+    @Override
     public void registerActionOnDestroy(Action0 action){
-        registerActionOnEvent(RootPresenterEvent.DESTROY,action);
+        registerActionOnEvent(RootPresenterEvent.DESTROY,action,true);
     }
 
-    //TODO Wait to support!
+    @Override
+    public void registerActionOnPause(Action0 action, boolean once) {
+        registerActionOnEvent(RootPresenterEvent.PAUSE,action,once);
+    }
+
+    @Override
+    public void registerActionOnResume(Action0 action, boolean once) {
+        registerActionOnEvent(RootPresenterEvent.RESUME,action,once);
+    }
+
+    @Override
+    public void registerActionOnStop(Action0 action, boolean once) {
+        registerActionOnEvent(RootPresenterEvent.STOP,action,once);
+    }
+
+    //TODO Check it！
     private void registerActionOnEvent(final RootPresenterEvent rootPresenterEvent, Action0 action, boolean once){
-        if (once){
-            registerActionOnEvent(rootPresenterEvent,action);
-            return;
+        if (RootPresenterEvent.CREATE==rootPresenterEvent){
+            throw new IllegalArgumentException("Are you serious?!");
         }
-        if (RootPresenterEvent.DESTROY==rootPresenterEvent){
+        if (RootPresenterEvent.DESTROY==rootPresenterEvent&&!once){
             throw new IllegalArgumentException("RootPresenterEvent.DESTROY can`t be emitted twice");
         }
-        throw new UnsupportedOperationException("Wait to support!");
+        /**
+         * RxLifecycle does not actually unsubscribe the sequence. Instead it terminates the sequence. The way in which it does so varies based on the type:
+         Observable - emits onCompleted()
+         Single and Completable - emits onError(CancellationException)
+         */
+        Observable<Object> observable=Observable.never().doOnTerminate(action).compose(bindUntilEvent(rootPresenterEvent));
+        if (!once){
+            observable=observable.repeat();
+        }
+        if (rootPresenterEvent!=RootPresenterEvent.DESTROY){
+            observable=observable.compose(this.autoUnsubscribe());
+        }
+        observable.subscribe();
     }
 
-    private void registerActionOnEvent(RootPresenterEvent rootPresenterEvent, Action0 action){
-        if (rootPresenterEvent!=RootPresenterEvent.DESTROY){
-            throw new UnsupportedOperationException("Wait to support!");
-        }
-        Observable.never()
-                /**
-                 * RxLifecycle does not actually unsubscribe the sequence. Instead it terminates the sequence. The way in which it does so varies based on the type:
-                 Observable - emits onCompleted()
-                 Single and Completable - emits onError(CancellationException)
-                 */
-                .doOnTerminate(action)
-                .compose(bindUntilEvent(rootPresenterEvent))
-                .subscribe();
-    }
 
     @Override
     public void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener) {
