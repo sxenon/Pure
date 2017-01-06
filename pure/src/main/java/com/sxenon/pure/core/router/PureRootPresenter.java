@@ -212,26 +212,6 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
         return bindUntilEvent(RootPresenterEvent.DESTROY);
     }
 
-//    @Override
-//    public void registerActionOnDestroy(Action0 action){
-//        registerActionOnEvent(RootPresenterEvent.DESTROY,action,true);
-//    }
-//
-//    @Override
-//    public void registerActionOnPause(Action0 action, boolean once) {
-//        registerActionOnEvent(RootPresenterEvent.PAUSE,action,once);
-//    }
-//
-//    @Override
-//    public void registerActionOnResume(Action0 action, boolean once) {
-//        registerActionOnEvent(RootPresenterEvent.RESUME,action,once);
-//    }
-//
-//    @Override
-//    public void registerActionOnStop(Action0 action, boolean once) {
-//        registerActionOnEvent(RootPresenterEvent.STOP,action,once);
-//    }
-
     //TODO Check it！
     private void registerActionOnEvent(final RootPresenterEvent rootPresenterEvent, final Action0 action, final boolean once) {
         if (RootPresenterEvent.CREATE == rootPresenterEvent) {

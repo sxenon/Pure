@@ -33,12 +33,11 @@ import rx.functions.Action0;
 public abstract class BaseSubPresenter<VM extends BaseSubViewModule> extends BasePresenter<VM> {
     private final BaseRootPresenter mRootPresenter;
 
-    public BaseSubPresenter(VM viewModule,BaseRootPresenter rootPresenter) {
+    public BaseSubPresenter(VM viewModule, BaseRootPresenter rootPresenter) {
         super(viewModule);
         mRootPresenter = rootPresenter;
     }
 
-    @Override
     public BaseRootPresenter getRootPresenter() {
         return mRootPresenter;
     }
@@ -61,23 +60,4 @@ public abstract class BaseSubPresenter<VM extends BaseSubViewModule> extends Bas
         return mRootPresenter.autoUnsubscribe();
     }
 
-//    @Override
-//    public void registerActionOnDestroy(Action0 action) {
-//        mRootPresenter.registerActionOnDestroy(action);
-//    }
-//
-//    @Override
-//    public void registerActionOnResume(Action0 action, boolean once) {
-//        mRootPresenter.registerActionOnResume(action,once);
-//    }
-//
-//    @Override
-//    public void registerActionOnPause(Action0 action, boolean once) {
-//        mRootPresenter.registerActionOnPause(action, once);
-//    }
-//
-//    @Override
-//    public void registerActionOnStop(Action0 action, boolean once) {
-//        mRootPresenter.registerActionOnStop(action,once);
-//    }
 }

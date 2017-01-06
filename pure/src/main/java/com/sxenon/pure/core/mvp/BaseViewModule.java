@@ -10,7 +10,7 @@ import com.sxenon.pure.core.component.IViewComponentGroup;
 
 /**
  * Please use {@link BaseRootViewModule} with {@link BaseSubViewModule} (if needed)
- * Include {@link android.view.View} & {@link IViewComponentGroup
+ * Include {@link android.view.View} & {@link IViewComponentGroup}
  * Created by Sui on 2016/11/22.
  */
 
