@@ -208,7 +208,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
     //Permission end
 
-    public <T> LifecycleTransformer<T> autoUnsubscribe() {
+    public <T> LifecycleTransformer<T> autoComplete() {
         return bindUntilEvent(RootPresenterEvent.DESTROY);
     }
 

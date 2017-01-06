@@ -46,6 +46,6 @@ public interface IPresenter<VM extends IViewModule> {
 
     void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener);
 
-    <T> LifecycleTransformer<T> autoUnsubscribe();
+    <T> LifecycleTransformer<T> autoComplete();
 
 }

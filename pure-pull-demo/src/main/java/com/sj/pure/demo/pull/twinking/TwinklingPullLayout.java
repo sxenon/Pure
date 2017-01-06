@@ -50,7 +50,7 @@ public class TwinklingPullLayout implements IPullLayout {
 
     @Override
     public void endRefreshing() {
-        mRealLayout.finishLoadmore();
+        mRealLayout.finishRefreshing();
     }
 
     @Override

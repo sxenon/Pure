@@ -55,9 +55,9 @@ public abstract class BaseSubPresenter<VM extends BaseSubViewModule> extends Bas
     }
 
     @Override
-    public <T> LifecycleTransformer<T> autoUnsubscribe() {
+    public <T> LifecycleTransformer<T> autoComplete() {
         //noinspection unchecked
-        return mRootPresenter.autoUnsubscribe();
+        return mRootPresenter.autoComplete();
     }
 
 }
