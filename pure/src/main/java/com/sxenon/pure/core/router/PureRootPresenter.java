@@ -1,7 +1,24 @@
+/*
+ * Copyright (c) 2017 sxenon
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.sxenon.pure.core.router;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.root.RootPresenterEvent;
@@ -21,9 +38,11 @@ import javax.annotation.Nonnull;
 
 import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import rx.Observable;
+import rx.Observer;
 import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
+import rx.subjects.PublishSubject;
 
 /**
  * Created by Sui on 2016/11/28.
@@ -34,6 +53,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     private final BehaviorSubject<RootPresenterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
+    private static final String TAG="PureRootPresenter";
     private final Func1<RootPresenterEvent, RootPresenterEvent> ROUTER_LIFECYCLE =
             new Func1<RootPresenterEvent, RootPresenterEvent>() {
                 @Override
@@ -188,36 +208,36 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
     //Permission end
 
-    public <T> LifecycleTransformer<T> autoUnsubscribe(){
+    public <T> LifecycleTransformer<T> autoUnsubscribe() {
         return bindUntilEvent(RootPresenterEvent.DESTROY);
     }
 
-    @Override
-    public void registerActionOnDestroy(Action0 action){
-        registerActionOnEvent(RootPresenterEvent.DESTROY,action,true);
-    }
-
-    @Override
-    public void registerActionOnPause(Action0 action, boolean once) {
-        registerActionOnEvent(RootPresenterEvent.PAUSE,action,once);
-    }
-
-    @Override
-    public void registerActionOnResume(Action0 action, boolean once) {
-        registerActionOnEvent(RootPresenterEvent.RESUME,action,once);
-    }
-
-    @Override
-    public void registerActionOnStop(Action0 action, boolean once) {
-        registerActionOnEvent(RootPresenterEvent.STOP,action,once);
-    }
+//    @Override
+//    public void registerActionOnDestroy(Action0 action){
+//        registerActionOnEvent(RootPresenterEvent.DESTROY,action,true);
+//    }
+//
+//    @Override
+//    public void registerActionOnPause(Action0 action, boolean once) {
+//        registerActionOnEvent(RootPresenterEvent.PAUSE,action,once);
+//    }
+//
+//    @Override
+//    public void registerActionOnResume(Action0 action, boolean once) {
+//        registerActionOnEvent(RootPresenterEvent.RESUME,action,once);
+//    }
+//
+//    @Override
+//    public void registerActionOnStop(Action0 action, boolean once) {
+//        registerActionOnEvent(RootPresenterEvent.STOP,action,once);
+//    }
 
     //TODO Check it！
-    private void registerActionOnEvent(final RootPresenterEvent rootPresenterEvent, Action0 action, boolean once){
-        if (RootPresenterEvent.CREATE==rootPresenterEvent){
+    private void registerActionOnEvent(final RootPresenterEvent rootPresenterEvent, final Action0 action, final boolean once) {
+        if (RootPresenterEvent.CREATE == rootPresenterEvent) {
             throw new IllegalArgumentException("Are you serious?!");
         }
-        if (RootPresenterEvent.DESTROY==rootPresenterEvent&&!once){
+        if (RootPresenterEvent.DESTROY == rootPresenterEvent && !once) {
             throw new IllegalArgumentException("RootPresenterEvent.DESTROY can`t be emitted twice");
         }
         /**
@@ -225,14 +245,65 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
          Observable - emits onCompleted()
          Single and Completable - emits onError(CancellationException)
          */
-        Observable<Object> observable=Observable.never().doOnTerminate(action).compose(bindUntilEvent(rootPresenterEvent));
-        if (!once){
-            observable=observable.repeat();
+        final PublishSubject<Object> subject = PublishSubject.create();
+        final Observable<Object> observable = Observable.never().compose(bindUntilEvent(rootPresenterEvent));
+        final Observer<Object> observer = new Observer<Object>() {
+            @Override
+            public void onCompleted() {
+                if (once) {
+                    action.call();
+                } else {
+                    subject.onNext(null);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+
+            }
+        };
+        observable.subscribe(observer);
+        if (once) {
+            return;
         }
-        if (rootPresenterEvent!=RootPresenterEvent.DESTROY){
-            observable=observable.compose(this.autoUnsubscribe());
-        }
-        observable.subscribe();
+        subject.asObservable().compose(bindUntilEvent(RootPresenterEvent.DESTROY))
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.w(TAG, "onCompleted");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+                        action.call();
+                        Observable.never().compose(PureRootPresenter.this.bindToLifecycle()).subscribe(new Observer<Object>() {
+                            @Override
+                            public void onCompleted() {
+                                observable.subscribe(observer);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onNext(Object o) {
+
+                            }
+                        });
+                    }
+                });
     }
 
 
