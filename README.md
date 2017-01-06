@@ -1,5 +1,5 @@
 #Pure
-做一个开发框架应该做的最少的事
+做一套开发框架应该做的最少的事
 
 详细文档在路上，先简要介绍一下几个关键类与接口
 
@@ -11,7 +11,7 @@ Activity,Fragment及它们的一些子类，有部分共同的方法，例如sta
 
 是否经常遇到这样的情况，在BaseActivity里封装的一些功能，又要在BaseFragment里面写一遍，可怕的是还有BaseDialogFragment等等。交给PureRootPresenter，已经帮您处理好的有权限请求，键盘弹起通知，返回键，IRouter生命周期的管理，订阅的自动取消等等。
 
-##3、IViewComponentGroup
+##3、IViewComponentGroup（**精华**）
 
 注意不是ViewGroup，指的是View组件的组合，与布局样式无关，是对View组件进行模块化处理，并且对其通用的部分，再组件化，尽可能多地复用。分为四类:
 
