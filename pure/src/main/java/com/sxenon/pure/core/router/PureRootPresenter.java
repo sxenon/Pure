@@ -138,6 +138,11 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
 
     //Permission start
+
+    /**
+     * Ignore the return unless the router type is COMPACT_ACTIVITY.
+     * @return Handler the result by self or deliver to its fragment.
+     */
     public boolean onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCommonPermissionsBySelf(requestCode)) {
             permissionHelper.onRequestPermissionsResult(permissions, grantResults);
@@ -146,6 +151,10 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
         return false;
     }
 
+    /**
+     * Ignore the return unless the router type is COMPACT_ACTIVITY.
+     * @return Handler the request by self or deliver to its fragment.
+     */
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
         if (isRequestingSystemAlertPermission) {
             permissionHelper.onRequestSystemAlertPermissionResult(resultCode);

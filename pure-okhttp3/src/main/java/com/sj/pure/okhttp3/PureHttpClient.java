@@ -27,7 +27,7 @@ import okio.Source;
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class PureHttpClient<R extends IResultDispatcher> implements IHttpClient<R> {
+public abstract class PureHttpClient<RD extends IResultDispatcher> implements IHttpClient<RD> {
 
     private final OkHttpClient mClient;
     private ThreadLocal<Request.Builder> requestBuilderThreadLocal =new ThreadLocal<>();
@@ -104,11 +104,17 @@ public abstract class PureHttpClient<R extends IResultDispatcher> implements IHt
         return this;
     }
 
+    /**
+     * Call it before build_xxx_Request
+     */
     public PureHttpClient resetRequestBuilder(Request.Builder builder) {
         requestBuilderThreadLocal.set(builder);
         return this;
     }
 
+    /**
+     * Call it before buildPostMultiPartRequest
+     */
     public PureHttpClient resetMultipartBody(MultipartBody body) {
         multipartBodyThreadLocal.set(body);
         return this;
@@ -129,34 +135,34 @@ public abstract class PureHttpClient<R extends IResultDispatcher> implements IHt
     }
 
     @Override
-    public void execute(R responseHandler) {
+    public void execute(RD resultDispatcher) {
         Response response;
         Call newCall = mClient.newCall(requestBuilderThreadLocal.get().build());
         try {
             response = newCall.execute();
-            preParseResponse(newCall, response, responseHandler);
+            preParseResponse(newCall, response, resultDispatcher);
         } catch (IOException e) {
-            preParseFailure(newCall, e, responseHandler);
+            preParseFailure(newCall, e, resultDispatcher);
         }
     }
 
     @Override
-    public void enqueue(final R responseHandler) {
+    public void enqueue(final RD resultDispatcher) {
         mClient.newCall(requestBuilderThreadLocal.get().build()).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                preParseFailure(call, e, responseHandler);
+                preParseFailure(call, e, resultDispatcher);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                preParseResponse(call, response, responseHandler);
+                preParseResponse(call, response, resultDispatcher);
             }
         });
     }
 
-    protected abstract void preParseFailure(Call call, IOException e, R resultDispatcher);
+    protected abstract void preParseFailure(Call call, IOException e, RD resultDispatcher);
 
-    protected abstract void preParseResponse(Call call, Response response, R resultDispatcher);
+    protected abstract void preParseResponse(Call call, Response response, RD resultDispatcher);
 
 }

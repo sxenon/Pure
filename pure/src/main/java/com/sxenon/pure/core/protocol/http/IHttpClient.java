@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2017 sxenon
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.sxenon.pure.core.protocol.http;
 
 import com.sxenon.pure.core.result.IResultDispatcher;
@@ -12,7 +28,7 @@ import java.util.Map;
  * Created by Sui on 2016/12/12.
  */
 
-public interface IHttpClient<RH extends IResultDispatcher> {
+public interface IHttpClient<RD extends IResultDispatcher> {
     String MEDIA_TYPE_MARKDOWN = "text/x-markdown; charset=utf-8";
     String MEDIA_TYPE_PNG = "image/png";
 
@@ -30,7 +46,7 @@ public interface IHttpClient<RH extends IResultDispatcher> {
 
     void cancel(Object tag);
 
-    void execute(RH responseHandler) throws IOException;
+    void execute(RD resultDispatcher) throws IOException;
 
-    void enqueue(RH responseHandler);
+    void enqueue(RD resultDispatcher);
 }
