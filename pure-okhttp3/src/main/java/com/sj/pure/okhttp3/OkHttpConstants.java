@@ -1,3 +1,4 @@
+
 package com.sj.pure.okhttp3;
 
 import com.sxenon.pure.core.protocol.http.IHttpClient;
@@ -5,6 +6,7 @@ import com.sxenon.pure.core.protocol.http.IHttpClient;
 import okhttp3.MediaType;
 
 /**
+ * Constants for OkHttp
  * Created by Sui on 2016/12/17.
  */
 

@@ -31,7 +31,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by Sui on 2016/12/27.
  */
 
-public class BGAFillerGroup<R> extends FillerGroup<R,BGAPullLayout> {
+public class BGAFillerGroup<R> extends FillerGroup<R, BGAPullLayout> {
     private CustomLister<R> mCustomLister;
 
     public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult) {
@@ -48,25 +48,20 @@ public class BGAFillerGroup<R> extends FillerGroup<R,BGAPullLayout> {
 
     /**
      * Don`t call {@link BGARefreshLayout#setDelegate(BGARefreshLayout.BGARefreshLayoutDelegate)} directly!
-     * @param delegate 刷新控件监听器
      */
-    public void setDelegate(final BGARefreshLayout.BGARefreshLayoutDelegate delegate){
+    public void setDelegate(final BGARefreshLayout.BGARefreshLayoutDelegate delegate) {
         getPullLayout().setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
                 onBeginRefreshing();
-                if (mCustomLister!=null){
-                    mCustomLister.onBeginRefreshingCustom(refreshLayout);
-                }
+                projectLevelOnBGARefreshLayoutBeginRefreshing(refreshLayout);
                 delegate.onBGARefreshLayoutBeginRefreshing(refreshLayout);
             }
 
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 onBeginLoadingMore();
-                if (mCustomLister!=null){
-                    mCustomLister.onBeginLoadingMoreCustom(refreshLayout);
-                }
+                projectLevelOnBGARefreshLayoutBeginLoadingMore(refreshLayout);
                 return delegate.onBGARefreshLayoutBeginLoadingMore(refreshLayout);
             }
         });
@@ -75,7 +70,8 @@ public class BGAFillerGroup<R> extends FillerGroup<R,BGAPullLayout> {
     @Override
     protected void onMoreDataFetched(List<R> data) {
         super.onMoreDataFetched(data);
-        if (mCustomLister!=null){
+        projectLevelOnMoreDataFetched(data);
+        if (mCustomLister != null) {
             mCustomLister.onMoreDataFetchedCustom(data);
         }
     }
@@ -83,7 +79,8 @@ public class BGAFillerGroup<R> extends FillerGroup<R,BGAPullLayout> {
     @Override
     protected void onNewDataFetched(List<R> data) {
         super.onNewDataFetched(data);
-        if (mCustomLister!=null){
+        projectLevelOnNewDataFetched(data);
+        if (mCustomLister != null) {
             mCustomLister.onNewDataFetchedCustom(data);
         }
     }
@@ -91,8 +88,8 @@ public class BGAFillerGroup<R> extends FillerGroup<R,BGAPullLayout> {
     @Override
     protected void onNoMoreData() {
         super.onNoMoreData();
-        bgaCommonOnNoMoreData();
-        if (mCustomLister!=null){
+        projectLevelOnNoMoreData();
+        if (mCustomLister != null) {
             mCustomLister.onNoMoreDataCustom();
         }
     }
@@ -100,30 +97,48 @@ public class BGAFillerGroup<R> extends FillerGroup<R,BGAPullLayout> {
     @Override
     protected void onNoNewData() {
         super.onNoNewData();
-        bgaCommonOnNoNewData();
-        if (mCustomLister!=null){
+        projectOnNoNewData();
+        if (mCustomLister != null) {
             mCustomLister.onNoNewDataCustom();
         }
     }
 
-    public void setCustomLister(CustomLister<R> customLister){
-        mCustomLister=customLister;
+    public void setCustomLister(CustomLister<R> customLister) {
+        mCustomLister = customLister;
     }
 
-    private void bgaCommonOnNoNewData(){
-        //For project level
+    private void projectOnNoNewData() {
+
     }
 
-    private void bgaCommonOnNoMoreData(){
-        //For project level
+    private void projectLevelOnNoMoreData() {
+
     }
 
-    public interface CustomLister<R>{
-        void onBeginRefreshingCustom(BGARefreshLayout refreshLayout);
-        void onBeginLoadingMoreCustom(BGARefreshLayout refreshLayout);
+    private void projectLevelOnNewDataFetched(List<R> data) {
+
+    }
+
+    private void projectLevelOnMoreDataFetched(List<R> data) {
+
+    }
+
+    private void projectLevelOnBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+
+    }
+
+    private void projectLevelOnBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+
+    }
+
+
+    public interface CustomLister<R> {
         void onMoreDataFetchedCustom(List<R> data);
+
         void onNewDataFetchedCustom(List<R> data);
+
         void onNoMoreDataCustom();
+
         void onNoNewDataCustom();
     }
 }

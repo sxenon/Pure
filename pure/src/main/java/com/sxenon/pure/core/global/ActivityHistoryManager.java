@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2017 sxenon
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.sxenon.pure.core.global;
 
 import android.util.Log;
@@ -12,7 +28,7 @@ import java.util.Stack;
  */
 
 public class ActivityHistoryManager {
-    //结合Activity的LaunchMode统一管理
+    //Use with activity`s launchMode will be better.
     private final Stack<IActivity> activityStack = new Stack<>();
     private final String TAG = "ActivityHistoryManager";
 
@@ -28,7 +44,7 @@ public class ActivityHistoryManager {
     }
 
     /**
-     * onCreate()里面finish的情况应该手动在onCreate()里面加上remove
+     * Should call remove in onCreate() if finish in onOnCreate()
      */
     public void remove(IActivity activity) {
         activityStack.remove(activity);
@@ -49,7 +65,6 @@ public class ActivityHistoryManager {
 
     /**
      * @deprecated {@link #finishBackgroundActivitiesIfNeed} is much better and more useful
-     * 关闭当前与指定Activity之间的所有的Activity
      */
     public void finishActivityInMiddle(Class<? extends IActivity> bottomActivityClass) {
         IActivity currentActivity = getCurrentActivity();
@@ -79,7 +94,7 @@ public class ActivityHistoryManager {
 
     /**
      * Keep what should keep,and finish others.
-     * @param what 区分事件
+     * @param what by event
      */
     public void finishBackgroundActivitiesIfNeed(final int what) {
         IActivity currentActivity = getCurrentActivity();
@@ -99,9 +114,6 @@ public class ActivityHistoryManager {
         Log.i(TAG,"finishBackgroundActivitiesIfNeedSuccess:what="+what);
     }
 
-    /**
-     * 结束所有Activity
-     */
     public void finishAllActivity() {
         for (IActivity activity : activityStack) {
             if (activity != null && !activity.isFinishing()) {
@@ -112,8 +124,7 @@ public class ActivityHistoryManager {
     }
 
     /**
-     * 根据ActivityName获取堆中Activity实例
-     *
+     * find activity by class name
      * @param activityClass Activity 类型
      * @return activity
      */
@@ -127,7 +138,7 @@ public class ActivityHistoryManager {
     }
 
     /**
-     * 退出应用程序
+     * Exit app
      */
     public void appExit() {
         finishAllActivity();

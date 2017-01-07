@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 19
@@ -32,6 +32,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.squareup.okhttp3:okhttp:'+okhttp3Version
     compile 'com.squareup.okhttp3:logging-interceptor:'+okhttp3Version
-    compile 'com.facebook.stetho:stetho-okhttp3:1.4.1'
     compile project(':pure')
 }
