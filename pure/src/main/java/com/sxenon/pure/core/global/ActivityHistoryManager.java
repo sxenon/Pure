@@ -24,11 +24,12 @@ import java.util.Iterator;
 import java.util.Stack;
 
 /**
+ * Manage activity history
+ * Use with activity`s launchMode will be better.
  * Created by Sui on 2016/12/24.
  */
 
 public class ActivityHistoryManager {
-    //Use with activity`s launchMode will be better.
     private final Stack<IActivity> activityStack = new Stack<>();
     private final String TAG = "ActivityHistoryManager";
 

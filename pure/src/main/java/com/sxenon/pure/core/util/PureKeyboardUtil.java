@@ -32,7 +32,6 @@ import cn.dreamtobe.kpswitch.IPanelHeightTarget;
 import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import rx.Observable;
 import rx.Observer;
-import rx.functions.Action0;
 
 /**
  * Based on https://github.com/Jacksgong/JKeyboardPanelSwitch.Thanks

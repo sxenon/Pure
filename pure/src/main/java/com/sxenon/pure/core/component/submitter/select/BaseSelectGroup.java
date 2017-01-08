@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2017 sxenon
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.sxenon.pure.core.component.submitter.select;
 
 import android.content.Context;
@@ -8,6 +24,10 @@ import com.sxenon.pure.core.component.adapter.IPureAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import rx.Observable;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Base impl for ISelectGroup
@@ -24,13 +44,13 @@ public abstract class BaseSelectGroup<T> implements ISelectGroup<T> {
      * @param selectMode {@link ISelectGroup#SELECT_MODE_MULTI} or {@link ISelectGroup#SELECT_MODE_SINGLE}
      */
     public BaseSelectGroup(@NonNull Context context, @NonNull IPureAdapter<T> adapter, int selectMode) {
-        if (selectMode!=SELECT_MODE_MULTI&&selectMode!=SELECT_MODE_SINGLE){
+        if (selectMode != SELECT_MODE_MULTI && selectMode != SELECT_MODE_SINGLE) {
             throw new IllegalArgumentException("Check the mode please!");
         }
         mContext = context;
         mAdapter = adapter;
         selectedFlags = new ArrayList<>(mAdapter.getItemCount());
-        mSelectMode=selectMode;
+        mSelectMode = selectMode;
         Collections.fill(selectedFlags, false);
         SelectGroupHelper.bindAdapterAndSelectGroup(adapter, this);
     }
@@ -42,7 +62,7 @@ public abstract class BaseSelectGroup<T> implements ISelectGroup<T> {
     }
 
     @Override
-    public void insertOptionAsFirst(T data) {
+    public void insertFirstOption(T data) {
         mAdapter.addItemFromStart(data);
         selectedFlags.add(0, false);
     }
@@ -67,7 +87,7 @@ public abstract class BaseSelectGroup<T> implements ISelectGroup<T> {
     }
 
     @Override
-    public void onSelectedOption(int position) {
+    public void onOptionSelected(int position) {
         if (selectedFlags.get(position)) {
             return;
         }
@@ -86,28 +106,44 @@ public abstract class BaseSelectGroup<T> implements ISelectGroup<T> {
     }
 
     @Override
-    public void onUnSelectedOption(int position) {
+    public void onOptionUnSelected(int position) {
         selectedFlags.set(position, false);
     }
 
     @Override
     public List<T> getDataForSubmit() {
-        List<T> selectedOptionList = new ArrayList<>();
-        for (int position = 0; position < selectedFlags.size(); position++) {
-            if (selectedFlags.get(position)) {
-                selectedOptionList.add(mAdapter.getValues().get(position));
-            }
-        }
+        final List<T> selectedOptionList = new ArrayList<>();
+        Observable.range(0, selectedFlags.size())
+                .filter(new Func1<Integer, Boolean>() {
+                    @Override
+                    public Boolean call(Integer position) {
+                        return selectedFlags.get(position);
+                    }
+                }).
+                subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer position) {
+                        selectedOptionList.add(mAdapter.getValues().get(position));
+                    }
+                });
         return selectedOptionList;
     }
 
     public List<Integer> getSelectedIndexList() {
-        List<Integer> indexList = new ArrayList<>();
-        for (int position = 0; position < selectedFlags.size(); position++) {
-            if (selectedFlags.get(position)) {
-                indexList.add(position);
-            }
-        }
+        final List<Integer> indexList = new ArrayList<>();
+        Observable.range(0, selectedFlags.size())
+                .filter(new Func1<Integer, Boolean>() {
+                    @Override
+                    public Boolean call(Integer position) {
+                        return selectedFlags.get(position);
+                    }
+                })
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer position) {
+                        indexList.add(position);
+                    }
+                });
         return indexList;
     }
 
