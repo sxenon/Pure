@@ -18,9 +18,11 @@ package com.sxenon.pure.core.util;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Sui on 2016/12/24.
@@ -49,5 +51,30 @@ public class CommonUtils {
         if (view!=null){
             view.setVisibility(visibility);
         }
+    }
+
+    // Reto Meier used in the Google I/O presentation 2014
+    private static String uniqueID = null;
+    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
+
+    /**
+     * MAC addresses are globally unique, not user-resettable and survive factory reset.
+     * It is generally not recommended to use MAC address for any form of user identification.
+     * As a result, as of Android M, local device MAC addresses (for example, Wifi and Bluetooth) are not available via third party APIs.
+     * The WifiInfo.getMacAddress() method and the BluetoothAdapter.getDefaultAdapter().getAddress() method will both return 02:00:00:00:00:00..
+     */
+    public synchronized static String id(Context context) {
+        if (uniqueID == null) {
+            SharedPreferences sharedPrefs = context.getSharedPreferences(
+                    PREF_UNIQUE_ID, Context.MODE_PRIVATE);
+            uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
+            if (uniqueID == null) {
+                uniqueID = UUID.randomUUID().toString();
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putString(PREF_UNIQUE_ID, uniqueID);
+                editor.apply();
+            }
+        }
+        return uniqueID;
     }
 }
