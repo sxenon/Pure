@@ -9,7 +9,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 /**
- * DemoRetrofitResultDispatcher
+ * Demo for RetrofitResultDispatcher
  * Created by Sui on 2016/12/15.
  */
 

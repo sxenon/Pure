@@ -11,7 +11,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
- * DemoServiceGenerator
+ * Demo for ServiceGenerator
  * Created by Sui on 2016/12/15.
  */
 
