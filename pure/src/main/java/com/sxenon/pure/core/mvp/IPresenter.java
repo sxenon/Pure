@@ -26,7 +26,7 @@ import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import rx.functions.Action0;
 
 /**
- * Presenter For Mvp
+ * Presenter For MVP
  * Created by Sui on 2016/11/21.
  */
 
