@@ -99,8 +99,8 @@ public abstract class BaseSelectGroup<T> implements ISelectGroup<T> {
                     public Boolean call(Integer position) {
                         return selectedFlags.get(position);
                     }
-                }).
-                subscribe(new Action1<Integer>() {
+                })
+                .subscribe(new Action1<Integer>() {
                     @Override
                     public void call(Integer position) {
                         selectedOptionList.add(mAdapter.getValues().get(position));

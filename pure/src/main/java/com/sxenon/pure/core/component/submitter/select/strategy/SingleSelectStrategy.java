@@ -26,18 +26,18 @@ import java.util.List;
  */
 
 public class SingleSelectStrategy implements ISelectGroup.SelectStrategy {
+    private int lastSelectedPosition = -1;
+
     @Override
     public void onOptionSelected(List<Boolean> selectedFlags, int position) {
-        if (selectedFlags.get(position)) {
+        if (lastSelectedPosition == position) {
             return;
         }
-        for (int index = 0; index < selectedFlags.size(); index++) {
-            if (index != position) {
-                selectedFlags.set(position, false);
-            } else {
-                selectedFlags.set(index, true);
-            }
+        if (lastSelectedPosition >= 0) {
+            selectedFlags.set(lastSelectedPosition, false);
         }
+        selectedFlags.set(position, true);
+        lastSelectedPosition = position;
     }
 
     @Override
