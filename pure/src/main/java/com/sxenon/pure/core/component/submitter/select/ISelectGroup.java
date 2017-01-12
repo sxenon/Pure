@@ -36,4 +36,9 @@ public interface ISelectGroup<T> extends IListDataSubmitter<T> {
     void setOptions(List<T> data);
     void onOptionSelected(int position);
     void onOptionUnSelected(int position);
+
+    interface SelectStrategy<S>{
+        void onOptionSelected(int position, List<Boolean> selectedFlags);
+        void onOptionUnSelected(int position, List<Boolean> selectedFlags);
+    }
 }

@@ -35,22 +35,16 @@ import rx.functions.Func1;
  */
 
 public abstract class BaseSelectGroup<T> implements ISelectGroup<T> {
-    private Context mContext;
-    private IPureAdapter<T> mAdapter;
+    private final Context mContext;
+    private final IPureAdapter<T> mAdapter;
     private List<Boolean> selectedFlags;
-    private int mSelectMode;
+    private final ISelectGroup.SelectStrategy<T> mSelectStrategy;
 
-    /**
-     * @param selectMode {@link ISelectGroup#SELECT_MODE_MULTI} or {@link ISelectGroup#SELECT_MODE_SINGLE}
-     */
-    public BaseSelectGroup(@NonNull Context context, @NonNull IPureAdapter<T> adapter, int selectMode) {
-        if (selectMode != SELECT_MODE_MULTI && selectMode != SELECT_MODE_SINGLE) {
-            throw new IllegalArgumentException("Check the mode please!");
-        }
+    public BaseSelectGroup(@NonNull Context context, @NonNull IPureAdapter<T> adapter, ISelectGroup.SelectStrategy<T> selectStrategy) {
         mContext = context;
         mAdapter = adapter;
+        mSelectStrategy=selectStrategy;
         selectedFlags = new ArrayList<>(mAdapter.getItemCount());
-        mSelectMode = selectMode;
         Collections.fill(selectedFlags, false);
         SelectGroupHelper.bindAdapterAndSelectGroup(adapter, this);
     }
@@ -88,26 +82,12 @@ public abstract class BaseSelectGroup<T> implements ISelectGroup<T> {
 
     @Override
     public void onOptionSelected(int position) {
-        if (selectedFlags.get(position)) {
-            return;
-        }
-
-        if (mSelectMode == ISelectGroup.SELECT_MODE_MULTI) {
-            selectedFlags.set(position, true);
-        } else {
-            for (int index = 0; index < selectedFlags.size(); index++) {
-                if (index != position) {
-                    selectedFlags.set(position, false);
-                } else {
-                    selectedFlags.set(index, true);
-                }
-            }
-        }
+        mSelectStrategy.onOptionSelected(position,selectedFlags);
     }
 
     @Override
     public void onOptionUnSelected(int position) {
-        selectedFlags.set(position, false);
+        mSelectStrategy.onOptionUnSelected(position,selectedFlags);
     }
 
     @Override
@@ -150,10 +130,6 @@ public abstract class BaseSelectGroup<T> implements ISelectGroup<T> {
     @NonNull
     public Context getContext() {
         return mContext;
-    }
-
-    public int getSelectMode() {
-        return mSelectMode;
     }
 
     public IPureAdapter<T> getAdapter() {
