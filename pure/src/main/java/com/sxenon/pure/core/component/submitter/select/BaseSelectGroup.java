@@ -38,9 +38,9 @@ public abstract class BaseSelectGroup<T> implements ISelectGroup<T> {
     private final Context mContext;
     private final IPureAdapter<T> mAdapter;
     private List<Boolean> selectedFlags;
-    private final ISelectGroup.SelectStrategy<T> mSelectStrategy;
+    private final ISelectGroup.SelectStrategy mSelectStrategy;
 
-    public BaseSelectGroup(@NonNull Context context, @NonNull IPureAdapter<T> adapter, ISelectGroup.SelectStrategy<T> selectStrategy) {
+    public BaseSelectGroup(@NonNull Context context, @NonNull IPureAdapter<T> adapter, ISelectGroup.SelectStrategy selectStrategy) {
         mContext = context;
         mAdapter = adapter;
         mSelectStrategy=selectStrategy;
@@ -82,12 +82,12 @@ public abstract class BaseSelectGroup<T> implements ISelectGroup<T> {
 
     @Override
     public void onOptionSelected(int position) {
-        mSelectStrategy.onOptionSelected(position,selectedFlags);
+        mSelectStrategy.onOptionSelected(selectedFlags, position);
     }
 
     @Override
     public void onOptionUnSelected(int position) {
-        mSelectStrategy.onOptionUnSelected(position,selectedFlags);
+        mSelectStrategy.onOptionUnSelected(selectedFlags, position);
     }
 
     @Override

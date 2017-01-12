@@ -26,19 +26,24 @@ import java.util.List;
  */
 
 public interface ISelectGroup<T> extends IListDataSubmitter<T> {
-    int SELECT_MODE_SINGLE=0;
-    int SELECT_MODE_MULTI=1;
 
     void addOption(T data);
+
     void insertFirstOption(T data);
+
     void removeOption(T data);
+
     void removeOption(int position);
+
     void setOptions(List<T> data);
+
     void onOptionSelected(int position);
+
     void onOptionUnSelected(int position);
 
-    interface SelectStrategy<S>{
-        void onOptionSelected(int position, List<Boolean> selectedFlags);
-        void onOptionUnSelected(int position, List<Boolean> selectedFlags);
+    interface SelectStrategy {
+        void onOptionSelected(List<Boolean> selectedFlags, int position);
+
+        void onOptionUnSelected(List<Boolean> selectedFlags, int position);
     }
 }

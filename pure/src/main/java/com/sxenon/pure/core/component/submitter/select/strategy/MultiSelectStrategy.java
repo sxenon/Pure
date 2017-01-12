@@ -25,17 +25,14 @@ import java.util.List;
  * Created by Sui on 2017/1/12.
  */
 
-public class MultiSelectStrategy<S> implements ISelectGroup.SelectStrategy<S> {
+public class MultiSelectStrategy implements ISelectGroup.SelectStrategy {
     @Override
-    public void onOptionSelected(int position, List<Boolean> selectedFlags) {
-        if (selectedFlags.get(position)) {
-            return;
-        }
+    public void onOptionSelected(List<Boolean> selectedFlags, int position) {
         selectedFlags.set(position, true);
     }
 
     @Override
-    public void onOptionUnSelected(int position, List<Boolean> selectedFlags) {
+    public void onOptionUnSelected(List<Boolean> selectedFlags, int position) {
         selectedFlags.set(position, false);
     }
 }
