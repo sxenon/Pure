@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.router;
+package com.sxenon.pure.core.component.filler;
+
+import com.sxenon.pure.core.component.adapter.IPureAdapter;
+
+import java.util.List;
 
 /**
- * Interface for Activity
- * Created by Sui on 2017/1/2.
+ * Strategy Interface for ListDataFiller
+ * Created by Sui on 2017/1/12.
  */
 
-public interface IActivity<P extends PureRootPresenter> extends IRouter<P> {
-    boolean shouldKeepWhenBackground(int what);
-    void finish();
-    boolean isFinishing();
+public interface ListDataFillStrategy<R> {
+    void onMoreDataFetched(IPureAdapter<R> mAdapter, List<R> data);
+
+    void onNewDataFetched(IPureAdapter<R> mAdapter, List<R> data);
+
+    void onInitDataFetched(IPureAdapter<R> mAdapter, List<R> data);
 }

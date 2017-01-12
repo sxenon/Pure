@@ -44,6 +44,7 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
 
     private final IPureAdapter<R> mAdapter;
     private final IFetchSingleResultHandler<R> mSingleDataResultHandler;
+    private final ListDataFillStrategy<R> mListDataFillStrategy;
     private R mValue;
 
     private final PL mPullLayout;
@@ -55,38 +56,65 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
 
     /**
      * Constructor
-     * @param pullLayout 刷新容器
-     * @param singleDataResultHandler  单一数据的Handler
+     *
+     * @param pullLayout              刷新容器
+     * @param singleDataResultHandler 单一数据的Handler
      */
     public FillerGroup(Context context, PL pullLayout, IFetchSingleResultHandler<R> singleDataResultHandler) {
-        this(context, pullLayout, null, singleDataResultHandler, false);
+        this(context, pullLayout, null, singleDataResultHandler, false, null);
     }
 
     /**
      * Constructor
+     *
      * @param pullLayout 刷新容器
-     * @param adapter 列表控件相关的adapter
+     * @param adapter    列表控件相关的adapter
      */
     public FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter) {
-        this(context, pullLayout, adapter, null, false);
+        this(context, pullLayout, adapter, null, false, new DefaultListDataFillStrategy<R>());
     }
 
     /**
      * Constructor
-     * @param pullLayout 刷新容器
-     * @param adapter 列表控件相关的adapter
+     *
+     * @param pullLayout    刷新容器
+     * @param adapter       列表控件相关的adapter
      * @param isFreshForAdd 上拉是添加最新数据还是完整更新，true 表示添加最新数据
      */
     public FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, boolean isFreshForAdd) {
-        this(context, pullLayout, adapter, null, isFreshForAdd);
+        this(context, pullLayout, adapter, null, isFreshForAdd, new DefaultListDataFillStrategy<R>());
     }
 
-    private FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResultHandler, boolean isFreshForAdd) {
+    /**
+     * Constructor
+     *
+     * @param pullLayout           刷新容器
+     * @param adapter              列表控件相关的adapter
+     * @param listDataFillStrategy 列表数据填充策略
+     */
+    public FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, ListDataFillStrategy<R> listDataFillStrategy) {
+        this(context, pullLayout, adapter, null, false, listDataFillStrategy);
+    }
+
+    /**
+     * Constructor
+     *
+     * @param pullLayout           刷新容器
+     * @param adapter              列表控件相关的adapter
+     * @param isFreshForAdd        上拉是添加最新数据还是完整更新，true 表示添加最新数据
+     * @param listDataFillStrategy 列表数据填充策略
+     */
+    public FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, boolean isFreshForAdd, ListDataFillStrategy<R> listDataFillStrategy) {
+        this(context, pullLayout, adapter, null, isFreshForAdd, listDataFillStrategy);
+    }
+
+    private FillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResultHandler, boolean isFreshForAdd, ListDataFillStrategy<R> listDataFillStrategy) {
         mContext = context;
         mPullLayout = pullLayout;
         mAdapter = adapter;
         mSingleDataResultHandler = singleDataResultHandler;
         mIsRefreshForAdd = isFreshForAdd;
+        mListDataFillStrategy = listDataFillStrategy;
     }
 
     /**
@@ -113,7 +141,7 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
         tempPageCount = mCurrentPageCount + 1;
     }
 
-    public void setMinorComponents(View emptyView, View exceptionView, View clickToRefreshView) {
+    public void setMinorComponents(View emptyView, View exceptionView) {
         mEmptyView = emptyView;
         mExceptionView = exceptionView;
 
@@ -210,15 +238,15 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
     }
 
     protected void onMoreDataFetched(List<R> data) {
-        mAdapter.addItemsFromEnd(data);
+        mListDataFillStrategy.onMoreDataFetched(mAdapter,data);
     }
 
     protected void onNewDataFetched(List<R> data) {
-        mAdapter.addItemsFromStart(data);
+        mListDataFillStrategy.onNewDataFetched(mAdapter,data);
     }
 
     protected void onInitDataFetched(List<R> data) {
-        mAdapter.resetAllItems(data);
+        mListDataFillStrategy.onInitDataFetched(mAdapter,data);
     }
 
     @Override
@@ -351,13 +379,11 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
     }
     //before end
 
-    //after start
-
-    //after end
     public class EventWhat {
         public static final int WHAT_UNINITIALIZED = 1;
         public static final int WHAT_NORMAL = 2;
         public static final int WHAT_EMPTY = 3;
         public static final int WHAT_EXCEPTION = 4;
     }
+
 }

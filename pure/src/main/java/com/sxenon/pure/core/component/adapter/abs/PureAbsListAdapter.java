@@ -39,7 +39,7 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
     private final Object mLock = new Object();
     private final List<PureAbsListItemViewTypeEntity> mItemViewTypeEntryList;
     private final IViewModule mViewHolder;
-    private List<T> mData = new ArrayList<>();
+    private final List<T> mData = new ArrayList<>();
 
     /**
      * @param itemViewTypeEntryList {@link #getItemViewType(int)}

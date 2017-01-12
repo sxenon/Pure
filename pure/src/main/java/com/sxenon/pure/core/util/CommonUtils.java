@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
+ * Utils for root library
  * Created by Sui on 2016/12/24.
  */
 
