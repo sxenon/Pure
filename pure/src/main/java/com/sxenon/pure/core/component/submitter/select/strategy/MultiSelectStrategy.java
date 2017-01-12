@@ -36,6 +36,6 @@ public class MultiSelectStrategy<S> implements ISelectGroup.SelectStrategy<S> {
 
     @Override
     public void onOptionUnSelected(int position, List<Boolean> selectedFlags) {
-
+        selectedFlags.set(position, false);
     }
 }
