@@ -27,17 +27,17 @@ import java.util.List;
 
 public class DefaultListDataFillStrategy<R> implements ListDataFillStrategy<R> {
     @Override
-    public void onMoreDataFetched(IPureAdapter<R> mAdapter, List<R> data) {
-        mAdapter.addItemsFromEnd(data);
+    public void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
+        adapter.addItemsFromEnd(data);
     }
 
     @Override
-    public void onNewDataFetched(IPureAdapter<R> mAdapter, List<R> data) {
-        mAdapter.addItemsFromStart(data);
+    public void onNewDataFetched(IPureAdapter<R> adapter, List<R> data) {
+        adapter.addItemsFromStart(data);
     }
 
     @Override
-    public void onInitDataFetched(IPureAdapter<R> mAdapter, List<R> data) {
-        mAdapter.resetAllItems(data);
+    public void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
+        adapter.resetAllItems(data);
     }
 }

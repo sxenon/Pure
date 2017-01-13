@@ -21,7 +21,7 @@ import com.sxenon.pure.core.Event;
 import java.util.List;
 
 /**
- * RootPresenter should hai it`s own lifeCycle callBack.
+ * RootPresenter should has it`s own lifeCycle callBack.
  * Created by Sui on 2016/11/21.
  */
 

@@ -26,7 +26,7 @@ import com.sxenon.pure.core.mvp.sub.BaseSubViewModule;
 import java.util.List;
 
 /**
- * * Include several {@link BaseSubPresenter}，with its related {@link BaseSubViewModule}
+ * Include several {@link BaseSubPresenter}，with its related {@link BaseSubViewModule}
  * Don`t use it directly,use PureRootPresenter instead.
  * Created by Sui on 2016/11/22.
  */
