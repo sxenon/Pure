@@ -19,6 +19,7 @@ package com.sxenon.pure.core.component.adapter.rv;
 import com.sxenon.pure.core.component.adapter.IItemViewTypeEntity;
 
 /**
+ * ItemViewTypeEntity for RecyclerView
  * Created by Sui on 2016/12/29.
  */
 

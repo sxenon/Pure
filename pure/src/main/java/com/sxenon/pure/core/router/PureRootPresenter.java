@@ -43,6 +43,7 @@ import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
 
 /**
+ * Really root presenter for IRouter
  * Created by Sui on 2016/11/28.
  */
 

@@ -19,6 +19,7 @@ package com.sxenon.pure.core.component.filler.non;
 import com.sxenon.pure.core.component.filler.IPullLayout;
 
 /**
+ * Empty implement for IPullLayout
  * Created by Sui on 2016/12/27.
  */
 

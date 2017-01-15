@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Adapter for AbsList
  * Created by Sui on 2016/12/25.
  */
 

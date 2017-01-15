@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Adapter for RecyclerView
  * Created by Sui on 2016/12/29.
  */
 

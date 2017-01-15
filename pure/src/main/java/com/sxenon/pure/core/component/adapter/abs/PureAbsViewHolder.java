@@ -22,6 +22,7 @@ import com.sxenon.pure.core.component.adapter.IPureViewHolder;
 import com.sxenon.pure.core.mvp.IViewModule;
 
 /**
+ * ViewHolder for AbsList
  * Created by Sui on 2016/12/25.
  */
 

@@ -19,6 +19,7 @@ package com.sxenon.pure.core.global;
 import android.app.Application;
 
 /**
+ * Application of the framework
  * Created by Sui on 2016/11/24.
  */
 
