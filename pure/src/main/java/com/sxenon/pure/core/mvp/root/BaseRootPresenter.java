@@ -19,7 +19,7 @@ package com.sxenon.pure.core.mvp.root;
 import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.BasePresenter;
-import com.sxenon.pure.core.mvp.ILifeCycle;
+import com.sxenon.pure.core.mvp.ILifecycle;
 import com.sxenon.pure.core.mvp.sub.BaseSubPresenter;
 import com.sxenon.pure.core.mvp.sub.BaseSubViewModule;
 
@@ -31,7 +31,7 @@ import java.util.List;
  * Created by Sui on 2016/11/22.
  */
 
-public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends BasePresenter<VM> implements ILifeCycle {
+public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends BasePresenter<VM> implements ILifecycle {
     private RootPresenterEvent currentEvent;
 
     public BaseRootPresenter(VM viewModule) {

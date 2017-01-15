@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.mvp;
+package com.sxenon.pure.core.mvp.root;
 
 import com.sxenon.pure.core.Event;
 
 import java.util.List;
 
 /**
- * RootPresenter should has it`s own lifeCycle callBack.
- * Created by Sui on 2016/11/21.
+ * Inspired by Application.ActivityLifecycleCallbacks
+ * Created by Sui on 2017/1/15.
  */
 
-public interface ILifecycle {
-    void onCreate(List<Event> savedEventList);
+public interface RootPresenterLifecycleCallbacks {
+    void onRootPresenterCreated(BaseRootPresenter rootPresenter, List<Event> savedEventList);
 
-    void onResume();
+    void onRootPresenterResumed(BaseRootPresenter rootPresenter);
 
-    void onPause();
+    void onRootPresenterPaused(BaseRootPresenter rootPresenter);
 
-    void onStop();
+    void onRootPresenterStopped(BaseRootPresenter rootPresenter);
 
-    void onDestroy();
+    void onRootPresenterDestroyed(BaseRootPresenter rootPresenter);
 }

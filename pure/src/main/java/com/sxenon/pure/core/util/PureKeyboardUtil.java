@@ -25,7 +25,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.sxenon.pure.core.mvp.root.RootPresenterEvent;
 import com.sxenon.pure.core.router.PureRootPresenter;
 
 import cn.dreamtobe.kpswitch.IPanelHeightTarget;
@@ -76,10 +75,10 @@ public class PureKeyboardUtil {
         final Activity activity = rootPresenter.getRouter().getActivityCompact();
         final ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = KeyboardUtil.attach(activity, target, listener);
         //noinspection unchecked
-        Observable.never().compose(rootPresenter.bindUntilEvent(RootPresenterEvent.DESTROY)).subscribe(new Observer() {
+        Observable.never().compose(rootPresenter.autoComplete()).subscribe(new Observer() {
             @Override
             public void onCompleted() {
-                KeyboardUtil.detach(activity,onGlobalLayoutListener);
+                KeyboardUtil.detach(activity, onGlobalLayoutListener);
             }
 
             @Override

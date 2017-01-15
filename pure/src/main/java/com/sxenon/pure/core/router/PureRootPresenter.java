@@ -18,9 +18,9 @@ package com.sxenon.pure.core.router;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.sxenon.pure.core.Event;
+import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.mvp.root.RootPresenterEvent;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
@@ -38,11 +38,9 @@ import javax.annotation.Nonnull;
 
 import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import rx.Observable;
-import rx.Observer;
 import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
-import rx.subjects.PublishSubject;
 
 /**
  * Created by Sui on 2016/11/28.
@@ -53,7 +51,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     private final BehaviorSubject<RootPresenterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
-    private static final String TAG="PureRootPresenter";
+    private static final String TAG = "PureRootPresenter";
     private final Func1<RootPresenterEvent, RootPresenterEvent> ROUTER_LIFECYCLE =
             new Func1<RootPresenterEvent, RootPresenterEvent>() {
                 @Override
@@ -105,30 +103,35 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     @Override
     public void onCreate(List<Event> savedEventList) {
         super.onCreate(savedEventList);
+        GlobalContext.INSTANCE.lifecycleCallbackDispatcher.dispatchRootPresenterCreated(this, savedEventList);
         lifecycleSubject.onNext(RootPresenterEvent.CREATE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        GlobalContext.INSTANCE.lifecycleCallbackDispatcher.dispatchRootPresenterResumed(this);
         lifecycleSubject.onNext(RootPresenterEvent.RESUME);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        GlobalContext.INSTANCE.lifecycleCallbackDispatcher.dispatchRootPresenterPaused(this);
         lifecycleSubject.onNext(RootPresenterEvent.PAUSE);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        GlobalContext.INSTANCE.lifecycleCallbackDispatcher.dispatchRootPresenterStopped(this);
         lifecycleSubject.onNext(RootPresenterEvent.STOP);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        GlobalContext.INSTANCE.lifecycleCallbackDispatcher.dispatchRootPresenterDestroyed(this);
         lifecycleSubject.onNext(RootPresenterEvent.DESTROY);
     }
     //LifeCycle end
@@ -138,10 +141,10 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
 
     //Permission start
-
     /**
-     * Ignore the return unless the router type is COMPACT_ACTIVITY.
-     * @return Handler the result by self or deliver to its fragment.
+     * Please ignore the return value unless the router type is COMPACT_ACTIVITY.
+     *
+     * @return Handle the result by self or deliver to its fragment,if the router type is COMPACT_ACTIVITY.
      */
     public boolean onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCommonPermissionsBySelf(requestCode)) {
@@ -152,8 +155,9 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
 
     /**
-     * Ignore the return unless the router type is COMPACT_ACTIVITY.
-     * @return Handler the request by self or deliver to its fragment.
+     * Please ignore the return value unless the router type is COMPACT_ACTIVITY.
+     *
+     * @return Handle the request by self or deliver to its fragment,if the router type is COMPACT_ACTIVITY.
      */
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
         if (isRequestingSystemAlertPermission) {
@@ -182,6 +186,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
 
     protected void handleActivityResult(int requestCode, int resultCode, Intent data) {
+
     }
 
     @Override
@@ -217,84 +222,14 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
     //Permission end
 
+    /**
+     * RxLifecycle does not actually unsubscribe the sequence. Instead it terminates the sequence. The way in which it does so varies based on the type:
+     * Observable - emits onCompleted()
+     * Single and Completable - emits onError(CancellationException)
+     */
     public <T> LifecycleTransformer<T> autoComplete() {
         return bindUntilEvent(RootPresenterEvent.DESTROY);
     }
-
-    //TODO Check it！
-    private void registerActionOnEvent(final RootPresenterEvent rootPresenterEvent, final Action0 action, final boolean once) {
-        if (RootPresenterEvent.CREATE == rootPresenterEvent) {
-            throw new IllegalArgumentException("Are you serious?!");
-        }
-        if (RootPresenterEvent.DESTROY == rootPresenterEvent && !once) {
-            throw new IllegalArgumentException("RootPresenterEvent.DESTROY can`t be emitted twice");
-        }
-        /**
-         * RxLifecycle does not actually unsubscribe the sequence. Instead it terminates the sequence. The way in which it does so varies based on the type:
-         Observable - emits onCompleted()
-         Single and Completable - emits onError(CancellationException)
-         */
-        final PublishSubject<Object> subject = PublishSubject.create();
-        final Observable<Object> observable = Observable.never().compose(bindUntilEvent(rootPresenterEvent));
-        final Observer<Object> observer = new Observer<Object>() {
-            @Override
-            public void onCompleted() {
-                if (once) {
-                    action.call();
-                } else {
-                    subject.onNext(null);
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(Object o) {
-
-            }
-        };
-        observable.subscribe(observer);
-        if (once) {
-            return;
-        }
-        subject.asObservable().compose(bindUntilEvent(RootPresenterEvent.DESTROY))
-                .subscribe(new Observer<Object>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.w(TAG, "onCompleted");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Object o) {
-                        action.call();
-                        Observable.never().compose(PureRootPresenter.this.bindToLifecycle()).subscribe(new Observer<Object>() {
-                            @Override
-                            public void onCompleted() {
-                                observable.subscribe(observer);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onNext(Object o) {
-
-                            }
-                        });
-                    }
-                });
-    }
-
 
     @Override
     public void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener) {

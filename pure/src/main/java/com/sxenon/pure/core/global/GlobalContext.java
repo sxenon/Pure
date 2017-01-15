@@ -20,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 
 import com.sxenon.pure.core.Event;
+import com.sxenon.pure.core.router.LifecycleCallbackDispatcher;
 
 import java.util.List;
 
@@ -35,4 +36,5 @@ public enum GlobalContext {
     public Application value;
     public final ActivityHistoryManager activityHistoryManager = new ActivityHistoryManager();
     public List<Event> savedEventList;
+    public LifecycleCallbackDispatcher lifecycleCallbackDispatcher;
 }
