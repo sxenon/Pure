@@ -19,6 +19,7 @@ package com.sj.pure.fresco.controller.request;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 /**
+ * Decorator for ImageRequest
  * Created by Sui on 2016/12/20.
  */
 

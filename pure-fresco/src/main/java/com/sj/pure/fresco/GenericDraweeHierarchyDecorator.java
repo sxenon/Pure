@@ -19,6 +19,7 @@ package com.sj.pure.fresco;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 
 /**
+ * Decorator for GenericDraweeHierarchy
  * Created by Sui on 2016/12/20.
  */
 

@@ -19,6 +19,7 @@ package com.sj.pure.fresco.controller;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 
 /**
+ * Decorator for DraweeController
  * Created by Sui on 2016/12/20.
  */
 
