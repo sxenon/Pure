@@ -25,6 +25,7 @@ import com.sxenon.pure.core.component.filler.FillerGroup;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
 /**
+ * Wrap with TwinklingPullLayout
  * Created by Sui on 2016/12/27.
  */
 

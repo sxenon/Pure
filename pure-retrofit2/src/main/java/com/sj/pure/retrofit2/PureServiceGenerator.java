@@ -31,7 +31,7 @@ import retrofit2.Retrofit;
  */
 
 public abstract class PureServiceGenerator<R extends IResultDispatcher> {
-    private Retrofit mRetrofit;
+    private final Retrofit mRetrofit;
 
     public PureServiceGenerator(Retrofit retrofit) {
         mRetrofit = retrofit;

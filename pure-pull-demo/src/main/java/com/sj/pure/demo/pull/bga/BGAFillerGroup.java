@@ -27,7 +27,7 @@ import java.util.List;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 /**
- * Adapter for https://github.com/bingoogolapple/BGARefreshLayout-Android
+ * Wrap with BGAPullLayout
  * Created by Sui on 2016/12/27.
  */
 

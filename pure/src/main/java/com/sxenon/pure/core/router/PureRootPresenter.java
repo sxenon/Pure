@@ -104,35 +104,35 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     @Override
     public void onCreate(List<Event> savedEventList) {
         super.onCreate(savedEventList);
-        GlobalContext.INSTANCE.lifecycleCallbackDispatcher.dispatchRootPresenterCreated(this, savedEventList);
+        GlobalContext.INSTANCE.rootPresenterLifecycleCallbackDispatcher.dispatchRootPresenterCreated(this, savedEventList);
         lifecycleSubject.onNext(RootPresenterEvent.CREATE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        GlobalContext.INSTANCE.lifecycleCallbackDispatcher.dispatchRootPresenterResumed(this);
+        GlobalContext.INSTANCE.rootPresenterLifecycleCallbackDispatcher.dispatchRootPresenterResumed(this);
         lifecycleSubject.onNext(RootPresenterEvent.RESUME);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        GlobalContext.INSTANCE.lifecycleCallbackDispatcher.dispatchRootPresenterPaused(this);
+        GlobalContext.INSTANCE.rootPresenterLifecycleCallbackDispatcher.dispatchRootPresenterPaused(this);
         lifecycleSubject.onNext(RootPresenterEvent.PAUSE);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        GlobalContext.INSTANCE.lifecycleCallbackDispatcher.dispatchRootPresenterStopped(this);
+        GlobalContext.INSTANCE.rootPresenterLifecycleCallbackDispatcher.dispatchRootPresenterStopped(this);
         lifecycleSubject.onNext(RootPresenterEvent.STOP);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        GlobalContext.INSTANCE.lifecycleCallbackDispatcher.dispatchRootPresenterDestroyed(this);
+        GlobalContext.INSTANCE.rootPresenterLifecycleCallbackDispatcher.dispatchRootPresenterDestroyed(this);
         lifecycleSubject.onNext(RootPresenterEvent.DESTROY);
     }
     //LifeCycle end

@@ -21,7 +21,7 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sxenon.pure.core.component.filler.IPullLayout;
 
 /**
- * Adapter for https://github.com/lcodecorex/TwinklingRefreshLayout
+ * Adapter from https://github.com/lcodecorex/TwinklingRefreshLayout to IPullLayout
  * Created by Sui on 2016/12/27.
  */
 

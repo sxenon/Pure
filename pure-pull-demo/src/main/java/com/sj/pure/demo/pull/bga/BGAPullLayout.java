@@ -21,6 +21,7 @@ import com.sxenon.pure.core.component.filler.IPullLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 /**
+ * Adapter from https://github.com/bingoogolapple/BGARefreshLayout-Android to IPullLayout
  * Created by Sui on 2016/12/27.
  */
 

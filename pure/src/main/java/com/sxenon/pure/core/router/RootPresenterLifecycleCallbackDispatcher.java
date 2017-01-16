@@ -28,7 +28,7 @@ import java.util.List;
  * Created by Sui on 2017/1/15.
  */
 
-public class LifecycleCallbackDispatcher {
+public class RootPresenterLifecycleCallbackDispatcher {
     private final ArrayList<RootPresenterLifecycleCallbacks> mRootPresenterLifecycleCallbacks =
             new ArrayList<>();
 
