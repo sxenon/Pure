@@ -33,7 +33,7 @@ public enum GlobalContext {
     @SuppressLint("StaticFieldLeak")
     INSTANCE;
 
-    public Application value;
+    public Application application;
     public final ActivityHistoryManager activityHistoryManager = new ActivityHistoryManager();
     public List<Event> savedEventList;
     public final RootPresenterLifecycleCallbackDispatcher rootPresenterLifecycleCallbackDispatcher =new RootPresenterLifecycleCallbackDispatcher();
