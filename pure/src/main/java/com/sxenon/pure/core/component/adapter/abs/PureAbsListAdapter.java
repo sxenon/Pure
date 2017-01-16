@@ -38,15 +38,18 @@ import java.util.List;
 public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPureAdapter<T> {
 
     private final Object mLock = new Object();
-    private final List<PureAbsListItemViewTypeEntity> mItemViewTypeEntryList;
+    private final PureAbsListItemViewTypeEntity[] mItemViewTypeEntryArray;
     private final IViewModule mViewHolder;
     private final List<T> mData = new ArrayList<>();
 
     /**
-     * @param itemViewTypeEntryList {@link #getItemViewType(int)}
+     * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureAbsListAdapter(IViewModule viewHolder, @NonNull List<PureAbsListItemViewTypeEntity> itemViewTypeEntryList) {
-        mItemViewTypeEntryList = itemViewTypeEntryList;
+    public PureAbsListAdapter(IViewModule viewHolder, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
+        if (itemViewTypeEntryArray.length == 0) {
+            throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
+        }
+        mItemViewTypeEntryArray = itemViewTypeEntryArray;
         mViewHolder = viewHolder;
     }
 
@@ -204,7 +207,7 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         PureAbsViewHolder viewHolder = null;
         if (convertView == null) {
-            PureAbsListItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryList.get(getItemViewType(position));
+            PureAbsListItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryArray[getItemViewType(position)];
             convertView = LayoutInflater.from(mViewHolder.getContext()).inflate(itemViewTypeEntity.getResourceId(), null);
             Class<? extends PureAbsViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
             try {
@@ -224,11 +227,7 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
 
     @Override
     public int getViewTypeCount() {
-        return mItemViewTypeEntryList.size();
-    }
-
-    protected List<PureAbsListItemViewTypeEntity> getItemViewTypeEntryList() {
-        return mItemViewTypeEntryList;
+        return mItemViewTypeEntryArray.length;
     }
 
     /**
