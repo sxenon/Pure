@@ -36,7 +36,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 做最纯净的Activity二次封装
+ * To be the purest wrapper for Activity
+ * Attention:Those activities which call finish in onCreate() should not inherit it.
  * Created by Sui on 2016/11/21.
  */
 

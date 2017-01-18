@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,9 +44,6 @@ public class ActivityHistoryManager {
         activityStack.add(activity);
     }
 
-    /**
-     * Should call remove in onCreate() if finish in onOnCreate()
-     */
     public void remove(IActivity activity) {
         activityStack.remove(activity);
     }
@@ -95,6 +92,7 @@ public class ActivityHistoryManager {
 
     /**
      * Keep what should keep,and finish others.
+     *
      * @param what by event
      */
     public void finishBackgroundActivitiesIfNeed(final int what) {
@@ -112,7 +110,7 @@ public class ActivityHistoryManager {
                 iterator.remove();
             }
         }
-        Log.i(TAG,"finishBackgroundActivitiesIfNeedSuccess:what="+what);
+        Log.i(TAG, "finishBackgroundActivitiesIfNeedSuccess:what=" + what);
     }
 
     public void finishAllActivity() {
@@ -126,6 +124,7 @@ public class ActivityHistoryManager {
 
     /**
      * find activity by class name
+     *
      * @param activityClass Activity 类型
      * @return activity
      */
