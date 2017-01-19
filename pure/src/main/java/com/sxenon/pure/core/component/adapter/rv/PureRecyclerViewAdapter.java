@@ -36,19 +36,19 @@ import java.util.List;
 
 public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<PureRecyclerViewHolder> implements IPureAdapter<T> {
     private final PureRecyclerViewItemViewTypeEntity[] mItemViewTypeEntryArray;
-    private final IViewModule mViewHolder;
+    private final IViewModule mViewModule;
     private final Object mLock = new Object();
     private List<T> mData = new ArrayList<>();
 
     /**
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureRecyclerViewAdapter(IViewModule viewHolder, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureRecyclerViewAdapter(IViewModule viewModule, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
         if (itemViewTypeEntryArray.length == 0) {
             throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
         }
         mItemViewTypeEntryArray = itemViewTypeEntryArray;
-        mViewHolder = viewHolder;
+        mViewModule = viewModule;
     }
 
     @Override
@@ -203,11 +203,11 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
 
         PureRecyclerViewItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryArray[viewType];
         int resourceId = itemViewTypeEntity.getResourceId();
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(resourceId, null);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(resourceId, parent,false);
         Class<? extends PureRecyclerViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
         try {
             Constructor<? extends PureRecyclerViewHolder> constructor = viewHolderClass.getConstructor(IViewModule.class, View.class, PureRecyclerViewAdapter.class);
-            viewHolder = constructor.newInstance(mViewHolder, itemView, PureRecyclerViewAdapter.this);
+            viewHolder = constructor.newInstance(mViewModule, itemView, PureRecyclerViewAdapter.this);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -39,18 +39,18 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
 
     private final Object mLock = new Object();
     private final PureAbsListItemViewTypeEntity[] mItemViewTypeEntryArray;
-    private final IViewModule mViewHolder;
+    private final IViewModule mViewModule;
     private final List<T> mData = new ArrayList<>();
 
     /**
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureAbsListAdapter(IViewModule viewHolder, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureAbsListAdapter(IViewModule viewModule, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
         if (itemViewTypeEntryArray.length == 0) {
             throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
         }
         mItemViewTypeEntryArray = itemViewTypeEntryArray;
-        mViewHolder = viewHolder;
+        mViewModule = viewModule;
     }
 
     @Override
@@ -208,11 +208,11 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
         PureAbsViewHolder viewHolder = null;
         if (convertView == null) {
             PureAbsListItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryArray[getItemViewType(position)];
-            convertView = LayoutInflater.from(mViewHolder.getContext()).inflate(itemViewTypeEntity.getResourceId(), null);
+            convertView = LayoutInflater.from(mViewModule.getContext()).inflate(itemViewTypeEntity.getResourceId(), null);
             Class<? extends PureAbsViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
             try {
                 Constructor<? extends PureAbsViewHolder> constructor = viewHolderClass.getConstructor(IViewModule.class, View.class, PureAbsListAdapter.class, Integer.class);
-                viewHolder = constructor.newInstance(mViewHolder, convertView, PureAbsListAdapter.this, position);
+                viewHolder = constructor.newInstance(mViewModule, convertView, PureAbsListAdapter.this, position);
             } catch (Exception e) {
                 e.printStackTrace();
             }
