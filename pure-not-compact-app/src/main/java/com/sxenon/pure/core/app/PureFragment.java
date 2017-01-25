@@ -26,7 +26,6 @@ import android.support.annotation.Nullable;
 import android.support.v13.app.FragmentCompat;
 import android.view.View;
 
-import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.core.router.IRouter;
@@ -54,7 +53,6 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         super.onViewCreated(view, savedInstanceState);
         BaseRootViewModule<P> rootViewModule = groupViewModule(view);
         mRootPresenter = rootViewModule.getPresenter();
-        RxBus.get().register(this);
         mViewCreated = true;
     }
 
@@ -88,7 +86,6 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         //noinspection unchecked
         saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
-        RxBus.get().unregister(this);
         mViewCreated =false;
         shouldInitRootPresenter = true;
     }

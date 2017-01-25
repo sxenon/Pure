@@ -16,7 +16,6 @@
 
 package com.sxenon.pure.core.mvp.root;
 
-import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.mvp.ILifecycle;
@@ -41,7 +40,6 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
     @Override
     public void onCreate(List<Event> savedEventList) {
         currentEvent = RootPresenterEvent.CREATE;
-        RxBus.get().register(this);
     }
 
     @Override
@@ -62,7 +60,6 @@ public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends B
     @Override
     public void onDestroy() {
         currentEvent = RootPresenterEvent.DESTROY;
-        RxBus.get().unregister(this);
     }
 
     public RootPresenterEvent getCurrentEvent() {

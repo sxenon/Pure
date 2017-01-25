@@ -24,7 +24,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 
-import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
@@ -51,8 +50,6 @@ public abstract class PureActivity<P extends PureRootPresenter> extends Activity
         BaseRootViewModule<P> rootViewModule = groupViewModule();
         mRootPresenter = rootViewModule.getPresenter();
         mRootPresenter.onCreate(savedInstanceState==null?null:GlobalContext.INSTANCE.savedEventList);
-        //To replace intent with data
-        RxBus.get().register(this);
         GlobalContext.INSTANCE.activityHistoryManager.add(this);
     }
 
@@ -80,7 +77,6 @@ public abstract class PureActivity<P extends PureRootPresenter> extends Activity
         //noinspection unchecked
         saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
-        RxBus.get().unregister(this);
         GlobalContext.INSTANCE.activityHistoryManager.remove(this);
     }
 

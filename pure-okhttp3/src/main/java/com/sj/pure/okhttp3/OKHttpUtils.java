@@ -33,7 +33,7 @@ import okhttp3.ResponseBody;
  */
 
 public class OKHttpUtils {
-    private static final String TAG = "";
+    private static final String TAG = "OKHttpUtils";
 
     public static boolean writeResponseBodyToDisk(ResponseBody body, String outputFileName) {
         File futureStudioIconFile = new File(outputFileName);

@@ -25,7 +25,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 
-import com.hwangjr.rxbus.RxBus;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.core.router.IRouter;
@@ -53,8 +52,6 @@ public abstract class PureSupportFragment<P extends PureRootPresenter> extends F
         super.onViewCreated(view, savedInstanceState);
         BaseRootViewModule<P> rootViewModule = groupViewModule(view);
         mRootPresenter = rootViewModule.getPresenter();
-        //To replace "setArguments"
-        RxBus.get().register(this);
         mViewCreated = true;
     }
 
@@ -88,7 +85,6 @@ public abstract class PureSupportFragment<P extends PureRootPresenter> extends F
         //noinspection unchecked
         saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
-        RxBus.get().unregister(this);
         mViewCreated=false;
         shouldInitRootPresenter = true;
     }

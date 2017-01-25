@@ -52,8 +52,7 @@ public class SSLParams {
      *
      * @param certificates an input stream with the certificate data to generate the sources of authentication keys.  Trusted server 证书
      * @param bksFile      certificate file    For server 本地证书
-     * @param password     the password used to check the integrity of 本地证书的密码
-     *                     the keystore, the password used to unlock the keystore,
+     * @param password     the password used to check the integrity of the keystore, the password used to unlock the keystore,本地证书的密码
      */
     public static SSLParams genSSLParams(InputStream[] certificates, InputStream bksFile, String password) {
         SSLParams sslParams = new SSLParams();

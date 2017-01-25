@@ -363,6 +363,10 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
         return mCurrentPageCount;
     }
 
+    public int getEventWhat() {
+        return eventWhat;
+    }
+
     //Getter end
 
     //before start

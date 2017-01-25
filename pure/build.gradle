@@ -49,7 +49,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.2.4'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.trello:rxlifecycle:1.0'
-    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
+    //compile 'com.hwangjr.rxbus:rxbus:1.0.5'
 
     //KeyBoard should always need!
     compile 'cn.dreamtobe.kpswitch:library:1.6.0'
