@@ -3,15 +3,11 @@
 
 详细文档在路上，先简要介绍一下几个关键类与接口
 
-##1、IRouter
+##1、IRouter与IRouterVisitor
 
-Activity,Fragment（及其子类），有部分共同的方法，例如startActivity，requestPermissions等等，对于与之相关的Presenter和ViewHolder等等，绝大多数情况下是不需要差别对待了（Glide是例外，但很少，也很好处理）。
+在将Activity,Fragment（及其子类）作为MVP中的V的基础上，提取出相似方法（例如startActivity、requestPermissions等等），抽象出IRouter接口，并做二次封装，而对于IRouter对象的通用操作（例如权限请求，键盘弹起通知，返回键，生命周期管理等等）抽象出IRouterVisitor接口，交由IRouter对象对应的Presenter来实现（见PureRootPresenter）。由此若需要对IRouter对象定义新的操作，可以集中定义IRouterVisitor上，避免让这些操作“污染”IRouter对象的类。
 
-##2、（这条纯属个人观点）PureRootPresenter
-
-一般来说，会把Activity或者Fragment的角色视为MVP中的V，但个人认为，Activity的DecorView和Fragment中onCreateView返回的View才是真正意义上的V，而它们本身，应该被认为是带有生命周期的用于呈现V，操作V的容器而已，而这些操作的通用部分（比方说onActivityResult、onBackPressed、onRequestPermissionsResult，以及项目级别自定义的一些操作）都可以抽象出来交给一个Presenter来处理（就是现在的PureRootPresenter）,这样妈妈再也不用烦恼一模一样的东西，在Activity里面写一遍，又要在Fragment里面写一遍了，交给PureRootPresenter就行，已经帮您处理好的有权限请求，键盘弹起通知，返回键，IRouter生命周期的管理等等。
-
-##3、IViewComponentGroup（**精华**）
+##2、IViewComponentGroup（**精华**）
 
 注意不是ViewGroup，指的是View组件的组合（甚至可以不是具体的View）与布局样式无关，是对View组件进行模块化处理，并且对其通用的部分，再组件化，尽可能多地复用。分为四类:
 
@@ -23,7 +19,7 @@ Activity,Fragment（及其子类），有部分共同的方法，例如startActi
 
 * show，纯粹展示用的，没什么好谈的。
 
-##4、IPureViewHolder、IPureAdapter、IItemViewTypeEntity
+##3、IPureViewHolder、IPureAdapter、IItemViewTypeEntity
 
 相信从此可以告别冗长的Adapter，具体见com.sxenon.pure.core.component.adapter
 

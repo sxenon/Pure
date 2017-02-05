@@ -16,10 +16,9 @@
 
 package com.sxenon.pure.core.router;
 
-import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
 /**
- * LifeCycle event for {@link BaseRootPresenter}
+ * LifeCycle event for {@link PureRootPresenter}
  * Created by Sui on 2016/11/28.
  */
 

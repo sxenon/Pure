@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,26 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.mvp.root;
+package com.sxenon.pure.core.router.support;
 
-import com.sxenon.pure.core.mvp.sub.BaseSubPresenter;
-import com.sxenon.pure.core.mvp.BaseViewModule;
-import com.sxenon.pure.core.mvp.sub.BaseSubViewModule;
-import com.sxenon.pure.core.router.IRouter;
+import android.content.Context;
+import android.support.annotation.NonNull;
+
+import com.sxenon.pure.core.router.PureRootPresenter;
 
 /**
- * Include several {@link BaseSubViewModule}，with its related{@link BaseSubPresenter}
- * Created by Sui on 2016/11/22.
+ * Created by Sui on 2017/2/5.
  */
 
-public abstract class BaseRootViewModule<P extends BaseRootPresenter> extends BaseViewModule<P> {
-
-    public BaseRootViewModule(IRouter router) {
-        super(router);
+public class Tesy<P extends PureRootPresenter> extends PureCompactActivity<P >  {
+    @Override
+    public P bindVisitor() {
+        return null;
     }
 
+    @NonNull
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

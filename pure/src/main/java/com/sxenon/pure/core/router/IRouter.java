@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.sxenon.pure.core.Event;
+import com.sxenon.pure.core.mvp.IViewModule;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ import java.util.List;
  * Created by Sui on 2016/11/20.
  */
 
-public interface IRouter<P extends PureRootPresenter> {
+public interface IRouter<P extends PureRootPresenter> extends IViewModule<P>{
 
     void startActivity(Intent intent);
 
@@ -49,7 +50,9 @@ public interface IRouter<P extends PureRootPresenter> {
 
     void saveEventList(List<Event> eventList);
 
-    P getRootPresenter();
+    P bindVisitor();
+
+    P getVisitor();
 
     RouterType getRouterType();
 

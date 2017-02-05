@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,22 @@
 package com.sxenon.pure.core.router;
 
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 
 import java.util.List;
 
 /**
- * PureEmptyRootPresenter
- * Created by Sui on 2016/12/15.
+ * {@link IRouterVisitor} should has it`s own lifeCycle callBack.
+ * Created by Sui on 2016/11/21.
  */
 
-public class PureEmptyRootPresenter extends PureRootPresenter<BaseRootViewModule> {
-    public PureEmptyRootPresenter(BaseRootViewModule viewModule) {
-        super(viewModule);
-    }
+interface ILifecycle {
+    void onCreate(List<Event> savedEventList);
 
-    @Override
-    public List<Event> getEventForSave() {
-        return null;
-    }
+    void onResume();
+
+    void onPause();
+
+    void onStop();
+
+    void onDestroy();
 }

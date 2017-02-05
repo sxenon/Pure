@@ -20,10 +20,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.router.IRouter;
-import com.trello.rxlifecycle.LifecycleTransformer;
-
-import cn.dreamtobe.kpswitch.util.KeyboardUtil;
-import rx.functions.Action0;
 
 /**
  * Presenter For MVP

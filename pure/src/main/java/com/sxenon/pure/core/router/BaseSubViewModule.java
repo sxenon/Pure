@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.mvp;
+package com.sxenon.pure.core.router;
 
-import com.sxenon.pure.core.Event;
-
-import java.util.List;
+import com.sxenon.pure.core.mvp.BaseViewModule;
 
 /**
- * RootPresenter should has it`s own lifeCycle callBack.
- * Created by Sui on 2016/11/21.
+ * Optional,for those complex {@link IRouter}s
+ * Created by Sui on 2017/1/4.
  */
 
-public interface ILifecycle {
-    void onCreate(List<Event> savedEventList);
-
-    void onResume();
-
-    void onPause();
-
-    void onStop();
-
-    void onDestroy();
+public abstract class BaseSubViewModule<P extends BaseSubPresenter> extends BaseViewModule<P> {
+    public BaseSubViewModule(IRouter router) {
+        super(router);
+    }
 }

@@ -16,7 +16,7 @@
 
 package com.sxenon.pure.core.router;
 
-import com.sxenon.pure.core.mvp.ILifecycle;
+import com.sxenon.pure.core.mvp.IPresenter;
 import com.sxenon.pure.core.permission.OnPermissionCallback;
 import com.trello.rxlifecycle.LifecycleProvider;
 
@@ -25,5 +25,5 @@ import com.trello.rxlifecycle.LifecycleProvider;
  * Created by Sui on 2017/2/5.
  */
 
-public interface IRouterVisitor extends ILifecycle, LifecycleProvider<RouterEvent>, OnPermissionCallback {
+public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>,ILifecycle, LifecycleProvider<RouterEvent>, OnPermissionCallback {
 }

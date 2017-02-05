@@ -19,12 +19,10 @@ package com.sxenon.pure.core.mvp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
-import com.sxenon.pure.core.mvp.sub.BaseSubPresenter;
 import com.sxenon.pure.core.router.IRouter;
 
 /**
- * Please use {@link BaseRootPresenter} with {@link BaseSubPresenter}(if needed).
+ * Base implement for IPresenter
  * Created by Sui on 2017/1/5.
  */
 
@@ -33,7 +31,7 @@ public abstract class BasePresenter<VM extends IViewModule> implements IPresente
     private final Context mContext;
     private final IRouter mRouter;
 
-    public BasePresenter(VM viewModule){
+    public BasePresenter(VM viewModule) {
         mViewModule = viewModule;
         mContext = mViewModule.getContext();
         mRouter = mViewModule.getRouter();

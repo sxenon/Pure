@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,24 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.mvp.sub;
+package com.sxenon.pure.core.router;
 
 import com.sxenon.pure.core.mvp.BasePresenter;
-import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 
 /**
- * Optional,for those complex {@link BaseRootPresenter}s
+ * Optional,for those complex {@link PureRootPresenter}s
  * Created by Sui on 2016/11/22.
  */
 
 public abstract class BaseSubPresenter<VM extends BaseSubViewModule> extends BasePresenter<VM> {
-    private final BaseRootPresenter mRootPresenter;
+    private final PureRootPresenter mRootPresenter;
 
-    public BaseSubPresenter(VM viewModule, BaseRootPresenter rootPresenter) {
+    public BaseSubPresenter(VM viewModule, PureRootPresenter rootPresenter) {
         super(viewModule);
         mRootPresenter = rootPresenter;
     }
 
-    public BaseRootPresenter getRootPresenter() {
+    public PureRootPresenter getRootPresenter() {
         return mRootPresenter;
     }
 }

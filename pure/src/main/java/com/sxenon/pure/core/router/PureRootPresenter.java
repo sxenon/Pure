@@ -21,8 +21,7 @@ import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.GlobalContext;
-import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
-import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
+import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.permission.PermissionHelper;
 import com.sxenon.pure.core.util.PureKeyboardUtil;
 import com.trello.rxlifecycle.LifecycleTransformer;
@@ -40,11 +39,12 @@ import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
 
 /**
- * Real root presenter for IRouter
+ * Include several {@link BaseSubPresenter}，with its related {@link BaseSubViewModule}
+ * Don`t use it directly,use PureRootPresenter instead.
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements IRouterVisitor {
+public abstract class PureRootPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R> {
 
     private RouterEvent currentEvent;
     private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
@@ -72,8 +72,8 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
                 }
             };
 
-    public PureRootPresenter(VM viewModule) {
-        super(viewModule);
+    public PureRootPresenter(R router) {
+        super(router);
         permissionHelper = PermissionHelper.getInstance(getRouter(), this);
     }
 
@@ -147,6 +147,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     }
 
     //Permission start
+
     /**
      * Please ignore the return value unless the router type is COMPACT_ACTIVITY.
      *

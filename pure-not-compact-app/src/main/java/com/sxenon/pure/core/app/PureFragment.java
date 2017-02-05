@@ -27,7 +27,6 @@ import android.support.v13.app.FragmentCompat;
 import android.view.View;
 
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.router.PureRootPresenter;
 
@@ -51,8 +50,7 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        BaseRootViewModule<P> rootViewModule = groupViewModule(view);
-        mRootPresenter = rootViewModule.getPresenter();
+        mRootPresenter = bindVisitor();
         mViewCreated = true;
     }
 
@@ -86,7 +84,7 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         //noinspection unchecked
         saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
-        mViewCreated =false;
+        mViewCreated = false;
         shouldInitRootPresenter = true;
     }
 
@@ -99,7 +97,7 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
         if (mVisible) {
             activity.addToVisibleSet(this);
         } else {
-            if (activity!=null){
+            if (activity != null) {
                 activity.removeFromVisibleSet(this);
             }
         }
@@ -113,7 +111,18 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
     }
 
     @Override
-    public P getRootPresenter() {
+    public P getVisitor() {
+        return mRootPresenter;
+    }
+
+    @NonNull
+    @Override
+    public IRouter getRouter() {
+        return this;
+    }
+
+    @Override
+    public P getPresenter() {
         return mRootPresenter;
     }
 
@@ -159,7 +168,5 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
             manager.popBackStackImmediate(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
-
-    protected abstract BaseRootViewModule<P> groupViewModule(View view);
 
 }

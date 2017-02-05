@@ -17,6 +17,7 @@
 package com.sxenon.pure.core.router.support;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,8 +28,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.GlobalContext;
-import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.core.router.IActivity;
+import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.router.PureRootPresenter;
 
 import java.util.HashSet;
@@ -48,8 +49,7 @@ public abstract class PureCompactActivity<P extends PureRootPresenter> extends A
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BaseRootViewModule<P> rootViewModule = groupViewModule();
-        mRootPresenter = rootViewModule.getPresenter();
+        mRootPresenter = bindVisitor();
         mRootPresenter.onCreate(savedInstanceState==null?null:GlobalContext.INSTANCE.savedEventList);
         GlobalContext.INSTANCE.activityHistoryManager.add(this);
     }
@@ -72,7 +72,6 @@ public abstract class PureCompactActivity<P extends PureRootPresenter> extends A
         mRootPresenter.onStop();
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -83,7 +82,24 @@ public abstract class PureCompactActivity<P extends PureRootPresenter> extends A
     }
 
     @Override
-    public P getRootPresenter() {
+    public P getVisitor() {
+        return mRootPresenter;
+    }
+
+    @NonNull
+    @Override
+    public IRouter getRouter() {
+        return this;
+    }
+
+    @NonNull
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public P getPresenter() {
         return mRootPresenter;
     }
 
@@ -156,7 +172,5 @@ public abstract class PureCompactActivity<P extends PureRootPresenter> extends A
     public boolean shouldKeepWhenBackground(int what) {
         return true;
     }
-
-    protected abstract BaseRootViewModule<P> groupViewModule();
 
 }
