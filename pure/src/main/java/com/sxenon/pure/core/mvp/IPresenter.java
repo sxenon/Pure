@@ -39,12 +39,4 @@ public interface IPresenter<VM extends IViewModule> {
     @NonNull
     IRouter getRouter();
 
-    void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action);
-
-    void requestSystemAlertPermission(int requestCode, Action0 action);
-
-    void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener);
-
-    <T> LifecycleTransformer<T> autoComplete();
-
 }

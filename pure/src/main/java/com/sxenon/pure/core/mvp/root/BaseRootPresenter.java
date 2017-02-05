@@ -16,14 +16,9 @@
 
 package com.sxenon.pure.core.mvp.root;
 
-import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.BasePresenter;
-import com.sxenon.pure.core.mvp.ILifecycle;
 import com.sxenon.pure.core.mvp.sub.BaseSubPresenter;
 import com.sxenon.pure.core.mvp.sub.BaseSubViewModule;
-import com.sxenon.pure.core.router.IRouterVisitor;
-
-import java.util.List;
 
 /**
  * Include several {@link BaseSubPresenter}，with its related {@link BaseSubViewModule}
@@ -31,42 +26,10 @@ import java.util.List;
  * Created by Sui on 2016/11/22.
  */
 
-public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends BasePresenter<VM> implements IRouterVisitor {
-    private RouterEvent currentEvent;
+public abstract class BaseRootPresenter<VM extends BaseRootViewModule> extends BasePresenter<VM> {
 
     public BaseRootPresenter(VM viewModule) {
         super(viewModule);
     }
-
-    @Override
-    public void onCreate(List<Event> savedEventList) {
-        currentEvent = RouterEvent.CREATE;
-    }
-
-    @Override
-    public void onResume() {
-        currentEvent = RouterEvent.RESUME;
-    }
-
-    @Override
-    public void onPause() {
-        currentEvent = RouterEvent.PAUSE;
-    }
-
-    @Override
-    public void onStop() {
-        currentEvent = RouterEvent.STOP;
-    }
-
-    @Override
-    public void onDestroy() {
-        currentEvent = RouterEvent.DESTROY;
-    }
-
-    public RouterEvent getCurrentEvent() {
-        return currentEvent;
-    }
-
-    public abstract List<Event> getEventForSave();
 
 }

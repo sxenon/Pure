@@ -17,7 +17,6 @@
 package com.sxenon.pure.core.router;
 
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.mvp.root.RouterLifecycleCallbacks;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.mvp.root;
+package com.sxenon.pure.core.router;
 
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.mvp.ILifecycle;
-import com.sxenon.pure.core.router.IRouterVisitor;
 
 import java.util.List;
 

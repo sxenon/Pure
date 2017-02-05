@@ -21,13 +21,10 @@ import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.GlobalContext;
-import com.sxenon.pure.core.mvp.root.RouterEvent;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
-import com.sxenon.pure.core.permission.OnPermissionCallback;
 import com.sxenon.pure.core.permission.PermissionHelper;
 import com.sxenon.pure.core.util.PureKeyboardUtil;
-import com.trello.rxlifecycle.LifecycleProvider;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.OutsideLifecycleException;
 import com.trello.rxlifecycle.RxLifecycle;
@@ -47,12 +44,13 @@ import rx.subjects.BehaviorSubject;
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements LifecycleProvider<RouterEvent>, OnPermissionCallback {
+public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements IRouterVisitor {
 
+    private RouterEvent currentEvent;
     private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
-    private static final String TAG = "PureRootPresenter";
+    public static final String TAG = "PureRootPresenter";
     private final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
             new Func1<RouterEvent, RouterEvent>() {
                 @Override
@@ -103,38 +101,45 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     //LifeCycle start
     @Override
     public void onCreate(List<Event> savedEventList) {
-        super.onCreate(savedEventList);
+        currentEvent = RouterEvent.CREATE;
         GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterCreated(this, savedEventList);
         lifecycleSubject.onNext(RouterEvent.CREATE);
     }
 
     @Override
     public void onResume() {
-        super.onResume();
+        currentEvent = RouterEvent.RESUME;
         GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterResumed(this);
         lifecycleSubject.onNext(RouterEvent.RESUME);
     }
 
     @Override
     public void onPause() {
-        super.onPause();
+        currentEvent = RouterEvent.PAUSE;
         GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterPaused(this);
         lifecycleSubject.onNext(RouterEvent.PAUSE);
     }
 
     @Override
     public void onStop() {
-        super.onStop();
+        currentEvent = RouterEvent.STOP;
         GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterStopped(this);
         lifecycleSubject.onNext(RouterEvent.STOP);
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        currentEvent = RouterEvent.DESTROY;
         GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterDestroyed(this);
         lifecycleSubject.onNext(RouterEvent.DESTROY);
     }
+
+    public RouterEvent getCurrentEvent() {
+        return currentEvent;
+    }
+
+    public abstract List<Event> getEventForSave();
+
     //LifeCycle end
 
     public boolean onBackPressed() {
@@ -190,7 +195,6 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
 
     }
 
-    @Override
     public void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action) {
         permissionHelper.requestCommonPermissions(permissions, requestCode, action);
     }
@@ -232,7 +236,6 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
         return bindUntilEvent(RouterEvent.DESTROY);
     }
 
-    @Override
     public void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener) {
         PureKeyboardUtil.attach(this, listener);
     }
