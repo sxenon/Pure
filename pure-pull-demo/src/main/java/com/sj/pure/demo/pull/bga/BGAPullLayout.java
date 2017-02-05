@@ -28,7 +28,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 public class BGAPullLayout implements IPullLayout {
     private BGARefreshLayout mRealLayout;
 
-    public BGAPullLayout(BGARefreshLayout realLayout) {
+    BGAPullLayout(BGARefreshLayout realLayout) {
         mRealLayout = realLayout;
         defaultInit(realLayout);
     }
