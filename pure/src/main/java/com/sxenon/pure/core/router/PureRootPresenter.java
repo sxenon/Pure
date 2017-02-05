@@ -21,7 +21,7 @@ import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.GlobalContext;
-import com.sxenon.pure.core.mvp.root.RootPresenterEvent;
+import com.sxenon.pure.core.mvp.root.RouterEvent;
 import com.sxenon.pure.core.mvp.root.BaseRootPresenter;
 import com.sxenon.pure.core.mvp.root.BaseRootViewModule;
 import com.sxenon.pure.core.permission.OnPermissionCallback;
@@ -47,25 +47,25 @@ import rx.subjects.BehaviorSubject;
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements LifecycleProvider<RootPresenterEvent>, OnPermissionCallback {
+public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends BaseRootPresenter<VM> implements LifecycleProvider<RouterEvent>, OnPermissionCallback {
 
-    private final BehaviorSubject<RootPresenterEvent> lifecycleSubject = BehaviorSubject.create();
+    private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
     private static final String TAG = "PureRootPresenter";
-    private final Func1<RootPresenterEvent, RootPresenterEvent> ROUTER_LIFECYCLE =
-            new Func1<RootPresenterEvent, RootPresenterEvent>() {
+    private final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
+            new Func1<RouterEvent, RouterEvent>() {
                 @Override
-                public RootPresenterEvent call(RootPresenterEvent lastEvent) {
+                public RouterEvent call(RouterEvent lastEvent) {
                     switch (lastEvent) {
                         case CREATE:
-                            return RootPresenterEvent.DESTROY;
+                            return RouterEvent.DESTROY;
                         case RESUME:
-                            return RootPresenterEvent.PAUSE;
+                            return RouterEvent.PAUSE;
                         case PAUSE:
-                            return RootPresenterEvent.STOP;
+                            return RouterEvent.STOP;
                         case STOP:
-                            return RootPresenterEvent.DESTROY;
+                            return RouterEvent.DESTROY;
                         case DESTROY:
                             throw new OutsideLifecycleException("Cannot bind to RootPresenter lifecycle when outside of it.");
                         default:
@@ -82,13 +82,13 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     //LifecycleProvider start
     @Nonnull
     @Override
-    public Observable<RootPresenterEvent> lifecycle() {
+    public Observable<RouterEvent> lifecycle() {
         return lifecycleSubject.asObservable();
     }
 
     @Nonnull
     @Override
-    public <T> LifecycleTransformer<T> bindUntilEvent(@Nonnull RootPresenterEvent event) {
+    public <T> LifecycleTransformer<T> bindUntilEvent(@Nonnull RouterEvent event) {
         return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
     }
 
@@ -104,36 +104,36 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
     @Override
     public void onCreate(List<Event> savedEventList) {
         super.onCreate(savedEventList);
-        GlobalContext.INSTANCE.rootPresenterLifecycleCallbackDispatcher.dispatchRootPresenterCreated(this, savedEventList);
-        lifecycleSubject.onNext(RootPresenterEvent.CREATE);
+        GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterCreated(this, savedEventList);
+        lifecycleSubject.onNext(RouterEvent.CREATE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        GlobalContext.INSTANCE.rootPresenterLifecycleCallbackDispatcher.dispatchRootPresenterResumed(this);
-        lifecycleSubject.onNext(RootPresenterEvent.RESUME);
+        GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterResumed(this);
+        lifecycleSubject.onNext(RouterEvent.RESUME);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        GlobalContext.INSTANCE.rootPresenterLifecycleCallbackDispatcher.dispatchRootPresenterPaused(this);
-        lifecycleSubject.onNext(RootPresenterEvent.PAUSE);
+        GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterPaused(this);
+        lifecycleSubject.onNext(RouterEvent.PAUSE);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        GlobalContext.INSTANCE.rootPresenterLifecycleCallbackDispatcher.dispatchRootPresenterStopped(this);
-        lifecycleSubject.onNext(RootPresenterEvent.STOP);
+        GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterStopped(this);
+        lifecycleSubject.onNext(RouterEvent.STOP);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        GlobalContext.INSTANCE.rootPresenterLifecycleCallbackDispatcher.dispatchRootPresenterDestroyed(this);
-        lifecycleSubject.onNext(RootPresenterEvent.DESTROY);
+        GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterDestroyed(this);
+        lifecycleSubject.onNext(RouterEvent.DESTROY);
     }
     //LifeCycle end
 
@@ -229,7 +229,7 @@ public abstract class PureRootPresenter<VM extends BaseRootViewModule> extends B
      * Single and Completable - emits onError(CancellationException)
      */
     public <T> LifecycleTransformer<T> autoComplete() {
-        return bindUntilEvent(RootPresenterEvent.DESTROY);
+        return bindUntilEvent(RouterEvent.DESTROY);
     }
 
     @Override

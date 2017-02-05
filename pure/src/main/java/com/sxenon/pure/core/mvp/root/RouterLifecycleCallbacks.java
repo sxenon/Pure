@@ -17,6 +17,8 @@
 package com.sxenon.pure.core.mvp.root;
 
 import com.sxenon.pure.core.Event;
+import com.sxenon.pure.core.mvp.ILifecycle;
+import com.sxenon.pure.core.router.IRouterVisitor;
 
 import java.util.List;
 
@@ -25,14 +27,14 @@ import java.util.List;
  * Created by Sui on 2017/1/15.
  */
 
-public interface RootPresenterLifecycleCallbacks {
-    void onRootPresenterCreated(BaseRootPresenter rootPresenter, List<Event> savedEventList);
+public interface RouterLifecycleCallbacks {
+    void onRouterCreated(IRouterVisitor routerVisitor, List<Event> savedEventList);
 
-    void onRootPresenterResumed(BaseRootPresenter rootPresenter);
+    void onRouterResumed(IRouterVisitor routerVisitor);
 
-    void onRootPresenterPaused(BaseRootPresenter rootPresenter);
+    void onRouterPaused(IRouterVisitor routerVisitor);
 
-    void onRootPresenterStopped(BaseRootPresenter rootPresenter);
+    void onRouterStopped(IRouterVisitor routerVisitor);
 
-    void onRootPresenterDestroyed(BaseRootPresenter rootPresenter);
+    void onRouterDestroyed(IRouterVisitor routerVisitor);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.mvp.root;
+package com.sxenon.pure.core.router;
+
+import com.sxenon.pure.core.mvp.ILifecycle;
 
 /**
- * LifeCycle event for {@link BaseRootPresenter}
- * Created by Sui on 2016/11/28.
+ * Created by Sui on 2017/2/5.
  */
 
-public enum RootPresenterEvent {
-    CREATE,
-    RESUME,
-    PAUSE,
-    STOP,
-    DESTROY
+public interface IRouterVisitor extends ILifecycle {
 }
