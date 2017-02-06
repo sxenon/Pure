@@ -71,13 +71,13 @@ public class TwinkingFillerGroup<R> extends FillerGroup<R, TwinklingPullLayout> 
 
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                onBeginRefreshing();
+                onBeginPullingDown();
                 refreshListener.onRefresh(refreshLayout);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                onBeginLoadingMore();
+                onBeginPullingUp();
                 refreshListener.onLoadMore(refreshLayout);
             }
 

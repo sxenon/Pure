@@ -22,13 +22,13 @@ package com.sxenon.pure.core.component.filler;
  */
 
 public interface IPullLayout {
-    void beginRefreshing();
+    void beginPullingDown();
 
-    void beginLoadingMore();
+    void beginPullingUp();
 
-    void endLoadingMore();
+    void endPullingUp();
 
-    void endRefreshing();
+    void endPullingDown();
 
     void setVisibility(int visibility);
 

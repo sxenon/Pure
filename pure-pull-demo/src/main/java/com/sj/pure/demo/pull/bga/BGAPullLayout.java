@@ -34,22 +34,22 @@ public class BGAPullLayout implements IPullLayout {
     }
 
     @Override
-    public void beginRefreshing() {
+    public void beginPullingDown() {
         mRealLayout.beginRefreshing();
     }
 
     @Override
-    public void beginLoadingMore() {
+    public void beginPullingUp() {
         mRealLayout.beginLoadingMore();
     }
 
     @Override
-    public void endLoadingMore() {
+    public void endPullingUp() {
         mRealLayout.endLoadingMore();
     }
 
     @Override
-    public void endRefreshing() {
+    public void endPullingDown() {
         mRealLayout.endRefreshing();
     }
 

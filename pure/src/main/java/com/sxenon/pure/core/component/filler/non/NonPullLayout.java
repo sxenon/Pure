@@ -26,22 +26,22 @@ import com.sxenon.pure.core.component.filler.IPullLayout;
 public class NonPullLayout implements IPullLayout {
 
     @Override
-    public void beginRefreshing() {
+    public void beginPullingDown() {
 
     }
 
     @Override
-    public void beginLoadingMore() {
+    public void beginPullingUp() {
 
     }
 
     @Override
-    public void endLoadingMore() {
+    public void endPullingUp() {
 
     }
 
     @Override
-    public void endRefreshing() {
+    public void endPullingDown() {
 
     }
 

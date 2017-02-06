@@ -96,14 +96,14 @@ public class BGAFillerGroup<R> extends FillerGroup<R, BGAPullLayout> {
         getPullLayout().setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-                onBeginRefreshing();
+                onBeginPullingDown();
                 projectLevelOnBGARefreshLayoutBeginRefreshing(refreshLayout);
                 delegate.onBGARefreshLayoutBeginRefreshing(refreshLayout);
             }
 
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-                onBeginLoadingMore();
+                onBeginPullingUp();
                 projectLevelOnBGARefreshLayoutBeginLoadingMore(refreshLayout);
                 return delegate.onBGARefreshLayoutBeginLoadingMore(refreshLayout);
             }

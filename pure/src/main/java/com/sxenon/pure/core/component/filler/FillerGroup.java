@@ -120,25 +120,29 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
     /**
      * For subclass call,see demo
      */
-    protected final void onBeginRefreshing() {
+    protected final void onBeginPullingDown() {
         if (mCurrentPageCount == 0) {
             beforeInitializing();
         } else {
-            beforeRefreshing();
+            beforePullingDown();
         }
-        if (!mIsRefreshForAdd) {
-            tempPageCount = 1;
-        } else {
-            tempPageCount = mCurrentPageCount;
+        if (mAdapter!=null){
+            if (!mIsRefreshForAdd) {
+                tempPageCount = 1;
+            } else {
+                tempPageCount = mCurrentPageCount;
+            }
         }
     }
 
     /**
      * For subclass call,see demo
      */
-    protected final void onBeginLoadingMore() {
-        beforeLoadingMore();
-        tempPageCount = mCurrentPageCount + 1;
+    protected final void onBeginPullingUp() {
+        beforePullingUp();
+        if (mAdapter!=null){
+            tempPageCount = mCurrentPageCount + 1;
+        }
     }
 
     public void setMinorComponents(View emptyView, View exceptionView) {
@@ -177,7 +181,7 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
         Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
             @Override
             public boolean queueIdle() {
-                beginRefreshing();
+                beginPullingDown();
                 return false;
             }
         });
@@ -225,8 +229,8 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
     }
 
     private void endAllAnim() {
-        mPullLayout.endLoadingMore();
-        mPullLayout.endRefreshing();
+        mPullLayout.endPullingUp();
+        mPullLayout.endPullingDown();
     }
 
     protected void onNoMoreData() {
@@ -330,12 +334,12 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
         }
     }
 
-    public void beginRefreshing() {
-        mPullLayout.beginRefreshing();
+    public void beginPullingDown() {
+        mPullLayout.beginPullingDown();
     }
 
-    public void beginLoadingMore() {
-        mPullLayout.beginLoadingMore();
+    public void beginPullingUp() {
+        mPullLayout.beginPullingUp();
     }
 
     //Getter start
@@ -374,11 +378,11 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
 
     }
 
-    protected void beforeRefreshing() {
+    protected void beforePullingDown() {
 
     }
 
-    protected void beforeLoadingMore() {
+    protected void beforePullingUp() {
 
     }
     //before end

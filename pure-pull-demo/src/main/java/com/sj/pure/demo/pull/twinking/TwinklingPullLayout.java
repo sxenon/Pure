@@ -34,22 +34,22 @@ public class TwinklingPullLayout implements IPullLayout {
     }
 
     @Override
-    public void beginRefreshing() {
+    public void beginPullingDown() {
         mRealLayout.startRefresh();
     }
 
     @Override
-    public void beginLoadingMore() {
+    public void beginPullingUp() {
         mRealLayout.startLoadMore();
     }
 
     @Override
-    public void endLoadingMore() {
+    public void endPullingUp() {
         mRealLayout.finishLoadmore();
     }
 
     @Override
-    public void endRefreshing() {
+    public void endPullingDown() {
         mRealLayout.finishRefreshing();
     }
 
