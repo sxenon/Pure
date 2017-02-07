@@ -16,14 +16,48 @@
 
 package com.sxenon.pure.core.router;
 
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.annotation.NonNull;
+
+import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.IPresenter;
 import com.sxenon.pure.core.permission.OnPermissionCallback;
 import com.trello.rxlifecycle.LifecycleProvider;
+import com.trello.rxlifecycle.LifecycleTransformer;
+
+import java.util.List;
+
+import cn.dreamtobe.kpswitch.util.KeyboardUtil;
+import rx.functions.Action0;
 
 /**
  * Visitor for IRouter
  * Created by Sui on 2017/2/5.
  */
 
-public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>,ILifecycle, LifecycleProvider<RouterEvent>, OnPermissionCallback {
+public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle, LifecycleProvider<RouterEvent>, OnPermissionCallback {
+    boolean onBackPressed();
+
+    List<Event> getEventForSave();
+
+    RouterEvent getCurrentEvent();
+
+    void handleActivityResult(int requestCode, int resultCode, Intent data);
+
+    boolean shouldHandleActivityResultIfInCompactActivity(int requestCode);
+
+    boolean shouldHandlePermissionsResultIfInCompactActivity(int requestCode);
+
+    void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action);
+
+    void requestSystemAlertPermission(int requestCode, Action0 action);
+
+    void requestAfterExplanation(@NonNull String[] permissions);
+
+    <T> LifecycleTransformer<T> autoComplete();
+
+    void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener);
+
+    void onConfigurationChanged(Configuration newConfig);
 }

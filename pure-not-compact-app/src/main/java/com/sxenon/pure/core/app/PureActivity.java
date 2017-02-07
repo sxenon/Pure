@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -143,6 +144,12 @@ public abstract class PureActivity<P extends PureRootPresenter> extends Activity
         if (!handled&&!mRootPresenter.onBackPressed()){
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mRootPresenter.onConfigurationChanged(newConfig);
     }
 
     void addToVisibleSet(PureFragment pureFragment){

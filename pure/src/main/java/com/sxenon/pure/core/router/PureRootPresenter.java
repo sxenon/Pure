@@ -17,6 +17,7 @@
 package com.sxenon.pure.core.router;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
@@ -134,18 +135,21 @@ public abstract class PureRootPresenter<R extends IRouter> extends BasePresenter
         lifecycleSubject.onNext(RouterEvent.DESTROY);
     }
 
+    @Override
     public RouterEvent getCurrentEvent() {
         return currentEvent;
     }
 
-    public abstract List<Event> getEventForSave();
-
     //LifeCycle end
-
+    @Override
     public boolean onBackPressed() {
         return false;
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+
+    }
     //Permission start
 
     /**
@@ -153,7 +157,7 @@ public abstract class PureRootPresenter<R extends IRouter> extends BasePresenter
      *
      * @return Handle the result by self or deliver to its fragment,if the router type is COMPACT_ACTIVITY.
      */
-    public boolean onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public final boolean onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCommonPermissionsBySelf(requestCode)) {
             permissionHelper.onRequestPermissionsResult(permissions, grantResults);
             return true;
@@ -166,7 +170,7 @@ public abstract class PureRootPresenter<R extends IRouter> extends BasePresenter
      *
      * @return Handle the request by self or deliver to its fragment,if the router type is COMPACT_ACTIVITY.
      */
-    public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+    public final boolean onActivityResult(int requestCode, int resultCode, Intent data) {
         if (isRequestingSystemAlertPermission) {
             permissionHelper.onRequestSystemAlertPermissionResult(resultCode);
             isRequestingSystemAlertPermission = false;
@@ -192,18 +196,22 @@ public abstract class PureRootPresenter<R extends IRouter> extends BasePresenter
         return getRouter().getRouterType() != IRouter.RouterType.COMPACT_ACTIVITY || shouldHandleActivityResultIfInCompactActivity(requestCode);
     }
 
-    protected void handleActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    public void handleActivityResult(int requestCode, int resultCode, Intent data) {
 
     }
 
-    public void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action) {
+    @Override
+    public final void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action) {
         permissionHelper.requestCommonPermissions(permissions, requestCode, action);
     }
 
-    public void requestSystemAlertPermission(int requestCode, Action0 action) {
+    @Override
+    public final void requestSystemAlertPermission(int requestCode, Action0 action) {
         isRequestingSystemAlertPermission = !permissionHelper.showSystemAlertAtOnce(requestCode, action);
     }
 
+    @Override
     public boolean shouldPermissionExplainBeforeRequest(int requestCode, String[] permissions) {
         return false;
     }
@@ -223,7 +231,8 @@ public abstract class PureRootPresenter<R extends IRouter> extends BasePresenter
 
     }
 
-    public void requestAfterExplanation(@NonNull String[] permissions) {
+    @Override
+    public final void requestAfterExplanation(@NonNull String[] permissions) {
         permissionHelper.requestAfterExplanation(permissions);
     }
     //Permission end
@@ -233,25 +242,27 @@ public abstract class PureRootPresenter<R extends IRouter> extends BasePresenter
      * Observable - emits onCompleted()
      * Single and Completable - emits onError(CancellationException)
      */
-    public <T> LifecycleTransformer<T> autoComplete() {
+    @NonNull
+    @Override
+    public final <T> LifecycleTransformer<T> autoComplete() {
         return bindUntilEvent(RouterEvent.DESTROY);
     }
 
-    public void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener) {
+    public final void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener) {
         PureKeyboardUtil.attach(this, listener);
     }
 
     /**
      * Only work when router is compactActivity
      */
-    protected boolean shouldHandleActivityResultIfInCompactActivity(int requestCode) {
+    public boolean shouldHandleActivityResultIfInCompactActivity(int requestCode) {
         return false;
     }
 
     /**
      * Only work when router is compactActivity
      */
-    protected boolean shouldHandlePermissionsResultIfInCompactActivity(int requestCode) {
+    public boolean shouldHandlePermissionsResultIfInCompactActivity(int requestCode) {
         return false;
     }
     //Binding end
