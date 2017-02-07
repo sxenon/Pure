@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.adapter;
+package com.sxenon.pure.core.adapter;
 
 /**
  * Interface for adapter`s itemView type wrapper

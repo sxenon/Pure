@@ -16,7 +16,7 @@
 
 package com.sj.pure.demo.pull.bga;
 
-import com.sxenon.pure.core.component.adapter.IPureAdapter;
+import com.sxenon.pure.core.adapter.IPureAdapter;
 
 import java.util.List;
 

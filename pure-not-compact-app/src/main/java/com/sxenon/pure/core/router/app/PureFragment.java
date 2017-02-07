@@ -28,6 +28,7 @@ import android.support.v13.app.FragmentCompat;
 import android.view.View;
 
 import com.sxenon.pure.core.Event;
+import com.sxenon.pure.core.router.IFragment;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.router.PureRootPresenter;
 
@@ -38,7 +39,7 @@ import java.util.List;
  * Created by Sui on 2016/11/21.
  */
 
-public abstract class PureFragment<P extends PureRootPresenter> extends Fragment implements IRouter<P> {
+public abstract class PureFragment<P extends PureRootPresenter> extends Fragment implements IFragment<P> {
     private List<Event> mSavedEventList;
     private P mRootPresenter;
     private boolean mViewCreated;
@@ -51,6 +52,7 @@ public abstract class PureFragment<P extends PureRootPresenter> extends Fragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initView(view, savedInstanceState);
         mRootPresenter = bindVisitor();
         mViewCreated = true;
     }

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.adapter.rv;
+package com.sxenon.pure.core.adapter.rv;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.sxenon.pure.core.component.adapter.IPureViewHolder;
+import com.sxenon.pure.core.adapter.IPureViewHolder;
 import com.sxenon.pure.core.mvp.IViewModule;
 
 /**

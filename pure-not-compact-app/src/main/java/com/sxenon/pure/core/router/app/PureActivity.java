@@ -49,6 +49,7 @@ public abstract class PureActivity<P extends PureRootPresenter> extends Activity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initView(savedInstanceState);
         mRootPresenter= bindVisitor();
         mRootPresenter.onCreate(savedInstanceState==null?null:GlobalContext.INSTANCE.savedEventList);
         GlobalContext.INSTANCE.activityHistoryManager.add(this);

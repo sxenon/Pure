@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.adapter.abs;
+package com.sxenon.pure.core.adapter.abs;
 
-import com.sxenon.pure.core.component.adapter.IItemViewTypeEntity;
+import com.sxenon.pure.core.adapter.IItemViewTypeEntity;
 
 /**
  * itemViewType --- resourceId --- viewHolder

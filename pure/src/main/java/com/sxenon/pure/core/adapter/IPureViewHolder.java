@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.router;
+package com.sxenon.pure.core.adapter;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.view.View;
+
+import com.sxenon.pure.core.mvp.IViewModule;
 
 /**
- * Interface for Activity
- * Created by Sui on 2017/1/2.
+ * Interface for adapter`s viewHolder
+ * Created by Sui on 2016/12/25.
  */
 
-public interface IActivity<P extends PureRootPresenter> extends IRouter<P> {
-    void initView(@Nullable Bundle savedInstanceState);
-    boolean shouldKeepWhenBackground(int what);
-    void finish();
-    boolean isFinishing();
+public interface IPureViewHolder<T> {
+    int getPosition();
+
+    void fillItemViewByData(View itemView,T data);
+
+    <A extends IPureAdapter> A getAdapter();
+
+    IViewModule getViewModule();
 }

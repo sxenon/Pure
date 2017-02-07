@@ -50,6 +50,7 @@ public abstract class PureCompactActivity<P extends PureRootPresenter> extends A
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initView(savedInstanceState);
         mRootPresenter = bindVisitor();
         mRootPresenter.onCreate(savedInstanceState==null?null:GlobalContext.INSTANCE.savedEventList);
         GlobalContext.INSTANCE.activityHistoryManager.add(this);

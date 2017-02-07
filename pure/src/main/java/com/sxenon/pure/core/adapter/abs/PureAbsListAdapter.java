@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.adapter.rv;
+package com.sxenon.pure.core.adapter.abs;
 
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 
-import com.sxenon.pure.core.component.adapter.IPureAdapter;
+import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.mvp.IViewModule;
 
 import java.lang.reflect.Constructor;
@@ -30,20 +31,21 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Adapter for RecyclerView
- * Created by Sui on 2016/12/29.
+ * Adapter for AbsList
+ * Created by Sui on 2016/12/25.
  */
 
-public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<PureRecyclerViewHolder> implements IPureAdapter<T> {
-    private final PureRecyclerViewItemViewTypeEntity[] mItemViewTypeEntryArray;
-    private final IViewModule mViewModule;
+public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPureAdapter<T> {
+
     private final Object mLock = new Object();
-    private List<T> mData = new ArrayList<>();
+    private final PureAbsListItemViewTypeEntity[] mItemViewTypeEntryArray;
+    private final IViewModule mViewModule;
+    private final List<T> mData = new ArrayList<>();
 
     /**
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureRecyclerViewAdapter(IViewModule viewModule, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureAbsListAdapter(IViewModule viewModule, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
         if (itemViewTypeEntryArray.length == 0) {
             throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
         }
@@ -52,8 +54,13 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     }
 
     @Override
+    public int getItemCount() {
+        return mData.size();
+    }
+
+    @Override
     public void addItemFromEnd(T value) {
-        addItem(mData.size(), value);
+        addItem(getItemCount(), value);
     }
 
     @Override
@@ -68,28 +75,28 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
 
     @Override
     public void addItemsFromEnd(List<T> values) {
-        addItems(mData.size(), values);
+        addItems(getItemCount(), values);
     }
 
     @Override
     public void addItem(int position, T value) {
         synchronized (mLock) {
-            if (position > mData.size() || position < 0 || value == null) {
+            if (position < 0 || position > getCount() || value == null) {
                 return;
             }
             mData.add(position, value);
-            notifyItemInserted(position);
+            notifyDataSetChanged();
         }
     }
 
     @Override
     public void addItems(int position, List<T> values) {
         synchronized (mLock) {
-            if (position > mData.size() || position < 0 || values == null) {
+            if (position < 0 || position > getCount() || values == null) {
                 return;
             }
             mData.addAll(position, values);
-            notifyItemRangeInserted(position, values.size());
+            notifyDataSetChanged();
         }
     }
 
@@ -102,13 +109,23 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     }
 
     @Override
+    public void removeItems(int position, int count) {
+        synchronized (mLock) {
+            if (position < 0 || count < 1 || position + count > getCount()) {
+                return;
+            }
+            removeItems(mData.subList(position, position + count));
+        }
+    }
+
+    @Override
     public void removeItem(int position) {
         synchronized (mLock) {
-            if (position >= mData.size() || position < 0) {
+            if (position < 0 || position >= mData.size()) {
                 return;
             }
             mData.remove(position);
-            notifyItemRemoved(position);
+            notifyDataSetChanged();
         }
     }
 
@@ -116,24 +133,11 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     public void removeItem(T value) {
         synchronized (mLock) {
             int position = mData.indexOf(value);
-            if (position >= 0) {
-                mData.remove(position);
-                notifyItemRemoved(position);
-            }
+            removeItem(position);
         }
     }
 
-    @Override
-    public void removeItems(int position, int count) {
-        synchronized (mLock) {
-            if (position < 0 || count < 1 || position + count > mData.size()) {
-                return;
-            }
-            mData.removeAll(mData.subList(position, position + count));
-            notifyItemRangeRemoved(position, count);
-        }
-    }
-
+    @SuppressWarnings("unchecked")
     @Override
     public List<T> getValues() {
         return mData;
@@ -141,7 +145,7 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
 
     @Override
     public T getValue(int position) {
-        if (position < 0 || position >= mData.size()) {
+        if (position < 0 || position >= getCount()) {
             return null;
         }
         return mData.get(position);
@@ -149,13 +153,14 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
 
     @Override
     public void resetAllItems(List<T> values) {
-        synchronized (mLock) {
-            if (values == null) {
+        if (values == null) {
+            clearAllItems();
+        } else {
+            synchronized (mLock) {
                 mData.clear();
-            } else {
-                mData = values;
+                mData.addAll(values);
+                notifyDataSetChanged();
             }
-            notifyDataSetChanged();
         }
     }
 
@@ -170,11 +175,11 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     @Override
     public void setItem(int position, T value) {
         synchronized (mLock) {
-            if (value == null || position >= mData.size() || position < 0) {
+            if (value == null || position < 0 || position >= getCount()) {
                 return;
             }
             mData.set(position, value);
-            notifyItemChanged(position);
+            notifyDataSetChanged();
         }
     }
 
@@ -186,49 +191,47 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     @Override
     public void moveItem(int fromPosition, int toPosition) {
         synchronized (mLock) {
-            if (fromPosition < 0 || fromPosition >= mData.size() || toPosition < 0 || toPosition >= mData.size()) {
+            if (fromPosition < 0 || fromPosition >= getCount() || toPosition < 0 || toPosition >= getCount()) {
                 return;
             }
             if (fromPosition == toPosition) {
                 return;
             }
             Collections.swap(mData, fromPosition, toPosition);
-            notifyItemMoved(fromPosition, toPosition);
+            notifyDataSetChanged();
         }
     }
 
+    @NonNull
     @Override
-    public PureRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        PureRecyclerViewHolder viewHolder = null;
-
-        PureRecyclerViewItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryArray[viewType];
-        int resourceId = itemViewTypeEntity.getResourceId();
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(resourceId, parent,false);
-        Class<? extends PureRecyclerViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
-        try {
-            Constructor<? extends PureRecyclerViewHolder> constructor = viewHolderClass.getConstructor(IViewModule.class, View.class, PureRecyclerViewAdapter.class);
-            viewHolder = constructor.newInstance(mViewModule, itemView, PureRecyclerViewAdapter.this);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+        PureAbsViewHolder viewHolder = null;
+        if (convertView == null) {
+            PureAbsListItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryArray[getItemViewType(position)];
+            convertView = LayoutInflater.from(mViewModule.getContext()).inflate(itemViewTypeEntity.getResourceId(), null);
+            Class<? extends PureAbsViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
+            try {
+                Constructor<? extends PureAbsViewHolder> constructor = viewHolderClass.getConstructor(IViewModule.class, View.class, PureAbsListAdapter.class, Integer.class);
+                viewHolder = constructor.newInstance(mViewModule, convertView, PureAbsListAdapter.this, position);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (PureAbsViewHolder) convertView.getTag();
         }
-        return viewHolder;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onBindViewHolder(PureRecyclerViewHolder holder, int position) {
-        holder.setIsRecyclable(true);
-        holder.fillItemViewByData(holder.itemView, getValue(position));
+        //noinspection ConstantConditions,unchecked
+        viewHolder.fillItemViewByData(viewHolder.itemView, getItem(position));
+        return convertView;
     }
 
     @Override
-    public int getItemCount() {
-        return mData.size();
+    public int getViewTypeCount() {
+        return mItemViewTypeEntryArray.length;
     }
 
     /**
      * You must override it!
-     * Relate with data!
      */
     @Override
     public abstract int getItemViewType(int position);

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.adapter.abs;
+package com.sxenon.pure.core.adapter.abs;
 
 import android.view.View;
 
-import com.sxenon.pure.core.component.adapter.IPureViewHolder;
+import com.sxenon.pure.core.adapter.IPureViewHolder;
 import com.sxenon.pure.core.mvp.IViewModule;
 
 /**

@@ -23,7 +23,7 @@ import android.view.View;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.component.adapter.IPureAdapter;
+import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.result.IFetchListResultHandler;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 import com.sxenon.pure.core.util.CommonUtils;

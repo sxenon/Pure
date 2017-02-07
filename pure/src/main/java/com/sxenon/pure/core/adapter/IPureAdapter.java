@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.adapter;
+package com.sxenon.pure.core.adapter;
 
 import java.util.List;
 

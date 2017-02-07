@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.adapter.rv;
+package com.sxenon.pure.core.adapter.rv;
 
-import com.sxenon.pure.core.component.adapter.IItemViewTypeEntity;
+import com.sxenon.pure.core.adapter.IItemViewTypeEntity;
 
 /**
  * ItemViewTypeEntity for RecyclerView

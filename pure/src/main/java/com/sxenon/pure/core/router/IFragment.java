@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.adapter;
+package com.sxenon.pure.core.router;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.sxenon.pure.core.mvp.IViewModule;
-
 /**
- * Interface for adapter`s viewHolder
- * Created by Sui on 2016/12/25.
+ * Interface for Fragment
+ * Created by Sui on 2017/1/2.
  */
 
-public interface IPureViewHolder<T> {
-    int getPosition();
-
-    void fillItemViewByData(View itemView,T data);
-
-    <A extends IPureAdapter> A getAdapter();
-
-    IViewModule getViewModule();
+public interface IFragment<P extends PureRootPresenter> extends IRouter<P> {
+    void initView(View view, @Nullable Bundle savedInstanceState);
 }

@@ -18,7 +18,7 @@ package com.sxenon.pure.core.component.filler.non;
 
 import android.content.Context;
 
-import com.sxenon.pure.core.component.adapter.IPureAdapter;
+import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.component.filler.FillerGroup;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
