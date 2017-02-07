@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    def okhttp3Version='3.5.0'
+    def okhttp3Version='3.6.0'
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

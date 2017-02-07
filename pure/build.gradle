@@ -46,7 +46,7 @@ dependencies {
 //    compile 'com.tencent.bugly:crashreport:latest.release'
 
     //Rx 1.x
-    compile 'io.reactivex:rxjava:1.2.4'
+    compile 'io.reactivex:rxjava:1.2.6'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.trello:rxlifecycle:1.0'
 
