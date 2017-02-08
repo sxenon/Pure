@@ -30,7 +30,7 @@ import android.view.View;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.router.IFragment;
 import com.sxenon.pure.core.router.IRouter;
-import com.sxenon.pure.core.router.PureRootPresenter;
+import com.sxenon.pure.core.router.PureRouterPresenter;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ import java.util.List;
  * Created by Sui on 2016/11/21.
  */
 
-public abstract class PureFragment<P extends PureRootPresenter> extends Fragment implements IFragment<P> {
+public abstract class PureFragment<P extends PureRouterPresenter> extends Fragment implements IFragment<P> {
     private List<Event> mSavedEventList;
     private P mRootPresenter;
     private boolean mViewCreated;

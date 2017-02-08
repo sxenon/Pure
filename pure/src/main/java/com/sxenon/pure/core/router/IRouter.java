@@ -32,7 +32,7 @@ import java.util.List;
  * Created by Sui on 2016/11/20.
  */
 
-public interface IRouter<P extends PureRootPresenter> extends IViewModule<P>{
+public interface IRouter<P extends PureRouterPresenter> extends IViewModule<P>{
 
     void startActivity(Intent intent);
 

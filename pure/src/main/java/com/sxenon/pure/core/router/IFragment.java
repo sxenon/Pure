@@ -25,6 +25,6 @@ import android.view.View;
  * Created by Sui on 2017/1/2.
  */
 
-public interface IFragment<P extends PureRootPresenter> extends IRouter<P> {
+public interface IFragment<P extends PureRouterPresenter> extends IRouter<P> {
     void initView(View view, @Nullable Bundle savedInstanceState);
 }

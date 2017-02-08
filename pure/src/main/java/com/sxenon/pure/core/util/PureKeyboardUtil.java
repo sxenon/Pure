@@ -25,7 +25,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.sxenon.pure.core.router.PureRootPresenter;
+import com.sxenon.pure.core.router.PureRouterPresenter;
 
 import cn.dreamtobe.kpswitch.IPanelHeightTarget;
 import cn.dreamtobe.kpswitch.util.KeyboardUtil;
@@ -71,7 +71,7 @@ public class PureKeyboardUtil {
         imm.hideSoftInputFromInputMethod(activity.getWindow().getDecorView().getWindowToken(), 0);
     }
 
-    public static void attach(PureRootPresenter rootPresenter, IPanelHeightTarget target, KeyboardUtil.OnKeyboardShowingListener listener) {
+    public static void attach(PureRouterPresenter rootPresenter, IPanelHeightTarget target, KeyboardUtil.OnKeyboardShowingListener listener) {
         final Activity activity = rootPresenter.getRouter().getActivityCompact();
         final ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = KeyboardUtil.attach(activity, target, listener);
         //noinspection unchecked
@@ -93,11 +93,11 @@ public class PureKeyboardUtil {
         });
     }
 
-    public static void attach(PureRootPresenter rootPresenter, IPanelHeightTarget target) {
+    public static void attach(PureRouterPresenter rootPresenter, IPanelHeightTarget target) {
         attach(rootPresenter, target, null);
     }
 
-    public static void attach(PureRootPresenter rootPresenter, KeyboardUtil.OnKeyboardShowingListener listener) {
+    public static void attach(PureRouterPresenter rootPresenter, KeyboardUtil.OnKeyboardShowingListener listener) {
         attach(rootPresenter, new IPanelHeightTarget() {
             @Override
             public void refreshHeight(int panelHeight) {

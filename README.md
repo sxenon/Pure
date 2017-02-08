@@ -23,7 +23,7 @@
 
 相信从此可以告别冗长的Adapter，具体见com.sxenon.pure.core.component.adapter
 
-##5、IResultDispatcher、IResultHandler
+##4、IResultDispatcher、IResultHandler
 
 所有对M的请求结果，由IResultDispatcher来进行分发，交给合适的IResultHandler来处理(ISubmitResultHandler、IFetchListResultHandler、IFetchSingleResultHandler、IFetchSetResultHandler)
 

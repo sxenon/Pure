@@ -41,17 +41,17 @@ import rx.subjects.BehaviorSubject;
 
 /**
  * Include several {@link BaseSubPresenter}，with its related {@link BaseSubViewModule}
- * Don`t use it directly,use PureRootPresenter instead.
+ * Don`t use it directly,use PureRouterPresenter instead.
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureRootPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R> {
+public abstract class PureRouterPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R> {
 
     private RouterEvent currentEvent;
     private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
-    public static final String TAG = "PureRootPresenter";
+    public static final String TAG = "PureRouterPresenter";
     private final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
             new Func1<RouterEvent, RouterEvent>() {
                 @Override
@@ -73,7 +73,7 @@ public abstract class PureRootPresenter<R extends IRouter> extends BasePresenter
                 }
             };
 
-    public PureRootPresenter(R router) {
+    public PureRouterPresenter(R router) {
         super(router);
         permissionHelper = PermissionHelper.getInstance(getRouter(), this);
     }

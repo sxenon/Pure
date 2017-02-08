@@ -18,7 +18,7 @@ package com.sxenon.pure.core.router;
 
 
 /**
- * LifeCycle event for {@link PureRootPresenter}
+ * LifeCycle event for {@link PureRouterPresenter}
  * Created by Sui on 2016/11/28.
  */
 
