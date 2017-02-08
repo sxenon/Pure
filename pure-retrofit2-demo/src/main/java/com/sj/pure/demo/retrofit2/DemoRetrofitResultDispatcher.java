@@ -29,18 +29,18 @@ import retrofit2.Response;
  * Created by Sui on 2016/12/15.
  */
 
-public abstract class DemoRetrofitResultDispatcher<T> extends BaseResultDispatcher {
+public abstract class DemoRetrofitResultDispatcher<R> extends BaseResultDispatcher<R> {
     private static final String TAG = "Demo";
 
     public DemoRetrofitResultDispatcher(IResultHandler resultHandler) {
         super(resultHandler);
     }
 
-    public void handleCall(Call<T> call) {
+    public void handleCall(Call<R> call) {
         Log.i(TAG, call.toString());
     }
 
-    public void handleResponse(Response<T> response) {
+    public void handleResponse(Response<R> response) {
         Log.i(TAG, response.body()+"");
     }
 

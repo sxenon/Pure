@@ -35,9 +35,9 @@ public class DemoHttpClient extends PureHttpClient<DemoHttpResultDispatcher> {
     private static DemoHttpClient mBaseInstance;
     private static OkHttpClient innerHttpClient;
 
-    public static void initClient(OkHttpClient client) {
-        innerHttpClient=client;
-        mBaseInstance = new DemoHttpClient(client);
+    public static void initClient(OkHttpClient originalHttpClient) {
+        innerHttpClient=originalHttpClient;
+        mBaseInstance = new DemoHttpClient(originalHttpClient);
     }
 
     public DemoHttpClient update(OkHttpClientDecorator clientDecorator){

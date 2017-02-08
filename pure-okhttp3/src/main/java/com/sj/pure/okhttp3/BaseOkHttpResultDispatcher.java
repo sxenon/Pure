@@ -28,7 +28,7 @@ import okhttp3.ResponseBody;
  * Created by Sui on 2016/12/15.
  */
 
-public abstract class BaseOkHttpResultDispatcher extends BaseResultDispatcher {
+public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher<R> {
     private final Type mTypeForConvert;
 
     public BaseOkHttpResultDispatcher(IResultHandler resultHandler, Type type) {
@@ -40,5 +40,5 @@ public abstract class BaseOkHttpResultDispatcher extends BaseResultDispatcher {
         return mTypeForConvert;
     }
 
-    protected abstract <T> T convert(ResponseBody responseBody,Type type);
+    protected abstract R convert(ResponseBody responseBody,Type type);
 }

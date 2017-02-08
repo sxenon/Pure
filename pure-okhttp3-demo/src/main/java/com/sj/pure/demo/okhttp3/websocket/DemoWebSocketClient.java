@@ -35,6 +35,7 @@ public class DemoWebSocketClient extends PureWebSocketClient<DemoWebSocketResult
     private static OkHttpClient innerHttpClient;
 
     public static void initClient(OkHttpClient originalHttpClient) {
+        innerHttpClient=originalHttpClient;
         mBaseInstance = new DemoWebSocketClient(originalHttpClient);
     }
 
@@ -49,7 +50,6 @@ public class DemoWebSocketClient extends PureWebSocketClient<DemoWebSocketResult
     public static DemoWebSocketClient getBaseInstance() {
         return Preconditions.checkNotNull(mBaseInstance, "Call init first!");
     }
-
 
     @Override
     protected void preParseOnOpen(WebSocket webSocket, Response response, DemoWebSocketResultDispatcher resultDispatcher) {
