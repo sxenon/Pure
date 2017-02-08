@@ -40,8 +40,7 @@ import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
 
 /**
- * Include several {@link BaseSubPresenter}，with its related {@link BaseSubViewModule}
- * Don`t use it directly,use PureRouterPresenter instead.
+ * Include several {@link BaseSubPresenter}s，with their related {@link BaseSubViewModule}s
  * Created by Sui on 2016/11/28.
  */
 

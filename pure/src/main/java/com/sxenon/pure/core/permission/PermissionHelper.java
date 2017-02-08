@@ -39,13 +39,11 @@ import rx.functions.Action0;
 
 public class PermissionHelper {
     private Event permissionEvent;
-
     @NonNull
     private final OnPermissionCallback permissionCallback;
     @NonNull
     private final IRouter router;
     private boolean forceAccepting;
-
 
     private PermissionHelper(@NonNull IRouter router, @NonNull OnPermissionCallback permissionCallback) {
         this.router = router;
