@@ -52,7 +52,7 @@ public abstract class PureSupportFragment<P extends PureRouterPresenter> extends
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view, savedInstanceState);
-        mRootPresenter = bindVisitor();
+        mRootPresenter = bindPresenter();
         mViewCreated = true;
     }
 
@@ -110,11 +110,6 @@ public abstract class PureSupportFragment<P extends PureRouterPresenter> extends
             mRootPresenter.onCreate(mSavedEventList);
             shouldInitRootPresenter = false;
         }
-    }
-
-    @Override
-    public P getVisitor() {
-        return mRootPresenter;
     }
 
     @NonNull

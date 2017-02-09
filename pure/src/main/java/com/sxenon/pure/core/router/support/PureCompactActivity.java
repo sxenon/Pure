@@ -51,7 +51,7 @@ public abstract class PureCompactActivity<P extends PureRouterPresenter> extends
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView(savedInstanceState);
-        mRootPresenter = bindVisitor();
+        mRootPresenter = bindPresenter();
         mRootPresenter.onCreate(savedInstanceState==null?null:GlobalContext.INSTANCE.savedEventList);
         GlobalContext.INSTANCE.activityHistoryManager.add(this);
     }
@@ -81,11 +81,6 @@ public abstract class PureCompactActivity<P extends PureRouterPresenter> extends
         saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
         GlobalContext.INSTANCE.activityHistoryManager.remove(this);
-    }
-
-    @Override
-    public P getVisitor() {
-        return mRootPresenter;
     }
 
     @NonNull

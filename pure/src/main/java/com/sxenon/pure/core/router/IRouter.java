@@ -50,9 +50,7 @@ public interface IRouter<P extends PureRouterPresenter> extends IViewModule<P>{
 
     void saveEventList(List<Event> eventList);
 
-    P bindVisitor();
-
-    P getVisitor();
+    P bindPresenter();
 
     RouterType getRouterType();
 

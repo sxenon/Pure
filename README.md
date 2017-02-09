@@ -5,7 +5,7 @@
 
 ##1、IRouter与IRouterVisitor
 
-在将Activity,Fragment（及其子类）作为MVP中的V的基础上，提取出相似方法（例如startActivity、requestPermissions等等），抽象出IRouter接口，并做二次封装，而对于IRouter对象的通用操作（例如权限请求，键盘弹起通知，返回键，生命周期管理等等）抽象出IRouterVisitor接口，交由IRouter对象对应的Presenter来实现（见PureRouterPresenter）。由此若需要对IRouter对象定义新的操作，可以集中定义IRouterVisitor上，避免让这些操作“污染”IRouter对象的类。
+在将Activity,Fragment（及其直接子类）作为MVP中的V的基础上，提取出相似方法（例如startActivity、requestPermissions等等），抽象出IRouter接口，并做二次封装，而对于IRouter对象的通用操作（例如权限请求，键盘弹起通知，返回键，生命周期管理等等）抽象出IRouterVisitor接口，交由IRouter对象对应的Presenter来实现（见PureRouterPresenter）。由此若需要对IRouter对象定义新的操作，可以集中定义IRouterVisitor上，避免让这些操作“污染”IRouter对象的类。
 
 ##2、IViewComponentGroup（**精华**）
 
