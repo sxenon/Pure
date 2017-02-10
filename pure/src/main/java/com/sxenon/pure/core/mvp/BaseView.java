@@ -23,17 +23,17 @@ import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.component.IViewComponentGroup;
 
 /**
- * Base implement for IViewModule
+ * Base implement for IView
  * Include {@link android.view.View} & {@link IViewComponentGroup}
  * Created by Sui on 2016/11/22.
  */
 
-public abstract class BaseViewModule<P extends IPresenter> implements IViewModule<P> {
+public abstract class BaseView<P extends IPresenter> implements IView<P> {
     private final P mPresenter;
     private final Context mContext;
     private final IRouter mRouter;
 
-    public BaseViewModule(IRouter router){
+    public BaseView(IRouter router){
         mContext=router.getActivityCompact();
         mRouter=router;
         mPresenter= bindPresenter();

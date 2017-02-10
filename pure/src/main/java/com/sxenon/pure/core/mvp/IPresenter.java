@@ -26,8 +26,8 @@ import com.sxenon.pure.core.router.IRouter;
  * Created by Sui on 2016/11/21.
  */
 
-public interface IPresenter<VM extends IViewModule> {
-    VM getViewModule();
+public interface IPresenter<V extends IView> {
+    V getView();
 
     @NonNull
     Context getContext();

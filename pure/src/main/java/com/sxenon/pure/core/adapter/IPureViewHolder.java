@@ -18,7 +18,7 @@ package com.sxenon.pure.core.adapter;
 
 import android.view.View;
 
-import com.sxenon.pure.core.mvp.IViewModule;
+import com.sxenon.pure.core.mvp.IView;
 
 /**
  * Interface for adapter`s viewHolder
@@ -32,5 +32,5 @@ public interface IPureViewHolder<T> {
 
     <A extends IPureAdapter> A getAdapter();
 
-    IViewModule getViewModule();
+    IView getViewContainer();
 }

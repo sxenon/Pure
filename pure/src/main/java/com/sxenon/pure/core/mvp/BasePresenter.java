@@ -26,20 +26,20 @@ import com.sxenon.pure.core.router.IRouter;
  * Created by Sui on 2017/1/5.
  */
 
-public abstract class BasePresenter<VM extends IViewModule> implements IPresenter<VM> {
-    private final VM mViewModule;
+public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
+    private final V mView;
     private final Context mContext;
     private final IRouter mRouter;
 
-    public BasePresenter(VM viewModule) {
-        mViewModule = viewModule;
-        mContext = mViewModule.getContext();
-        mRouter = mViewModule.getRouter();
+    public BasePresenter(V view) {
+        mView = view;
+        mContext = mView.getContext();
+        mRouter = mView.getRouter();
     }
 
     @Override
-    public VM getViewModule() {
-        return mViewModule;
+    public V getView() {
+        return mView;
     }
 
     @NonNull

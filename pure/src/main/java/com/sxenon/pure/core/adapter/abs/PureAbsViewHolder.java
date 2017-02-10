@@ -19,7 +19,7 @@ package com.sxenon.pure.core.adapter.abs;
 import android.view.View;
 
 import com.sxenon.pure.core.adapter.IPureViewHolder;
-import com.sxenon.pure.core.mvp.IViewModule;
+import com.sxenon.pure.core.mvp.IView;
 
 /**
  * ViewHolder for AbsList
@@ -29,13 +29,13 @@ import com.sxenon.pure.core.mvp.IViewModule;
 public abstract class PureAbsViewHolder<T> implements IPureViewHolder<T> {
     private final int position;
     private final PureAbsListAdapter adapter;
-    private final IViewModule viewModule;
+    private final IView viewContainer;
     public final View itemView;
 
-    public PureAbsViewHolder(IViewModule viewModule, View itemView, PureAbsListAdapter adapter, int position){
+    public PureAbsViewHolder(IView viewContainer, View itemView, PureAbsListAdapter adapter, int position){
         this.position=position;
         this.adapter=adapter;
-        this.viewModule=viewModule;
+        this.viewContainer =viewContainer;
         this.itemView=itemView;
     }
 
@@ -49,7 +49,7 @@ public abstract class PureAbsViewHolder<T> implements IPureViewHolder<T> {
         return adapter;
     }
 
-    public IViewModule getViewModule() {
-        return viewModule;
+    public IView getViewContainer() {
+        return viewContainer;
     }
 }

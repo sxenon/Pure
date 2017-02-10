@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017  sxenon
+ * Copyright (c) 2017 sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,25 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.router;
+package com.sxenon.pure.core.mvp;
 
-import com.sxenon.pure.core.mvp.BaseViewModule;
+import android.content.Context;
+import android.support.annotation.NonNull;
+
+import com.sxenon.pure.core.router.IRouter;
 
 /**
- * Optional,for those complex {@link IRouter}s
- * Created by Sui on 2017/1/4.
+ * View for MVP,include common view and viewComponentGroup
+ * Created by Sui on 2016/11/21.
  */
 
-public abstract class BaseSubViewModule<P extends BaseSubPresenter> extends BaseViewModule<P> {
-    public BaseSubViewModule(IRouter router) {
-        super(router);
-    }
+public interface IView<P extends IPresenter> {
+
+    P getPresenter();
+
+    @NonNull
+    Context getContext();
+
+    @NonNull
+    IRouter getRouter();
 }

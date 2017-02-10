@@ -20,7 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.sxenon.pure.core.adapter.IPureViewHolder;
-import com.sxenon.pure.core.mvp.IViewModule;
+import com.sxenon.pure.core.mvp.IView;
 
 /**
  * ViewHolder for RecyclerView
@@ -29,12 +29,12 @@ import com.sxenon.pure.core.mvp.IViewModule;
 
 public abstract class PureRecyclerViewHolder<T> extends RecyclerView.ViewHolder implements IPureViewHolder<T> {
     private final PureRecyclerViewAdapter adapter;
-    private final IViewModule viewModule;
+    private final IView viewContainer;
 
-    public PureRecyclerViewHolder(IViewModule viewModule,View itemView, PureRecyclerViewAdapter adapter) {
+    public PureRecyclerViewHolder(IView viewContainer, View itemView, PureRecyclerViewAdapter adapter) {
         super(itemView);
         this.adapter = adapter;
-        this.viewModule=viewModule;
+        this.viewContainer = viewContainer;
     }
 
     @SuppressWarnings("unchecked")
@@ -43,7 +43,7 @@ public abstract class PureRecyclerViewHolder<T> extends RecyclerView.ViewHolder 
     }
 
     @Override
-    public IViewModule getViewModule() {
-        return viewModule;
+    public IView getViewContainer() {
+        return viewContainer;
     }
 }

@@ -23,11 +23,11 @@ import com.sxenon.pure.core.mvp.BasePresenter;
  * Created by Sui on 2016/11/22.
  */
 
-public abstract class BaseSubPresenter<VM extends BaseSubViewModule> extends BasePresenter<VM> {
+public abstract class BaseSubPresenter<V extends BaseSubView> extends BasePresenter<V> {
     private final PureRouterPresenter mRouterPresenter;
 
-    public BaseSubPresenter(VM viewModule, PureRouterPresenter rootPresenter) {
-        super(viewModule);
+    public BaseSubPresenter(V view, PureRouterPresenter rootPresenter) {
+        super(view);
         mRouterPresenter = rootPresenter;
     }
 
