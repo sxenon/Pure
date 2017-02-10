@@ -145,7 +145,7 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
         }
     }
 
-    public void setMinorComponents(View emptyView, View exceptionView) {
+    public void setExtraComponents(View emptyView, View exceptionView) {
         mEmptyView = emptyView;
         mExceptionView = exceptionView;
 

@@ -21,7 +21,7 @@ import com.sxenon.pure.core.component.IViewComponentGroup;
 import java.util.List;
 
 /**
- * List data Submitter
+ * List data submitter
  * Created by Sui on 2016/11/18.
  */
 

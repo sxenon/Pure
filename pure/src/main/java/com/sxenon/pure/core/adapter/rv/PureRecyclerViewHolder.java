@@ -29,12 +29,12 @@ import com.sxenon.pure.core.mvp.IView;
 
 public abstract class PureRecyclerViewHolder<T> extends RecyclerView.ViewHolder implements IPureViewHolder<T> {
     private final PureRecyclerViewAdapter adapter;
-    private final IView viewContainer;
+    private final IView adapterContainer;
 
-    public PureRecyclerViewHolder(IView viewContainer, View itemView, PureRecyclerViewAdapter adapter) {
+    public PureRecyclerViewHolder(View itemView, PureRecyclerViewAdapter adapter,IView adapterContainer) {
         super(itemView);
         this.adapter = adapter;
-        this.viewContainer = viewContainer;
+        this.adapterContainer = adapterContainer;
     }
 
     @SuppressWarnings("unchecked")
@@ -43,7 +43,7 @@ public abstract class PureRecyclerViewHolder<T> extends RecyclerView.ViewHolder 
     }
 
     @Override
-    public IView getViewContainer() {
-        return viewContainer;
+    public IView getAdapterContainer() {
+        return adapterContainer;
     }
 }

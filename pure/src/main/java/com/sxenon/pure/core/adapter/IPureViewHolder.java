@@ -32,5 +32,5 @@ public interface IPureViewHolder<T> {
 
     <A extends IPureAdapter> A getAdapter();
 
-    IView getViewContainer();
+    IView getAdapterContainer();
 }

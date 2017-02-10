@@ -36,19 +36,19 @@ import java.util.List;
 
 public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<PureRecyclerViewHolder> implements IPureAdapter<T> {
     private final PureRecyclerViewItemViewTypeEntity[] mItemViewTypeEntryArray;
-    private final IView mViewContainer;
+    private final IView mAdapterContainer;
     private final Object mLock = new Object();
     private List<T> mData = new ArrayList<>();
 
     /**
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureRecyclerViewAdapter(IView viewContainer, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureRecyclerViewAdapter(IView adapterContainer, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
         if (itemViewTypeEntryArray.length == 0) {
             throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
         }
         mItemViewTypeEntryArray = itemViewTypeEntryArray;
-        mViewContainer = viewContainer;
+        mAdapterContainer = adapterContainer;
     }
 
     @Override
@@ -206,8 +206,8 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
         View itemView = LayoutInflater.from(parent.getContext()).inflate(resourceId, parent,false);
         Class<? extends PureRecyclerViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
         try {
-            Constructor<? extends PureRecyclerViewHolder> constructor = viewHolderClass.getConstructor(IView.class, View.class, PureRecyclerViewAdapter.class);
-            viewHolder = constructor.newInstance(mViewContainer, itemView, PureRecyclerViewAdapter.this);
+            Constructor<? extends PureRecyclerViewHolder> constructor = viewHolderClass.getConstructor(View.class, PureRecyclerViewAdapter.class,IView.class);
+            viewHolder = constructor.newInstance(itemView, PureRecyclerViewAdapter.this,mAdapterContainer);
         } catch (Exception e) {
             e.printStackTrace();
         }

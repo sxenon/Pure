@@ -29,13 +29,13 @@ import com.sxenon.pure.core.mvp.IView;
 public abstract class PureAbsViewHolder<T> implements IPureViewHolder<T> {
     private final int position;
     private final PureAbsListAdapter adapter;
-    private final IView viewContainer;
+    private final IView adapterContainer;
     public final View itemView;
 
-    public PureAbsViewHolder(IView viewContainer, View itemView, PureAbsListAdapter adapter, int position){
+    public PureAbsViewHolder(View itemView, PureAbsListAdapter adapter, int position,IView adapterContainer){
         this.position=position;
         this.adapter=adapter;
-        this.viewContainer =viewContainer;
+        this.adapterContainer =adapterContainer;
         this.itemView=itemView;
     }
 
@@ -49,7 +49,7 @@ public abstract class PureAbsViewHolder<T> implements IPureViewHolder<T> {
         return adapter;
     }
 
-    public IView getViewContainer() {
-        return viewContainer;
+    public IView getAdapterContainer() {
+        return adapterContainer;
     }
 }

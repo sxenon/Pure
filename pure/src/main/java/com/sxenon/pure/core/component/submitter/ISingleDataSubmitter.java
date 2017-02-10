@@ -19,7 +19,7 @@ package com.sxenon.pure.core.component.submitter;
 import com.sxenon.pure.core.component.IViewComponentGroup;
 
 /**
- * Single data Submitter
+ * Single data submitter
  * Created by Sui on 2016/12/12.
  */
 

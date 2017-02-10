@@ -39,18 +39,18 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
 
     private final Object mLock = new Object();
     private final PureAbsListItemViewTypeEntity[] mItemViewTypeEntryArray;
-    private final IView mViewContainer;
+    private final IView mAdapterContainer;
     private final List<T> mData = new ArrayList<>();
 
     /**
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureAbsListAdapter(IView viewContainer, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureAbsListAdapter(IView adapterContainer, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
         if (itemViewTypeEntryArray.length == 0) {
             throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
         }
         mItemViewTypeEntryArray = itemViewTypeEntryArray;
-        mViewContainer = viewContainer;
+        mAdapterContainer = adapterContainer;
     }
 
     @Override
@@ -208,11 +208,11 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
         PureAbsViewHolder viewHolder = null;
         if (convertView == null) {
             PureAbsListItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryArray[getItemViewType(position)];
-            convertView = LayoutInflater.from(mViewContainer.getContext()).inflate(itemViewTypeEntity.getResourceId(), null);
+            convertView = LayoutInflater.from(mAdapterContainer.getContext()).inflate(itemViewTypeEntity.getResourceId(), null);
             Class<? extends PureAbsViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
             try {
-                Constructor<? extends PureAbsViewHolder> constructor = viewHolderClass.getConstructor(IView.class, View.class, PureAbsListAdapter.class, Integer.class);
-                viewHolder = constructor.newInstance(mViewContainer, convertView, PureAbsListAdapter.this, position);
+                Constructor<? extends PureAbsViewHolder> constructor = viewHolderClass.getConstructor(View.class, PureAbsListAdapter.class, Integer.class,IView.class);
+                viewHolder = constructor.newInstance(convertView, PureAbsListAdapter.this, position,mAdapterContainer);
             } catch (Exception e) {
                 e.printStackTrace();
             }
