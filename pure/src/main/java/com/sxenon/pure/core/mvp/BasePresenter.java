@@ -21,36 +21,38 @@ import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.router.IRouter;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Base implement for IPresenter
  * Created by Sui on 2017/1/5.
  */
 
 public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
-    private final V mView;
-    private final Context mContext;
-    private final IRouter mRouter;
+    private WeakReference<V> viewRef;
+    private WeakReference<Context>  contextRef;
+    private WeakReference<IRouter> routerRef;
 
     public BasePresenter(V view) {
-        mView = view;
-        mContext = mView.getContext();
-        mRouter = mView.getRouter();
+        viewRef = new WeakReference<>(view);
+        contextRef=new WeakReference<>(view.getContext());
+        routerRef=new WeakReference<>(view.getRouter());
     }
 
     @Override
     public V getView() {
-        return mView;
+        return viewRef.get();
     }
 
     @NonNull
     @Override
     public Context getContext() {
-        return mContext;
+        return contextRef.get();
     }
 
     @NonNull
     @Override
     public IRouter getRouter() {
-        return mRouter;
+        return routerRef.get();
     }
 }

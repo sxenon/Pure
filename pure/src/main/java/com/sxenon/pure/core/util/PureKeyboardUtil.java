@@ -71,11 +71,11 @@ public class PureKeyboardUtil {
         imm.hideSoftInputFromInputMethod(activity.getWindow().getDecorView().getWindowToken(), 0);
     }
 
-    public static void attach(PureRouterPresenter rootPresenter, IPanelHeightTarget target, KeyboardUtil.OnKeyboardShowingListener listener) {
-        final Activity activity = rootPresenter.getRouter().getActivityCompact();
+    public static void attach(PureRouterPresenter routerPresenter, IPanelHeightTarget target, KeyboardUtil.OnKeyboardShowingListener listener) {
+        final Activity activity = routerPresenter.getRouter().getActivityCompact();
         final ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = KeyboardUtil.attach(activity, target, listener);
         //noinspection unchecked
-        Observable.never().compose(rootPresenter.autoComplete()).subscribe(new Observer() {
+        Observable.never().compose(routerPresenter.autoComplete()).subscribe(new Observer() {
             @Override
             public void onCompleted() {
                 KeyboardUtil.detach(activity, onGlobalLayoutListener);
@@ -93,12 +93,12 @@ public class PureKeyboardUtil {
         });
     }
 
-    public static void attach(PureRouterPresenter rootPresenter, IPanelHeightTarget target) {
-        attach(rootPresenter, target, null);
+    public static void attach(PureRouterPresenter routerPresenter, IPanelHeightTarget target) {
+        attach(routerPresenter, target, null);
     }
 
-    public static void attach(PureRouterPresenter rootPresenter, KeyboardUtil.OnKeyboardShowingListener listener) {
-        attach(rootPresenter, new IPanelHeightTarget() {
+    public static void attach(PureRouterPresenter routerPresenter, KeyboardUtil.OnKeyboardShowingListener listener) {
+        attach(routerPresenter, new IPanelHeightTarget() {
             @Override
             public void refreshHeight(int panelHeight) {
 

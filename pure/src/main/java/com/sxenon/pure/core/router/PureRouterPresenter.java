@@ -74,7 +74,7 @@ public abstract class PureRouterPresenter<R extends IRouter> extends BasePresent
 
     public PureRouterPresenter(R router) {
         super(router);
-        permissionHelper = PermissionHelper.getInstance(getRouter(), this);
+        permissionHelper = PermissionHelper.getInstance(router, this);
     }
 
     //LifecycleProvider start
