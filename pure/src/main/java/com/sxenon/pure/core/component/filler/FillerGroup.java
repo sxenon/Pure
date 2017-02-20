@@ -36,7 +36,7 @@ import java.util.List;
  * Created by Sui on 2016/12/8.
  */
 
-public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleDataFiller<R>, IListDataFiller<R>, IFetchSingleResultHandler<R>, IFetchListResultHandler<R> {
+public abstract class FillerGroup<R, PL extends IPullLayout> implements IFetchSingleResultHandler<R>, IFetchListResultHandler<R> {
     private int mCurrentPageCount;
     private int tempPageCount;
     private int eventWhat = EventWhat.WHAT_UNINITIALIZED;
@@ -217,13 +217,11 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
         }
     }
 
-    @Override
     public R getValue() {
         Preconditions.checkNotNull(mSingleDataResultHandler, "");
         return mValue;
     }
 
-    @Override
     public List<R> getValues() {
         return Preconditions.checkNotNull(mAdapter, "").getValues();
     }
@@ -253,8 +251,7 @@ public abstract class FillerGroup<R, PL extends IPullLayout> implements ISingleD
         mListDataFillStrategy.onInitDataFetched(mAdapter,data);
     }
 
-    @Override
-    public void onEmpty() {
+    protected void onEmpty() {
         eventWhat = EventWhat.WHAT_EMPTY;
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
         CommonUtils.setViewVisibility(mEmptyView, View.VISIBLE);
