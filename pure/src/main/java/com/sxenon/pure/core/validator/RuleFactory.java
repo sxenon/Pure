@@ -35,7 +35,9 @@ public class RuleFactory {
 
             @Override
             public void onFail() {
-                onFail.call();
+                if (onFail!=null){
+                    onFail.call();
+                }
             }
         };
     }
@@ -49,7 +51,9 @@ public class RuleFactory {
 
             @Override
             public void onFail() {
-                onFail.call();
+                if (onFail!=null){
+                    onFail.call();
+                }
             }
         };
     }
@@ -64,7 +68,9 @@ public class RuleFactory {
 
             @Override
             public void onFail() {
-                onFail.call();
+                if (onFail!=null){
+                    onFail.call();
+                }
             }
         };
     }

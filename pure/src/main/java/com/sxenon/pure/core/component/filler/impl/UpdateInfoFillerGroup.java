@@ -14,26 +14,19 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.result.impl;
+package com.sxenon.pure.core.component.filler.impl;
 
-import android.content.Intent;
+import android.content.Context;
 
-import com.sxenon.pure.core.global.IntentManager;
-import com.sxenon.pure.core.result.IFetchSingleResultHandler;
-
-import java.io.File;
+import com.sxenon.pure.core.component.filler.FillerGroup;
+import com.sxenon.pure.core.component.filler.IPullLayout;
 
 /**
- * ResultHandler for update info
  * Created by Sui on 2017/2/20.
  */
 
-public abstract class UpdateInfoResultHandler<R> implements IFetchSingleResultHandler<R> {
-    public abstract boolean isVersionIngored(String version);
-    public abstract void ingoreVersion(String version);
-    public abstract void downloadNewVersionApk(String url,String toPath);
-
-    public Intent getInstallAppIntent(File appFile){
-        return IntentManager.getInstallAppIntent(appFile);
+public class UpdateInfoFillerGroup<R, PL extends IPullLayout> extends FillerGroup<R, PL> {
+    public UpdateInfoFillerGroup(Context context, PL pullLayout, UpdateInfoResultHandler<R> updateInfoResultHandler) {
+        super(context, pullLayout, updateInfoResultHandler);
     }
 }

@@ -16,7 +16,7 @@
 
 package com.sxenon.pure.core.validator;
 
-import rx.Observer;
+import rx.Subscriber;
 import rx.functions.Action0;
 import rx.subjects.ReplaySubject;
 
@@ -33,16 +33,11 @@ public class Validator {
     }
 
     public void validate(final Action0 onSuccess){
-        replaySubject.subscribe(new Observer<Rule>() {
-            boolean valid=true;
-            Rule failedRule=null;
+        replaySubject.onCompleted();
+        replaySubject.subscribe(new Subscriber<Rule>() {
             @Override
             public void onCompleted() {
-                if (valid){
-                    onSuccess.call();
-                }else {
-                    failedRule.onFail();
-                }
+                onSuccess.call();
             }
 
             @Override
@@ -52,11 +47,9 @@ public class Validator {
 
             @Override
             public void onNext(Rule rule) {
-                if (valid){
-                    if (!rule.isValid()){
-                        failedRule=rule;
-                        valid=false;
-                    }
+                if (!rule.isValid()){
+                    rule.onFail();
+                    unsubscribe();
                 }
             }
         });
