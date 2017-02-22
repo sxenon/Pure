@@ -16,9 +16,12 @@
 
 package com.sxenon.pure.core.validator;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action0;
-import rx.subjects.ReplaySubject;
 
 /**
  * To validate {@link Rule}s
@@ -26,14 +29,23 @@ import rx.subjects.ReplaySubject;
  */
 
 public class Validator {
-    private ReplaySubject<Rule> replaySubject;
+    private List<Rule> ruleList;
 
-    private Validator(ReplaySubject<Rule> replaySubject) {
-       this.replaySubject=replaySubject;
+    public Validator() {
+       this(8);
+    }
+
+    public Validator(int ruleCount) {
+        ruleList=new ArrayList<>(ruleCount);
+    }
+
+    public Validator addRule(Rule rule){
+        ruleList.add(rule);
+        return this;
     }
 
     public void validate(final Action0 onSuccess) {
-        replaySubject.subscribe(new Subscriber<Rule>() {
+        Observable.from(ruleList).subscribe(new Subscriber<Rule>() {
             @Override
             public void onCompleted() {
                 onSuccess.call();
@@ -46,7 +58,7 @@ public class Validator {
 
             @Override
             public void onNext(Rule rule) {
-                if (!rule.isValid()) {
+                if (!rule.isValid()){
                     rule.onFail();
                     unsubscribe();
                 }
@@ -54,26 +66,6 @@ public class Validator {
         });
     }
 
-    public class Builder{
-        private ReplaySubject<Rule> replaySubject;
 
-        public Builder(){
-            this(8);
-        }
-        public Builder(int ruleCount){
-            replaySubject = ReplaySubject.create(ruleCount);
-        }
-
-        public Builder addRule(Rule rule) {
-            replaySubject.onNext(rule);
-            return this;
-        }
-
-        public Validator build(){
-            replaySubject.onCompleted();
-            return new Validator(replaySubject);
-        }
-
-    }
 
 }
