@@ -28,21 +28,11 @@ import rx.subjects.ReplaySubject;
 public class Validator {
     private ReplaySubject<Rule> replaySubject;
 
-    public Validator() {
-        this(8);
-    }
-
-    public Validator(int ruleCount) {
-        replaySubject = ReplaySubject.create(ruleCount);
-    }
-
-    public Validator addRule(Rule rule) {
-        replaySubject.onNext(rule);
-        return this;
+    private Validator(ReplaySubject<Rule> replaySubject) {
+       this.replaySubject=replaySubject;
     }
 
     public void validate(final Action0 onSuccess) {
-        replaySubject.onCompleted();
         replaySubject.subscribe(new Subscriber<Rule>() {
             @Override
             public void onCompleted() {
@@ -62,6 +52,28 @@ public class Validator {
                 }
             }
         });
+    }
+
+    public class Builder{
+        private ReplaySubject<Rule> replaySubject;
+
+        public Builder(){
+            this(8);
+        }
+        public Builder(int ruleCount){
+            replaySubject = ReplaySubject.create(ruleCount);
+        }
+
+        public Builder addRule(Rule rule) {
+            replaySubject.onNext(rule);
+            return this;
+        }
+
+        public Validator build(){
+            replaySubject.onCompleted();
+            return new Validator(replaySubject);
+        }
+
     }
 
 }
