@@ -29,9 +29,9 @@ import java.lang.ref.WeakReference;
  */
 
 public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
-    private WeakReference<V> viewRef;
-    private WeakReference<Context>  contextRef;
-    private WeakReference<IRouter> routerRef;
+    private final WeakReference<V> viewRef;
+    private final WeakReference<Context>  contextRef;
+    private final WeakReference<IRouter> routerRef;
 
     public BasePresenter(V view) {
         viewRef = new WeakReference<>(view);

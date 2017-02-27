@@ -29,7 +29,7 @@ import rx.functions.Action0;
  */
 
 public class Validator {
-    private List<Rule> ruleList;
+    private final List<Rule> ruleList;
 
     public Validator() {
        this(8);
