@@ -28,7 +28,6 @@ import com.trello.rxlifecycle.LifecycleTransformer;
 
 import java.util.List;
 
-import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import rx.functions.Action0;
 
 /**
@@ -56,8 +55,6 @@ public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifec
     void requestAfterExplanation(@NonNull String[] permissions);
 
     <T> LifecycleTransformer<T> autoComplete();
-
-    void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener);
 
     void onConfigurationChanged(Configuration newConfig);
 }

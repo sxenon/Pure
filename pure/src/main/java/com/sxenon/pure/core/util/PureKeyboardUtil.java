@@ -20,17 +20,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-
-import com.sxenon.pure.core.router.PureRouterPresenter;
-
-import cn.dreamtobe.kpswitch.IPanelHeightTarget;
-import cn.dreamtobe.kpswitch.util.KeyboardUtil;
-import rx.Observable;
-import rx.Observer;
 
 /**
  * Based on https://github.com/Jacksgong/JKeyboardPanelSwitch.Thanks
@@ -59,61 +51,19 @@ public class PureKeyboardUtil {
      * 2、当前布局必须已经完成加载，如果还未绘制完成，则showSoftInput()方法不起作用，比方说在Activity的onCreate()，onResume()，onAttachedToWindow()中
      */
     public static void showKeyboard(final View view) {
-        KeyboardUtil.showKeyboard(view);
+        view.requestFocus();
+        InputMethodManager inputManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(view, 0);
     }
 
     public static void hideKeyboard(final View view) {
-        KeyboardUtil.hideKeyboard(view);
+        InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromInputMethod(activity.getWindow().getDecorView().getWindowToken(), 0);
-    }
-
-    public static void attach(PureRouterPresenter routerPresenter, IPanelHeightTarget target, KeyboardUtil.OnKeyboardShowingListener listener) {
-        final Activity activity = routerPresenter.getRouter().getActivityCompact();
-        final ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = KeyboardUtil.attach(activity, target, listener);
-        //noinspection unchecked
-        Observable.never().compose(routerPresenter.autoComplete()).subscribe(new Observer() {
-            @Override
-            public void onCompleted() {
-                KeyboardUtil.detach(activity, onGlobalLayoutListener);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(Object o) {
-
-            }
-        });
-    }
-
-    public static void attach(PureRouterPresenter routerPresenter, IPanelHeightTarget target) {
-        attach(routerPresenter, target, null);
-    }
-
-    public static void attach(PureRouterPresenter routerPresenter, KeyboardUtil.OnKeyboardShowingListener listener) {
-        attach(routerPresenter, new IPanelHeightTarget() {
-            @Override
-            public void refreshHeight(int panelHeight) {
-
-            }
-
-            @Override
-            public int getHeight() {
-                return 0;
-            }
-
-            @Override
-            public void onKeyboardShowing(boolean showing) {
-
-            }
-        }, listener);
     }
 
 }

@@ -33,7 +33,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import rx.Observable;
 import rx.functions.Action0;
 import rx.functions.Func1;
@@ -245,10 +244,6 @@ public abstract class PureRouterPresenter<R extends IRouter> extends BasePresent
     @Override
     public final <T> LifecycleTransformer<T> autoComplete() {
         return bindUntilEvent(RouterEvent.DESTROY);
-    }
-
-    public final void setOnKeyboardShowingListener(KeyboardUtil.OnKeyboardShowingListener listener) {
-        PureKeyboardUtil.attach(this, listener);
     }
 
     /**
