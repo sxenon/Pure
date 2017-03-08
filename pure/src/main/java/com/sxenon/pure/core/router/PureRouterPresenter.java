@@ -24,7 +24,6 @@ import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.permission.PermissionHelper;
-import com.sxenon.pure.core.util.PureKeyboardUtil;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.OutsideLifecycleException;
 import com.trello.rxlifecycle.RxLifecycle;
