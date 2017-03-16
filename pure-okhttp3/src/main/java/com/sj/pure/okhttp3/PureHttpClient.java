@@ -37,6 +37,8 @@ import okhttp3.Response;
 import okio.BufferedSink;
 import okio.Okio;
 import okio.Source;
+import rx.Single;
+import rx.SingleSubscriber;
 
 /**
  * PureHttpClient
@@ -160,6 +162,45 @@ public abstract class PureHttpClient<RD extends IResultDispatcher> implements IH
         } catch (IOException e) {
             preParseFailure(newCall, e, resultDispatcher);
         }
+    }
+
+    public Single<Response> execute(){
+        return Single.create(new Single.OnSubscribe<Response>() {
+            @Override
+            public void call(SingleSubscriber<? super Response> singleSubscriber) {
+                Response response;
+                Call newCall = mClient.newCall(requestBuilderThreadLocal.get().build());
+                try {
+                    response = newCall.execute();
+                    singleSubscriber.onSuccess(response);
+                } catch (IOException e) {
+                    singleSubscriber.onError(e);
+                }
+            }
+        });
+    }
+
+    public Single<Response> enqueue(){
+        return Single.create(new Single.OnSubscribe<Response>() {
+            @Override
+            public void call(final SingleSubscriber<? super Response> singleSubscriber) {
+                mClient.newCall(requestBuilderThreadLocal.get().build()).enqueue(callback(singleSubscriber) );
+            }
+        });
+    }
+
+    private Callback callback(final SingleSubscriber<? super Response> subscriber){
+        return new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                subscriber.onError(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                subscriber.onSuccess(response);
+            }
+        };
     }
 
     @Override
