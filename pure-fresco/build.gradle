@@ -24,7 +24,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.facebook.fresco:fresco:1.0.1'
-    compile 'jp.wasabeef:fresco-processors:2.0.0'
+    compile 'com.facebook.fresco:fresco:1.2.0'
+    compile 'jp.wasabeef:fresco-processors:2.1.0'
     compile project(':pure')
 }
