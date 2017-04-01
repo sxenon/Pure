@@ -27,5 +27,5 @@ dependencies {
     compile project(':pure')
     compile 'com.lcodecorex:tkrefreshlayout:1.0.6'
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
-    compile 'cn.bingoogolapple:bga-adapter:1.1.8@aar'
+    compile 'cn.bingoogolapple:bga-adapter:1.1.9@aar'
 }
