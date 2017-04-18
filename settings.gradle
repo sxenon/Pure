@@ -1,1 +1,1 @@
-include ':pure', ':pure-okhttp3', ':pure-okhttp3-demo', ':pure-retrofit2', ':pure-retrofit2-demo', ':pure-glide', ':pure-picasso', ':pure-fresco', ':pure-pull-demo', ':pure-not-compact-app'
+include ':pure', ':pure-okhttp3', ':pure-okhttp3-demo', ':pure-retrofit2', ':pure-retrofit2-demo', ':pure-glide', ':pure-fresco', ':pure-pull-demo', ':pure-not-compact-app'
