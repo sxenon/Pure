@@ -37,7 +37,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:'+supportVersion
 
     //Rx 1.x
-    compile 'io.reactivex:rxjava:1.2.10'
+    compile 'io.reactivex:rxjava:1.3.0'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.trello:rxlifecycle:1.0'
 
