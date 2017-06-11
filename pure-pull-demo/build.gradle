@@ -25,6 +25,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':pure')
+    //https://github.com/lcodecorex/TwinklingRefreshLayout
     compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
     compile 'cn.bingoogolapple:bga-adapter:1.1.9@aar'
