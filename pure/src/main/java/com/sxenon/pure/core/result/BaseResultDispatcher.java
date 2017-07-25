@@ -19,7 +19,6 @@ package com.sxenon.pure.core.result;
 import com.sxenon.pure.core.ApiException;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Base implement for IResultDispatcher
@@ -42,8 +41,6 @@ public class BaseResultDispatcher<R> implements IResultDispatcher<R> {
                 mResultHandlerType = ResultHandlerType.FETCH_LIST;
             } else if (mResultHandler instanceof IFetchSingleResultHandler) {
                 mResultHandlerType = ResultHandlerType.FETCH_SINGLE;
-            } else if (mResultHandler instanceof IFetchSetResultHandler) {
-                mResultHandlerType = ResultHandlerType.FETCH_SET;
             } else {
                 mResultHandlerType = ResultHandlerType.SIMPLE;
             }
@@ -67,15 +64,6 @@ public class BaseResultDispatcher<R> implements IResultDispatcher<R> {
     public void onSingleDataFetched(R data) {
         //noinspection unchecked
         ((IFetchSingleResultHandler<R>) mResultHandler).onSingleDataFetched(data);
-    }
-
-    /**
-     * {@link ResultHandlerType#FETCH_SET}
-     */
-    @Override
-    public void onSetDataFetched(Set<R> data) {
-        //noinspection unchecked
-        ((IFetchSetResultHandler<R>) mResultHandler).onSetDataFetched(data);
     }
 
     /**
@@ -111,7 +99,6 @@ public class BaseResultDispatcher<R> implements IResultDispatcher<R> {
         SIMPLE,
         SUBMIT,
         FETCH_SINGLE,
-        FETCH_LIST,
-        FETCH_SET
+        FETCH_LIST
     }
 }
