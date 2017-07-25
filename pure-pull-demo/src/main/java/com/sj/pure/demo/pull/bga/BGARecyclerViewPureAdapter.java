@@ -23,6 +23,7 @@ import java.util.List;
 import cn.bingoogolapple.androidcommon.adapter.BGARecyclerViewAdapter;
 
 /**
+ * BGARecyclerViewPureAdapter
  * Created by Sui on 2017/2/5.
  */
 

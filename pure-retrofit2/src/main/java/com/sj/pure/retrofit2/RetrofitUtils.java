@@ -16,6 +16,8 @@
 
 package com.sj.pure.retrofit2;
 
+import java.util.concurrent.Executor;
+
 import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
@@ -35,7 +37,10 @@ public class RetrofitUtils {
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.baseUrl(retrofit.baseUrl());
         builder.callFactory(newClient != null ? newClient : retrofit.callFactory());
-        builder.callbackExecutor(retrofit.callbackExecutor());
+        Executor callbackExecutor=retrofit.callbackExecutor();
+        if (callbackExecutor!=null){
+            builder.callbackExecutor(callbackExecutor);
+        }
         for (Converter.Factory factory : retrofit.converterFactories()) {
             builder.addConverterFactory(factory);
         }

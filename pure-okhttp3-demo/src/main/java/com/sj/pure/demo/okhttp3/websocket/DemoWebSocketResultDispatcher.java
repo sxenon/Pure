@@ -22,8 +22,6 @@ import com.sj.pure.okhttp3.BaseOkHttpResultDispatcher;
 import com.sj.pure.okhttp3.Converter;
 import com.sxenon.pure.core.result.IResultHandler;
 
-import java.io.IOException;
-
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okio.ByteString;

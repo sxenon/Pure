@@ -37,10 +37,6 @@ public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher
         mConverter=converter;
     }
 
-    public Converter<R> getConverter() {
-        return mConverter;
-    }
-
     /**
      * 是业务意义上的Success！
      */

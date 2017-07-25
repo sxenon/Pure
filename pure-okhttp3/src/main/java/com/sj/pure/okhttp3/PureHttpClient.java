@@ -160,6 +160,7 @@ public abstract class PureHttpClient<RD extends BaseOkHttpResultDispatcher> impl
         try {
             response = newCall.execute();
             preParseResponse(newCall, response, resultDispatcher);
+            response.close();
         } catch (IOException e) {
             preParseFailure(newCall, e, resultDispatcher);
         }
@@ -174,6 +175,7 @@ public abstract class PureHttpClient<RD extends BaseOkHttpResultDispatcher> impl
                 try {
                     response = newCall.execute();
                     singleSubscriber.onSuccess(response);
+                    response.close();
                 } catch (IOException e) {
                     singleSubscriber.onError(e);
                 }
@@ -200,6 +202,7 @@ public abstract class PureHttpClient<RD extends BaseOkHttpResultDispatcher> impl
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 subscriber.onSuccess(response);
+                response.close();
             }
         };
     }
@@ -215,6 +218,7 @@ public abstract class PureHttpClient<RD extends BaseOkHttpResultDispatcher> impl
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 preParseResponse(call, response, resultDispatcher);
+                response.close();
             }
         });
     }

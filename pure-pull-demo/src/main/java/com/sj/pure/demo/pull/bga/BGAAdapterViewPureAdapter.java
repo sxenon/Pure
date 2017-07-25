@@ -23,6 +23,7 @@ import java.util.List;
 import cn.bingoogolapple.androidcommon.adapter.BGAAdapterViewAdapter;
 
 /**
+ * BGAAdapterViewPureAdapter
  * Created by Sui on 2017/2/5.
  */
 
