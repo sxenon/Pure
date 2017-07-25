@@ -16,9 +16,12 @@
 
 package com.sj.pure.okhttp3;
 
+import com.sj.pure.okhttp3.convert.Convert;
+import com.sj.pure.okhttp3.convert.LConvert;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
 import com.sxenon.pure.core.result.IResultHandler;
 import com.sxenon.pure.core.result.ResultHandlerType;
+import com.sxenon.pure.core.util.Preconditions;
 
 import java.util.List;
 
@@ -30,30 +33,36 @@ import okhttp3.Response;
  */
 
 public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher<R> {
-    private final Converter<R> mConverter;
+    private Convert<R> mConvert;
+    private LConvert<R> mLConvert;
 
-    public BaseOkHttpResultDispatcher(IResultHandler resultHandler, Converter<R> converter) {
+    public BaseOkHttpResultDispatcher(IResultHandler resultHandler, Convert<R> convert) {
         super(resultHandler);
-        mConverter=converter;
+        mConvert = convert;
+    }
+
+    public BaseOkHttpResultDispatcher(IResultHandler resultHandler, LConvert<R> converter) {
+        super(resultHandler);
+        mLConvert =converter;
     }
 
     /**
      * 是业务意义上的Success！
      */
-    public void handleSuccessResult(Response response)  throws Exception {
+    protected void handleSuccessResult(Response response)  throws Exception {
         ResultHandlerType resultHandlerType=getResultHandlerType();
         switch (resultHandlerType){
             case FETCH_LIST:{
-                List<R> result=mConverter.convertResponseToList(response);
+                List<R> result= Preconditions.checkNotNull(mLConvert,"").convertResponse(response);
                 onListDataFetched(result);
             }
             case FETCH_SINGLE:{
-                R result=mConverter.convertResponse(response);
+                R result=Preconditions.checkNotNull(mConvert,"").convertResponse(response);
                 onSingleDataFetched(result);
             }
             case SUBMIT:
             default:{
-                R result=mConverter.convertResponse(response);
+                R result=Preconditions.checkNotNull(mConvert,"").convertResponse(response);
                 onSuccess(result);
             }
         }

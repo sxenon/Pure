@@ -19,7 +19,7 @@ package com.sj.pure.demo.okhttp3.websocket;
 import android.util.Log;
 
 import com.sj.pure.okhttp3.BaseOkHttpResultDispatcher;
-import com.sj.pure.okhttp3.Converter;
+import com.sj.pure.okhttp3.convert.Convert;
 import com.sxenon.pure.core.result.IResultHandler;
 
 import okhttp3.Response;
@@ -34,8 +34,8 @@ import okio.ByteString;
 public abstract class DemoWebSocketResultDispatcher<R> extends BaseOkHttpResultDispatcher<R> {
     private static final String TAG = "Demo";
 
-    public DemoWebSocketResultDispatcher(IResultHandler resultHandler, Converter<R> converter) {
-        super(resultHandler, converter);
+    public DemoWebSocketResultDispatcher(IResultHandler resultHandler, Convert<R> convert) {
+        super(resultHandler, convert);
     }
 
     public void handleResponse(Response response){

@@ -14,25 +14,32 @@
  * limitations under the License.
  */
 
-package com.sj.pure.okhttp3;
+package com.sj.pure.okhttp3.convert;
 
-import java.util.List;
+import java.lang.reflect.Type;
 
 import okhttp3.Response;
 
 /**
- * Inspired by https://github.com/jeasonlzy/okhttp-OkGo
+ * StringConvertToBean
  * Created by Sui on 2017/7/25.
  */
 
-public interface Converter<T> {
-    /**
-     * 拿到响应后，将数据转换成需要的格式，子线程中执行，可以是耗时操作
-     *
-     * @param response 需要转换的对象
-     * @return 转换后的结果
-     * @throws Exception 转换过程发生的异常
-     */
-    T convertResponse(Response response) throws Exception;
-    List<T> convertResponseToList(Response response) throws Exception;
+public abstract class StringConvertToBean<T> implements Convert<T> {
+    private final Type mType;
+
+    public StringConvertToBean(Type type) {
+        mType = type;
+    }
+
+    @Override
+    public T convertResponse(Response response) throws Exception {
+        String beanString = new StringConvert().convertResponse(response);
+        if (beanString==null){
+            return null;
+        }
+        return string2Bean(beanString, mType);
+    }
+
+    public abstract T string2Bean(String beanString, Type type);
 }
