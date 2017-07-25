@@ -42,7 +42,7 @@ public class BaseResultDispatcher<R> implements IResultDispatcher<R> {
             } else if (mResultHandler instanceof IFetchSingleResultHandler) {
                 mResultHandlerType = ResultHandlerType.FETCH_SINGLE;
             } else {
-                mResultHandlerType = ResultHandlerType.SIMPLE;
+                throw new IllegalArgumentException("The type of resultHandle is wrong");
             }
         }
         return mResultHandlerType;
@@ -92,13 +92,5 @@ public class BaseResultDispatcher<R> implements IResultDispatcher<R> {
     @Override
     public void onException(ApiException exception) {
         mResultHandler.onException(exception);
-    }
-
-    public enum ResultHandlerType {
-        NONE,
-        SIMPLE,
-        SUBMIT,
-        FETCH_SINGLE,
-        FETCH_LIST
     }
 }

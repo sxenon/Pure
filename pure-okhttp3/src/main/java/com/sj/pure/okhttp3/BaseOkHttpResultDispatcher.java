@@ -18,10 +18,11 @@ package com.sj.pure.okhttp3;
 
 import com.sxenon.pure.core.result.BaseResultDispatcher;
 import com.sxenon.pure.core.result.IResultHandler;
+import com.sxenon.pure.core.result.ResultHandlerType;
 
-import java.lang.reflect.Type;
+import java.util.List;
 
-import okhttp3.ResponseBody;
+import okhttp3.Response;
 
 /**
  * BaseResultDispatcher for OkHttp
@@ -29,16 +30,36 @@ import okhttp3.ResponseBody;
  */
 
 public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher<R> {
-    private final Type mTypeForConvert;
+    private final Converter<R> mConverter;
 
-    public BaseOkHttpResultDispatcher(IResultHandler resultHandler, Type type) {
+    public BaseOkHttpResultDispatcher(IResultHandler resultHandler, Converter<R> converter) {
         super(resultHandler);
-        mTypeForConvert=type;
+        mConverter=converter;
     }
 
-    protected Type getTypeForConvert(){
-        return mTypeForConvert;
+    public Converter<R> getConverter() {
+        return mConverter;
     }
 
-    protected abstract R convert(ResponseBody responseBody,Type type);
+    /**
+     * 是业务意义上的Success！
+     */
+    public void handleSuccessResult(Response response)  throws Exception {
+        ResultHandlerType resultHandlerType=getResultHandlerType();
+        switch (resultHandlerType){
+            case FETCH_LIST:{
+                List<R> result=mConverter.convertResponseToList(response);
+                onListDataFetched(result);
+            }
+            case FETCH_SINGLE:{
+                R result=mConverter.convertResponse(response);
+                onSingleDataFetched(result);
+            }
+            case SUBMIT:
+            default:{
+                R result=mConverter.convertResponse(response);
+                onSuccess(result);
+            }
+        }
+    }
 }

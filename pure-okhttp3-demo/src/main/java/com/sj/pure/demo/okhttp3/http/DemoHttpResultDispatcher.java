@@ -19,10 +19,10 @@ package com.sj.pure.demo.okhttp3.http;
 import android.util.Log;
 
 import com.sj.pure.okhttp3.BaseOkHttpResultDispatcher;
+import com.sj.pure.okhttp3.Converter;
 import com.sxenon.pure.core.result.IResultHandler;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -32,11 +32,11 @@ import okhttp3.Response;
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class DemoHttpResultDispatcher extends BaseOkHttpResultDispatcher {
+public abstract class DemoHttpResultDispatcher<R> extends BaseOkHttpResultDispatcher<R> {
     private static final String TAG = "Demo";
 
-    public DemoHttpResultDispatcher(IResultHandler resultHandler, Type type) {
-        super(resultHandler, type);
+    public DemoHttpResultDispatcher(IResultHandler resultHandler, Converter<R> converter) {
+        super(resultHandler, converter);
     }
 
     public void handleCall(Call call) {
@@ -44,11 +44,12 @@ public abstract class DemoHttpResultDispatcher extends BaseOkHttpResultDispatche
     }
 
     public void handleResponse(Response response)  {
-
-        try {
-            Log.i(TAG, response.body().string());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (response.isSuccessful()){
+            try {
+                handleSuccessResult(response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

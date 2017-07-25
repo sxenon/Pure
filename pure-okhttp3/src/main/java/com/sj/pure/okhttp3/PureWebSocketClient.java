@@ -18,7 +18,6 @@ package com.sj.pure.okhttp3;
 
 import android.util.Log;
 
-import com.sxenon.pure.core.result.IResultDispatcher;
 import com.sxenon.pure.core.protocol.websocket.IWebSocketClient;
 
 import okhttp3.OkHttpClient;
@@ -33,7 +32,7 @@ import okio.ByteString;
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class PureWebSocketClient<R extends IResultDispatcher> implements IWebSocketClient<R> {
+public abstract class PureWebSocketClient<R extends BaseOkHttpResultDispatcher> implements IWebSocketClient<R> {
     private final OkHttpClient mClient;
     private Request.Builder mRequestBuilder;
     private WebSocket mWebSocket;

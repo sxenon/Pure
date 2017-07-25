@@ -16,7 +16,8 @@
 
 package com.sj.pure.okhttp3;
 
-import com.sxenon.pure.core.result.IResultDispatcher;
+import android.support.annotation.NonNull;
+
 import com.sxenon.pure.core.protocol.http.IHttpClient;
 import com.sxenon.pure.core.util.Preconditions;
 
@@ -45,11 +46,11 @@ import rx.SingleSubscriber;
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class PureHttpClient<RD extends IResultDispatcher> implements IHttpClient<RD> {
+public abstract class PureHttpClient<RD extends BaseOkHttpResultDispatcher> implements IHttpClient<RD> {
 
     private final OkHttpClient mClient;
-    private ThreadLocal<Request.Builder> requestBuilderThreadLocal =new ThreadLocal<>();
-    private ThreadLocal<MultipartBody> multipartBodyThreadLocal=new ThreadLocal<>();
+    private final ThreadLocal<Request.Builder> requestBuilderThreadLocal =new ThreadLocal<>();
+    private final ThreadLocal<MultipartBody> multipartBodyThreadLocal=new ThreadLocal<>();
 
     public PureHttpClient(OkHttpClient client) {
         mClient = client;
@@ -82,7 +83,7 @@ public abstract class PureHttpClient<RD extends IResultDispatcher> implements IH
                     }
 
                     @Override
-                    public void writeTo(BufferedSink sink) throws IOException {
+                    public void writeTo(@NonNull BufferedSink sink) throws IOException {
                         Source source = Okio.source(in);
                         sink.writeAll(source);
                     }
@@ -192,12 +193,12 @@ public abstract class PureHttpClient<RD extends IResultDispatcher> implements IH
     private Callback callback(final SingleSubscriber<? super Response> subscriber){
         return new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 subscriber.onError(e);
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 subscriber.onSuccess(response);
             }
         };
@@ -207,12 +208,12 @@ public abstract class PureHttpClient<RD extends IResultDispatcher> implements IH
     public void enqueue(final RD resultDispatcher) {
         mClient.newCall(requestBuilderThreadLocal.get().build()).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 preParseFailure(call, e, resultDispatcher);
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 preParseResponse(call, response, resultDispatcher);
             }
         });

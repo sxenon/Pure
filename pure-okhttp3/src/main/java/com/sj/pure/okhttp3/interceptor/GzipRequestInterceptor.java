@@ -16,6 +16,8 @@
 
 package com.sj.pure.okhttp3.interceptor;
 
+import android.support.annotation.NonNull;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -34,7 +36,7 @@ import okio.Okio;
  */
 
 public final class GzipRequestInterceptor implements Interceptor {
-    @Override public Response intercept(Interceptor.Chain chain) throws IOException {
+    @Override public Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
         Request originalRequest = chain.request();
         if (originalRequest.body() == null || originalRequest.header("Content-Encoding") != null) {
             return chain.proceed(originalRequest);
@@ -57,7 +59,7 @@ public final class GzipRequestInterceptor implements Interceptor {
                 return -1; // We don't know the compressed length in advance!
             }
 
-            @Override public void writeTo(BufferedSink sink) throws IOException {
+            @Override public void writeTo(@NonNull BufferedSink sink) throws IOException {
                 BufferedSink gzipSink = Okio.buffer(new GzipSink(sink));
                 body.writeTo(gzipSink);
                 gzipSink.close();

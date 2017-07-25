@@ -19,10 +19,10 @@ package com.sj.pure.demo.okhttp3.websocket;
 import android.util.Log;
 
 import com.sj.pure.okhttp3.BaseOkHttpResultDispatcher;
+import com.sj.pure.okhttp3.Converter;
 import com.sxenon.pure.core.result.IResultHandler;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 
 import okhttp3.Response;
 import okhttp3.WebSocket;
@@ -33,18 +33,20 @@ import okio.ByteString;
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class DemoWebSocketResultDispatcher extends BaseOkHttpResultDispatcher {
+public abstract class DemoWebSocketResultDispatcher<R> extends BaseOkHttpResultDispatcher<R> {
     private static final String TAG = "Demo";
 
-    public DemoWebSocketResultDispatcher(IResultHandler resultHandler, Type type) {
-        super(resultHandler, type);
+    public DemoWebSocketResultDispatcher(IResultHandler resultHandler, Converter<R> converter) {
+        super(resultHandler, converter);
     }
 
     public void handleResponse(Response response){
-        try {
-            Log.i(TAG,response.body().string());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (response.isSuccessful()){
+            try {
+                handleSuccessResult(response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
