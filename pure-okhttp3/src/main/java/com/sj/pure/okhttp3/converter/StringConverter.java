@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sj.pure.okhttp3.convert;
+package com.sj.pure.okhttp3.converter;
 
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
  * ================================================
- * 作    者：jeasonlzy（廖子尧）Github地址：https://github.com/jeasonlzy
+ * 作    者：jeasonlzy（廖子尧）GitHub地址：https://github.com/jeasonlzy
  * 版    本：1.0
  * 创建日期：16/9/11
  * 描    述：字符串的转换器
  * 修订历史：
  * ================================================
  */
-public class StringConvert implements Convert<String> {
+public class StringConverter implements Converter<String> {
 
     @Override
     public String convertResponse(Response response) throws Exception {

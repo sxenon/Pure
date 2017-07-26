@@ -16,8 +16,8 @@
 
 package com.sj.pure.okhttp3;
 
-import com.sj.pure.okhttp3.convert.Convert;
-import com.sj.pure.okhttp3.convert.LConvert;
+import com.sj.pure.okhttp3.converter.Converter;
+import com.sj.pure.okhttp3.converter.LConverter;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
 import com.sxenon.pure.core.result.IResultHandler;
 import com.sxenon.pure.core.result.ResultHandlerType;
@@ -33,15 +33,15 @@ import okhttp3.Response;
  */
 
 public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher<R> {
-    private Convert<R> mConvert;
-    private LConvert<R> mLConvert;
+    private Converter<R> mConverter;
+    private LConverter<R> mLConvert;
 
-    public BaseOkHttpResultDispatcher(IResultHandler resultHandler, Convert<R> convert) {
+    public BaseOkHttpResultDispatcher(IResultHandler resultHandler, Converter<R> converter) {
         super(resultHandler);
-        mConvert = convert;
+        mConverter = converter;
     }
 
-    public BaseOkHttpResultDispatcher(IResultHandler resultHandler, LConvert<R> converter) {
+    public BaseOkHttpResultDispatcher(IResultHandler resultHandler, LConverter<R> converter) {
         super(resultHandler);
         mLConvert =converter;
     }
@@ -57,12 +57,12 @@ public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher
                 onListDataFetched(result);
             }
             case FETCH_SINGLE:{
-                R result=Preconditions.checkNotNull(mConvert,"").convertResponse(response);
+                R result=Preconditions.checkNotNull(mConverter,"").convertResponse(response);
                 onSingleDataFetched(result);
             }
             case SUBMIT:
             default:{
-                R result=Preconditions.checkNotNull(mConvert,"").convertResponse(response);
+                R result=Preconditions.checkNotNull(mConverter,"").convertResponse(response);
                 onSuccess(result);
             }
         }

@@ -19,8 +19,8 @@ package com.sj.pure.demo.okhttp3.http;
 import android.util.Log;
 
 import com.sj.pure.okhttp3.BaseOkHttpResultDispatcher;
-import com.sj.pure.okhttp3.convert.Convert;
-import com.sj.pure.okhttp3.convert.LConvert;
+import com.sj.pure.okhttp3.converter.Converter;
+import com.sj.pure.okhttp3.converter.LConverter;
 import com.sxenon.pure.core.result.IResultHandler;
 
 import java.io.IOException;
@@ -36,11 +36,11 @@ import okhttp3.Response;
 public abstract class DemoHttpResultDispatcher<R> extends BaseOkHttpResultDispatcher<R> {
     private static final String TAG = "Demo";
 
-    public DemoHttpResultDispatcher(IResultHandler resultHandler, Convert<R> convert) {
-        super(resultHandler, convert);
+    public DemoHttpResultDispatcher(IResultHandler resultHandler, Converter<R> converter) {
+        super(resultHandler, converter);
     }
 
-    public DemoHttpResultDispatcher(IResultHandler resultHandler, LConvert<R> converter) {
+    public DemoHttpResultDispatcher(IResultHandler resultHandler, LConverter<R> converter) {
         super(resultHandler, converter);
     }
 

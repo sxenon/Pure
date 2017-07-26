@@ -14,15 +14,29 @@
  * limitations under the License.
  */
 
-package com.sj.pure.okhttp3.convert;
+package com.sj.pure.okgo.callback;
 
-import okhttp3.Response;
+import com.lzy.okgo.callback.AbsCallback;
+import com.sj.pure.okgo.converter.BLConverter;
+
+import java.util.List;
 
 /**
- * Inspired by https://github.com/jeasonlzy/okhttp-OkGo
- * Created by Sui on 2017/7/25.
+ * Callback for list of bean
+ * Created by Sui on 2017/7/26.
  */
 
-public interface Convert<T> {
-    T convertResponse(Response response) throws Exception;
+public abstract class BLCallback<T> extends AbsCallback<List<T>> {
+
+    private final BLConverter<T> mBLConverter;
+
+    public BLCallback(BLConverter<T> blConverter) {
+        mBLConverter = blConverter;
+    }
+
+    @Override
+    public List<T> convertResponse(okhttp3.Response response) throws Throwable {
+        return mBLConverter.convertResponse(response);
+    }
+
 }

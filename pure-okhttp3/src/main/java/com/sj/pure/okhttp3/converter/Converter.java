@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.sj.pure.okhttp3.convert;
+package com.sj.pure.okhttp3.converter;
 
-import java.util.List;
+import okhttp3.Response;
 
 /**
- * LConvert
+ * Inspired by https://github.com/jeasonlzy/okhttp-OkGo
  * Created by Sui on 2017/7/25.
  */
 
-public interface LConvert<T> extends Convert<List<T>> {
-
+public interface Converter<T> {
+    T convertResponse(Response response) throws Exception;
 }

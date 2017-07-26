@@ -14,33 +14,32 @@
  * limitations under the License.
  */
 
-package com.sj.pure.okhttp3.convert;
+package com.sj.pure.okhttp3.converter;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 import okhttp3.Response;
 
 /**
- * StringConvertToBeanList
+ * Converter to Bean
  * Created by Sui on 2017/7/25.
  */
 
-public abstract class StringConvertToBeanList<T> implements LConvert<T> {
+public abstract class BConverter<T> implements Converter<T> {
     private final Type mType;
 
-    public StringConvertToBeanList(Type type) {
+    public BConverter(Type type) {
         mType = type;
     }
 
     @Override
-    public List<T> convertResponse(Response response) throws Exception {
-        String beanListString = new StringConvert().convertResponse(response);
-        if (beanListString == null) {
+    public T convertResponse(Response response) throws Exception {
+        String beanString = new StringConverter().convertResponse(response);
+        if (beanString==null){
             return null;
         }
-        return string2BeanList(beanListString, mType);
+        return string2Bean(beanString, mType);
     }
 
-    public abstract List<T> string2BeanList(String beanListString, Type type);
+    public abstract T string2Bean(String beanString, Type type);
 }
