@@ -23,8 +23,10 @@ import com.sxenon.pure.core.result.IResultHandler;
 import com.sxenon.pure.core.result.ResultHandlerType;
 import com.sxenon.pure.core.util.Preconditions;
 
+import java.io.IOException;
 import java.util.List;
 
+import okhttp3.Call;
 import okhttp3.Response;
 
 /**
@@ -67,4 +69,8 @@ public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher
             }
         }
     }
+
+    public abstract void onFailure(Call call, IOException e);
+
+    public abstract void onResponse(Call call, Response response);
 }

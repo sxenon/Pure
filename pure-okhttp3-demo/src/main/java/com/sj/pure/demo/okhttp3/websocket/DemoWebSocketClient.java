@@ -16,6 +16,7 @@
 
 package com.sj.pure.demo.okhttp3.websocket;
 
+import com.sj.pure.okhttp3.BaseWebSocketResultDispatcher;
 import com.sj.pure.okhttp3.PureWebSocketClient;
 import com.sj.pure.okhttp3.decorator.OkHttpClientDecorator;
 import com.sxenon.pure.core.util.Preconditions;
@@ -30,7 +31,7 @@ import okio.ByteString;
  * Created by Sui on 2016/12/13.
  */
 
-public class DemoWebSocketClient extends PureWebSocketClient<DemoWebSocketResultDispatcher> {
+public class DemoWebSocketClient extends PureWebSocketClient<BaseWebSocketResultDispatcher> {
     private static DemoWebSocketClient mBaseInstance;
     private static OkHttpClient innerHttpClient;
 
@@ -51,40 +52,4 @@ public class DemoWebSocketClient extends PureWebSocketClient<DemoWebSocketResult
         return Preconditions.checkNotNull(mBaseInstance, "Call init first!");
     }
 
-    @Override
-    protected void preParseOnOpen(WebSocket webSocket, Response response, DemoWebSocketResultDispatcher resultDispatcher) {
-        resultDispatcher.handleWebSocket(webSocket);
-        resultDispatcher.handleResponse(response);
-    }
-
-    @Override
-    protected void preParseOnMessage(WebSocket webSocket, String text, DemoWebSocketResultDispatcher resultDispatcher) {
-        resultDispatcher.handleWebSocket(webSocket);
-        resultDispatcher.handleMessage(text);
-    }
-
-    @Override
-    protected void preParseOnMessage(WebSocket webSocket, ByteString bytes, DemoWebSocketResultDispatcher resultDispatcher) {
-        resultDispatcher.handleWebSocket(webSocket);
-        resultDispatcher.handleMessage(bytes);
-    }
-
-    @Override
-    protected void preParseOnClosing(WebSocket webSocket, int code, String reason, DemoWebSocketResultDispatcher resultDispatcher) {
-        resultDispatcher.handleWebSocket(webSocket);
-        resultDispatcher.handleCloseInfo(code, reason);
-    }
-
-    @Override
-    protected void preParseOnClosed(WebSocket webSocket, int code, String reason, DemoWebSocketResultDispatcher resultDispatcher) {
-        resultDispatcher.handleWebSocket(webSocket);
-        resultDispatcher.handleCloseInfo(code, reason);
-    }
-
-    @Override
-    protected void preParseOnFailure(WebSocket webSocket, Throwable t, Response response, DemoWebSocketResultDispatcher resultDispatcher) {
-        resultDispatcher.handleWebSocket(webSocket);
-        resultDispatcher.handleException(t);
-        resultDispatcher.handleResponse(response);
-    }
 }

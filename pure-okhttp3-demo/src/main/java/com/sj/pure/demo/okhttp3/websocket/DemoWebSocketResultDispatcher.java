@@ -18,8 +18,7 @@ package com.sj.pure.demo.okhttp3.websocket;
 
 import android.util.Log;
 
-import com.sj.pure.okhttp3.BaseOkHttpResultDispatcher;
-import com.sj.pure.okhttp3.converter.Converter;
+import com.sj.pure.okhttp3.BaseWebSocketResultDispatcher;
 import com.sxenon.pure.core.result.IResultHandler;
 
 import okhttp3.Response;
@@ -31,40 +30,40 @@ import okio.ByteString;
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class DemoWebSocketResultDispatcher<R> extends BaseOkHttpResultDispatcher<R> {
-    private static final String TAG = "Demo";
+public abstract class DemoWebSocketResultDispatcher<R> extends BaseWebSocketResultDispatcher<R> {
+    private static final String TAG = "DemoDispatcher";
 
-    public DemoWebSocketResultDispatcher(IResultHandler resultHandler, Converter<R> converter) {
-        super(resultHandler, converter);
+    public DemoWebSocketResultDispatcher(IResultHandler resultHandler) {
+        super(resultHandler);
     }
 
-    public void handleResponse(Response response){
-        if (response.isSuccessful()){
-            try {
-                handleSuccessResult(response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    @Override
+    public void onOpen(WebSocket webSocket, Response response) {
+        Log.d(TAG,"onOpen");
     }
 
-    public void handleWebSocket(WebSocket webSocket){
-        Log.i(TAG,webSocket.toString());
+    @Override
+    public void onMessage(WebSocket webSocket, String text) {
+        Log.d(TAG,"onMessage");
     }
 
-    public void handleCloseInfo(int code, String reason){
-        Log.i(TAG,code+":"+reason);
+    @Override
+    public void onMessage(WebSocket webSocket, ByteString bytes) {
+        Log.d(TAG,"onMessage");
     }
 
-    public void handleException(Throwable t){
-        Log.getStackTraceString(t);
+    @Override
+    public void onClosing(WebSocket webSocket, int code, String reason) {
+        Log.d(TAG,"onClosing");
     }
 
-    public void handleMessage(String data){
-        Log.i(TAG,data);
+    @Override
+    public void onClosed(WebSocket webSocket, int code, String reason) {
+        Log.d(TAG,"onClosed");
     }
 
-    public void handleMessage(ByteString data){
-        Log.i(TAG,data.toString());
+    @Override
+    public void onFailure(WebSocket webSocket, Throwable t, Response response) {
+        Log.d(TAG,"onFailure");
     }
 }

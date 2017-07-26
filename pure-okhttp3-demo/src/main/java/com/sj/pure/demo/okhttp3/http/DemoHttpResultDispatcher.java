@@ -44,11 +44,14 @@ public abstract class DemoHttpResultDispatcher<R> extends BaseOkHttpResultDispat
         super(resultHandler, converter);
     }
 
-    public void handleCall(Call call) {
+    @Override
+    public void onFailure(Call call, IOException e) {
         Log.i(TAG, call.toString());
+        Log.getStackTraceString(e);
     }
 
-    public void handleResponse(Response response)  {
+    @Override
+    public void onResponse(Call call, Response response) {
         if (response.isSuccessful()){
             try {
                 handleSuccessResult(response);
@@ -57,9 +60,4 @@ public abstract class DemoHttpResultDispatcher<R> extends BaseOkHttpResultDispat
             }
         }
     }
-
-    public void handleException(IOException exception) {
-        Log.getStackTraceString(exception);
-    }
-
 }

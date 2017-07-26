@@ -32,13 +32,13 @@ import okio.ByteString;
  * Created by Sui on 2016/12/13.
  */
 
-public abstract class PureWebSocketClient<R extends BaseOkHttpResultDispatcher> implements IWebSocketClient<R> {
+public abstract class PureWebSocketClient<R extends BaseWebSocketResultDispatcher> implements IWebSocketClient<R> {
     private final OkHttpClient mClient;
     private Request.Builder mRequestBuilder;
     private WebSocket mWebSocket;
     private IWebSocketClient.ReadyState mReadyState = ReadyState.CLOSED;
     private PureWebSocketListener mWebSocketListener;
-    public static final String TAG="PureWebSocketClient";
+    private static final String TAG="PureWebSocketClient";
 
     public PureWebSocketClient(OkHttpClient client) {
         mClient = client;
@@ -101,47 +101,35 @@ public abstract class PureWebSocketClient<R extends BaseOkHttpResultDispatcher> 
         @Override
         public void onOpen(WebSocket webSocket, Response response) {
             mReadyState = ReadyState.OPEN;
-            preParseOnOpen(webSocket, response, resultDispatcher);
+            resultDispatcher.onOpen(webSocket, response);
         }
 
         @Override
         public void onMessage(WebSocket webSocket, String text) {
-            preParseOnMessage(webSocket, text, resultDispatcher);
+            resultDispatcher.onMessage(webSocket, text);
         }
 
         @Override
         public void onMessage(WebSocket webSocket, ByteString bytes) {
-            preParseOnMessage(webSocket, bytes, resultDispatcher);
+            resultDispatcher.onMessage(webSocket, bytes);
         }
 
         @Override
         public void onClosing(WebSocket webSocket, int code, String reason) {
             mReadyState = ReadyState.CLOSING;
-            preParseOnClosing(webSocket, code, reason, resultDispatcher);
+            resultDispatcher.onClosing(webSocket, code, reason);
         }
 
         @Override
         public void onClosed(WebSocket webSocket, int code, String reason) {
             mReadyState = ReadyState.CLOSED;
-            preParseOnClosed(webSocket, code, reason, resultDispatcher);
+            resultDispatcher.onClosed(webSocket, code, reason);
         }
 
         @Override
         public void onFailure(WebSocket webSocket, Throwable t, Response response) {
             mReadyState = ReadyState.CLOSED;
-            preParseOnFailure(webSocket, t, response, resultDispatcher);
+            resultDispatcher.onFailure(webSocket, t, response);
         }
     }
-
-    protected abstract void preParseOnOpen(WebSocket webSocket, Response response, R resultDispatcher);
-
-    protected abstract void preParseOnMessage(WebSocket webSocket, String text, R resultDispatcher);
-
-    protected abstract void preParseOnMessage(WebSocket webSocket, ByteString bytes, R resultDispatcher);
-
-    protected abstract void preParseOnClosing(WebSocket webSocket, int code, String reason, R resultDispatcher);
-
-    protected abstract void preParseOnClosed(WebSocket webSocket, int code, String reason, R resultDispatcher);
-
-    protected abstract void preParseOnFailure(WebSocket webSocket, Throwable t, Response response, R resultDispatcher);
 }
