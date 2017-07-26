@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
-package com.sj.pure.okgo;
+package com.sj.pure.okgo.callback;
+
+import com.lzy.okgo.callback.Callback;
+
+import java.util.List;
 
 /**
- * TODO
- * Created by Sui on 2017/7/26.
+ * Created by Sui on 2017/7/27.
  */
 
-public class PureOkgoClient {
+public interface  LCallBack<T> extends Callback<List<T>> {
+
 }

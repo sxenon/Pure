@@ -16,7 +16,6 @@
 
 package com.sj.pure.okgo.callback;
 
-import com.lzy.okgo.callback.AbsCallback;
 import com.sj.pure.okgo.converter.BLConverter;
 
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.List;
  * Created by Sui on 2017/7/26.
  */
 
-public abstract class BLCallback<T> extends AbsCallback<List<T>> {
+public abstract class BLCallback<T> implements LCallBack<T> {
 
     private final BLConverter<T> mBLConverter;
 

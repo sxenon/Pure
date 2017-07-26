@@ -1,0 +1,71 @@
+/*
+ * Copyright (c) 2017  sxenon
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.sj.pure.okgo.callback.decorator;
+
+import com.lzy.okgo.model.Progress;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
+import com.sj.pure.okgo.callback.LCallBack;
+
+import java.util.List;
+
+/**
+ * TODO
+ * Created by Sui on 2017/7/27.
+ */
+
+public class LCallBackDecorator<R> implements LCallBack<R> {
+    @Override
+    public void onStart(Request<List<R>, ? extends Request> request) {
+
+    }
+
+    @Override
+    public void onSuccess(Response<List<R>> response) {
+
+    }
+
+    @Override
+    public void onCacheSuccess(Response<List<R>> response) {
+
+    }
+
+    @Override
+    public void onError(Response<List<R>> response) {
+
+    }
+
+    @Override
+    public void onFinish() {
+
+    }
+
+    @Override
+    public void uploadProgress(Progress progress) {
+
+    }
+
+    @Override
+    public void downloadProgress(Progress progress) {
+
+    }
+
+    @Override
+    public List<R> convertResponse(okhttp3.Response response) throws Throwable {
+        return null;
+    }
+}
