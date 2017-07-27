@@ -21,6 +21,7 @@ import com.lzy.okgo.callback.Callback;
 import java.util.List;
 
 /**
+ * Callback for list
  * Created by Sui on 2017/7/27.
  */
 

@@ -40,13 +40,9 @@ public abstract class PureWebSocketClient<R extends BaseWebSocketResultDispatche
     private PureWebSocketListener mWebSocketListener;
     private static final String TAG="PureWebSocketClient";
 
-    public PureWebSocketClient(OkHttpClient client) {
+    public PureWebSocketClient(OkHttpClient client,Request.Builder builder) {
         mClient = client;
-    }
-
-    public PureWebSocketClient resetRequestBuilder(Request.Builder builder) {
         mRequestBuilder = builder;
-        return this;
     }
 
     @Override

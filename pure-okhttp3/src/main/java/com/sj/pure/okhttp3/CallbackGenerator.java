@@ -25,11 +25,12 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
+ * Generate callback from ResultDispatcher
  * Created by Sui on 2017/7/26.
  */
 
 public class CallbackGenerator implements Callback {
-    private BaseOkHttpResultDispatcher<R> resultDispatcher;
+    private final BaseOkHttpResultDispatcher<R> resultDispatcher;
 
     public CallbackGenerator(BaseOkHttpResultDispatcher<R> resultDispatcher){
         this.resultDispatcher=resultDispatcher;

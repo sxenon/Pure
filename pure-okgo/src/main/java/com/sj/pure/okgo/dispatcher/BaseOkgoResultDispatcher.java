@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.sj.pure.okgo;
+package com.sj.pure.okgo.dispatcher;
 
-import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
@@ -24,7 +23,7 @@ import com.sxenon.pure.core.result.IResultHandler;
 import com.sxenon.pure.core.result.ResultHandlerType;
 
 /**
- * BaseOkgoResultDispatcher
+ * ResultDispatcher for single
  * Created by Sui on 2017/7/26.
  */
 
@@ -33,47 +32,28 @@ public abstract class BaseOkgoResultDispatcher<R> extends BaseResultDispatcher<R
         super(resultHandler);
     }
 
-    public void onStart(Request<R, ? extends Request> request) {
-
-    }
-
-    public void onSuccess(Response<R> response) {
-
-    }
-
-    public void onCacheSuccess(Response<R> response) {
-
-    }
-
-    public void onError(Response<R> response) {
-
-    }
-
-    public void onFinish() {
-
-    }
-
-    public void uploadProgress(Progress progress) {
-
-    }
-
-    public void downloadProgress(Progress progress) {
-
-    }
-
-    protected void handleSuccessResult(Response<R> response){
-        ResultHandlerType resultHandlerType=getResultHandlerType();
-        switch (resultHandlerType){
-            case FETCH_SINGLE:{
-                R result=response.body();
+    protected void handleSuccessResult(Response<R> response) {
+        ResultHandlerType resultHandlerType = getResultHandlerType();
+        switch (resultHandlerType) {
+            case FETCH_SINGLE: {
                 onSingleDataFetched(response.body());
             }
             case SUBMIT: {
                 onSuccess(response.body());
             }
-            default:{
+            default: {
                 throw new IllegalArgumentException("IResultHandler with wrong type");
             }
         }
     }
+
+    public abstract void onStart(Request<R, ? extends Request> request);
+
+    public abstract void onSuccess(Response<R> response);
+
+    public abstract void onCacheSuccess(Response<R> response);
+
+    public abstract void onError(Response<R> response);
+
+    public abstract void onFinish();
 }

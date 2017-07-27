@@ -20,7 +20,7 @@ import com.lzy.okgo.callback.Callback;
 import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
-import com.sj.pure.okgo.BaseOkgoResultDispatcher;
+import com.sj.pure.okgo.dispatcher.BaseOkgoResultDispatcher;
 
 /**
  * CallbackDecorator
@@ -28,8 +28,8 @@ import com.sj.pure.okgo.BaseOkgoResultDispatcher;
  */
 
 public abstract class CallbackDecorator<R> implements Callback<R> {
-    private Callback<R> originalCallback;
-    private BaseOkgoResultDispatcher<R> resultDispatcher;
+    private final Callback<R> originalCallback;
+    private final BaseOkgoResultDispatcher<R> resultDispatcher;
 
     /**
      * Constructor
@@ -73,13 +73,11 @@ public abstract class CallbackDecorator<R> implements Callback<R> {
 
     @Override
     public void uploadProgress(Progress progress) {
-        resultDispatcher.uploadProgress(progress);
         originalCallback.uploadProgress(progress);
     }
 
     @Override
     public void downloadProgress(Progress progress) {
-        resultDispatcher.downloadProgress(progress);
         originalCallback.downloadProgress(progress);
     }
 

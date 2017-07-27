@@ -4,15 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Pure.iml" filepath="$PROJECT_DIR$/Pure.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure/pure.iml" filepath="$PROJECT_DIR$/pure/pure.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pure-fresco/pure-fresco.iml" filepath="$PROJECT_DIR$/pure-fresco/pure-fresco.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pure-glide/pure-glide.iml" filepath="$PROJECT_DIR$/pure-glide/pure-glide.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-not-compact-app/pure-not-compact-app.iml" filepath="$PROJECT_DIR$/pure-not-compact-app/pure-not-compact-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-okgo/pure-okgo.iml" filepath="$PROJECT_DIR$/pure-okgo/pure-okgo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-okhttp3/pure-okhttp3.iml" filepath="$PROJECT_DIR$/pure-okhttp3/pure-okhttp3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pure-okhttp3-demo/pure-okhttp3-demo.iml" filepath="$PROJECT_DIR$/pure-okhttp3-demo/pure-okhttp3-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-pull-demo/pure-pull-demo.iml" filepath="$PROJECT_DIR$/pure-pull-demo/pure-pull-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-retrofit2/pure-retrofit2.iml" filepath="$PROJECT_DIR$/pure-retrofit2/pure-retrofit2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pure-retrofit2-demo/pure-retrofit2-demo.iml" filepath="$PROJECT_DIR$/pure-retrofit2-demo/pure-retrofit2-demo.iml" />
     </modules>
   </component>
 </project>

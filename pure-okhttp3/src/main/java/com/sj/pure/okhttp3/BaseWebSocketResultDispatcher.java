@@ -24,6 +24,7 @@ import okhttp3.WebSocket;
 import okio.ByteString;
 
 /**
+ * ResultDispatcher for webSocket
  * Created by Sui on 2017/7/26.
  */
 

@@ -19,6 +19,7 @@ package com.sj.pure.okgo.callback.decorator;
 import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.sj.pure.okgo.dispatcher.BaseOkgoLResultDispatcher;
 import com.sj.pure.okgo.callback.LCallBack;
 
 import java.util.List;
@@ -29,43 +30,61 @@ import java.util.List;
  */
 
 public class LCallBackDecorator<R> implements LCallBack<R> {
+    private final LCallBack<R> originalCallback;
+    private final BaseOkgoLResultDispatcher<R> resultDispatcher;
+
+    /**
+     * Constructor
+     * @param originalCallback Special
+     * @param resultDispatcher Common
+     */
+    public LCallBackDecorator(LCallBack<R> originalCallback,BaseOkgoLResultDispatcher<R> resultDispatcher){
+        this.originalCallback=originalCallback;
+        this.resultDispatcher=resultDispatcher;
+    }
+
     @Override
     public void onStart(Request<List<R>, ? extends Request> request) {
-
+        resultDispatcher.onStart(request);
+        originalCallback.onStart(request);
     }
 
     @Override
     public void onSuccess(Response<List<R>> response) {
-
+        resultDispatcher.onSuccess(response);
+        originalCallback.onSuccess(response);
     }
 
     @Override
     public void onCacheSuccess(Response<List<R>> response) {
-
+        resultDispatcher.onCacheSuccess(response);
+        originalCallback.onCacheSuccess(response);
     }
 
     @Override
     public void onError(Response<List<R>> response) {
-
+        resultDispatcher.onError(response);
+        originalCallback.onError(response);
     }
 
     @Override
     public void onFinish() {
-
+        resultDispatcher.onFinish();
+        originalCallback.onFinish();
     }
 
     @Override
     public void uploadProgress(Progress progress) {
-
+        originalCallback.uploadProgress(progress);
     }
 
     @Override
     public void downloadProgress(Progress progress) {
-
+        originalCallback.uploadProgress(progress);
     }
 
     @Override
     public List<R> convertResponse(okhttp3.Response response) throws Throwable {
-        return null;
+        return originalCallback.convertResponse(response);
     }
 }
