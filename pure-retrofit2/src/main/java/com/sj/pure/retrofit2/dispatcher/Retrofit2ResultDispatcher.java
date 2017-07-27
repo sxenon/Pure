@@ -14,28 +14,29 @@
  * limitations under the License.
  */
 
-package com.sj.pure.okgo.dispatcher;
+package com.sj.pure.retrofit2.dispatcher;
 
-import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.base.Request;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
 import com.sxenon.pure.core.result.IResultHandler;
 import com.sxenon.pure.core.result.ResultHandlerType;
 
+import retrofit2.Call;
+import retrofit2.Response;
+
 /**
- * ResultDispatcher for single
- * Created by Sui on 2017/7/26.
+ * ResultDispatcher for Retrofit2
+ * Created by Sui on 2017/7/27.
  */
 
-public abstract class BaseOkgoResultDispatcher<R> extends BaseResultDispatcher<R> {
-    public BaseOkgoResultDispatcher(IResultHandler resultHandler) {
+public abstract class Retrofit2ResultDispatcher<R> extends BaseResultDispatcher<R> {
+
+    public Retrofit2ResultDispatcher(IResultHandler resultHandler) {
         super(resultHandler);
     }
-
     /**
      * 是业务意义上的Success！
      */
-    protected void handleSuccessResult(Response<R> response) {
+    protected void handleSuccessResult(Response<R> response){
         ResultHandlerType resultHandlerType = getResultHandlerType();
         switch (resultHandlerType) {
             case FETCH_SINGLE: {
@@ -50,13 +51,7 @@ public abstract class BaseOkgoResultDispatcher<R> extends BaseResultDispatcher<R
         }
     }
 
-    public abstract void onStart(Request<R, ? extends Request> request);
+    public abstract void onResponse(Call<R> call, Response<R> response);
 
-    public abstract void onSuccess(Response<R> response);
-
-    public abstract void onCacheSuccess(Response<R> response);
-
-    public abstract void onError(Response<R> response);
-
-    public abstract void onFinish();
+    public abstract void onFailure(Call<R> call, Throwable t);
 }

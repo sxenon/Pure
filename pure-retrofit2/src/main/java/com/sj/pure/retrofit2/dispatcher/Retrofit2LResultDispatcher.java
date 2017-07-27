@@ -14,25 +14,27 @@
  * limitations under the License.
  */
 
-package com.sj.pure.okgo.dispatcher;
+package com.sj.pure.retrofit2.dispatcher;
 
-import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.base.Request;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
 import com.sxenon.pure.core.result.IFetchListResultHandler;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Response;
+
 /**
- * ResultDispatcher for list
+ * ResultDispatcher for Retrofit2
  * Created by Sui on 2017/7/27.
  */
 
-public abstract class BaseOkgoLResultDispatcher<R> extends BaseResultDispatcher<R> {
+public abstract class Retrofit2LResultDispatcher<R> extends BaseResultDispatcher<R> {
 
-    public BaseOkgoLResultDispatcher(IFetchListResultHandler<R> resultHandler) {
+    public Retrofit2LResultDispatcher(IFetchListResultHandler<R> resultHandler) {
         super(resultHandler);
     }
+
     /**
      * 是业务意义上的Success！
      */
@@ -40,13 +42,7 @@ public abstract class BaseOkgoLResultDispatcher<R> extends BaseResultDispatcher<
         onListDataFetched(response.body());
     }
 
-    public abstract void onStart(Request<List<R>, ? extends Request> request);
+    public abstract void onResponse(Call<List<R>> call, Response<List<R>> response);
 
-    public abstract void onSuccess(Response<List<R>> response);
-
-    public abstract void onCacheSuccess(Response<List<R>> response);
-
-    public abstract void onError(Response<List<R>> response);
-
-    public abstract void onFinish();
+    public abstract void onFailure(Call<List<R>> call, Throwable t);
 }
