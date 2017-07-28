@@ -28,7 +28,7 @@ import cn.bingoogolapple.androidcommon.adapter.BGARecyclerViewAdapter;
  */
 
 public class BGARecyclerViewPureAdapter<T> implements IPureAdapter<T> {
-    private BGARecyclerViewAdapter<T> bgaRecyclerViewAdapter;
+    private final BGARecyclerViewAdapter<T> bgaRecyclerViewAdapter;
 
     BGARecyclerViewPureAdapter(BGARecyclerViewAdapter<T> bgaRecyclerViewAdapter){
         this.bgaRecyclerViewAdapter=bgaRecyclerViewAdapter;

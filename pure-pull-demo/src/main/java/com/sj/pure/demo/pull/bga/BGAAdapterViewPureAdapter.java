@@ -28,7 +28,7 @@ import cn.bingoogolapple.androidcommon.adapter.BGAAdapterViewAdapter;
  */
 
 public class BGAAdapterViewPureAdapter<T> implements IPureAdapter<T> {
-    private BGAAdapterViewAdapter<T> bgaAdapterViewAdapter;
+    private final BGAAdapterViewAdapter<T> bgaAdapterViewAdapter;
 
     BGAAdapterViewPureAdapter(BGAAdapterViewAdapter<T> bgaAdapterViewAdapter) {
         this.bgaAdapterViewAdapter = bgaAdapterViewAdapter;

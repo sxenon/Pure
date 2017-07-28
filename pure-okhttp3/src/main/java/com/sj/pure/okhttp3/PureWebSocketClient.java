@@ -34,7 +34,7 @@ import okio.ByteString;
 
 public abstract class PureWebSocketClient<R extends BaseWebSocketResultDispatcher> implements IWebSocketClient<R> {
     private final OkHttpClient mClient;
-    private Request.Builder mRequestBuilder;
+    private final Request.Builder mRequestBuilder;
     private WebSocket mWebSocket;
     private IWebSocketClient.ReadyState mReadyState = ReadyState.CLOSED;
     private PureWebSocketListener mWebSocketListener;

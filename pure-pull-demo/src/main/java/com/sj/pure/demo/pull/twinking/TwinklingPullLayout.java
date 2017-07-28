@@ -26,7 +26,7 @@ import com.sxenon.pure.core.component.filler.IPullLayout;
  */
 
 public class TwinklingPullLayout implements IPullLayout {
-    private TwinklingRefreshLayout mRealLayout;
+    private final TwinklingRefreshLayout mRealLayout;
 
     public TwinklingPullLayout(TwinklingRefreshLayout realLayout) {
         mRealLayout = realLayout;

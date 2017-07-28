@@ -17,6 +17,7 @@
 package com.sj.pure.demo.pull.bga;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.component.filler.FillerGroup;
@@ -36,6 +37,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 public class BGAFillerGroup<R> extends FillerGroup<R, BGAPullLayout> {
     private CustomLister<R> mCustomLister;
+    private static final String TAG="BGAFillerGroup";
 
     public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult) {
         super(context, new BGAPullLayout(refreshLayout), singleDataResult);
@@ -151,27 +153,27 @@ public class BGAFillerGroup<R> extends FillerGroup<R, BGAPullLayout> {
     }
 
     private void projectOnNoNewData() {
-
+        Log.i(TAG,"projectOnNoNewData");
     }
 
     private void projectLevelOnNoMoreData() {
-
+        Log.i(TAG,"projectLevelOnNoMoreData");
     }
 
     private void projectLevelOnNewDataFetched(List<R> data) {
-
+        Log.i(TAG,"projectLevelOnNewDataFetched");
     }
 
     private void projectLevelOnMoreDataFetched(List<R> data) {
-
+        Log.i(TAG,"projectLevelOnMoreDataFetched");
     }
 
     private void projectLevelOnBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-
+        Log.i(TAG,"projectLevelOnBGARefreshLayoutBeginRefreshing");
     }
 
     private void projectLevelOnBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-
+        Log.i(TAG,"projectLevelOnBGARefreshLayoutBeginLoadingMore");
     }
 
 

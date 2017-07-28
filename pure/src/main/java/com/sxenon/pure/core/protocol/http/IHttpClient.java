@@ -46,7 +46,7 @@ public interface IHttpClient<RD extends IResultDispatcher> {
 
     void cancel(Object tag);
 
-    void execute(RD resultDispatcher) throws IOException;
+    void execute(RD resultDispatcher);
 
     void enqueue(RD resultDispatcher);
 }
