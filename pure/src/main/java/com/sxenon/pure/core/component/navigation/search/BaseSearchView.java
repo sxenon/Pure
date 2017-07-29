@@ -66,8 +66,7 @@ public class BaseSearchView implements ISearchView {
             mCancelView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Preconditions.checkNotNull(mOnCancel, "");
-                    mOnCancel.call();
+                    Preconditions.checkNotNull(mOnCancel, "").call();
                 }
             });
         }
@@ -85,19 +84,17 @@ public class BaseSearchView implements ISearchView {
         mOnCancel = onCancel;
     }
 
-    public void setSearchAction(Func1<CharSequence, Boolean> searchAction) {
+    public void setSearchAction(@NonNull Func1<CharSequence, Boolean> searchAction) {
         mSearchAction = searchAction;
     }
 
     @Override
     public void setKeyword(CharSequence keyword) {
         mEditText.setText(keyword);
-        mEditText.getSelectionEnd();
-        mEditText.setSelection(keyword.toString().length());
     }
 
     public boolean performSearch() {
-        return Preconditions.checkNotNull(mSearchAction, "").call(mEditText.getText().toString());
+        return mSearchAction.call(mEditText.getText().toString());
     }
 
     public void hideKeyBoard() {

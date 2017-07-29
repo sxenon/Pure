@@ -24,6 +24,7 @@ import android.view.View;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.adapter.IPureAdapter;
+import com.sxenon.pure.core.component.IViewComponentGroup;
 import com.sxenon.pure.core.result.IFetchListResultHandler;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 import com.sxenon.pure.core.util.CommonUtils;
@@ -36,7 +37,7 @@ import java.util.List;
  * Created by Sui on 2016/12/8.
  */
 
-public abstract class FillerGroup<R, PL extends IPullLayout> implements IFetchSingleResultHandler<R>, IFetchListResultHandler<R> {
+public abstract class FillerGroup<R, PL extends IPullLayout> implements IFetchSingleResultHandler<R>, IFetchListResultHandler<R>,IViewComponentGroup{
     private int mCurrentPageCount;
     private int tempPageCount;
     private int eventWhat = EventWhat.WHAT_UNINITIALIZED;
