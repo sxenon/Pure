@@ -16,6 +16,7 @@
 
 package com.sxenon.pure.core.router;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.OutsideLifecycleException;
 import com.trello.rxlifecycle.RxLifecycle;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -191,6 +193,9 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
 
     @Override
     public final void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action) {
+        if (Arrays.binarySearch(permissions, Manifest.permission.SYSTEM_ALERT_WINDOW) >= 0) {
+            throw new IllegalArgumentException("Please Call requestSystemAlertPermission(int requestCode, Action0 action) for SYSTEM_ALERT_WINDOW!");
+        }
         permissionHelper.requestCommonPermissions(permissions, requestCode, action);
     }
 
@@ -199,8 +204,12 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
         isRequestingSystemAlertPermission = !permissionHelper.showSystemAlertAtOnce(requestCode, action);
     }
 
+    /**
+     *
+     * @return if true,don`t forget to call {@link #requestPermissionsAfterExplanation} first!
+     */
     @Override
-    public boolean shouldPermissionExplainBeforeRequest(int requestCode, String[] permissions) {
+    public boolean shouldExplainPermissionBeforeRequest(int requestCode, String[] permissions) {
         return false;
     }
 
@@ -220,8 +229,8 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     }
 
     @Override
-    public final void requestAfterExplanation(@NonNull String[] permissions) {
-        permissionHelper.requestAfterExplanation(permissions);
+    public final void requestPermissionsAfterExplanation(@NonNull String[] permissions) {
+        permissionHelper.requestPermissionsAfterExplanation(permissions);
     }
     //Permission end
 

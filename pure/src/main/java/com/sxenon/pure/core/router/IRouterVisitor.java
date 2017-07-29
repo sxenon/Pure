@@ -48,7 +48,7 @@ interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle, L
 
     void requestSystemAlertPermission(int requestCode, Action0 action);
 
-    void requestAfterExplanation(@NonNull String[] permissions);
+    void requestPermissionsAfterExplanation(@NonNull String[] permissions);
 
     <T> LifecycleTransformer<T> autoComplete();
 

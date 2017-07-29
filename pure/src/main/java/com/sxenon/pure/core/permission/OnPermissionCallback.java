@@ -28,6 +28,6 @@ public interface OnPermissionCallback {
 
     void onPermissionReallyDeclined(int requestCode, @NonNull String[] permissions);
 
-    boolean shouldPermissionExplainBeforeRequest(int requestCode, String[] permissions);
+    boolean shouldExplainPermissionBeforeRequest(int requestCode, String[] permissions);
 
 }

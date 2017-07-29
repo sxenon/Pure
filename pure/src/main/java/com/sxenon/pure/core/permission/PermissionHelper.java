@@ -65,8 +65,8 @@ public class PermissionHelper {
                 permissionCallback.onPermissionReallyDeclined(permissionEvent.what, (String[]) permissionPermanentlyDeniedList.toArray());
             } else {
                 if (forceAccepting) {
-                    if (!permissionCallback.shouldPermissionExplainBeforeRequest(permissionEvent.what, declinedPermissions)) {
-                        requestAfterExplanation(declinedPermissions);
+                    if (!permissionCallback.shouldExplainPermissionBeforeRequest(permissionEvent.what, declinedPermissions)) {
+                        router.requestPermissionsCompact(permissions, permissionEvent.what);
                     }
                     return;
                 }
@@ -108,11 +108,11 @@ public class PermissionHelper {
         String[] permissionsNeedArray = (String[]) permissionsNeeded.toArray();
         List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(router, permissionsNeedArray);
         if (!permissionPermanentlyDeniedList.isEmpty()) {
-            permissionCallback.onPermissionReallyDeclined(permissionEvent.what, permissions);
+            permissionCallback.onPermissionReallyDeclined(what, permissions);
             return;
         }
-        if (!permissionCallback.shouldPermissionExplainBeforeRequest(what, permissionsNeedArray)) {
-            internalRequest(what, permissions);
+        if (!permissionCallback.shouldExplainPermissionBeforeRequest(what, permissionsNeedArray)) {
+            router.requestPermissionsCompact(permissions, what);
         }
     }
 
@@ -138,19 +138,9 @@ public class PermissionHelper {
     }
 
     /**
-     * internal usage.
-     */
-    private void internalRequest(int requestCode, @NonNull String[] permissions) {
-        if (Arrays.binarySearch(permissions, Manifest.permission.SYSTEM_ALERT_WINDOW) >= 0) {
-            throw new IllegalArgumentException("Please Call showSystemAlertAtOnce() for SYSTEM_ALERT_WINDOW!");
-        }
-        router.requestPermissionsCompact(permissions, requestCode);
-    }
-
-    /**
      * to be called when explanation is presented to the user
      */
-    public void requestAfterExplanation(@NonNull String[] permissions) {
+    public void requestPermissionsAfterExplanation(@NonNull String[] permissions) {
         router.requestPermissionsCompact(permissions, permissionEvent.what);
     }
 
