@@ -25,12 +25,12 @@ import rx.functions.Action0;
  * Created by Sui on 2017/2/19.
  */
 
-public class RuleFactory {
-    public static Rule createTextMaxLengthRule(final TextView textView, final int maxLength, final Action0 onFail){
+public class RulesFactory {
+    public static Rule createCharSequenceMaxLengthRule(final CharSequence charSequence, final int maxLength, final Action0 onFail){
         return new Rule() {
             @Override
             public boolean isValid() {
-                return textView.length()<=maxLength;
+                return charSequence.length()<=maxLength;
             }
 
             @Override
@@ -42,11 +42,11 @@ public class RuleFactory {
         };
     }
 
-    public static Rule createTextMinLengthRule(final TextView textView, final int minLength, final Action0 onFail){
+    public static Rule createCharSequenceMinLengthRule(final CharSequence charSequence, final int minLength, final Action0 onFail){
         return new Rule() {
             @Override
             public boolean isValid() {
-                return textView.length()>=minLength;
+                return charSequence.length()>=minLength;
             }
 
             @Override
@@ -56,22 +56,35 @@ public class RuleFactory {
                 }
             }
         };
+    }
+
+
+    public static Rule createStringRegexRule(final String s, final String regex, final Action0 onFail){
+        return new Rule() {
+            @Override
+            public boolean isValid() {
+                return s.matches(regex);
+            }
+
+            @Override
+            public void onFail() {
+                if (onFail!=null){
+                    onFail.call();
+                }
+            }
+        };
+    }
+    
+    public static Rule createTextMaxLengthRule(final TextView textView, final int maxLength, final Action0 onFail){
+        return createCharSequenceMaxLengthRule(textView.getText(),maxLength,onFail);
+    }
+
+    public static Rule createTextMinLengthRule(final TextView textView, final int minLength, final Action0 onFail){
+        return createCharSequenceMinLengthRule(textView.getText(),minLength,onFail);
     }
 
 
     public static Rule createTextRegexRule(final TextView textView, final String regex, final Action0 onFail){
-        return new Rule() {
-            @Override
-            public boolean isValid() {
-                return textView.getText().toString().trim().matches(regex);
-            }
-
-            @Override
-            public void onFail() {
-                if (onFail!=null){
-                    onFail.call();
-                }
-            }
-        };
+        return createStringRegexRule(textView.getText().toString().trim(),regex,onFail);
     }
 }

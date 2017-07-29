@@ -16,6 +16,8 @@
 
 package com.sj.pure.demo.pull.twinking;
 
+import android.util.Log;
+
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sxenon.pure.core.component.filler.IPullLayout;
@@ -27,6 +29,7 @@ import com.sxenon.pure.core.component.filler.IPullLayout;
 
 public class TwinklingPullLayout implements IPullLayout {
     private final TwinklingRefreshLayout mRealLayout;
+    private static final String TAG="TwinklingPullLayout";
 
     public TwinklingPullLayout(TwinklingRefreshLayout realLayout) {
         mRealLayout = realLayout;
@@ -66,6 +69,6 @@ public class TwinklingPullLayout implements IPullLayout {
      * 项目级别通用的初始化工作
      */
     protected void defaultInit(TwinklingRefreshLayout realLayout){
-
+        Log.i(TAG,"defaultInit");
     }
 }

@@ -29,10 +29,10 @@ import okhttp3.Response;
  * Created by Sui on 2017/7/26.
  */
 
-public class CallbackGenerator implements Callback {
+public class CallbackAdapter implements Callback {
     private final BaseOkHttpResultDispatcher<R> resultDispatcher;
 
-    public CallbackGenerator(BaseOkHttpResultDispatcher<R> resultDispatcher){
+    public CallbackAdapter(BaseOkHttpResultDispatcher<R> resultDispatcher){
         this.resultDispatcher=resultDispatcher;
     }
 

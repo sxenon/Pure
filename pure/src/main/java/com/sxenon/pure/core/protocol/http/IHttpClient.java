@@ -19,7 +19,6 @@ package com.sxenon.pure.core.protocol.http;
 import com.sxenon.pure.core.result.IResultDispatcher;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 

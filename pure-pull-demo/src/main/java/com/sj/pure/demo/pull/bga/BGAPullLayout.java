@@ -16,6 +16,8 @@
 
 package com.sj.pure.demo.pull.bga;
 
+import android.util.Log;
+
 import com.sxenon.pure.core.component.filler.IPullLayout;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
@@ -27,6 +29,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 public class BGAPullLayout implements IPullLayout {
     private final BGARefreshLayout mRealLayout;
+    private static final String TAG="BGAPullLayout";
 
     BGAPullLayout(BGARefreshLayout realLayout) {
         mRealLayout = realLayout;
@@ -66,7 +69,7 @@ public class BGAPullLayout implements IPullLayout {
      * 项目级别通用的初始化工作
      */
     protected void defaultInit(BGARefreshLayout realLayout) {
-
+        Log.i(TAG,"defaultInit");
     }
 
 }
