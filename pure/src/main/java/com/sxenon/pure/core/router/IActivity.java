@@ -24,7 +24,7 @@ import android.support.annotation.Nullable;
  * Created by Sui on 2017/1/2.
  */
 
-public interface IActivity<P extends PureRouterPresenter> extends IRouter<P> {
+public interface IActivity<P extends PureRouterVisitorAsPresenter> extends IRouter<P> {
     void initView(@Nullable Bundle savedInstanceState);
     boolean shouldKeepWhenBackground(int what);
     void finish();

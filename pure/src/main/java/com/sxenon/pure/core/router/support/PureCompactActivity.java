@@ -31,7 +31,7 @@ import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.router.IActivity;
 import com.sxenon.pure.core.router.IRouter;
-import com.sxenon.pure.core.router.PureRouterPresenter;
+import com.sxenon.pure.core.router.PureRouterVisitorAsPresenter;
 
 import java.util.HashSet;
 import java.util.List;
@@ -43,7 +43,7 @@ import java.util.Set;
  * Created by Sui on 2016/11/21.
  */
 
-public abstract class PureCompactActivity<P extends PureRouterPresenter> extends AppCompatActivity implements IActivity<P> {
+public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter> extends AppCompatActivity implements IActivity<P> {
     private P mRootPresenter;
     private final Set<PureSupportFragment> mVisibleFragmentSet=new HashSet<>();
 

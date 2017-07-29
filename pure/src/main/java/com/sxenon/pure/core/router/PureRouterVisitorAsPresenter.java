@@ -42,13 +42,13 @@ import rx.subjects.BehaviorSubject;
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureRouterPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R> {
+public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R> {
 
     private RouterEvent currentEvent;
     private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
-    public static final String TAG = "PureRouterPresenter";
+    public static final String TAG = "PureRouterVisitorAsPresenter";
     private final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
             new Func1<RouterEvent, RouterEvent>() {
                 @Override
@@ -70,7 +70,7 @@ public abstract class PureRouterPresenter<R extends IRouter> extends BasePresent
                 }
             };
 
-    public PureRouterPresenter(R router) {
+    public PureRouterVisitorAsPresenter(R router) {
         super(router);
         permissionHelper = PermissionHelper.getInstance(router, this);
     }

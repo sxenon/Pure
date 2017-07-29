@@ -19,19 +19,19 @@ package com.sxenon.pure.core.router;
 import com.sxenon.pure.core.mvp.BasePresenter;
 
 /**
- * Optional,for those complex {@link PureRouterPresenter}s
+ * Optional,for those complex {@link PureRouterVisitorAsPresenter}s
  * Created by Sui on 2016/11/22.
  */
 
 public abstract class BaseSubPresenter<V extends BaseSubView> extends BasePresenter<V> {
-    private final PureRouterPresenter mRouterPresenter;
+    private final PureRouterVisitorAsPresenter mRootPresenter;
 
-    public BaseSubPresenter(V view, PureRouterPresenter rootPresenter) {
+    public BaseSubPresenter(V view, PureRouterVisitorAsPresenter rootPresenter) {
         super(view);
-        mRouterPresenter = rootPresenter;
+        mRootPresenter = rootPresenter;
     }
 
-    public PureRouterPresenter getRootPresenter() {
-        return mRouterPresenter;
+    public PureRouterVisitorAsPresenter getRootPresenter() {
+        return mRootPresenter;
     }
 }
