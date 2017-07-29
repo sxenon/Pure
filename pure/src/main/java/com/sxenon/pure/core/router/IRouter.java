@@ -24,9 +24,10 @@ import android.support.annotation.Nullable;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.IView;
-import com.sxenon.pure.core.router.PureRouterVisitorAsPresenter;
 
 import java.util.List;
+
+import rx.functions.Action0;
 
 /**
  * Treat Activity & Fragment as router
@@ -50,7 +51,7 @@ public interface IRouter<P extends PureRouterVisitorAsPresenter> extends IView<P
 
     Activity getActivityCompact();
 
-    void requestPermissionsCompact(@NonNull String[] permissions, int requestCode);
+    void requestPermissionsCompact(@NonNull String[] permissions, int requestCode, Action0 action, boolean forceAccepting);
 
     /**
      * @return Return false if the router is instance of FragmentActivity and its supportFragment request the permission,otherwise true.

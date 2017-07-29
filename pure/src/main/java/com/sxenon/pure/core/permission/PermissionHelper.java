@@ -61,13 +61,14 @@ public class PermissionHelper {
             } else {
                 if (permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false)) {
                     if (!permissionCallback.shouldExplainPermissionBeforeRequest(permissionEvent.what, declinedPermissions)) {
-                        router.requestPermissionsCompact(permissions, permissionEvent.what);
+                        router.requestPermissionsCompact(declinedPermissions, permissionEvent.what, (Action0) permissionEvent.obj, permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false));
                     }
                     return;
                 }
                 permissionCallback.onPermissionDeclined(permissionEvent.what, declinedPermissions);
             }
         }
+        permissionEvent = null;
     }
 
     /**
@@ -79,20 +80,28 @@ public class PermissionHelper {
         } else {
             permissionCallback.onPermissionDeclined(permissionEvent.what, new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW});
         }
+        permissionEvent = null;
     }
 
-    public void requestCommonPermissions(@NonNull String[] permissions, int what, Action0 action, boolean forceAccepting) {
+    public Event getPermissionEvent() {
+        return permissionEvent;
+    }
+
+    public void setPermissionEvent(int what, Action0 action, boolean forceAccepting) {
+        permissionEvent = new Event();
+        permissionEvent.what = what;
+        permissionEvent.obj = action;
+        permissionEvent.data = new Bundle();
+        permissionEvent.data.putBoolean(KEY_FORCE_ACCEPTING, forceAccepting);
+    }
+
+    public void requestPermissions(@NonNull String[] permissions, int what, Action0 action, boolean forceAccepting) {
         List<String> permissionsNeeded = PermissionCompat.getDeclinedPermissionList(router, permissions);
         if (permissionsNeeded.isEmpty()) {
             action.call();
             return;
         }
-        Event event = new Event();
-        event.what = what;
-        event.obj = action;
-        event.data = new Bundle();
-        event.data.putBoolean(KEY_FORCE_ACCEPTING, forceAccepting);
-        permissionEvent = event;
+
         String[] permissionsNeedArray = (String[]) permissionsNeeded.toArray();
         List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(router, permissionsNeedArray);
         if (!permissionPermanentlyDeniedList.isEmpty()) {
@@ -100,7 +109,7 @@ public class PermissionHelper {
             return;
         }
         if (!permissionCallback.shouldExplainPermissionBeforeRequest(what, permissionsNeedArray)) {
-            router.requestPermissionsCompact(permissions, what);
+            router.requestPermissionsCompact(permissionsNeedArray, what, action, forceAccepting);
         }
     }
 
@@ -111,25 +120,23 @@ public class PermissionHelper {
      */
     @TargetApi(Build.VERSION_CODES.M)
     public boolean showSystemAlertAtOnce(int what, Action0 action) {
-        boolean actionAtOnce = false;
         if (!PermissionCompat.isSystemAlertGranted(router)) {
-            Event event = new Event();
-            event.what = what;
-            event.obj = action;
-            permissionEvent = event;
+            permissionEvent = new Event();
+            permissionEvent.what = what;
+            permissionEvent.obj = action;
             IntentManager.requestSystemAlertPermission(router, what);
+            return false;
         } else {
             action.call();
-            actionAtOnce = true;
+            return true;
         }
-        return actionAtOnce;
     }
 
     /**
      * to be called when explanation is presented to the user
      */
     public void requestPermissionsAfterExplanation(@NonNull String[] permissions) {
-        router.requestPermissionsCompact(permissions, permissionEvent.what);
+        router.requestPermissionsCompact(permissions, permissionEvent.what, (Action0) permissionEvent.obj, permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false));
     }
 
     /**

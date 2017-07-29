@@ -156,12 +156,18 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     }
     //Permission start
 
+    public void setPermissionEvent(int what, Action0 action, boolean forceAccepting){
+        permissionHelper.setPermissionEvent(what, action, forceAccepting);
+    }
     /**
      * Please ignore the return value unless the router type is COMPACT_ACTIVITY.
      *
      * @return Handle the result by self or deliver to its fragment,if the router type is COMPACT_ACTIVITY.
      */
     public final boolean onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(permissionHelper.getPermissionEvent()==null){
+            throw new IllegalStateException("Please call requestPermissionsCompact in router(view) or requestPermissions in routerVisitor(presenter)");
+        }
         if (getRouter().requestPermissionsBySelf(requestCode)) {
             permissionHelper.onRequestPermissionsResult(permissions, grantResults);
             return true;
@@ -192,11 +198,11 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     }
 
     @Override
-    public final void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action,boolean forceAccepting) {
+    public final void requestPermissions(@NonNull String[] permissions, int requestCode, Action0 action, boolean forceAccepting) {
         if (Arrays.binarySearch(permissions, Manifest.permission.SYSTEM_ALERT_WINDOW) >= 0) {
             throw new IllegalArgumentException("Please Call requestSystemAlertPermission(int requestCode, Action0 action) for SYSTEM_ALERT_WINDOW!");
         }
-        permissionHelper.requestCommonPermissions(permissions, requestCode, action,forceAccepting);
+        permissionHelper.requestPermissions(permissions, requestCode, action,forceAccepting);
     }
 
     @Override

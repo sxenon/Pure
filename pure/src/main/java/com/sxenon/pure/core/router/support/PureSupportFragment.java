@@ -33,6 +33,8 @@ import com.sxenon.pure.core.router.PureRouterVisitorAsPresenter;
 
 import java.util.List;
 
+import rx.functions.Action0;
+
 /**
  * 做最纯净的Fragment二次封装
  * Created by Sui on 2016/11/21.
@@ -134,7 +136,8 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
     }
 
     @Override
-    public void requestPermissionsCompact(@NonNull String[] permissions, int requestCode) {
+    public void requestPermissionsCompact(@NonNull String[] permissions, int requestCode, Action0 action, boolean forceAccepting) {
+        getPresenter().setPermissionEvent(requestCode,action,forceAccepting);
         requestPermissions(permissions, requestCode);
     }
 

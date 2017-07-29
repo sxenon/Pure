@@ -44,7 +44,7 @@ interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle, L
 
     void handleActivityResult(int requestCode, int resultCode, Intent data);
 
-    void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action,boolean forceAccepting);
+    void requestPermissions(@NonNull String[] permissions, int requestCode, Action0 action, boolean forceAccepting);
 
     void requestSystemAlertPermission(int requestCode, Action0 action);
 
