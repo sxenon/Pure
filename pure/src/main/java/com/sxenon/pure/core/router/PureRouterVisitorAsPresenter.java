@@ -96,6 +96,11 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     }
     //LifecycleProvider end
 
+    @Override
+    public List<Event> getEventForSave() {
+        return null;
+    }
+
     //LifeCycle start
     @Override
     public void onCreate(List<Event> savedEventList) {
@@ -155,7 +160,7 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
      * @return Handle the result by self or deliver to its fragment,if the router type is COMPACT_ACTIVITY.
      */
     public final boolean onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCommonPermissionsBySelf(requestCode)) {
+        if (getRouter().requestCommonPermissionsBySelf(requestCode)) {
             permissionHelper.onRequestPermissionsResult(permissions, grantResults);
             return true;
         }
@@ -171,26 +176,12 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
         if (isRequestingSystemAlertPermission) {
             permissionHelper.onRequestSystemAlertPermissionResult(resultCode);
             isRequestingSystemAlertPermission = false;
-        } else if (startActivityForResultBySelf(requestCode)) {
+        } else if (getRouter().startActivityForResultBySelf(requestCode)) {
             handleActivityResult(requestCode, resultCode, data);
         } else {
             return false;
         }
         return true;
-    }
-
-    /**
-     * @return Return false if the router is instance of FragmentActivity and its supportFragment request the permission,otherwise true.
-     */
-    private boolean requestCommonPermissionsBySelf(int requestCode) {
-        return getRouter().getRouterType() != IRouter.RouterType.COMPACT_ACTIVITY || shouldHandlePermissionsResultIfInCompactActivity(requestCode);
-    }
-
-    /**
-     * @return Return false, if the router is instance of FragmentActivity and its supportFragment start activity,otherwise true.
-     */
-    private boolean startActivityForResultBySelf(int requestCode) {
-        return getRouter().getRouterType() != IRouter.RouterType.COMPACT_ACTIVITY || shouldHandleActivityResultIfInCompactActivity(requestCode);
     }
 
     @Override
@@ -243,20 +234,6 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     @Override
     public final <T> LifecycleTransformer<T> autoComplete() {
         return bindUntilEvent(RouterEvent.DESTROY);
-    }
-
-    /**
-     * Only work when router is compactActivity
-     */
-    public boolean shouldHandleActivityResultIfInCompactActivity(int requestCode) {
-        return false;
-    }
-
-    /**
-     * Only work when router is compactActivity
-     */
-    public boolean shouldHandlePermissionsResultIfInCompactActivity(int requestCode) {
-        return false;
     }
     //Binding end
 }

@@ -150,8 +150,18 @@ public abstract class PureFragment<P extends PureRouterVisitorAsPresenter> exten
     }
 
     @Override
+    public final boolean requestCommonPermissionsBySelf(int requestCode) {
+        return true;
+    }
+
+    @Override
     public final void onActivityResult(int requestCode, int resultCode, Intent data) {
         mRootPresenter.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public final boolean startActivityForResultBySelf(int requestCode) {
+        return true;
     }
 
     public final boolean onBackPressed() {

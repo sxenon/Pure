@@ -35,7 +35,7 @@ import rx.functions.Action0;
  * Created by Sui on 2017/2/5.
  */
 
-public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle, LifecycleProvider<RouterEvent>, OnPermissionCallback {
+interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle, LifecycleProvider<RouterEvent>, OnPermissionCallback {
     boolean onBackPressed();
 
     List<Event> getEventForSave();
@@ -43,10 +43,6 @@ public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifec
     RouterEvent getCurrentEvent();
 
     void handleActivityResult(int requestCode, int resultCode, Intent data);
-
-    boolean shouldHandleActivityResultIfInCompactActivity(int requestCode);
-
-    boolean shouldHandlePermissionsResultIfInCompactActivity(int requestCode);
 
     void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action);
 

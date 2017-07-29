@@ -115,6 +115,11 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
     }
 
     @Override
+    public final boolean requestCommonPermissionsBySelf(int requestCode) {
+        return true;
+    }
+
+    @Override
     public final RouterType getRouterType() {
         return RouterType.ACTIVITY;
     }
@@ -127,6 +132,11 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
     @Override
     protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
         mRootPresenter.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public final boolean startActivityForResultBySelf(int requestCode) {
+        return true;
     }
 
     @Override

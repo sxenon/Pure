@@ -139,6 +139,11 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
     }
 
     @Override
+    public final boolean requestCommonPermissionsBySelf(int requestCode) {
+        return true;
+    }
+
+    @Override
     public final RouterType getRouterType() {
         return RouterType.SUPPORT_FRAGMENT;
     }
@@ -151,6 +156,11 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
     @Override
     public final void onActivityResult(int requestCode, int resultCode, Intent data) {
         mRootPresenter.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public final boolean startActivityForResultBySelf(int requestCode) {
+        return true;
     }
 
     public final boolean onBackPressed() {
