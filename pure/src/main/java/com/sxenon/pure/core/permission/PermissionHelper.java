@@ -108,6 +108,8 @@ public class PermissionHelper {
             permissionCallback.onPermissionPermanentlyDeclined(what, permissions);
             return;
         }
+
+        setPermissionEvent(what, action, forceAccepting);
         if (!permissionCallback.shouldExplainPermissionBeforeRequest(what, permissionsNeedArray)) {
             router.requestPermissionsCompact(permissionsNeedArray, what, action, forceAccepting);
         }
