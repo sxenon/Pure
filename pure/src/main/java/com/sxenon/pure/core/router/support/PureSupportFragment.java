@@ -150,7 +150,7 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
 
     @Override
     public final void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mRootPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        mRootPresenter.onRequestCommonPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override

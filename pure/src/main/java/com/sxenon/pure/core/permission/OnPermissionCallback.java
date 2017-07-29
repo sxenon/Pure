@@ -26,7 +26,7 @@ public interface OnPermissionCallback {
 
     void onPermissionDeclined(int requestCode, @NonNull String[] permissions);
 
-    void onPermissionReallyDeclined(int requestCode, @NonNull String[] permissions);
+    void onPermissionPermanentlyDeclined(int requestCode, @NonNull String[] permissions);
 
     boolean shouldExplainPermissionBeforeRequest(int requestCode, String[] permissions);
 

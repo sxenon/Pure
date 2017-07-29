@@ -122,7 +122,7 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
 
     @Override
     public final void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(!mRootPresenter.onRequestPermissionsResult(requestCode,permissions, grantResults)){
+        if(!mRootPresenter.onRequestCommonPermissionsResult(requestCode,permissions, grantResults)){
             //deliver to v4.fragment
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }

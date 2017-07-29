@@ -50,14 +50,14 @@ public class PermissionHelper {
         this.permissionCallback = permissionCallback;
     }
 
-    public void onRequestPermissionsResult(@NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestCommonPermissionsResult(@NonNull String[] permissions, @NonNull int[] grantResults) {
         if (verifyPermissions(grantResults)) {
             permissionCallback.onPermissionGranted((Action0) permissionEvent.obj);
         } else {
             String[] declinedPermissions = PermissionCompat.getDeclinedPermissionArray(router, permissions);
             List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(router, declinedPermissions);
             if (!permissionPermanentlyDeniedList.isEmpty()) {
-                permissionCallback.onPermissionReallyDeclined(permissionEvent.what, (String[]) permissionPermanentlyDeniedList.toArray());
+                permissionCallback.onPermissionPermanentlyDeclined(permissionEvent.what, (String[]) permissionPermanentlyDeniedList.toArray());
             } else {
                 Bundle data = permissionEvent.data;
                 if (data != null && data.getBoolean(KEY_FORCE_ACCEPTING, false)) {
@@ -97,7 +97,7 @@ public class PermissionHelper {
         String[] permissionsNeedArray = (String[]) permissionsNeeded.toArray();
         List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(router, permissionsNeedArray);
         if (!permissionPermanentlyDeniedList.isEmpty()) {
-            permissionCallback.onPermissionReallyDeclined(what, permissions);
+            permissionCallback.onPermissionPermanentlyDeclined(what, permissions);
             return;
         }
         if (!permissionCallback.shouldExplainPermissionBeforeRequest(what, permissionsNeedArray)) {

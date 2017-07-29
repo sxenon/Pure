@@ -161,9 +161,9 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
      *
      * @return Handle the result by self or deliver to its fragment,if the router type is COMPACT_ACTIVITY.
      */
-    public final boolean onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public final boolean onRequestCommonPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (getRouter().requestCommonPermissionsBySelf(requestCode)) {
-            permissionHelper.onRequestPermissionsResult(permissions, grantResults);
+            permissionHelper.onRequestCommonPermissionsResult(permissions, grantResults);
             return true;
         }
         return false;
@@ -224,7 +224,7 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     }
 
     @Override
-    public void onPermissionReallyDeclined(int requestCode, @NonNull String[] permissions) {
+    public void onPermissionPermanentlyDeclined(int requestCode, @NonNull String[] permissions) {
 
     }
 
