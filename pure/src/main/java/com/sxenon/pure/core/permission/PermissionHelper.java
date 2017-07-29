@@ -21,13 +21,13 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.global.IntentManager;
 
-import java.util.Arrays;
 import java.util.List;
 
 import rx.functions.Action0;
@@ -43,16 +43,11 @@ public class PermissionHelper {
     private final OnPermissionCallback permissionCallback;
     @NonNull
     private final IRouter router;
-    private boolean forceAccepting;
+    private final String KEY_FORCE_ACCEPTING = "forceAccepting";
 
-    private PermissionHelper(@NonNull IRouter router, @NonNull OnPermissionCallback permissionCallback) {
+    public PermissionHelper(@NonNull IRouter router, @NonNull OnPermissionCallback permissionCallback) {
         this.router = router;
         this.permissionCallback = permissionCallback;
-    }
-
-    @NonNull
-    public static PermissionHelper getInstance(@NonNull IRouter router, @NonNull OnPermissionCallback permissionCallback) {
-        return new PermissionHelper(router, permissionCallback);
     }
 
     public void onRequestPermissionsResult(@NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -64,7 +59,8 @@ public class PermissionHelper {
             if (!permissionPermanentlyDeniedList.isEmpty()) {
                 permissionCallback.onPermissionReallyDeclined(permissionEvent.what, (String[]) permissionPermanentlyDeniedList.toArray());
             } else {
-                if (forceAccepting) {
+                Bundle data = permissionEvent.data;
+                if (data != null && data.getBoolean(KEY_FORCE_ACCEPTING, false)) {
                     if (!permissionCallback.shouldExplainPermissionBeforeRequest(permissionEvent.what, declinedPermissions)) {
                         router.requestPermissionsCompact(permissions, permissionEvent.what);
                     }
@@ -86,16 +82,7 @@ public class PermissionHelper {
         }
     }
 
-    /**
-     * force the user to accept the permission. it won't work if the user ever thick-ed the "don't show again"
-     */
-    @NonNull
-    public PermissionHelper setForceAccepting(boolean forceAccepting) {
-        this.forceAccepting = forceAccepting;
-        return this;
-    }
-
-    public void requestCommonPermissions(@NonNull String[] permissions, int what, Action0 action) {
+    public void requestCommonPermissions(@NonNull String[] permissions, int what, Action0 action, boolean forceAccepting) {
         List<String> permissionsNeeded = PermissionCompat.getDeclinedPermissionList(router, permissions);
         if (permissionsNeeded.isEmpty()) {
             action.call();
@@ -104,6 +91,8 @@ public class PermissionHelper {
         Event event = new Event();
         event.what = what;
         event.obj = action;
+        event.data = new Bundle();
+        event.data.putBoolean(KEY_FORCE_ACCEPTING, forceAccepting);
         permissionEvent = event;
         String[] permissionsNeedArray = (String[]) permissionsNeeded.toArray();
         List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(router, permissionsNeedArray);

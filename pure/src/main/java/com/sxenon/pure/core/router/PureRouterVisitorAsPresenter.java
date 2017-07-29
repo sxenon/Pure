@@ -74,7 +74,7 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
 
     public PureRouterVisitorAsPresenter(R router) {
         super(router);
-        permissionHelper = PermissionHelper.getInstance(router, this);
+        permissionHelper = new PermissionHelper(router, this);
     }
 
     //LifecycleProvider start
@@ -192,11 +192,11 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     }
 
     @Override
-    public final void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action) {
+    public final void requestCommonPermissions(@NonNull String[] permissions, int requestCode, Action0 action,boolean forceAccepting) {
         if (Arrays.binarySearch(permissions, Manifest.permission.SYSTEM_ALERT_WINDOW) >= 0) {
             throw new IllegalArgumentException("Please Call requestSystemAlertPermission(int requestCode, Action0 action) for SYSTEM_ALERT_WINDOW!");
         }
-        permissionHelper.requestCommonPermissions(permissions, requestCode, action);
+        permissionHelper.requestCommonPermissions(permissions, requestCode, action,forceAccepting);
     }
 
     @Override
