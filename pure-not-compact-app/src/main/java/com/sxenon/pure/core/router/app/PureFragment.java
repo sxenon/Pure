@@ -146,11 +146,11 @@ public abstract class PureFragment<P extends PureRouterVisitorAsPresenter> exten
 
     @Override
     public final void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mRootPresenter.onRequestCommonPermissionsResult(requestCode, permissions, grantResults);
+        mRootPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
-    public final boolean requestCommonPermissionsBySelf(int requestCode) {
+    public final boolean requestPermissionsBySelf(int requestCode) {
         return true;
     }
 

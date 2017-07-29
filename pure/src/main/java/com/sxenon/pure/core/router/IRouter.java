@@ -55,7 +55,7 @@ public interface IRouter<P extends PureRouterVisitorAsPresenter> extends IView<P
     /**
      * @return Return false if the router is instance of FragmentActivity and its supportFragment request the permission,otherwise true.
      */
-    boolean requestCommonPermissionsBySelf(int requestCode);
+    boolean requestPermissionsBySelf(int requestCode);
 
     boolean shouldShowRequestPermissionRationale(String permission);
 

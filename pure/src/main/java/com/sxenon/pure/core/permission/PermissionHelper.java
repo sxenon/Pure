@@ -50,7 +50,7 @@ public class PermissionHelper {
         this.permissionCallback = permissionCallback;
     }
 
-    public void onRequestCommonPermissionsResult(@NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(@NonNull String[] permissions, @NonNull int[] grantResults) {
         if (verifyPermissions(grantResults)) {
             permissionCallback.onPermissionGranted((Action0) permissionEvent.obj);
         } else {
@@ -59,8 +59,7 @@ public class PermissionHelper {
             if (!permissionPermanentlyDeniedList.isEmpty()) {
                 permissionCallback.onPermissionPermanentlyDeclined(permissionEvent.what, (String[]) permissionPermanentlyDeniedList.toArray());
             } else {
-                Bundle data = permissionEvent.data;
-                if (data != null && data.getBoolean(KEY_FORCE_ACCEPTING, false)) {
+                if (permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false)) {
                     if (!permissionCallback.shouldExplainPermissionBeforeRequest(permissionEvent.what, declinedPermissions)) {
                         router.requestPermissionsCompact(permissions, permissionEvent.what);
                     }
