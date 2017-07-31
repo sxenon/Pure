@@ -93,9 +93,9 @@ public class ActivityHistoryManager {
     /**
      * Keep what should keep,and finish others.
      *
-     * @param what by event
+     * @param finishForWhat by event
      */
-    public void finishBackgroundActivitiesIfNeed(final int what) {
+    public void finishBackgroundActivitiesIfNeed(final int finishForWhat) {
         IActivity currentActivity = getCurrentActivity();
         if (currentActivity == null) {
             Log.w(TAG, "There is no activity in history");
@@ -105,12 +105,12 @@ public class ActivityHistoryManager {
         Iterator<IActivity> iterator = activityStack.iterator();
         while (iterator.hasNext()) {
             IActivity activity = iterator.next();
-            if (!activity.shouldKeepWhenBackground(what)) {
+            if (!activity.shouldKeepWhenInBackground(finishForWhat)) {
                 activity.finish();
                 iterator.remove();
             }
         }
-        Log.i(TAG, "finishBackgroundActivitiesIfNeedSuccess:what=" + what);
+        Log.i(TAG, "finishBackgroundActivitiesIfNeedSuccess:finishForWhat=" + finishForWhat);
     }
 
     public void finishAllActivity() {

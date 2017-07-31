@@ -26,7 +26,13 @@ import android.support.annotation.Nullable;
 
 public interface IActivity<P extends PureRouterVisitorAsPresenter> extends IRouter<P> {
     void initView(@Nullable Bundle savedInstanceState);
-    boolean shouldKeepWhenBackground(int what);
+
+    /**
+     * {@link com.sxenon.pure.core.global.ActivityHistoryManager#finishBackgroundActivitiesIfNeed(int)}
+     * @param finishForWhat finish background activities for what
+     * @return should keep or not
+     */
+    boolean shouldKeepWhenInBackground(int finishForWhat);
     void finish();
     boolean isFinishing();
 }

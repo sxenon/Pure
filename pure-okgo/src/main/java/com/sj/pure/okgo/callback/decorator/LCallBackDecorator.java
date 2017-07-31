@@ -25,7 +25,7 @@ import com.sj.pure.okgo.callback.LCallBack;
 import java.util.List;
 
 /**
- * TODO
+ * LCallBackDecorator
  * Created by Sui on 2017/7/27.
  */
 

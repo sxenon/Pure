@@ -178,7 +178,7 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
     }
 
     @Override
-    public boolean shouldKeepWhenBackground(int what) {
+    public boolean shouldKeepWhenInBackground(int finishForWhat) {
         return true;
     }
 

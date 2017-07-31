@@ -175,7 +175,7 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
     }
 
     @Override
-    public boolean shouldKeepWhenBackground(int what) {
+    public boolean shouldKeepWhenInBackground(int finishForWhat) {
         return true;
     }
 
