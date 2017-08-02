@@ -17,32 +17,13 @@
 package com.sj.pure.okgo.converter;
 
 import com.lzy.okgo.convert.Converter;
-import com.lzy.okgo.convert.StringConvert;
-
-import java.lang.reflect.Type;
-
-import okhttp3.Response;
 
 /**
  * Convert to Bean
+ * You can refer to https://github.com/jeasonlzy/okhttp-OkGo/wiki/JsonCallback
  * Created by Sui on 2017/7/25.
  */
 
 public abstract class BConverter<T> implements Converter<T> {
-    private final Type mType;
 
-    public BConverter(Type type) {
-        mType = type;
-    }
-
-    @Override
-    public T convertResponse(Response response) throws Throwable {
-        String beanString = new StringConvert().convertResponse(response);
-        if (beanString==null){
-            return null;
-        }
-        return string2Bean(beanString, mType);
-    }
-
-    public abstract T string2Bean(String beanString, Type type);
 }

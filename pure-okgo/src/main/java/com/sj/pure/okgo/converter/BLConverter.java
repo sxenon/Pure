@@ -16,33 +16,12 @@
 
 package com.sj.pure.okgo.converter;
 
-import com.lzy.okgo.convert.StringConvert;
-
-import java.lang.reflect.Type;
-import java.util.List;
-
-import okhttp3.Response;
-
 /**
  * Convert to list of bean
+ * You can refer to https://github.com/jeasonlzy/okhttp-OkGo/wiki/JsonCallback
  * Created by Sui on 2017/7/25.
  */
 
 public abstract class BLConverter<T> implements LConverter<T> {
-    private final Type mType;
 
-    public BLConverter(Type type) {
-        mType = type;
-    }
-
-    @Override
-    public List<T> convertResponse(Response response) throws Throwable {
-        String beanListString = new StringConvert().convertResponse(response);
-        if (beanListString == null) {
-            return null;
-        }
-        return string2BeanList(beanListString, mType);
-    }
-
-    public abstract List<T> string2BeanList(String beanListString, Type type);
 }
