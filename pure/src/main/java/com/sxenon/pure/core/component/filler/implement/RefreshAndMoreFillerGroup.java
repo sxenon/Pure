@@ -17,16 +17,11 @@
 package com.sxenon.pure.core.component.filler.implement;
 
 import android.content.Context;
-import android.view.View;
 
-import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.component.filler.FillEventWhat;
 import com.sxenon.pure.core.component.filler.IPullLayout;
 import com.sxenon.pure.core.component.filler.ListDataFillStrategy;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
-import com.sxenon.pure.core.util.CommonUtils;
-import com.sxenon.pure.core.util.Preconditions;
 
 import java.util.List;
 
@@ -146,87 +141,45 @@ public abstract class RefreshAndMoreFillerGroup<R, PL extends IPullLayout> exten
     }
 
     @Override
-    public void onEmpty() {
-        setFillerEventWhat(FillEventWhat.WHAT_EMPTY);
-        CommonUtils.setViewVisibility(getExceptionView(), View.GONE);
-        CommonUtils.setViewVisibility(getEmptyView(), View.VISIBLE);
+    protected void processEmptySingleData() {
+        onEmpty();
     }
 
     @Override
-    public void onSingleDataFetched(R data) {
-        setValue(data);
-        Preconditions.checkNotNull(getSingleDataResultHandler(), "single data but no singleDataResult!");
-        endAllAnim();
-        if (data == null) {
+    protected void processSingleData(R data) {
+        super.processSingleData(data);
+        mCurrentPageCount=tempPageCount=1;
+    }
+
+    @Override
+    protected void processEmptyListData() {
+        if (mCurrentPageCount == 0) {
             onEmpty();
+        } else if (tempPageCount == mCurrentPageCount) {//refreshForAdd
+            onNoNewData();
         } else {
-            setFillerEventWhat(FillEventWhat.WHAT_NORMAL);
-            mCurrentPageCount = tempPageCount = 1;
-            CommonUtils.setViewVisibility(getEmptyView(), View.GONE);
-            CommonUtils.setViewVisibility(getExceptionView(), View.GONE);
-            getSingleDataResultHandler().onSingleDataFetched(data);
+            onNoMoreData();
         }
+        tempPageCount = mCurrentPageCount;
     }
 
     @Override
-    public void onListDataFetched(List<R> data) {
-        setFillerEventWhat(FillEventWhat.WHAT_NORMAL);
-        CommonUtils.setViewVisibility(getEmptyView(), View.GONE);
-        CommonUtils.setViewVisibility(getExceptionView(), View.GONE);
-        Preconditions.checkNotNull(getAdapter(), "list data but no adapter!");
-        endAllAnim();
-        if (data == null || data.isEmpty()) {
+    protected void processListData(List<R> data) {
+        if (mIsRefreshForAdd) {
             if (mCurrentPageCount == 0) {
-                onEmpty();
-            } else if (tempPageCount == mCurrentPageCount) {//refreshForAdd
-                onNoNewData();
+                onInitDataFetched(data);
+            } else if (tempPageCount == mCurrentPageCount) {//refresh
+                onNewDataFetched(data);
             } else {
-                onNoMoreData();
+                onMoreDataFetched(data);
             }
-            tempPageCount = mCurrentPageCount;
         } else {
-            if (mIsRefreshForAdd) {
-                if (mCurrentPageCount == 0) {
-                    onInitDataFetched(data);
-                } else if (tempPageCount == mCurrentPageCount) {//refresh
-                    onNewDataFetched(data);
-                } else {
-                    onMoreDataFetched(data);
-                }
+            if (tempPageCount == 1) {
+                onInitDataFetched(data);
             } else {
-                if (tempPageCount == 1) {
-                    onInitDataFetched(data);
-                } else {
-                    onMoreDataFetched(data);
-                }
+                onMoreDataFetched(data);
             }
-            mCurrentPageCount = tempPageCount;
-        }
-    }
-
-    @Override
-    public void onCancel() {
-        endAllAnim();
-        if (getSingleDataResultHandler() != null) {
-            getSingleDataResultHandler().onCancel();
         }
         mCurrentPageCount = tempPageCount;
     }
-
-    @Override
-    public void onException(ApiException exception) {
-        endAllAnim();
-        setFillerEventWhat(FillEventWhat.WHAT_EXCEPTION);
-        setException(exception);
-        resetPageCount();
-        CommonUtils.setViewVisibility(getEmptyView(), View.GONE);
-        CommonUtils.setViewVisibility(getExceptionView(), View.VISIBLE);
-        if (getSingleDataResultHandler() != null) {
-            getSingleDataResultHandler().onException(exception);
-        }
-    }
-    
-    //Getter start
-
-    //Getter end
 }

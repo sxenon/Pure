@@ -165,6 +165,76 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
     }
     //Event end
 
+    //Implement start
+    @Override
+    public void onSingleDataFetched(R data) {
+        setValue(data);
+        Preconditions.checkNotNull(getSingleDataResultHandler(), "single data but no singleDataResult!");
+        endAllAnim();
+        if (data == null) {
+            processEmptySingleData();
+        } else {
+            processSingleData(data);
+        }
+    }
+
+    protected abstract void processListData(List<R> data);
+
+    protected void processSingleData(R data) {
+        setFillerEventWhat(FillEventWhat.WHAT_NORMAL);
+        CommonUtils.setViewVisibility(getEmptyView(), View.GONE);
+        CommonUtils.setViewVisibility(getExceptionView(), View.GONE);
+        getSingleDataResultHandler().onSingleDataFetched(data);
+    }
+
+    protected abstract void processEmptySingleData();
+
+    protected abstract void processEmptyListData();
+
+    @Override
+    public void onListDataFetched(List<R> data) {
+        setFillerEventWhat(FillEventWhat.WHAT_NORMAL);
+        CommonUtils.setViewVisibility(getEmptyView(), View.GONE);
+        CommonUtils.setViewVisibility(getExceptionView(), View.GONE);
+        Preconditions.checkNotNull(getAdapter(), "list data but no adapter!");
+        endAllAnim();
+        if (data == null || data.isEmpty()) {
+            processEmptyListData();
+        } else {
+            processListData(data);
+        }
+    }
+
+    @Override
+    public void onCancel() {
+        endAllAnim();
+        if (getSingleDataResultHandler() != null) {
+            getSingleDataResultHandler().onCancel();
+        }
+        mCurrentPageCount = tempPageCount;
+    }
+
+    @Override
+    public void onException(ApiException exception) {
+        endAllAnim();
+        setFillerEventWhat(FillEventWhat.WHAT_EXCEPTION);
+        setException(exception);
+        resetPageCount();
+        CommonUtils.setViewVisibility(getEmptyView(), View.GONE);
+        CommonUtils.setViewVisibility(getExceptionView(), View.VISIBLE);
+        if (getSingleDataResultHandler() != null) {
+            getSingleDataResultHandler().onException(exception);
+        }
+    }
+
+    @Override
+    public void onEmpty() {
+        setFillerEventWhat(FillEventWhat.WHAT_EMPTY);
+        CommonUtils.setViewVisibility(getExceptionView(), View.GONE);
+        CommonUtils.setViewVisibility(getEmptyView(), View.VISIBLE);
+    }
+    //Implement end
+
     //Getter start
     public View getExceptionView() {
         return mExceptionView;

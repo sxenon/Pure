@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,41 +19,40 @@ package com.sxenon.pure.core.component.filler.implement;
 import android.content.Context;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
+import com.sxenon.pure.core.component.filler.IPullLayout;
 import com.sxenon.pure.core.component.filler.ListDataFillStrategy;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
 import java.util.List;
 
 /**
- * UnSupport pull!
- * Created by Sui on 2016/12/12.
+ * FillerGroup for PrevAndNext
+ * Created by Sui on 2017/8/4.
  */
 
-public class NonPullFillerGroup<R> extends BaseFillerGroup<R, NonPullLayout> {
-    public NonPullFillerGroup(Context context, IFetchSingleResultHandler<R> singleDataResult) {
-        super(context, new NonPullLayout(), null, singleDataResult, null);
-    }
+public class PrevAndNextFillerGroup<R, PL extends IPullLayout> extends BaseFillerGroup<R,PL> {
 
-    public NonPullFillerGroup(Context context, IPureAdapter<R> adapter) {
-        this(context, adapter, new DefaultListDataFillStrategy<R>());
-    }
-
-    public NonPullFillerGroup(Context context, IPureAdapter<R> adapter, ListDataFillStrategy<R> listDataFillStrategy) {
-        super(context, new NonPullLayout(), adapter, null, listDataFillStrategy);
+    protected PrevAndNextFillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResultHandler, ListDataFillStrategy<R> listDataFillStrategy) {
+        super(context, pullLayout, adapter, singleDataResultHandler, listDataFillStrategy);
     }
 
     @Override
     protected void processListData(List<R> data) {
-        getListDataFillStrategy().onInitDataFetched(getAdapter(), data);
+
+    }
+
+    @Override
+    protected void processSingleData(R data) {
+        super.processSingleData(data);
     }
 
     @Override
     protected void processEmptySingleData() {
-        onEmpty();
+
     }
 
     @Override
     protected void processEmptyListData() {
-        onEmpty();
+
     }
 }
