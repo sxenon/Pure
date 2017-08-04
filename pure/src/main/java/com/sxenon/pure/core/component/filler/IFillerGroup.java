@@ -16,28 +16,15 @@
 
 package com.sxenon.pure.core.component.filler;
 
-import com.sxenon.pure.core.adapter.IPureAdapter;
-
-import java.util.List;
+import com.sxenon.pure.core.component.IViewComponentGroup;
+import com.sxenon.pure.core.result.IFetchListResultHandler;
+import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
 /**
- * Default Strategy for ListDataFill
- * Created by Sui on 2017/1/12.
+ * Interface for FillerGroup
+ * Created by Sui on 2017/8/4.
  */
 
-public class DefaultListDataFillStrategy<R> implements ListDataFillStrategy<R> {
-    @Override
-    public void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        adapter.addItemsFromEnd(data);
-    }
-
-    @Override
-    public void onNewDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        adapter.addItemsFromStart(data);
-    }
-
-    @Override
-    public void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        adapter.resetAllItems(data);
-    }
+public interface IFillerGroup<R> extends IFetchSingleResultHandler<R>, IFetchListResultHandler<R>,IViewComponentGroup {
+    void onEmpty();
 }

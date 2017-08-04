@@ -21,7 +21,7 @@ import android.content.Context;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.component.filler.FillerGroup;
+import com.sxenon.pure.core.component.filler.implement.RefreshAndMoreFillerGroup;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
 /**
@@ -29,16 +29,16 @@ import com.sxenon.pure.core.result.IFetchSingleResultHandler;
  * Created by Sui on 2016/12/27.
  */
 
-public class TwinkingFillerGroup<R> extends FillerGroup<R, TwinklingPullLayout> {
-    public TwinkingFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult) {
+public class TwinkingRefreshAndMoreFillerGroup<R> extends RefreshAndMoreFillerGroup<R, TwinklingPullLayout> {
+    public TwinkingRefreshAndMoreFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult) {
         super(context, new TwinklingPullLayout(refreshLayout), singleDataResult);
     }
 
-    public TwinkingFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IPureAdapter<R> adapter) {
+    public TwinkingRefreshAndMoreFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IPureAdapter<R> adapter) {
         super(context, new TwinklingPullLayout(refreshLayout), adapter);
     }
 
-    public TwinkingFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IPureAdapter<R> adapter, boolean isFreshForAdd) {
+    public TwinkingRefreshAndMoreFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IPureAdapter<R> adapter, boolean isFreshForAdd) {
         super(context, new TwinklingPullLayout(refreshLayout), adapter, isFreshForAdd);
     }
 

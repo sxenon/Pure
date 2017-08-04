@@ -20,7 +20,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.component.filler.FillerGroup;
+import com.sxenon.pure.core.component.filler.implement.RefreshAndMoreFillerGroup;
 import com.sxenon.pure.core.component.filler.ListDataFillStrategy;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
@@ -35,59 +35,59 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by Sui on 2016/12/27.
  */
 
-public class BGAFillerGroup<R> extends FillerGroup<R, BGAPullLayout> {
+public class BGARefreshAndMoreFillerGroup<R> extends RefreshAndMoreFillerGroup<R, BGAPullLayout> {
     private CustomLister<R> mCustomLister;
-    private static final String TAG="BGAFillerGroup";
+    private static final String TAG="FillerGroup";
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult) {
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult) {
         super(context, new BGAPullLayout(refreshLayout), singleDataResult);
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, IPureAdapter<R> adapter) {
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, IPureAdapter<R> adapter) {
         super(context, new BGAPullLayout(refreshLayout), adapter);
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, IPureAdapter<R> adapter, boolean isFreshForAdd) {
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, IPureAdapter<R> adapter, boolean isFreshForAdd) {
         super(context, new BGAPullLayout(refreshLayout), adapter, isFreshForAdd);
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, IPureAdapter<R> adapter, ListDataFillStrategy<R> listDataFillStrategy){
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, IPureAdapter<R> adapter, ListDataFillStrategy<R> listDataFillStrategy){
         super(context, new BGAPullLayout(refreshLayout), adapter, listDataFillStrategy);
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, IPureAdapter<R> adapter, boolean isFreshForAdd, ListDataFillStrategy<R> listDataFillStrategy){
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, IPureAdapter<R> adapter, boolean isFreshForAdd, ListDataFillStrategy<R> listDataFillStrategy){
         super(context, new BGAPullLayout(refreshLayout), adapter, isFreshForAdd,listDataFillStrategy);
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter) {
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter) {
         super(context, new BGAPullLayout(refreshLayout), new BGAAdapterViewPureAdapter<>(adapter));
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter, boolean isFreshForAdd) {
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter, boolean isFreshForAdd) {
         super(context, new BGAPullLayout(refreshLayout), new BGAAdapterViewPureAdapter<>(adapter), isFreshForAdd);
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter, ListDataFillStrategy<R> listDataFillStrategy) {
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter, ListDataFillStrategy<R> listDataFillStrategy) {
         super(context, new BGAPullLayout(refreshLayout), new BGAAdapterViewPureAdapter<>(adapter), listDataFillStrategy);
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter, boolean isFreshForAdd, ListDataFillStrategy<R> listDataFillStrategy) {
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter, boolean isFreshForAdd, ListDataFillStrategy<R> listDataFillStrategy) {
         super(context, new BGAPullLayout(refreshLayout), new BGAAdapterViewPureAdapter<>(adapter), isFreshForAdd, listDataFillStrategy);
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter) {
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter) {
         super(context, new BGAPullLayout(refreshLayout), new BGARecyclerViewPureAdapter<>(adapter));
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter, boolean isFreshForAdd) {
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter, boolean isFreshForAdd) {
         super(context, new BGAPullLayout(refreshLayout), new BGARecyclerViewPureAdapter<>(adapter), isFreshForAdd);
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter, ListDataFillStrategy<R> listDataFillStrategy) {
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter, ListDataFillStrategy<R> listDataFillStrategy) {
         super(context, new BGAPullLayout(refreshLayout), new BGARecyclerViewPureAdapter<>(adapter), listDataFillStrategy);
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter, boolean isFreshForAdd, ListDataFillStrategy<R> listDataFillStrategy) {
+    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter, boolean isFreshForAdd, ListDataFillStrategy<R> listDataFillStrategy) {
         super(context, new BGAPullLayout(refreshLayout), new BGARecyclerViewPureAdapter<>(adapter), isFreshForAdd, listDataFillStrategy);
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,39 +14,16 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.filler.non;
-
-import com.sxenon.pure.core.component.filler.IPullLayout;
+package com.sxenon.pure.core.component.filler;
 
 /**
- * Empty implement for IPullLayout
- * Created by Sui on 2016/12/27.
+ * Event what for filler
+ * Created by Sui on 2017/8/4.
  */
 
-public class NonPullLayout implements IPullLayout {
-
-    @Override
-    public void beginPullingDown() {
-
-    }
-
-    @Override
-    public void beginPullingUp() {
-
-    }
-
-    @Override
-    public void endPullingUp() {
-
-    }
-
-    @Override
-    public void endPullingDown() {
-
-    }
-
-    @Override
-    public void setVisibility(int visibility) {
-
-    }
+public class FillEventWhat {
+    public static final int WHAT_UNINITIALIZED = 1;
+    public static final int WHAT_NORMAL = 2;
+    public static final int WHAT_EMPTY = 3;
+    public static final int WHAT_EXCEPTION = 4;
 }
