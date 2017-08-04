@@ -96,16 +96,16 @@ public abstract class RefreshAndMoreFillerGroup<R, PL extends IPullLayout> exten
      * For subclass call,see demo
      */
     protected final void onBeginPullingDown() {
-        if (mCurrentPageCount == 0) {
+        if (mCurrentPage == -1) {
             beforeInitializing();
         } else {
             beforePullingDown();
         }
         if (getAdapter()!=null){
             if (!mIsRefreshForAdd) {
-                tempPageCount = 1;
+                mTempPage = 0;
             } else {
-                tempPageCount = mCurrentPageCount;
+                mTempPage = mCurrentPage;
             }
         }
     }
@@ -116,7 +116,7 @@ public abstract class RefreshAndMoreFillerGroup<R, PL extends IPullLayout> exten
     protected final void onBeginPullingUp() {
         beforePullingUp();
         if (getAdapter()!=null){
-            tempPageCount = mCurrentPageCount + 1;
+            mTempPage = mCurrentPage + 1;
         }
     }
 
@@ -148,38 +148,38 @@ public abstract class RefreshAndMoreFillerGroup<R, PL extends IPullLayout> exten
     @Override
     protected void processSingleData(R data) {
         super.processSingleData(data);
-        mCurrentPageCount=tempPageCount=1;
+        mCurrentPage = mTempPage = 0;
     }
 
     @Override
     protected void processEmptyListData() {
-        if (mCurrentPageCount == 0) {
+        if (mCurrentPage == -1) {
             onEmpty();
-        } else if (tempPageCount == mCurrentPageCount) {//refreshForAdd
+        } else if (mTempPage == mCurrentPage) {//refreshForAdd
             onNoNewData();
         } else {
             onNoMoreData();
         }
-        tempPageCount = mCurrentPageCount;
+        mTempPage = mCurrentPage;
     }
 
     @Override
     protected void processListData(List<R> data) {
         if (mIsRefreshForAdd) {
-            if (mCurrentPageCount == 0) {
+            if (mCurrentPage == -1) {
                 onInitDataFetched(data);
-            } else if (tempPageCount == mCurrentPageCount) {//refresh
+            } else if (mTempPage == mCurrentPage) {//refresh
                 onNewDataFetched(data);
             } else {
                 onMoreDataFetched(data);
             }
         } else {
-            if (tempPageCount == 1) {
+            if (mTempPage == 0) {
                 onInitDataFetched(data);
             } else {
                 onMoreDataFetched(data);
             }
         }
-        mCurrentPageCount = tempPageCount;
+        mCurrentPage = mTempPage;
     }
 }

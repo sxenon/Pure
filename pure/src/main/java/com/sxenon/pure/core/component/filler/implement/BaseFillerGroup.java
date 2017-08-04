@@ -40,8 +40,8 @@ import java.util.List;
  */
 
 public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFillerGroup<R> {
-    protected int mCurrentPageCount;
-    protected int tempPageCount;
+    protected int mCurrentPage = -1;
+    protected int mTempPage = -1;
 
     private final IPureAdapter<R> mAdapter;
     private final IFetchSingleResultHandler<R> mSingleDataResultHandler;
@@ -113,14 +113,14 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
         if (getAdapter() != null) {
             getAdapter().clearAllItems();
         }
-        mCurrentPageCount = tempPageCount = 0;
+        mCurrentPage = mTempPage = -1;
     }
 
     //Event start
     public Event getCurrentEvent() {
         Event event = new Event();
         event.what = mEventWhat;
-        event.arg1 = mCurrentPageCount;
+        event.arg1 = mCurrentPage;
 
         if (event.what == FillEventWhat.WHAT_EXCEPTION) {
             event.obj = mException;
@@ -139,7 +139,7 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
             toInitialize();
             return;
         }
-        mCurrentPageCount = tempPageCount = savedEvent.arg1;
+        mCurrentPage = mTempPage = savedEvent.arg1;
         mEventWhat=savedEvent.what;
         Object object = savedEvent.obj;
         switch (savedEvent.what) {
@@ -169,7 +169,7 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
     @Override
     public void onSingleDataFetched(R data) {
         setValue(data);
-        Preconditions.checkNotNull(getSingleDataResultHandler(), "single data but no singleDataResult!");
+        Preconditions.checkNotNull(mSingleDataResultHandler, "single data but no singleDataResult!");
         endAllAnim();
         if (data == null) {
             processEmptySingleData();
@@ -181,10 +181,10 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
     protected abstract void processListData(List<R> data);
 
     protected void processSingleData(R data) {
-        setFillerEventWhat(FillEventWhat.WHAT_NORMAL);
-        CommonUtils.setViewVisibility(getEmptyView(), View.GONE);
-        CommonUtils.setViewVisibility(getExceptionView(), View.GONE);
-        getSingleDataResultHandler().onSingleDataFetched(data);
+        mEventWhat=FillEventWhat.WHAT_NORMAL;
+        CommonUtils.setViewVisibility(mEmptyView, View.GONE);
+        CommonUtils.setViewVisibility(mExceptionView, View.GONE);
+        mSingleDataResultHandler.onSingleDataFetched(data);
     }
 
     protected abstract void processEmptySingleData();
@@ -193,10 +193,10 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
 
     @Override
     public void onListDataFetched(List<R> data) {
-        setFillerEventWhat(FillEventWhat.WHAT_NORMAL);
-        CommonUtils.setViewVisibility(getEmptyView(), View.GONE);
-        CommonUtils.setViewVisibility(getExceptionView(), View.GONE);
-        Preconditions.checkNotNull(getAdapter(), "list data but no adapter!");
+        mEventWhat=FillEventWhat.WHAT_NORMAL;
+        CommonUtils.setViewVisibility(mEmptyView, View.GONE);
+        CommonUtils.setViewVisibility(mExceptionView, View.GONE);
+        Preconditions.checkNotNull(mAdapter, "list data but no adapter!");
         endAllAnim();
         if (data == null || data.isEmpty()) {
             processEmptyListData();
@@ -208,30 +208,31 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
     @Override
     public void onCancel() {
         endAllAnim();
-        if (getSingleDataResultHandler() != null) {
-            getSingleDataResultHandler().onCancel();
+        if (mSingleDataResultHandler != null) {
+            mSingleDataResultHandler.onCancel();
         }
-        mCurrentPageCount = tempPageCount;
+        mCurrentPage = mTempPage;
     }
 
     @Override
     public void onException(ApiException exception) {
         endAllAnim();
-        setFillerEventWhat(FillEventWhat.WHAT_EXCEPTION);
-        setException(exception);
+        mEventWhat=FillEventWhat.WHAT_EXCEPTION;
+        mException=exception;
         resetPageCount();
-        CommonUtils.setViewVisibility(getEmptyView(), View.GONE);
-        CommonUtils.setViewVisibility(getExceptionView(), View.VISIBLE);
-        if (getSingleDataResultHandler() != null) {
-            getSingleDataResultHandler().onException(exception);
+        CommonUtils.setViewVisibility(mEmptyView, View.GONE);
+        CommonUtils.setViewVisibility(mExceptionView, View.VISIBLE);
+        if (mSingleDataResultHandler != null) {
+            mSingleDataResultHandler.onException(exception);
         }
     }
 
     @Override
     public void onEmpty() {
-        setFillerEventWhat(FillEventWhat.WHAT_EMPTY);
-        CommonUtils.setViewVisibility(getExceptionView(), View.GONE);
-        CommonUtils.setViewVisibility(getEmptyView(), View.VISIBLE);
+        mEventWhat=FillEventWhat.WHAT_EMPTY;
+        mCurrentPage = mTempPage = -1;
+        CommonUtils.setViewVisibility(mExceptionView, View.GONE);
+        CommonUtils.setViewVisibility(mEmptyView, View.VISIBLE);
     }
     //Implement end
 
@@ -296,7 +297,7 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
     }
 
     public int getCurrentPageCount() {
-        return mCurrentPageCount;
+        return mCurrentPage;
     }
     //Setter end
 }
