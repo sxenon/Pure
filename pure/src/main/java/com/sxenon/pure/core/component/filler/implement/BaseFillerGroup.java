@@ -76,7 +76,7 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
         this(context, pullLayout, adapter, null, fillPageStrategy);
     }
 
-    protected BaseFillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResultHandler, FillPageStrategy<R> fillPageStrategy){
+    private BaseFillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResultHandler, FillPageStrategy<R> fillPageStrategy){
         mPullLayout=pullLayout;
         mAdapter=adapter;
         mSingleDataResultHandler=singleDataResultHandler;

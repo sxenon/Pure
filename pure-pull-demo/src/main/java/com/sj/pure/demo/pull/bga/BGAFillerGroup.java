@@ -31,14 +31,15 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by Sui on 2016/12/27.
  */
 
-public class BGARefreshAndMoreFillerGroup<R> extends BaseFillerGroup<R, BGAPullLayout> {
+public class BGAFillerGroup<R> extends BaseFillerGroup<R, BGAPullLayout> {
     private static final String TAG="FillerGroup";
+    private CustomListener mCustomerListener;
 
-    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult, FillPageStrategy<R> fillPageStrategy) {
+    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult, FillPageStrategy<R> fillPageStrategy) {
         super(context, new BGAPullLayout(refreshLayout), singleDataResult,fillPageStrategy);
     }
 
-    public BGARefreshAndMoreFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy) {
+    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy) {
         super(context, new BGAPullLayout(refreshLayout), new BGARecyclerViewPureAdapter<>(adapter), fillPageStrategy);
     }
 
@@ -61,4 +62,38 @@ public class BGARefreshAndMoreFillerGroup<R> extends BaseFillerGroup<R, BGAPullL
         });
     }
 
+    public void setCustomerListener(CustomListener customerListener){
+        mCustomerListener=customerListener;
+    }
+
+    @Override
+    public void onEmpty() {
+        super.onEmpty();
+        commonOnEmpty();
+        if (mCustomerListener!=null){
+            mCustomerListener.onEmpty();
+        }
+    }
+
+    @Override
+    public void onCancel() {
+        super.onCancel();
+        commonOnCancel();
+        if (mCustomerListener!=null){
+            mCustomerListener.onCancel();
+        }
+    }
+
+    private void commonOnCancel(){
+        Log.i(TAG,"commonOnCancel");
+    }
+
+    private void commonOnEmpty(){
+        Log.i(TAG,"commonOnEmpty");
+    }
+
+    public interface CustomListener{
+        void onEmpty();
+        void onCancel();
+    }
 }
