@@ -18,11 +18,9 @@ package com.sxenon.pure.core.util;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.View;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Utils for root library

@@ -25,9 +25,9 @@ import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.component.filler.FillEventWhat;
+import com.sxenon.pure.core.component.filler.FillPageStrategy;
 import com.sxenon.pure.core.component.filler.IFillerGroup;
 import com.sxenon.pure.core.component.filler.IPullLayout;
-import com.sxenon.pure.core.component.filler.ListDataFillStrategy;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 import com.sxenon.pure.core.util.CommonUtils;
 import com.sxenon.pure.core.util.Preconditions;
@@ -40,12 +40,11 @@ import java.util.List;
  */
 
 public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFillerGroup<R> {
-    protected int mCurrentPage = -1;
-    protected int mTempPage = -1;
+    private final FillPageStrategy.PageInfo mPageInfo=new FillPageStrategy.PageInfo(-1,-1);
 
     private final IPureAdapter<R> mAdapter;
     private final IFetchSingleResultHandler<R> mSingleDataResultHandler;
-    private final ListDataFillStrategy<R> mListDataFillStrategy;
+    private final FillPageStrategy<R> mFillPageStrategy;
     private final PL mPullLayout;
     private final Context mContext;
 
@@ -56,11 +55,32 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
     private View mEmptyView;
     private View mExceptionView;
 
-    protected BaseFillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResultHandler, ListDataFillStrategy<R> listDataFillStrategy){
+    /**
+     * Constructor
+     *
+     * @param pullLayout              刷新容器
+     * @param singleDataResultHandler 单一数据的Handler
+     */
+    public BaseFillerGroup(Context context, PL pullLayout, IFetchSingleResultHandler<R> singleDataResultHandler,FillPageStrategy<R> fillPageStrategy) {
+        this(context, pullLayout, null, singleDataResultHandler, fillPageStrategy);
+    }
+
+    /**
+     * Constructor
+     *
+     * @param pullLayout        刷新容器
+     * @param adapter           列表控件相关的adapter
+     * @param fillPageStrategy  分页数据填充策略
+     */
+    public BaseFillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter,FillPageStrategy<R> fillPageStrategy) {
+        this(context, pullLayout, adapter, null, fillPageStrategy);
+    }
+
+    protected BaseFillerGroup(Context context, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResultHandler, FillPageStrategy<R> fillPageStrategy){
         mPullLayout=pullLayout;
         mAdapter=adapter;
         mSingleDataResultHandler=singleDataResultHandler;
-        mListDataFillStrategy=listDataFillStrategy;
+        mFillPageStrategy = fillPageStrategy;
         mContext=context;
     }
 
@@ -77,19 +97,23 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
         mPullLayout.endPullingDown();
     }
 
-    //before start
-    protected void beforeInitializing() {
-
+    /**
+     * For subclass call,see demo
+     */
+    protected final void onBeginPullingDown() {
+        if (FillEventWhat.WHAT_UNINITIALIZED==mEventWhat) {
+            mFillPageStrategy.onInitialize(this,mPageInfo);
+        } else {
+            mFillPageStrategy.onPullDown(this,mPageInfo);
+        }
     }
 
-    protected void beforePullingDown() {
-
+    /**
+     * For subclass call,see demo
+     */
+    protected final void onBeginPullingUp() {
+        mFillPageStrategy.onPullUp(this,mPageInfo);
     }
-
-    protected void beforePullingUp() {
-
-    }
-    //before end
 
     protected void toInitialize() {
         Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
@@ -109,18 +133,11 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
         mPullLayout.beginPullingUp();
     }
 
-    public void resetPageCount() {
-        if (getAdapter() != null) {
-            getAdapter().clearAllItems();
-        }
-        mCurrentPage = mTempPage = -1;
-    }
-
     //Event start
     public Event getCurrentEvent() {
         Event event = new Event();
         event.what = mEventWhat;
-        event.arg1 = mCurrentPage;
+        event.arg1 = mPageInfo.currentPage;
 
         if (event.what == FillEventWhat.WHAT_EXCEPTION) {
             event.obj = mException;
@@ -139,7 +156,7 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
             toInitialize();
             return;
         }
-        mCurrentPage = mTempPage = savedEvent.arg1;
+        mPageInfo.currentPage = mPageInfo.tempPage = savedEvent.arg1;
         mEventWhat=savedEvent.what;
         Object object = savedEvent.obj;
         switch (savedEvent.what) {
@@ -172,24 +189,14 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
         Preconditions.checkNotNull(mSingleDataResultHandler, "single data but no singleDataResult!");
         endAllAnim();
         if (data == null) {
-            processEmptySingleData();
+            mFillPageStrategy.onSingleDataEmpty(this,mPageInfo);
         } else {
-            processSingleData(data);
+            mEventWhat=FillEventWhat.WHAT_NORMAL;
+            CommonUtils.setViewVisibility(mEmptyView, View.GONE);
+            CommonUtils.setViewVisibility(mExceptionView, View.GONE);
+            mFillPageStrategy.processSingleData(this,data,mSingleDataResultHandler,mPageInfo);
         }
     }
-
-    protected abstract void processListData(List<R> data);
-
-    protected void processSingleData(R data) {
-        mEventWhat=FillEventWhat.WHAT_NORMAL;
-        CommonUtils.setViewVisibility(mEmptyView, View.GONE);
-        CommonUtils.setViewVisibility(mExceptionView, View.GONE);
-        mSingleDataResultHandler.onSingleDataFetched(data);
-    }
-
-    protected abstract void processEmptySingleData();
-
-    protected abstract void processEmptyListData();
 
     @Override
     public void onListDataFetched(List<R> data) {
@@ -199,9 +206,9 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
         Preconditions.checkNotNull(mAdapter, "list data but no adapter!");
         endAllAnim();
         if (data == null || data.isEmpty()) {
-            processEmptyListData();
+            mFillPageStrategy.onListDataEmpty(this,mPageInfo);
         } else {
-            processListData(data);
+            mFillPageStrategy.processListData(this,data,mAdapter,mPageInfo);
         }
     }
 
@@ -211,7 +218,7 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
         if (mSingleDataResultHandler != null) {
             mSingleDataResultHandler.onCancel();
         }
-        mCurrentPage = mTempPage;
+        mPageInfo.currentPage = mPageInfo.tempPage;
     }
 
     @Override
@@ -219,18 +226,15 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
         endAllAnim();
         mEventWhat=FillEventWhat.WHAT_EXCEPTION;
         mException=exception;
-        resetPageCount();
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.VISIBLE);
-        if (mSingleDataResultHandler != null) {
-            mSingleDataResultHandler.onException(exception);
-        }
+        mFillPageStrategy.onException(this,exception,mAdapter,mSingleDataResultHandler,mPageInfo);
     }
 
     @Override
     public void onEmpty() {
         mEventWhat=FillEventWhat.WHAT_EMPTY;
-        mCurrentPage = mTempPage = -1;
+        mPageInfo.currentPage = mPageInfo.tempPage = -1;
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
         CommonUtils.setViewVisibility(mEmptyView, View.VISIBLE);
     }
@@ -278,9 +282,6 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
         return Preconditions.checkNotNull(mAdapter, "").getValues();
     }
 
-    public ListDataFillStrategy<R> getListDataFillStrategy(){
-        return mListDataFillStrategy;
-    }
     //Getter end
 
     //Setter start
@@ -297,7 +298,7 @@ public abstract class BaseFillerGroup<R, PL extends IPullLayout> implements IFil
     }
 
     public int getCurrentPageCount() {
-        return mCurrentPage;
+        return mPageInfo.currentPage;
     }
     //Setter end
 }

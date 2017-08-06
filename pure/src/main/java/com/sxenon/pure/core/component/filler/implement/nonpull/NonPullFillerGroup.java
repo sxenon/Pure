@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.filler.implement;
+package com.sxenon.pure.core.component.filler.implement.nonpull;
 
 import android.content.Context;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.component.filler.ListDataFillStrategy;
+import com.sxenon.pure.core.component.filler.implement.BaseFillerGroup;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
-
-import java.util.List;
 
 /**
  * UnSupport pull!
@@ -31,29 +29,11 @@ import java.util.List;
 
 public class NonPullFillerGroup<R> extends BaseFillerGroup<R, NonPullLayout> {
     public NonPullFillerGroup(Context context, IFetchSingleResultHandler<R> singleDataResult) {
-        super(context, new NonPullLayout(), null, singleDataResult, null);
+        super(context, new NonPullLayout(), singleDataResult, new NonPullFillPageStrategy<R>());
     }
 
     public NonPullFillerGroup(Context context, IPureAdapter<R> adapter) {
-        this(context, adapter, new DefaultListDataFillStrategy<R>());
+        super(context, new NonPullLayout(),adapter,new NonPullFillPageStrategy<R>());
     }
 
-    public NonPullFillerGroup(Context context, IPureAdapter<R> adapter, ListDataFillStrategy<R> listDataFillStrategy) {
-        super(context, new NonPullLayout(), adapter, null, listDataFillStrategy);
-    }
-
-    @Override
-    protected void processListData(List<R> data) {
-        getListDataFillStrategy().onInitDataFetched(getAdapter(), data);
-    }
-
-    @Override
-    protected void processEmptySingleData() {
-        onEmpty();
-    }
-
-    @Override
-    protected void processEmptyListData() {
-        onEmpty();
-    }
 }

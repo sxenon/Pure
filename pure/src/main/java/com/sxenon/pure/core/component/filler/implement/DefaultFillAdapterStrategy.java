@@ -17,7 +17,7 @@
 package com.sxenon.pure.core.component.filler.implement;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.component.filler.ListDataFillStrategy;
+import com.sxenon.pure.core.component.filler.FillAdapterStrategy;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
  * Created by Sui on 2017/1/12.
  */
 
-public class DefaultListDataFillStrategy<R> implements ListDataFillStrategy<R> {
+public class DefaultFillAdapterStrategy<R> implements FillAdapterStrategy<R> {
     @Override
     public void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
         adapter.addItemsFromEnd(data);

@@ -21,7 +21,8 @@ import android.content.Context;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.component.filler.implement.RefreshAndMoreFillerGroup;
+import com.sxenon.pure.core.component.filler.implement.BaseFillerGroup;
+import com.sxenon.pure.core.component.filler.FillPageStrategy;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
 /**
@@ -29,17 +30,13 @@ import com.sxenon.pure.core.result.IFetchSingleResultHandler;
  * Created by Sui on 2016/12/27.
  */
 
-public class TwinkingRefreshAndMoreFillerGroup<R> extends RefreshAndMoreFillerGroup<R, TwinklingPullLayout> {
-    public TwinkingRefreshAndMoreFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult) {
-        super(context, new TwinklingPullLayout(refreshLayout), singleDataResult);
+public class TwinkingRefreshAndMoreFillerGroup<R> extends BaseFillerGroup<R, TwinklingPullLayout> {
+    public TwinkingRefreshAndMoreFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult, FillPageStrategy<R> fillPageStrategy) {
+        super(context, new TwinklingPullLayout(refreshLayout), singleDataResult,fillPageStrategy);
     }
 
-    public TwinkingRefreshAndMoreFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IPureAdapter<R> adapter) {
-        super(context, new TwinklingPullLayout(refreshLayout), adapter);
-    }
-
-    public TwinkingRefreshAndMoreFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IPureAdapter<R> adapter, boolean isFreshForAdd) {
-        super(context, new TwinklingPullLayout(refreshLayout), adapter, isFreshForAdd);
+    public TwinkingRefreshAndMoreFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IPureAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy) {
+        super(context, new TwinklingPullLayout(refreshLayout), adapter,fillPageStrategy);
     }
 
     /**

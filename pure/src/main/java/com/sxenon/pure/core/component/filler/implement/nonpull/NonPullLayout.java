@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.filler.implement;
+package com.sxenon.pure.core.component.filler.implement.nonpull;
 
 import com.sxenon.pure.core.component.filler.IPullLayout;
 
