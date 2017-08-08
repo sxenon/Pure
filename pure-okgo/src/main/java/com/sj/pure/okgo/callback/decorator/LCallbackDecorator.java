@@ -16,11 +16,14 @@
 
 package com.sj.pure.okgo.callback.decorator;
 
+import android.support.annotation.NonNull;
+
 import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.sj.pure.okgo.callback.LCallback;
 import com.sj.pure.okgo.dispatcher.BaseOkgoLResultDispatcher;
+import com.sxenon.pure.core.util.Preconditions;
 
 import java.util.List;
 
@@ -37,7 +40,7 @@ public class LCallbackDecorator<R> implements LCallback<R> {
      * Constructor ,use with {@link #decorate(LCallback)}
      * @param resultDispatcher Common
      */
-    public LCallbackDecorator(BaseOkgoLResultDispatcher<R> resultDispatcher){
+    public LCallbackDecorator(@NonNull BaseOkgoLResultDispatcher<R> resultDispatcher){
         this.resultDispatcher=resultDispatcher;
     }
 
@@ -91,6 +94,6 @@ public class LCallbackDecorator<R> implements LCallback<R> {
 
     @Override
     public List<R> convertResponse(okhttp3.Response response) throws Throwable {
-        return originalCallback.convertResponse(response);
+        return Preconditions.checkNotNull(originalCallback,"Call decorate first!").convertResponse(response);
     }
 }

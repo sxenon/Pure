@@ -16,11 +16,14 @@
 
 package com.sj.pure.okgo.callback.decorator;
 
+import android.support.annotation.NonNull;
+
 import com.lzy.okgo.callback.Callback;
 import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
 import com.sj.pure.okgo.dispatcher.BaseOkgoResultDispatcher;
+import com.sxenon.pure.core.util.Preconditions;
 
 /**
  * CallbackDecorator
@@ -35,7 +38,7 @@ public abstract class CallbackDecorator<R> implements Callback<R> {
      * Constructor,use with {@link #decorate(Callback)}
      * @param resultDispatcher Common
      */
-    public CallbackDecorator(BaseOkgoResultDispatcher<R> resultDispatcher){
+    public CallbackDecorator(@NonNull BaseOkgoResultDispatcher<R> resultDispatcher){
         this.resultDispatcher=resultDispatcher;
     }
 
@@ -89,6 +92,6 @@ public abstract class CallbackDecorator<R> implements Callback<R> {
 
     @Override
     public R convertResponse(okhttp3.Response response) throws Throwable {
-        return originalCallback.convertResponse(response);
+        return Preconditions.checkNotNull(originalCallback,"Call decorate first!").convertResponse(response);
     }
 }
