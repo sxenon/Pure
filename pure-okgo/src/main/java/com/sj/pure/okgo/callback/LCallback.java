@@ -25,6 +25,6 @@ import java.util.List;
  * Created by Sui on 2017/7/27.
  */
 
-public interface  LCallBack<T> extends Callback<List<T>> {
+public interface LCallback<T> extends Callback<List<T>> {
 
 }

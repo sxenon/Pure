@@ -25,12 +25,12 @@ import java.util.List;
  * Created by Sui on 2017/7/26.
  */
 
-public abstract class BLCallback<T> implements LCallBack<T> {
+public abstract class BLCallback<T> implements LCallback<T> {
 
     private final BLConverter<T> mBLConverter;
 
-    public BLCallback(BLConverter<T> blConverter) {
-        mBLConverter = blConverter;
+    public BLCallback() {
+        mBLConverter = genBLConverter();
     }
 
     @Override
@@ -38,4 +38,5 @@ public abstract class BLCallback<T> implements LCallBack<T> {
         return mBLConverter.convertResponse(response);
     }
 
+    protected abstract BLConverter<T> genBLConverter();
 }

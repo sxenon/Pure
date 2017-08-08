@@ -23,6 +23,7 @@ import com.sxenon.pure.core.component.filler.FillPageStrategy;
 import com.sxenon.pure.core.component.filler.implement.BaseFillerGroup;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
+import cn.bingoogolapple.androidcommon.adapter.BGAAdapterViewAdapter;
 import cn.bingoogolapple.androidcommon.adapter.BGARecyclerViewAdapter;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
@@ -41,6 +42,10 @@ public class BGAFillerGroup<R> extends BaseFillerGroup<R, BGAPullLayout> {
 
     public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy) {
         super(context, new BGAPullLayout(refreshLayout), new BGARecyclerViewPureAdapter<>(adapter), fillPageStrategy);
+    }
+
+    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy){
+        super(context,new BGAPullLayout(refreshLayout),new BGAAdapterViewPureAdapter<>(adapter),fillPageStrategy);
     }
 
     /**

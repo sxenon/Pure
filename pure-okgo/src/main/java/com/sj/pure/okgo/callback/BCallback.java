@@ -24,15 +24,18 @@ import com.sj.pure.okgo.converter.BConverter;
  * Created by Sui on 2017/7/26.
  */
 
-public abstract class BCallBack<T> extends AbsCallback<T> {
+public abstract class BCallback<T> extends AbsCallback<T> {
     private final BConverter<T> mBConverter;
 
-    public BCallBack(BConverter<T> bConverter){
-        mBConverter=bConverter;
+    public BCallback(){
+        mBConverter=genBConverter();
     }
 
     @Override
     public T convertResponse(okhttp3.Response response) throws Throwable {
         return mBConverter.convertResponse(response);
     }
+
+    protected abstract BConverter<T> genBConverter();
+
 }

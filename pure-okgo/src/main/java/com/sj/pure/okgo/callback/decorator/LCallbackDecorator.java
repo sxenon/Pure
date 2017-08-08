@@ -19,28 +19,34 @@ package com.sj.pure.okgo.callback.decorator;
 import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.sj.pure.okgo.callback.LCallback;
 import com.sj.pure.okgo.dispatcher.BaseOkgoLResultDispatcher;
-import com.sj.pure.okgo.callback.LCallBack;
 
 import java.util.List;
 
 /**
- * LCallBackDecorator
+ * LCallbackDecorator
  * Created by Sui on 2017/7/27.
  */
 
-public class LCallBackDecorator<R> implements LCallBack<R> {
-    private final LCallBack<R> originalCallback;
+public class LCallbackDecorator<R> implements LCallback<R> {
+    private  LCallback<R> originalCallback;
     private final BaseOkgoLResultDispatcher<R> resultDispatcher;
 
     /**
-     * Constructor
-     * @param originalCallback Special
+     * Constructor ,use with {@link #decorate(LCallback)}
      * @param resultDispatcher Common
      */
-    public LCallBackDecorator(LCallBack<R> originalCallback,BaseOkgoLResultDispatcher<R> resultDispatcher){
-        this.originalCallback=originalCallback;
+    public LCallbackDecorator(BaseOkgoLResultDispatcher<R> resultDispatcher){
         this.resultDispatcher=resultDispatcher;
+    }
+
+    /**
+     * Decorate
+     * @param originalCallback Special
+     */
+    public void decorate(LCallback<R> originalCallback){
+        this.originalCallback=originalCallback;
     }
 
     @Override

@@ -28,17 +28,23 @@ import com.sj.pure.okgo.dispatcher.BaseOkgoResultDispatcher;
  */
 
 public abstract class CallbackDecorator<R> implements Callback<R> {
-    private final Callback<R> originalCallback;
+    private Callback<R> originalCallback;
     private final BaseOkgoResultDispatcher<R> resultDispatcher;
 
     /**
-     * Constructor
-     * @param originalCallback Special
+     * Constructor,use with {@link #decorate(Callback)}
      * @param resultDispatcher Common
      */
-    public CallbackDecorator(Callback<R> originalCallback,BaseOkgoResultDispatcher<R> resultDispatcher){
-        this.originalCallback=originalCallback;
+    public CallbackDecorator(BaseOkgoResultDispatcher<R> resultDispatcher){
         this.resultDispatcher=resultDispatcher;
+    }
+
+    /**
+     * Decorate
+     * @param originalCallback Special
+     */
+    public void decorate(Callback<R> originalCallback){
+        this.originalCallback=originalCallback;
     }
 
     @Override
