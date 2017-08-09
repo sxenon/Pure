@@ -32,11 +32,11 @@ import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
 public class TwinkingRefreshAndMoreFillerGroup<R> extends BaseFillerGroup<R, TwinklingPullLayout> {
     public TwinkingRefreshAndMoreFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult, FillPageStrategy<R> fillPageStrategy) {
-        super(context, new TwinklingPullLayout(refreshLayout), singleDataResult,fillPageStrategy);
+        super(context, new TwinklingPullLayout(refreshLayout), singleDataResult, fillPageStrategy);
     }
 
     public TwinkingRefreshAndMoreFillerGroup(Context context, TwinklingRefreshLayout refreshLayout, IPureAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy) {
-        super(context, new TwinklingPullLayout(refreshLayout), adapter,fillPageStrategy);
+        super(context, new TwinklingPullLayout(refreshLayout), adapter, fillPageStrategy);
     }
 
     /**

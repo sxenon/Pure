@@ -61,7 +61,7 @@ public class BGAAdapterViewPureAdapter<T> implements IPureAdapter<T> {
 
     @Override
     public void addItem(int position, T value) {
-        bgaAdapterViewAdapter.addItem(position,value);
+        bgaAdapterViewAdapter.addItem(position, value);
     }
 
     @Override

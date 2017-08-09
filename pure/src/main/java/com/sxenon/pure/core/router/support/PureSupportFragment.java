@@ -88,7 +88,7 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
         //noinspection unchecked
         saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
-        mViewCreated=false;
+        mViewCreated = false;
         shouldInitRootPresenter = true;
     }
 
@@ -101,7 +101,7 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
         if (mVisible) {
             activity.addToVisibleSet(this);
         } else {
-            if (activity!=null){
+            if (activity != null) {
                 activity.removeFromVisibleSet(this);
             }
         }
@@ -137,7 +137,7 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
 
     @Override
     public void requestPermissionsCompact(@NonNull String[] permissions, int requestCode, Action0 action, boolean forceAccepting) {
-        getPresenter().setPermissionEvent(requestCode,action,forceAccepting);
+        getPresenter().setPermissionEvent(requestCode, action, forceAccepting);
         requestPermissions(permissions, requestCode);
     }
 

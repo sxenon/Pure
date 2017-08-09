@@ -211,8 +211,8 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
             convertView = LayoutInflater.from(mAdapterContainer.getContext()).inflate(itemViewTypeEntity.getResourceId(), null);
             Class<? extends PureAbsViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
             try {
-                Constructor<? extends PureAbsViewHolder> constructor = viewHolderClass.getConstructor(View.class, PureAbsListAdapter.class, Integer.class,IView.class);
-                viewHolder = constructor.newInstance(convertView, PureAbsListAdapter.this, position,mAdapterContainer);
+                Constructor<? extends PureAbsViewHolder> constructor = viewHolderClass.getConstructor(View.class, PureAbsListAdapter.class, Integer.class, IView.class);
+                viewHolder = constructor.newInstance(convertView, PureAbsListAdapter.this, position, mAdapterContainer);
             } catch (Exception e) {
                 e.printStackTrace();
             }

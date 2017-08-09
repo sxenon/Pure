@@ -28,7 +28,7 @@ import com.sxenon.pure.core.mvp.IView;
 public interface IPureViewHolder<T> {
     int getPosition();
 
-    void fillItemViewByData(View itemView,T data);
+    void fillItemViewByData(View itemView, T data);
 
     <A extends IPureAdapter> A getAdapter();
 

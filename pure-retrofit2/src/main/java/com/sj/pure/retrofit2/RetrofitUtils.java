@@ -37,8 +37,8 @@ public class RetrofitUtils {
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.baseUrl(retrofit.baseUrl());
         builder.callFactory(newClient != null ? newClient : retrofit.callFactory());
-        Executor callbackExecutor=retrofit.callbackExecutor();
-        if (callbackExecutor!=null){
+        Executor callbackExecutor = retrofit.callbackExecutor();
+        if (callbackExecutor != null) {
             builder.callbackExecutor(callbackExecutor);
         }
         for (Converter.Factory factory : retrofit.converterFactories()) {

@@ -50,13 +50,10 @@ public abstract class BaseOkgoResultDispatcher<R> extends BaseResultDispatcher<R
         }
     }
 
-    public abstract void onStart(Request<R, ? extends Request> request);
-
     public abstract void onSuccess(Response<R> response);
 
     public abstract void onCacheSuccess(Response<R> response);
 
     public abstract void onError(Response<R> response);
 
-    public abstract void onFinish();
 }

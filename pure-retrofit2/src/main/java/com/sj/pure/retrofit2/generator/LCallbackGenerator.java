@@ -34,8 +34,8 @@ import retrofit2.Response;
 public class LCallbackGenerator<R> implements Callback<List<R>> {
     private final Retrofit2LResultDispatcher<R> resultDispatcher;
 
-    public LCallbackGenerator(Retrofit2LResultDispatcher<R> resultDispatcher){
-        this.resultDispatcher=resultDispatcher;
+    public LCallbackGenerator(Retrofit2LResultDispatcher<R> resultDispatcher) {
+        this.resultDispatcher = resultDispatcher;
     }
 
     @Override

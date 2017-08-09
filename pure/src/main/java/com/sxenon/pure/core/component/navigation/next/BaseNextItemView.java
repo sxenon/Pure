@@ -45,7 +45,7 @@ public class BaseNextItemView implements INextItemView {
 
     @Override
     public void setNextDelegate(final NextDelegate nextDelegate) {
-        ((ViewGroup)mNextText.getParent()).setOnClickListener(new View.OnClickListener() {
+        ((ViewGroup) mNextText.getParent()).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 nextDelegate.onNext();

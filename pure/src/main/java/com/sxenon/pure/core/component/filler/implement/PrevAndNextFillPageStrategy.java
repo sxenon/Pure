@@ -32,66 +32,66 @@ import java.util.List;
 public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     private final int mInitPage;
 
-    public PrevAndNextFillPageStrategy(int initPage){
+    public PrevAndNextFillPageStrategy(int initPage) {
         super();
-        mInitPage=initPage;
+        mInitPage = initPage;
     }
 
-    public PrevAndNextFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy,int initPage){
+    public PrevAndNextFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy, int initPage) {
         super(fillAdapterStrategy);
-        mInitPage=initPage;
+        mInitPage = initPage;
     }
 
-    public void onNoMoreData(){
+    public void onNoMoreData() {
 
     }
 
     @Override
     public void processListData(IFillerGroup<R> fillerGroup, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
-        pageInfo.currentPage=pageInfo.tempPage;
-        getListDataFillStrategy().onInitDataFetched(adapter,data);
+        pageInfo.currentPage = pageInfo.tempPage;
+        getListDataFillStrategy().onInitDataFetched(adapter, data);
     }
 
     @Override
     public void onListDataEmpty(IFillerGroup<R> fillerGroup, PageInfo pageInfo) {
-        pageInfo.tempPage=pageInfo.currentPage;
-        if (pageInfo.currentPage==-1){
+        pageInfo.tempPage = pageInfo.currentPage;
+        if (pageInfo.currentPage == -1) {
             fillerGroup.onEmpty();
-        }else {
+        } else {
             onNoMoreData();
         }
     }
 
     @Override
     public void processSingleData(IFillerGroup<R> fillerGroup, R data, IFetchSingleResultHandler<R> singleDataResultHandler, PageInfo pageInfo) {
-        pageInfo.currentPage=pageInfo.tempPage;
+        pageInfo.currentPage = pageInfo.tempPage;
         singleDataResultHandler.onSingleDataFetched(data);
     }
 
     @Override
     public void onSingleDataEmpty(IFillerGroup<R> fillerGroup, PageInfo pageInfo) {
-        pageInfo.tempPage=pageInfo.currentPage;
-        if (pageInfo.currentPage==-1){
+        pageInfo.tempPage = pageInfo.currentPage;
+        if (pageInfo.currentPage == -1) {
             fillerGroup.onEmpty();
-        }else {
+        } else {
             onNoMoreData();
         }
     }
 
     @Override
     public void onInitialize(IFillerGroup<R> fillerGroup, PageInfo pageInfo) {
-        pageInfo.currentPage=-1;
+        pageInfo.currentPage = -1;
         pageInfo.tempPage = mInitPage;
     }
 
     @Override
     public void onPullDown(IFillerGroup<R> fillerGroup, PageInfo pageInfo) {
-        pageInfo.tempPage = pageInfo.currentPage-1;
+        pageInfo.tempPage = pageInfo.currentPage - 1;
     }
 
     @Override
     public void onPullUp(IFillerGroup<R> fillerGroup, PageInfo pageInfo) {
-        pageInfo.tempPage = pageInfo.currentPage+1;
+        pageInfo.tempPage = pageInfo.currentPage + 1;
     }
 
     @Override

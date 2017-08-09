@@ -36,5 +36,5 @@ public enum GlobalContext {
     public Application application;
     public final ActivityHistoryManager activityHistoryManager = new ActivityHistoryManager();
     public List<Event> savedEventList;
-    public final RouterLifecycleCallbackDispatcher routerLifecycleCallbackDispatcher =new RouterLifecycleCallbackDispatcher();
+    public final RouterLifecycleCallbackDispatcher routerLifecycleCallbackDispatcher = new RouterLifecycleCallbackDispatcher();
 }

@@ -32,13 +32,13 @@ import okhttp3.Response;
 public class CallbackAdapter implements Callback {
     private final BaseOkHttpResultDispatcher<R> resultDispatcher;
 
-    public CallbackAdapter(BaseOkHttpResultDispatcher<R> resultDispatcher){
-        this.resultDispatcher=resultDispatcher;
+    public CallbackAdapter(BaseOkHttpResultDispatcher<R> resultDispatcher) {
+        this.resultDispatcher = resultDispatcher;
     }
 
     @Override
     public void onFailure(@NonNull Call call, @NonNull IOException e) {
-        resultDispatcher.onFailure(call,e);
+        resultDispatcher.onFailure(call, e);
     }
 
     @Override

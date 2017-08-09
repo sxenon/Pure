@@ -29,10 +29,13 @@ public interface IActivity<P extends PureRouterVisitorAsPresenter> extends IRout
 
     /**
      * {@link com.sxenon.pure.core.global.ActivityHistoryManager#finishBackgroundActivitiesIfNeed(int)}
+     *
      * @param finishForWhat finish background activities for what
      * @return should keep or not
      */
     boolean shouldKeepWhenInBackground(int finishForWhat);
+
     void finish();
+
     boolean isFinishing();
 }

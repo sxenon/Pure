@@ -32,8 +32,8 @@ import retrofit2.Response;
 public class CallbackGenerator<R> implements Callback<R> {
     private final Retrofit2ResultDispatcher<R> resultDispatcher;
 
-    public CallbackGenerator(Retrofit2ResultDispatcher<R> resultDispatcher){
-        this.resultDispatcher=resultDispatcher;
+    public CallbackGenerator(Retrofit2ResultDispatcher<R> resultDispatcher) {
+        this.resultDispatcher = resultDispatcher;
     }
 
     @Override

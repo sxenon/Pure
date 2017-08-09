@@ -43,7 +43,7 @@ public abstract class BaseSelectGroup<T> implements ISelectGroup<T> {
     public BaseSelectGroup(@NonNull Context context, @NonNull IPureAdapter<T> adapter, ISelectGroup.SelectStrategy selectStrategy) {
         mContext = context;
         mAdapter = adapter;
-        mSelectStrategy=selectStrategy;
+        mSelectStrategy = selectStrategy;
         selectedFlags = new ArrayList<>(mAdapter.getItemCount());
         Collections.fill(selectedFlags, false);
         SelectGroupHelper.bindAdapterAndSelectGroup(adapter, this);

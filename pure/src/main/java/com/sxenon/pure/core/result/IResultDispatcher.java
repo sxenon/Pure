@@ -23,6 +23,6 @@ package com.sxenon.pure.core.result;
  * Created by Sui on 2016/12/13.
  */
 
-public interface IResultDispatcher<R> extends ISubmitResultHandler<R>, IFetchListResultHandler<R>, IFetchSingleResultHandler<R>{
+public interface IResultDispatcher<R> extends ISubmitResultHandler<R>, IFetchListResultHandler<R>, IFetchSingleResultHandler<R> {
 
 }

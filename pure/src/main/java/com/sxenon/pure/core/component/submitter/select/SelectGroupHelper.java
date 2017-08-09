@@ -31,14 +31,14 @@ import java.util.WeakHashMap;
 public class SelectGroupHelper {
     private static final WeakHashMap<IPureAdapter, ISelectGroup> selectGroupInstances = new WeakHashMap<>();
 
-    static <T> void bindAdapterAndSelectGroup(@NonNull IPureAdapter<T> adapter,@NonNull ISelectGroup<T> selectGroup){
-        selectGroupInstances.put(adapter,selectGroup);
+    static <T> void bindAdapterAndSelectGroup(@NonNull IPureAdapter<T> adapter, @NonNull ISelectGroup<T> selectGroup) {
+        selectGroupInstances.put(adapter, selectGroup);
     }
 
     /**
      * Find selectGroup by adapter
      */
-    public static <T> ISelectGroup<T> findSelectGroupByAdapter(IPureAdapter<T> adapter){
+    public static <T> ISelectGroup<T> findSelectGroupByAdapter(IPureAdapter<T> adapter) {
         //noinspection unchecked
         return selectGroupInstances.get(adapter);
     }

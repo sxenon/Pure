@@ -32,11 +32,11 @@ public abstract class PureAbsViewHolder<T> implements IPureViewHolder<T> {
     private final IView adapterContainer;
     public final View itemView;
 
-    public PureAbsViewHolder(View itemView, PureAbsListAdapter adapter, int position,IView adapterContainer){
-        this.position=position;
-        this.adapter=adapter;
-        this.adapterContainer =adapterContainer;
-        this.itemView=itemView;
+    public PureAbsViewHolder(View itemView, PureAbsListAdapter adapter, int position, IView adapterContainer) {
+        this.position = position;
+        this.adapter = adapter;
+        this.adapterContainer = adapterContainer;
+        this.itemView = itemView;
     }
 
     @Override
@@ -45,7 +45,7 @@ public abstract class PureAbsViewHolder<T> implements IPureViewHolder<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public PureAbsListAdapter getAdapter(){
+    public PureAbsListAdapter getAdapter() {
         return adapter;
     }
 

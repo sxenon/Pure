@@ -27,19 +27,19 @@ import com.sxenon.pure.core.component.filler.FillPageStrategy;
 public abstract class BaseFillPageStrategy<R> implements FillPageStrategy<R> {
     private final FillAdapterStrategy<R> mFillAdapterStrategy;
 
-    public BaseFillPageStrategy(){
+    public BaseFillPageStrategy() {
         this(null);
     }
 
-    public BaseFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy){
-        if (fillAdapterStrategy==null){
-            mFillAdapterStrategy=new DefaultFillAdapterStrategy<>();
-        }else {
+    public BaseFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy) {
+        if (fillAdapterStrategy == null) {
+            mFillAdapterStrategy = new DefaultFillAdapterStrategy<>();
+        } else {
             mFillAdapterStrategy = fillAdapterStrategy;
         }
     }
 
-    protected FillAdapterStrategy<R> getListDataFillStrategy(){
+    protected FillAdapterStrategy<R> getListDataFillStrategy() {
         return mFillAdapterStrategy;
     }
 }

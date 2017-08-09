@@ -38,9 +38,9 @@ public abstract class PureWebSocketClient<R extends BaseWebSocketResultDispatche
     private WebSocket mWebSocket;
     private IWebSocketClient.ReadyState mReadyState = ReadyState.CLOSED;
     private PureWebSocketListener mWebSocketListener;
-    private static final String TAG="PureWebSocketClient";
+    private static final String TAG = "PureWebSocketClient";
 
-    public PureWebSocketClient(OkHttpClient client,Request.Builder builder) {
+    public PureWebSocketClient(OkHttpClient client, Request.Builder builder) {
         mClient = client;
         mRequestBuilder = builder;
     }
@@ -49,7 +49,7 @@ public abstract class PureWebSocketClient<R extends BaseWebSocketResultDispatche
     public void connect(String url, final R resultDispatcher) {
         mWebSocketListener = new PureWebSocketListener(resultDispatcher);
         mWebSocket = mClient.newWebSocket(mRequestBuilder.url(url).build(), mWebSocketListener);
-        mReadyState=ReadyState.CONNECTING;
+        mReadyState = ReadyState.CONNECTING;
     }
 
     @Override
@@ -64,11 +64,11 @@ public abstract class PureWebSocketClient<R extends BaseWebSocketResultDispatche
 
     @Override
     public void reconnect() {
-        if (mReadyState==ReadyState.CLOSED){
+        if (mReadyState == ReadyState.CLOSED) {
             mWebSocket = mClient.newWebSocket(mWebSocket.request(), mWebSocketListener);
-            mReadyState=ReadyState.CONNECTING;
-        }else {
-            Log.w(TAG,"Cannot reconnect because status is not right!");
+            mReadyState = ReadyState.CONNECTING;
+        } else {
+            Log.w(TAG, "Cannot reconnect because status is not right!");
         }
     }
 

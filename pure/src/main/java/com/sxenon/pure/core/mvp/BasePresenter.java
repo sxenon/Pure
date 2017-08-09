@@ -30,13 +30,13 @@ import java.lang.ref.WeakReference;
 
 public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
     private final WeakReference<V> viewRef;
-    private final WeakReference<Context>  contextRef;
+    private final WeakReference<Context> contextRef;
     private final WeakReference<IRouter> routerRef;
 
     public BasePresenter(V view) {
         viewRef = new WeakReference<>(view);
-        contextRef=new WeakReference<>(view.getContext());
-        routerRef=new WeakReference<>(view.getRouter());
+        contextRef = new WeakReference<>(view.getContext());
+        routerRef = new WeakReference<>(view.getRouter());
     }
 
     @Override

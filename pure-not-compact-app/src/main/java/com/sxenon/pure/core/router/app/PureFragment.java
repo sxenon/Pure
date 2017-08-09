@@ -138,7 +138,7 @@ public abstract class PureFragment<P extends PureRouterVisitorAsPresenter> exten
 
     @Override
     public void requestPermissionsCompact(@NonNull String[] permissions, int requestCode, Action0 action, boolean forceAccepting) {
-        getPresenter().setPermissionEvent(requestCode,action,forceAccepting);
+        getPresenter().setPermissionEvent(requestCode, action, forceAccepting);
         FragmentCompat.requestPermissions(this, permissions, requestCode);
     }
 

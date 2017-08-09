@@ -104,10 +104,10 @@ public class PermissionCompat {
         return isPermissionDeclined(router, permission) && !isExplanationNeeded(router, permission);
     }
 
-    public static List<String> getPermissionPermanentlyDeniedList(@NonNull IRouter router,@NonNull String[] permissions){
-        List<String> permissionPermanentlyDeniedList=new ArrayList<>();
-        for (String permission:permissions){
-            if (isPermissionPermanentlyDenied(router,permission)){
+    public static List<String> getPermissionPermanentlyDeniedList(@NonNull IRouter router, @NonNull String[] permissions) {
+        List<String> permissionPermanentlyDeniedList = new ArrayList<>();
+        for (String permission : permissions) {
+            if (isPermissionPermanentlyDenied(router, permission)) {
                 permissionPermanentlyDeniedList.add(permission);
             }
         }
@@ -118,9 +118,9 @@ public class PermissionCompat {
      * @return true if permission exists in the manifest, false otherwise.
      */
     public static boolean isPermissionExisted(@NonNull IRouter router, @NonNull String permission) {
-        Context context=router.getActivityCompact();
+        Context context = router.getActivityCompact();
         try {
-            PackageInfo packageInfo =context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
             if (packageInfo.requestedPermissions != null) {
                 for (String p : packageInfo.requestedPermissions) {
                     if (p.equals(permission)) {
@@ -142,7 +142,7 @@ public class PermissionCompat {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(context);
     }
 
-    public static boolean isSystemAlertGranted(@NonNull IRouter router){
+    public static boolean isSystemAlertGranted(@NonNull IRouter router) {
         return isSystemAlertGranted(router.getActivityCompact());
     }
 

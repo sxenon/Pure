@@ -46,14 +46,14 @@ import rx.functions.Action0;
 
 public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> extends Activity implements IActivity<P> {
     private P mRootPresenter;
-    private final Set<PureFragment> mVisibleFragmentSet=new HashSet<>();
+    private final Set<PureFragment> mVisibleFragmentSet = new HashSet<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView(savedInstanceState);
-        mRootPresenter= bindPresenter();
-        mRootPresenter.onCreate(savedInstanceState==null?null:GlobalContext.INSTANCE.savedEventList);
+        mRootPresenter = bindPresenter();
+        mRootPresenter.onCreate(savedInstanceState == null ? null : GlobalContext.INSTANCE.savedEventList);
         GlobalContext.INSTANCE.activityHistoryManager.add(this);
     }
 
@@ -103,7 +103,7 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
 
     @Override
     public void saveEventList(List<Event> eventList) {
-        GlobalContext.INSTANCE.savedEventList=eventList;
+        GlobalContext.INSTANCE.savedEventList = eventList;
     }
 
     @Override
@@ -113,7 +113,7 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
 
     @Override
     public void requestPermissionsCompact(@NonNull String[] permissions, int requestCode, Action0 action, boolean forceAccepting) {
-        getPresenter().setPermissionEvent(requestCode,action,forceAccepting);
+        getPresenter().setPermissionEvent(requestCode, action, forceAccepting);
         ActivityCompat.requestPermissions(this, permissions, requestCode);
     }
 
@@ -129,7 +129,7 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
 
     @Override
     public final void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mRootPresenter.onRequestPermissionsResult(requestCode,permissions, grantResults);
+        mRootPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -144,13 +144,13 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
 
     @Override
     public final void onBackPressed() {
-        boolean handled=false;
-        for (PureFragment visibleFragment:mVisibleFragmentSet){
-            if (visibleFragment.onBackPressed()){
-                handled=true;
+        boolean handled = false;
+        for (PureFragment visibleFragment : mVisibleFragmentSet) {
+            if (visibleFragment.onBackPressed()) {
+                handled = true;
             }
         }
-        if (!handled&&!mRootPresenter.onBackPressed()){
+        if (!handled && !mRootPresenter.onBackPressed()) {
             super.onBackPressed();
         }
     }
@@ -161,17 +161,17 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
         mRootPresenter.onConfigurationChanged(newConfig);
     }
 
-    void addToVisibleSet(PureFragment pureFragment){
+    void addToVisibleSet(PureFragment pureFragment) {
         mVisibleFragmentSet.add(pureFragment);
     }
 
-    void removeFromVisibleSet(PureFragment pureFragment){
+    void removeFromVisibleSet(PureFragment pureFragment) {
         mVisibleFragmentSet.remove(pureFragment);
     }
 
-    public void clearFragmentBackStackImmediate(){
+    public void clearFragmentBackStackImmediate() {
         FragmentManager manager = getFragmentManager();
-        if (manager.getBackStackEntryCount()>0){
+        if (manager.getBackStackEntryCount() > 0) {
             FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
             manager.popBackStackImmediate(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }

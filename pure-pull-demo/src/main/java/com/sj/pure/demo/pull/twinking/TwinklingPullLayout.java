@@ -29,7 +29,7 @@ import com.sxenon.pure.core.component.filler.IPullLayout;
 
 public class TwinklingPullLayout implements IPullLayout {
     private final TwinklingRefreshLayout mRealLayout;
-    private static final String TAG="TwinklingPullLayout";
+    private static final String TAG = "TwinklingPullLayout";
 
     public TwinklingPullLayout(TwinklingRefreshLayout realLayout) {
         mRealLayout = realLayout;
@@ -68,7 +68,7 @@ public class TwinklingPullLayout implements IPullLayout {
     /**
      * 项目级别通用的初始化工作
      */
-    protected void defaultInit(TwinklingRefreshLayout realLayout){
-        Log.i(TAG,"defaultInit");
+    protected void defaultInit(TwinklingRefreshLayout realLayout) {
+        Log.i(TAG, "defaultInit");
     }
 }

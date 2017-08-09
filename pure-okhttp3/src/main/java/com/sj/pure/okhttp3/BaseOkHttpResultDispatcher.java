@@ -45,26 +45,26 @@ public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher
 
     public BaseOkHttpResultDispatcher(IResultHandler resultHandler, LConverter<R> converter) {
         super(resultHandler);
-        mLConvert =converter;
+        mLConvert = converter;
     }
 
     /**
      * 是业务意义上的Success！
      */
-    protected void handleSuccessResult(Response response)  throws Exception {
-        ResultHandlerType resultHandlerType=getResultHandlerType();
-        switch (resultHandlerType){
-            case FETCH_LIST:{
-                List<R> result= Preconditions.checkNotNull(mLConvert,"").convertResponse(response);
+    protected void handleSuccessResult(Response response) throws Exception {
+        ResultHandlerType resultHandlerType = getResultHandlerType();
+        switch (resultHandlerType) {
+            case FETCH_LIST: {
+                List<R> result = Preconditions.checkNotNull(mLConvert, "").convertResponse(response);
                 onListDataFetched(result);
             }
-            case FETCH_SINGLE:{
-                R result=Preconditions.checkNotNull(mConverter,"").convertResponse(response);
+            case FETCH_SINGLE: {
+                R result = Preconditions.checkNotNull(mConverter, "").convertResponse(response);
                 onSingleDataFetched(result);
             }
             case SUBMIT:
-            default:{
-                R result=Preconditions.checkNotNull(mConverter,"").convertResponse(response);
+            default: {
+                R result = Preconditions.checkNotNull(mConverter, "").convertResponse(response);
                 onSuccess(result);
             }
         }

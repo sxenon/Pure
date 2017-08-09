@@ -31,7 +31,7 @@ public abstract class PureRecyclerViewHolder<T> extends RecyclerView.ViewHolder 
     private final PureRecyclerViewAdapter adapter;
     private final IView adapterContainer;
 
-    public PureRecyclerViewHolder(View itemView, PureRecyclerViewAdapter adapter,IView adapterContainer) {
+    public PureRecyclerViewHolder(View itemView, PureRecyclerViewAdapter adapter, IView adapterContainer) {
         super(itemView);
         this.adapter = adapter;
         this.adapterContainer = adapterContainer;

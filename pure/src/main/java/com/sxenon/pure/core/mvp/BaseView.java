@@ -33,10 +33,10 @@ public abstract class BaseView<P extends IPresenter> implements IView<P> {
     private final Context mContext;
     private final IRouter mRouter;
 
-    public BaseView(IRouter router){
-        mContext=router.getActivityCompact();
-        mRouter=router;
-        mPresenter= bindPresenter();
+    public BaseView(IRouter router) {
+        mContext = router.getActivityCompact();
+        mRouter = router;
+        mPresenter = bindPresenter();
     }
 
     @Override

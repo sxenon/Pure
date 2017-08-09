@@ -33,10 +33,11 @@ public abstract class Retrofit2ResultDispatcher<R> extends BaseResultDispatcher<
     public Retrofit2ResultDispatcher(IResultHandler resultHandler) {
         super(resultHandler);
     }
+
     /**
      * 是业务意义上的Success！
      */
-    protected void handleSuccessResult(Response<R> response){
+    protected void handleSuccessResult(Response<R> response) {
         ResultHandlerType resultHandlerType = getResultHandlerType();
         switch (resultHandlerType) {
             case FETCH_SINGLE: {

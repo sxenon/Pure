@@ -33,19 +33,19 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  */
 
 public class BGAFillerGroup<R> extends BaseFillerGroup<R, BGAPullLayout> {
-    private static final String TAG="FillerGroup";
+    private static final String TAG = "FillerGroup";
     private CustomListener mCustomerListener;
 
     public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult, FillPageStrategy<R> fillPageStrategy) {
-        super(context, new BGAPullLayout(refreshLayout), singleDataResult,fillPageStrategy);
+        super(context, new BGAPullLayout(refreshLayout), singleDataResult, fillPageStrategy);
     }
 
     public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy) {
         super(context, new BGAPullLayout(refreshLayout), new BGARecyclerViewPureAdapter<>(adapter), fillPageStrategy);
     }
 
-    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy){
-        super(context,new BGAPullLayout(refreshLayout),new BGAAdapterViewPureAdapter<>(adapter),fillPageStrategy);
+    public BGAFillerGroup(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy) {
+        super(context, new BGAPullLayout(refreshLayout), new BGAAdapterViewPureAdapter<>(adapter), fillPageStrategy);
     }
 
     /**
@@ -67,15 +67,15 @@ public class BGAFillerGroup<R> extends BaseFillerGroup<R, BGAPullLayout> {
         });
     }
 
-    public void setCustomerListener(CustomListener customerListener){
-        mCustomerListener=customerListener;
+    public void setCustomerListener(CustomListener customerListener) {
+        mCustomerListener = customerListener;
     }
 
     @Override
     public void onEmpty() {
         super.onEmpty();
         commonOnEmpty();
-        if (mCustomerListener!=null){
+        if (mCustomerListener != null) {
             mCustomerListener.onEmpty();
         }
     }
@@ -84,21 +84,22 @@ public class BGAFillerGroup<R> extends BaseFillerGroup<R, BGAPullLayout> {
     public void onCancel() {
         super.onCancel();
         commonOnCancel();
-        if (mCustomerListener!=null){
+        if (mCustomerListener != null) {
             mCustomerListener.onCancel();
         }
     }
 
-    private void commonOnCancel(){
-        Log.i(TAG,"commonOnCancel");
+    private void commonOnCancel() {
+        Log.i(TAG, "commonOnCancel");
     }
 
-    private void commonOnEmpty(){
-        Log.i(TAG,"commonOnEmpty");
+    private void commonOnEmpty() {
+        Log.i(TAG, "commonOnEmpty");
     }
 
-    public interface CustomListener{
+    public interface CustomListener {
         void onEmpty();
+
         void onCancel();
     }
 }

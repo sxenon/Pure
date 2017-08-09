@@ -35,7 +35,7 @@ public abstract class BConverter<T> implements Converter<T> {
     @Override
     public T convertResponse(Response response) throws Exception {
         String beanString = new StringConverter().convertResponse(response);
-        if (beanString==null){
+        if (beanString == null) {
             return null;
         }
         return string2Bean(beanString, mType);

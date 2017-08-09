@@ -23,5 +23,6 @@ package com.sxenon.pure.core.validator;
 
 public interface Rule {
     boolean isValid();
+
     void onFail();
 }

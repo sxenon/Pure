@@ -30,8 +30,8 @@ import cn.bingoogolapple.androidcommon.adapter.BGARecyclerViewAdapter;
 public class BGARecyclerViewPureAdapter<T> implements IPureAdapter<T> {
     private final BGARecyclerViewAdapter<T> bgaRecyclerViewAdapter;
 
-    BGARecyclerViewPureAdapter(BGARecyclerViewAdapter<T> bgaRecyclerViewAdapter){
-        this.bgaRecyclerViewAdapter=bgaRecyclerViewAdapter;
+    BGARecyclerViewPureAdapter(BGARecyclerViewAdapter<T> bgaRecyclerViewAdapter) {
+        this.bgaRecyclerViewAdapter = bgaRecyclerViewAdapter;
     }
 
     @Override
@@ -61,12 +61,12 @@ public class BGARecyclerViewPureAdapter<T> implements IPureAdapter<T> {
 
     @Override
     public void addItem(int position, T value) {
-        bgaRecyclerViewAdapter.addItem(position,value);
+        bgaRecyclerViewAdapter.addItem(position, value);
     }
 
     @Override
     public void addItems(int position, List<T> values) {
-       throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -111,7 +111,7 @@ public class BGARecyclerViewPureAdapter<T> implements IPureAdapter<T> {
 
     @Override
     public void setItem(int position, T value) {
-        bgaRecyclerViewAdapter.setItem(position,value);
+        bgaRecyclerViewAdapter.setItem(position, value);
     }
 
     @Override

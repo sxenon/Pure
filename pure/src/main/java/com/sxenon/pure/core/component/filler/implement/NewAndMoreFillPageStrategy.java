@@ -31,11 +31,11 @@ import java.util.List;
 
 public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
 
-    public NewAndMoreFillPageStrategy(){
+    public NewAndMoreFillPageStrategy() {
         super();
     }
 
-    public NewAndMoreFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy){
+    public NewAndMoreFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy) {
         super(fillAdapterStrategy);
     }
 

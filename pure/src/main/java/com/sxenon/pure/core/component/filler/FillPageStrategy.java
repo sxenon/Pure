@@ -28,16 +28,21 @@ import java.util.List;
  */
 
 public interface FillPageStrategy<R> {
-    void processListData(IFillerGroup<R> fillerGroup,List<R> data, IPureAdapter<R> adapter,PageInfo pageInfo);
+    void processListData(IFillerGroup<R> fillerGroup, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
+
     void onListDataEmpty(IFillerGroup<R> fillerGroup, PageInfo pageInfo);
-    void processSingleData(IFillerGroup<R> fillerGroup, R data, IFetchSingleResultHandler<R> singleDataResultHandler,PageInfo pageInfo);
+
+    void processSingleData(IFillerGroup<R> fillerGroup, R data, IFetchSingleResultHandler<R> singleDataResultHandler, PageInfo pageInfo);
+
     void onSingleDataEmpty(IFillerGroup<R> fillerGroup, PageInfo pageInfo);
 
     void onInitialize(IFillerGroup<R> fillerGroup, PageInfo pageInfo);
+
     void onPullDown(IFillerGroup<R> fillerGroup, PageInfo pageInfo);
+
     void onPullUp(IFillerGroup<R> fillerGroup, PageInfo pageInfo);
 
-    void onException(IFillerGroup<R> fillerGroup,ApiException exception,IPureAdapter<R> adapter,IFetchSingleResultHandler<R> singleDataResultHandler,PageInfo pageInfo);
+    void onException(IFillerGroup<R> fillerGroup, ApiException exception, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResultHandler, PageInfo pageInfo);
 
     class PageInfo {
         public int currentPage;

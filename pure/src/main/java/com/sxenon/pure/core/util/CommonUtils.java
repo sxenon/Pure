@@ -46,8 +46,8 @@ public class CommonUtils {
         return false;
     }
 
-    public static void setViewVisibility(View view,int visibility){
-        if (view!=null){
+    public static void setViewVisibility(View view, int visibility) {
+        if (view != null) {
             view.setVisibility(visibility);
         }
     }

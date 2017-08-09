@@ -87,12 +87,10 @@ public class SSLParams {
         return trustManager;
     }
 
-    private class UnSafeHostnameVerifier implements HostnameVerifier
-    {
+    private class UnSafeHostnameVerifier implements HostnameVerifier {
         @SuppressLint("BadHostnameVerifier")
         @Override
-        public boolean verify(String hostname, SSLSession session)
-        {
+        public boolean verify(String hostname, SSLSession session) {
             return true;
         }
     }
@@ -128,7 +126,7 @@ public class SSLParams {
                 String certificateAlias = Integer.toString(index++);
                 keyStore.setCertificateEntry(certificateAlias, certificateFactory.generateCertificate(certificate));
                 try {
-                    if (certificate != null){
+                    if (certificate != null) {
                         certificate.close();
                     }
                 } catch (IOException e) {

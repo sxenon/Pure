@@ -31,11 +31,11 @@ import java.util.List;
 
 public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
 
-    public RefreshAndMoreFillPageStrategy(){
+    public RefreshAndMoreFillPageStrategy() {
         super();
     }
 
-    public RefreshAndMoreFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy){
+    public RefreshAndMoreFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy) {
         super(fillAdapterStrategy);
     }
 
@@ -63,7 +63,7 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
 
     @Override
     public void onPullUp(IFillerGroup<R> fillerGroup, PageInfo pageInfo) {
-        pageInfo.tempPage = pageInfo.currentPage+1;
+        pageInfo.tempPage = pageInfo.currentPage + 1;
     }
 
     @Override

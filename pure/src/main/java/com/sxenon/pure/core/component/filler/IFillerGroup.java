@@ -25,6 +25,6 @@ import com.sxenon.pure.core.result.IFetchSingleResultHandler;
  * Created by Sui on 2017/8/4.
  */
 
-public interface IFillerGroup<R> extends IFetchSingleResultHandler<R>, IFetchListResultHandler<R>,IViewComponentGroup {
+public interface IFillerGroup<R> extends IFetchSingleResultHandler<R>, IFetchListResultHandler<R>, IViewComponentGroup {
     void onEmpty();
 }

@@ -32,14 +32,14 @@ public class Validator {
     private final List<Rule> ruleList;
 
     public Validator() {
-       this(8);
+        this(8);
     }
 
     public Validator(int ruleCount) {
-        ruleList=new ArrayList<>(ruleCount);
+        ruleList = new ArrayList<>(ruleCount);
     }
 
-    public Validator addRule(Rule rule){
+    public Validator addRule(Rule rule) {
         ruleList.add(rule);
         return this;
     }
@@ -58,14 +58,13 @@ public class Validator {
 
             @Override
             public void onNext(Rule rule) {
-                if (!rule.isValid()){
+                if (!rule.isValid()) {
                     rule.onFail();
                     unsubscribe();
                 }
             }
         });
     }
-
 
 
 }

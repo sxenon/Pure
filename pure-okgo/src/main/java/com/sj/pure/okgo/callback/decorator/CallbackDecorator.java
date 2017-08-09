@@ -36,24 +36,25 @@ public abstract class CallbackDecorator<R> implements Callback<R> {
 
     /**
      * Constructor,use with {@link #decorate(Callback)}
+     *
      * @param resultDispatcher Common
      */
-    public CallbackDecorator(@NonNull BaseOkgoResultDispatcher<R> resultDispatcher){
-        this.resultDispatcher=resultDispatcher;
+    public CallbackDecorator(@NonNull BaseOkgoResultDispatcher<R> resultDispatcher) {
+        this.resultDispatcher = resultDispatcher;
     }
 
     /**
      * Decorate
+     *
      * @param originalCallback Special
      */
-    public void decorate(Callback<R> originalCallback){
-        this.originalCallback=originalCallback;
+    public void decorate(Callback<R> originalCallback) {
+        this.originalCallback = originalCallback;
     }
 
     @Override
     public void onStart(Request<R, ? extends Request> request) {
-        resultDispatcher.onStart(request);
-        originalCallback.onStart(request);
+        Preconditions.checkNotNull(originalCallback, "Call decorate first!").onStart(request);
     }
 
     @Override
@@ -76,7 +77,6 @@ public abstract class CallbackDecorator<R> implements Callback<R> {
 
     @Override
     public void onFinish() {
-        resultDispatcher.onFinish();
         originalCallback.onFinish();
     }
 
@@ -92,6 +92,6 @@ public abstract class CallbackDecorator<R> implements Callback<R> {
 
     @Override
     public R convertResponse(okhttp3.Response response) throws Throwable {
-        return Preconditions.checkNotNull(originalCallback,"Call decorate first!").convertResponse(response);
+        return originalCallback.convertResponse(response);
     }
 }

@@ -27,8 +27,8 @@ import com.sj.pure.okgo.converter.BConverter;
 public abstract class BCallback<T> extends AbsCallback<T> {
     private final BConverter<T> mBConverter;
 
-    public BCallback(){
-        mBConverter=genBConverter();
+    public BCallback() {
+        mBConverter = genBConverter();
     }
 
     @Override

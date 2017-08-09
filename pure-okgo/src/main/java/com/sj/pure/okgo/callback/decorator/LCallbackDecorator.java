@@ -33,29 +33,30 @@ import java.util.List;
  */
 
 public class LCallbackDecorator<R> implements LCallback<R> {
-    private  LCallback<R> originalCallback;
+    private LCallback<R> originalCallback;
     private final BaseOkgoLResultDispatcher<R> resultDispatcher;
 
     /**
      * Constructor ,use with {@link #decorate(LCallback)}
+     *
      * @param resultDispatcher Common
      */
-    public LCallbackDecorator(@NonNull BaseOkgoLResultDispatcher<R> resultDispatcher){
-        this.resultDispatcher=resultDispatcher;
+    public LCallbackDecorator(@NonNull BaseOkgoLResultDispatcher<R> resultDispatcher) {
+        this.resultDispatcher = resultDispatcher;
     }
 
     /**
      * Decorate
-     * @param originalCallback Special
+     *
+     * @param originalCallback Custom
      */
-    public void decorate(LCallback<R> originalCallback){
-        this.originalCallback=originalCallback;
+    public void decorate(LCallback<R> originalCallback) {
+        this.originalCallback = originalCallback;
     }
 
     @Override
     public void onStart(Request<List<R>, ? extends Request> request) {
-        resultDispatcher.onStart(request);
-        originalCallback.onStart(request);
+        Preconditions.checkNotNull(originalCallback, "Call decorate first!").onStart(request);
     }
 
     @Override
@@ -78,7 +79,6 @@ public class LCallbackDecorator<R> implements LCallback<R> {
 
     @Override
     public void onFinish() {
-        resultDispatcher.onFinish();
         originalCallback.onFinish();
     }
 
@@ -94,6 +94,6 @@ public class LCallbackDecorator<R> implements LCallback<R> {
 
     @Override
     public List<R> convertResponse(okhttp3.Response response) throws Throwable {
-        return Preconditions.checkNotNull(originalCallback,"Call decorate first!").convertResponse(response);
+        return originalCallback.convertResponse(response);
     }
 }

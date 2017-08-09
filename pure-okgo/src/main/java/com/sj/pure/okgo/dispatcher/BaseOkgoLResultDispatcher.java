@@ -33,6 +33,7 @@ public abstract class BaseOkgoLResultDispatcher<R> extends BaseResultDispatcher<
     public BaseOkgoLResultDispatcher(IFetchListResultHandler<R> resultHandler) {
         super(resultHandler);
     }
+
     /**
      * 是业务意义上的Success！
      */
@@ -40,13 +41,10 @@ public abstract class BaseOkgoLResultDispatcher<R> extends BaseResultDispatcher<
         onListDataFetched(response.body());
     }
 
-    public abstract void onStart(Request<List<R>, ? extends Request> request);
-
     public abstract void onSuccess(Response<List<R>> response);
 
     public abstract void onCacheSuccess(Response<List<R>> response);
 
     public abstract void onError(Response<List<R>> response);
 
-    public abstract void onFinish();
 }

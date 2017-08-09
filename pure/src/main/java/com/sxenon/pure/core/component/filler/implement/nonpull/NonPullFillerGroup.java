@@ -33,7 +33,7 @@ public class NonPullFillerGroup<R> extends BaseFillerGroup<R, NonPullLayout> {
     }
 
     public NonPullFillerGroup(Context context, IPureAdapter<R> adapter) {
-        super(context, new NonPullLayout(),adapter,new NonPullFillPageStrategy<R>());
+        super(context, new NonPullLayout(), adapter, new NonPullFillPageStrategy<R>());
     }
 
 }

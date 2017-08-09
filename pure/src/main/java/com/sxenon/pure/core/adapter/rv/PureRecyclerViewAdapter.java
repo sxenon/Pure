@@ -203,11 +203,11 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
 
         PureRecyclerViewItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryArray[viewType];
         int resourceId = itemViewTypeEntity.getResourceId();
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(resourceId, parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(resourceId, parent, false);
         Class<? extends PureRecyclerViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
         try {
-            Constructor<? extends PureRecyclerViewHolder> constructor = viewHolderClass.getConstructor(View.class, PureRecyclerViewAdapter.class,IView.class);
-            viewHolder = constructor.newInstance(itemView, PureRecyclerViewAdapter.this,mAdapterContainer);
+            Constructor<? extends PureRecyclerViewHolder> constructor = viewHolderClass.getConstructor(View.class, PureRecyclerViewAdapter.class, IView.class);
+            viewHolder = constructor.newInstance(itemView, PureRecyclerViewAdapter.this, mAdapterContainer);
         } catch (Exception e) {
             e.printStackTrace();
         }
