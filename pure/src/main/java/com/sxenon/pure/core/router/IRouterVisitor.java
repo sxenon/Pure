@@ -51,6 +51,4 @@ interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle, L
     void requestPermissionsAfterExplanation(@NonNull String[] permissions);
 
     <T> LifecycleTransformer<T> autoComplete();
-
-    void onConfigurationChanged(Configuration newConfig);
 }

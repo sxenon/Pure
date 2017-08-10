@@ -66,8 +66,6 @@ public interface IRouter<P extends PureRouterVisitorAsPresenter> extends IView<P
 
     RouterType getRouterType();
 
-    void clearFragmentBackStackImmediate();
-
     enum RouterType {
         ACTIVITY,
         COMPACT_ACTIVITY,

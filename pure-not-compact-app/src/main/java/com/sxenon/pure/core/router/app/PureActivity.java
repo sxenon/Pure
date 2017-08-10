@@ -155,26 +155,12 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mRootPresenter.onConfigurationChanged(newConfig);
-    }
-
     void addToVisibleSet(PureFragment pureFragment) {
         mVisibleFragmentSet.add(pureFragment);
     }
 
     void removeFromVisibleSet(PureFragment pureFragment) {
         mVisibleFragmentSet.remove(pureFragment);
-    }
-
-    public void clearFragmentBackStackImmediate() {
-        FragmentManager manager = getFragmentManager();
-        if (manager.getBackStackEntryCount() > 0) {
-            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
-            manager.popBackStackImmediate(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
     }
 
     @Override

@@ -161,20 +161,6 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mRootPresenter.onConfigurationChanged(newConfig);
-    }
-
-    public void clearFragmentBackStackImmediate() {
-        FragmentManager manager = getSupportFragmentManager();
-        if (manager.getBackStackEntryCount() > 0) {
-            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
-            manager.popBackStackImmediate(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-    }
-
-    @Override
     public boolean shouldKeepWhenInBackground(int finishForWhat) {
         return true;
     }

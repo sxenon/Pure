@@ -150,10 +150,6 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
         return false;
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-
-    }
     //Permission start
 
     public void setPermissionEvent(int what, Action0 action, boolean forceAccepting) {

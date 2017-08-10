@@ -170,19 +170,4 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
         return mRootPresenter.onBackPressed();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mRootPresenter.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public void clearFragmentBackStackImmediate() {
-        FragmentManager manager = getChildFragmentManager();
-        if (manager.getBackStackEntryCount() > 0) {
-            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
-            manager.popBackStackImmediate(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-    }
-
 }
