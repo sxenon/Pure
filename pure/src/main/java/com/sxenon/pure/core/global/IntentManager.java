@@ -36,7 +36,7 @@ import java.util.List;
  * 其他：Component、Action、Category、Data(Authority,Path,Scheme,SchemeSpecificPart,Type)、Flag
  * 以及Event本身和相对应的Tag，统一在一个路由里面处理
  * <p>
- * 可以把一些系统跳转放在这里
+ * 可以把一些系统跳转放在这里,跳转到某个Setting的直接参考{@link Settings}类就行
  * <p>
  * StartActivity by context is different from startActivity by router!
  * Created by Sui on 2016/11/24.
@@ -63,19 +63,16 @@ public class IntentManager {
         return intent;
     }
 
-    public static Intent getOpenSettingsScreen(Context context) {
+    public static Intent getViewApplicationDetailsIntent(Context context) {
         Intent intent = new Intent();
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Uri uri = Uri.parse("package:" + context.getPackageName());
         intent.setData(uri);
         return intent;
     }
 
-    public static Intent getSettingWireLessIntent() {
-        return new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
-    }
-
-    public static Intent openMarket(Context context) {
+    public static Intent getOpenMarketIntent(Context context) {
         Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
