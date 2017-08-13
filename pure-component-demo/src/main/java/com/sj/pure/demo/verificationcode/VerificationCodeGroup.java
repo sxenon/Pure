@@ -75,7 +75,7 @@ public abstract class VerificationCodeGroup<T,R> implements ISubmitResultHandler
             mCountDownTimer=new CountDownTimer(mMillisInFuture, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    mCountDownListener.onTick(millisUntilFinished);
+                    mCountDownListener.onTick(Math.round(millisUntilFinished/1000));
                 }
 
                 @Override

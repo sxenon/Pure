@@ -40,12 +40,12 @@ import rx.schedulers.Schedulers;
  */
 
 public abstract class RxVerificationCodeGroup<T,R> implements ISubmitResultHandler<R>,ISingleDataSubmitter<T> {
-    private final long mMillisInFuture;
+    private final int mSecondsInFuture;
     private final CountDownListener mCountDownListener;
     private final IRouter mRouter;
 
-    public RxVerificationCodeGroup(IRouter router, long millisInFuture, CountDownListener countDownListener){
-        mMillisInFuture=millisInFuture;
+    public RxVerificationCodeGroup(IRouter router, int secondsInFuture, CountDownListener countDownListener){
+        mSecondsInFuture =secondsInFuture;
         mCountDownListener=countDownListener;
         mRouter=router;
     }
@@ -55,11 +55,11 @@ public abstract class RxVerificationCodeGroup<T,R> implements ISubmitResultHandl
         final IRouterVisitor routerVisitor=mRouter.getPresenter();
         //noinspection unchecked
         Observable.interval(0, 1, TimeUnit.SECONDS)
-                .take((int) (mMillisInFuture + 1))
+                .take(mSecondsInFuture + 1)
                 .map(new Func1<Long, Long>() {
                     @Override
                     public Long call(Long aLong) {
-                        return mMillisInFuture - aLong;
+                        return mSecondsInFuture - aLong;
                     }
                 })
                 .subscribeOn(Schedulers.computation())

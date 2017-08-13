@@ -17,11 +17,12 @@
 package com.sj.pure.demo.verificationcode;
 
 /**
+ * CountDownListener for
  * Created by Sui on 2017/8/13.
  */
 
 public interface CountDownListener {
     void onStart();
-    void onTick(long millisUntilFinished);
+    void onTick(long secondsInFuture);
     void onFinish();
 }
