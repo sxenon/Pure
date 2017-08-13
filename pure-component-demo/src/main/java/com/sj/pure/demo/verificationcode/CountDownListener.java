@@ -23,6 +23,6 @@ package com.sj.pure.demo.verificationcode;
 
 public interface CountDownListener {
     void onStart();
-    void onTick(long secondsInFuture);
+    void onTick(long secondsUntilFinished);
     void onFinish();
 }
