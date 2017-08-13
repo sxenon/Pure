@@ -31,6 +31,7 @@ import rx.functions.Action0;
 
 /**
  * Treat Activity & Fragment as router
+ * Architecture: IRouter(-->{@link BaseSubView})-->{@link com.sxenon.pure.core.component.IViewComponentGroup}/View/Adapter
  * Created by Sui on 2016/11/20.
  */
 

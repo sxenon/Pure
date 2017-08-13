@@ -74,7 +74,7 @@ public abstract class RxVerificationCodeGroup<T,R> implements ISubmitResultHandl
                 .subscribe(new Subscriber<Long>() {
                     @Override
                     public void onCompleted() {
-                        if (routerVisitor.getCurrentEvent()!= RouterEvent.DESTROY){
+                        if (isRouterOnActive(routerVisitor)){
                             mCountDownListener.onFinish();
                         }
                     }
@@ -86,10 +86,15 @@ public abstract class RxVerificationCodeGroup<T,R> implements ISubmitResultHandl
 
                     @Override
                     public void onNext(Long aLong) {
-                        if (routerVisitor.getCurrentEvent()!= RouterEvent.DESTROY){
+                        if (isRouterOnActive(routerVisitor)){
                             mCountDownListener.onTick(aLong);
                         }
                     }
                 });
     }
+
+    private boolean isRouterOnActive(IRouterVisitor routerVisitor){
+        return routerVisitor.getCurrentEvent()!= RouterEvent.DESTROY;
+    }
+
 }
