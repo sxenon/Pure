@@ -18,7 +18,6 @@ package com.sxenon.pure.core.router;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
@@ -84,6 +83,11 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
         return lifecycleSubject.asObservable();
     }
 
+    /**
+     * RxLifecycle does not actually unsubscribe the sequence. Instead it terminates the sequence. The way in which it does so varies based on the type:
+     * Observable - emits onCompleted()
+     * Single and Completable - emits onError(CancellationException)
+     */
     @Nonnull
     @Override
     public <T> LifecycleTransformer<T> bindUntilEvent(@Nonnull RouterEvent event) {
@@ -235,16 +239,4 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
         permissionHelper.requestPermissionsAfterExplanation(permissions);
     }
     //Permission end
-
-    /**
-     * RxLifecycle does not actually unsubscribe the sequence. Instead it terminates the sequence. The way in which it does so varies based on the type:
-     * Observable - emits onCompleted()
-     * Single and Completable - emits onError(CancellationException)
-     */
-    @NonNull
-    @Override
-    public final <T> LifecycleTransformer<T> autoComplete() {
-        return bindUntilEvent(RouterEvent.DESTROY);
-    }
-    //Binding end
 }

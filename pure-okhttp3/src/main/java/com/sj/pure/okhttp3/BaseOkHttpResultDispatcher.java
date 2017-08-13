@@ -65,7 +65,7 @@ public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher
             case SUBMIT:
             default: {
                 R result = Preconditions.checkNotNull(mConverter, "").convertResponse(response);
-                onSuccess(result);
+                onSubmitSuccess(result);
             }
         }
     }

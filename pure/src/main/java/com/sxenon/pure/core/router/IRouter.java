@@ -64,6 +64,9 @@ public interface IRouter<P extends PureRouterVisitorAsPresenter> extends IView<P
 
     P bindPresenter();
 
+    @Override
+    P getPresenter();
+
     RouterType getRouterType();
 
     enum RouterType {

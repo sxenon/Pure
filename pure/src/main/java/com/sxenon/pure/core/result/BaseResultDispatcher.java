@@ -70,18 +70,18 @@ public class BaseResultDispatcher<R> implements IResultDispatcher<R> {
      * {@link ResultHandlerType#SUBMIT}
      */
     @Override
-    public void onSuccess(R result) {
+    public void onSubmitSuccess(R result) {
         //noinspection unchecked
-        ((ISubmitResultHandler<R>) mResultHandler).onSuccess(result);
+        ((ISubmitResultHandler<R>) mResultHandler).onSubmitSuccess(result);
     }
 
     /**
      * {@link ResultHandlerType#SUBMIT}
      */
     @Override
-    public void onFail(R result) {
+    public void onSubmitFailed(R result) {
         //noinspection unchecked
-        ((ISubmitResultHandler<R>) mResultHandler).onFail(result);
+        ((ISubmitResultHandler<R>) mResultHandler).onSubmitFailed(result);
     }
 
     @Override

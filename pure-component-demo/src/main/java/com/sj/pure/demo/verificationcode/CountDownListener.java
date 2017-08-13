@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.result;
+package com.sj.pure.demo.verificationcode;
 
 /**
- * ResultHandler for submitting
- * Created by Sui on 2016/12/12.
+ * Created by Sui on 2017/8/13.
  */
 
-public interface ISubmitResultHandler<R> extends IResultHandler {
-    void onSubmitSuccess(R result);
-
-    void onSubmitFailed(R result);
+public interface CountDownListener {
+    void onStart();
+    void onTick(long millisUntilFinished);
+    void onFinish();
 }

@@ -4,10 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Pure.iml" filepath="$PROJECT_DIR$/Pure.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure/pure.iml" filepath="$PROJECT_DIR$/pure/pure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pure-component-demo/pure-component-demo.iml" filepath="$PROJECT_DIR$/pure-component-demo/pure-component-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-not-compact-app/pure-not-compact-app.iml" filepath="$PROJECT_DIR$/pure-not-compact-app/pure-not-compact-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-okgo/pure-okgo.iml" filepath="$PROJECT_DIR$/pure-okgo/pure-okgo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-okhttp3/pure-okhttp3.iml" filepath="$PROJECT_DIR$/pure-okhttp3/pure-okhttp3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pure-pull-demo/pure-pull-demo.iml" filepath="$PROJECT_DIR$/pure-pull-demo/pure-pull-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-retrofit2/pure-retrofit2.iml" filepath="$PROJECT_DIR$/pure-retrofit2/pure-retrofit2.iml" />
     </modules>
   </component>

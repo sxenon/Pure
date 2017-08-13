@@ -17,14 +17,12 @@
 package com.sxenon.pure.core.router;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.IPresenter;
 import com.sxenon.pure.core.permission.OnPermissionCallback;
 import com.trello.rxlifecycle.LifecycleProvider;
-import com.trello.rxlifecycle.LifecycleTransformer;
 
 import java.util.List;
 
@@ -35,7 +33,7 @@ import rx.functions.Action0;
  * Created by Sui on 2017/2/5.
  */
 
-interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle, LifecycleProvider<RouterEvent>, OnPermissionCallback {
+public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle, LifecycleProvider<RouterEvent>, OnPermissionCallback {
     boolean onBackPressed();
 
     List<Event> getEventForSave();
@@ -49,6 +47,4 @@ interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle, L
     void requestSystemAlertPermission(int requestCode, Action0 action);
 
     void requestPermissionsAfterExplanation(@NonNull String[] permissions);
-
-    <T> LifecycleTransformer<T> autoComplete();
 }

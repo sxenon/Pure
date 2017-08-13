@@ -44,7 +44,7 @@ public abstract class Retrofit2ResultDispatcher<R> extends BaseResultDispatcher<
                 onSingleDataFetched(response.body());
             }
             case SUBMIT: {
-                onSuccess(response.body());
+                onSubmitSuccess(response.body());
             }
             default: {
                 throw new IllegalArgumentException("IResultHandler with wrong type");
