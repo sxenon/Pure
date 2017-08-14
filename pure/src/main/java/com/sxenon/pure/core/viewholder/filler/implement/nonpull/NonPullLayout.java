@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,39 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.viewholder.filler.implement.nonpull;
+
+import com.sxenon.pure.core.viewholder.filler.IPullLayout;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Empty implement for IPullLayout
+ * Created by Sui on 2016/12/27.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewHolder> getViewHolderClass();
+public class NonPullLayout implements IPullLayout {
 
-    int getResourceId();
+    @Override
+    public void beginPullingDown() {
+
+    }
+
+    @Override
+    public void beginPullingUp() {
+
+    }
+
+    @Override
+    public void endPullingUp() {
+
+    }
+
+    @Override
+    public void endPullingDown() {
+
+    }
+
+    @Override
+    public void setVisibility(int visibility) {
+
+    }
 }

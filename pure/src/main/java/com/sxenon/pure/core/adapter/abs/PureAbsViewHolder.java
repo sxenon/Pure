@@ -18,7 +18,7 @@ package com.sxenon.pure.core.adapter.abs;
 
 import android.view.View;
 
-import com.sxenon.pure.core.adapter.IPureViewHolder;
+import com.sxenon.pure.core.adapter.IAdapterViewHolder;
 import com.sxenon.pure.core.mvp.IView;
 
 /**
@@ -26,7 +26,7 @@ import com.sxenon.pure.core.mvp.IView;
  * Created by Sui on 2016/12/25.
  */
 
-public abstract class PureAbsViewHolder<T> implements IPureViewHolder<T> {
+public abstract class PureAbsViewHolder<T> implements IAdapterViewHolder<T> {
     private final int position;
     private final PureAbsListAdapter adapter;
     private final IView adapterContainer;

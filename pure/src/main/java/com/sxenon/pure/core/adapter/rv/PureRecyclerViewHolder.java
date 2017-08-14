@@ -19,7 +19,7 @@ package com.sxenon.pure.core.adapter.rv;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.sxenon.pure.core.adapter.IPureViewHolder;
+import com.sxenon.pure.core.adapter.IAdapterViewHolder;
 import com.sxenon.pure.core.mvp.IView;
 
 /**
@@ -27,7 +27,7 @@ import com.sxenon.pure.core.mvp.IView;
  * Created by Sui on 2016/12/29.
  */
 
-public abstract class PureRecyclerViewHolder<T> extends RecyclerView.ViewHolder implements IPureViewHolder<T> {
+public abstract class PureRecyclerViewHolder<T> extends RecyclerView.ViewHolder implements IAdapterViewHolder<T> {
     private final PureRecyclerViewAdapter adapter;
     private final IView adapterContainer;
 

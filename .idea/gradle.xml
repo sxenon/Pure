@@ -10,11 +10,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/pure" />
-            <option value="$PROJECT_DIR$/pure-component-demo" />
             <option value="$PROJECT_DIR$/pure-not-compact-app" />
             <option value="$PROJECT_DIR$/pure-okgo" />
             <option value="$PROJECT_DIR$/pure-okhttp3" />
             <option value="$PROJECT_DIR$/pure-retrofit2" />
+            <option value="$PROJECT_DIR$/pure-viewholder-demo" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

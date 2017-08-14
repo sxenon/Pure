@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.viewholder.filler;
+
+import com.sxenon.pure.core.viewholder.IViewHolder;
+import com.sxenon.pure.core.result.IFetchListResultHandler;
+import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Interface for FillerViewHolder
+ * Created by Sui on 2017/8/4.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewHolder> getViewHolderClass();
-
-    int getResourceId();
+public interface IFillerViewHolder<R> extends IFetchSingleResultHandler<R>, IFetchListResultHandler<R>, IViewHolder {
+    void onEmpty();
 }

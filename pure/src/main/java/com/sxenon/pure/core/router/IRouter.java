@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.sxenon.pure.core.Event;
+import com.sxenon.pure.core.viewholder.IViewHolder;
 import com.sxenon.pure.core.mvp.IView;
 
 import java.util.List;
@@ -31,7 +32,7 @@ import rx.functions.Action0;
 
 /**
  * Treat Activity & Fragment as router
- * Architecture: IRouter(-->{@link BaseSubView})-->{@link com.sxenon.pure.core.component.IViewComponentGroup}/View/Adapter
+ * Architecture: IRouter-->{@link IViewHolder}/View/Adapter
  * Created by Sui on 2016/11/20.
  */
 

@@ -17,7 +17,6 @@
 package com.sj.pure.okgo.dispatcher;
 
 import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.base.Request;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
 import com.sxenon.pure.core.result.IFetchListResultHandler;
 

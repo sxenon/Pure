@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.viewholder.filler;
+
+import com.sxenon.pure.core.adapter.IPureAdapter;
+
+import java.util.List;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Strategy Interface for ListDataFiller
+ * Created by Sui on 2017/1/12.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewHolder> getViewHolderClass();
+public interface FillAdapterStrategy<R> {
+    void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data);
 
-    int getResourceId();
+    void onNewDataFetched(IPureAdapter<R> adapter, List<R> data);
+
+    void onInitDataFetched(IPureAdapter<R> adapter, List<R> data);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,24 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sj.pure.demo;
+
+import android.app.Activity;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Demo
+ * Created by Sui on 2017/8/14.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewHolder> getViewHolderClass();
+public class Misc {
+    private static long pressedTime = 0;
 
-    int getResourceId();
+    public static void pressAgainForExit(Activity activity, long cdMills) {
+        if ((System.currentTimeMillis() - pressedTime) > cdMills) {
+            //Toast.makeText(activity, "Press again and exit!", Toast.LENGTH_SHORT).show();
+            pressedTime = System.currentTimeMillis();
+            return;
+        }
+        activity.finish();
+    }
 }

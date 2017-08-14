@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.viewholder.filler;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Event what for filler
+ * Created by Sui on 2017/8/4.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewHolder> getViewHolderClass();
-
-    int getResourceId();
+public class FillEventWhat {
+    public static final int WHAT_UNINITIALIZED = 1;
+    public static final int WHAT_NORMAL = 2;
+    public static final int WHAT_EMPTY = 3;
+    public static final int WHAT_EXCEPTION = 4;
 }

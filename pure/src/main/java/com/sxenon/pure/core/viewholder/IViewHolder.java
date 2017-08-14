@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.viewholder;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Does not equal to ViewGroup,nothing about UI
+ * Created by Sui on 2016/11/20.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewHolder> getViewHolderClass();
-
-    int getResourceId();
+public interface IViewHolder {
 }

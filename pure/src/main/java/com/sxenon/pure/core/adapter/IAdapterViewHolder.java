@@ -16,13 +16,22 @@
 
 package com.sxenon.pure.core.adapter;
 
+import android.view.View;
+
+import com.sxenon.pure.core.viewholder.IViewHolder;
+import com.sxenon.pure.core.mvp.IView;
+
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Interface for adapter`s viewHolder
+ * Created by Sui on 2016/12/25.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewHolder> getViewHolderClass();
+public interface IAdapterViewHolder<T> extends IViewHolder{
+    int getPosition();
 
-    int getResourceId();
+    void fillItemViewByData(View itemView, T data);
+
+    <A extends IPureAdapter> A getAdapter();
+
+    IView getAdapterContainer();
 }

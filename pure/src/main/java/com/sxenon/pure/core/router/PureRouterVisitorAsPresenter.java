@@ -39,7 +39,7 @@ import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
 
 /**
- * Include several {@link BaseSubPresenter}s，with their related {@link BaseSubView}s
+ * RouterVisitor
  * Created by Sui on 2016/11/28.
  */
 

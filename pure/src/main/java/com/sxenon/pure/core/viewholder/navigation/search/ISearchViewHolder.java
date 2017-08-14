@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.viewholder.navigation.search;
+
+import com.sxenon.pure.core.viewholder.IViewHolder;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Interface for SearchView
+ * Created by Sui on 2016/11/8.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewHolder> getViewHolderClass();
+public interface ISearchViewHolder extends IViewHolder {
+    void setKeyword(CharSequence keyword);
 
-    int getResourceId();
+    boolean performSearch();
 }
