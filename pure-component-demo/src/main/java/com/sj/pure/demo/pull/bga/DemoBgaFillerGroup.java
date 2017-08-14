@@ -18,13 +18,11 @@ package com.sj.pure.demo.pull.bga;
 
 import android.util.Log;
 
-import com.sj.pure.demo.RequestBean;
-import com.sj.pure.demo.ResponseBean;
+import com.sj.pure.demo.bean.RequestBean;
+import com.sj.pure.demo.bean.ResponseBean;
 import com.sxenon.pure.core.component.filler.implement.RefreshAndMoreFillPageStrategy;
 import com.sxenon.pure.core.component.submitter.ISingleDataSubmitter;
 import com.sxenon.pure.core.mvp.IView;
-
-import java.util.List;
 
 import cn.bingoogolapple.androidcommon.adapter.BGARecyclerViewAdapter;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;

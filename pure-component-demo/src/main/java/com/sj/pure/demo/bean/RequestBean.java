@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo;
+package com.sj.pure.demo.bean;
 
 /**
- * Demo bean for response
+ * Demo bean for request
  * Created by Sui on 2017/8/14.
  */
 
-public class ResponseBean {
+public class RequestBean {
 }

@@ -24,8 +24,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.sj.pure.demo.RequestBean;
-import com.sj.pure.demo.ResponseBean;
+import com.sj.pure.demo.bean.RequestBean;
+import com.sj.pure.demo.bean.ResponseBean;
 import com.sj.pure.demo.pull.R;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.mvp.IView;
