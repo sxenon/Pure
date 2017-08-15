@@ -257,6 +257,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         return mPullLayout;
     }
 
+    @Override
     public Context getContext() {
         return mContext;
     }

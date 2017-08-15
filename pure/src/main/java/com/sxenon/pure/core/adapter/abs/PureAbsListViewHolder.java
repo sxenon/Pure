@@ -16,26 +16,27 @@
 
 package com.sxenon.pure.core.adapter.abs;
 
+import android.content.Context;
 import android.view.View;
 
 import com.sxenon.pure.core.adapter.IAdapterViewHolder;
-import com.sxenon.pure.core.mvp.IView;
+import com.sxenon.pure.core.viewholder.IViewHolder;
 
 /**
  * ViewHolder for AbsList
  * Created by Sui on 2016/12/25.
  */
 
-public abstract class PureAbsViewHolder<T> implements IAdapterViewHolder<T> {
+public abstract class PureAbsListViewHolder<T> implements IAdapterViewHolder<T> {
     private final int position;
     private final PureAbsListAdapter adapter;
-    private final IView adapterContainer;
+    private final IViewHolder adapterContainer;
     public final View itemView;
 
-    public PureAbsViewHolder(View itemView, PureAbsListAdapter adapter, int position, IView adapterContainer) {
+    public PureAbsListViewHolder(View itemView, PureAbsListAdapter adapter, int position) {
         this.position = position;
         this.adapter = adapter;
-        this.adapterContainer = adapterContainer;
+        this.adapterContainer = adapter.getContainer();
         this.itemView = itemView;
     }
 
@@ -45,11 +46,13 @@ public abstract class PureAbsViewHolder<T> implements IAdapterViewHolder<T> {
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public PureAbsListAdapter getAdapter() {
         return adapter;
     }
 
-    public IView getAdapterContainer() {
-        return adapterContainer;
+    @Override
+    public Context getContext() {
+        return adapterContainer.getContext();
     }
 }

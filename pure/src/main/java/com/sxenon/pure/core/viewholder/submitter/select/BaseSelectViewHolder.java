@@ -128,6 +128,7 @@ public abstract class BaseSelectViewHolder<T> implements ISelectViewHolder<T> {
     }
 
     @NonNull
+    @Override
     public Context getContext() {
         return mContext;
     }

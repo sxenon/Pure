@@ -16,6 +16,7 @@
 
 package com.sxenon.pure.core.viewholder.navigation.next;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -51,5 +52,10 @@ public class BaseNextViewHolder implements INextViewHolder {
                 nextDelegate.onNext();
             }
         });
+    }
+
+    @Override
+    public Context getContext() {
+        return mNextText.getContext();
     }
 }

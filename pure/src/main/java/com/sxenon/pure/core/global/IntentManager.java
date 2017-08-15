@@ -86,7 +86,7 @@ public class IntentManager {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static void requestSystemAlertPermission(IRouter router, int requestCode) {
-        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + router.getActivityCompact().getPackageName()));
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + router.getContext().getPackageName()));
         router.startActivityForResult(intent, requestCode);
     }
 

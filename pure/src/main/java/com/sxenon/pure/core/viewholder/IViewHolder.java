@@ -16,10 +16,21 @@
 
 package com.sxenon.pure.core.viewholder;
 
+import android.content.Context;
+
 /**
  * Does not equal to ViewGroup,nothing about UI
+ *
  * Created by Sui on 2016/11/20.
  */
 
 public interface IViewHolder {
+    /**
+     * 理论上应该持有对IRouter的引用，但出于以下原因，不强制持有，需要时自行添加
+     * 1、降低ViewHolder 模块的使用门槛，使之能够独立于MVP使用
+     * 2、一些简单的页面不需要IRouter的功能
+     */
+    Context getContext();
+
+    //IRouter getRouter();
 }

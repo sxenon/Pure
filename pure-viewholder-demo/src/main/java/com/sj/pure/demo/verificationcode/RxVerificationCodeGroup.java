@@ -16,6 +16,8 @@
 
 package com.sj.pure.demo.verificationcode;
 
+import android.content.Context;
+
 import com.sxenon.pure.core.viewholder.submitter.ISingleDataSubmitter;
 import com.sxenon.pure.core.result.ISubmitResultHandler;
 import com.sxenon.pure.core.router.IRouter;
@@ -91,6 +93,11 @@ public abstract class RxVerificationCodeGroup<T,R> implements ISubmitResultHandl
                         }
                     }
                 });
+    }
+
+    @Override
+    public Context getContext() {
+        return mRouter.getContext();
     }
 
     private boolean isRouterOnActive(IRouterVisitor routerVisitor){

@@ -19,7 +19,6 @@ package com.sxenon.pure.core.adapter;
 import android.view.View;
 
 import com.sxenon.pure.core.viewholder.IViewHolder;
-import com.sxenon.pure.core.mvp.IView;
 
 /**
  * Interface for adapter`s viewHolder
@@ -32,6 +31,4 @@ public interface IAdapterViewHolder<T> extends IViewHolder{
     void fillItemViewByData(View itemView, T data);
 
     <A extends IPureAdapter> A getAdapter();
-
-    IView getAdapterContainer();
 }

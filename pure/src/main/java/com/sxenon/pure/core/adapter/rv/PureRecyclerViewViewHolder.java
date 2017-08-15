@@ -16,25 +16,26 @@
 
 package com.sxenon.pure.core.adapter.rv;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.sxenon.pure.core.adapter.IAdapterViewHolder;
-import com.sxenon.pure.core.mvp.IView;
+import com.sxenon.pure.core.viewholder.IViewHolder;
 
 /**
  * ViewHolder for RecyclerView
  * Created by Sui on 2016/12/29.
  */
 
-public abstract class PureRecyclerViewHolder<T> extends RecyclerView.ViewHolder implements IAdapterViewHolder<T> {
+public abstract class PureRecyclerViewViewHolder<T> extends RecyclerView.ViewHolder implements IAdapterViewHolder<T> {
     private final PureRecyclerViewAdapter adapter;
-    private final IView adapterContainer;
+    private final IViewHolder adapterContainer;
 
-    public PureRecyclerViewHolder(View itemView, PureRecyclerViewAdapter adapter, IView adapterContainer) {
+    public PureRecyclerViewViewHolder(View itemView, PureRecyclerViewAdapter adapter) {
         super(itemView);
         this.adapter = adapter;
-        this.adapterContainer = adapterContainer;
+        this.adapterContainer = adapter.getContainer();
     }
 
     @SuppressWarnings("unchecked")
@@ -43,7 +44,7 @@ public abstract class PureRecyclerViewHolder<T> extends RecyclerView.ViewHolder 
     }
 
     @Override
-    public IView getAdapterContainer() {
-        return adapterContainer;
+    public Context getContext() {
+        return adapterContainer.getContext();
     }
 }

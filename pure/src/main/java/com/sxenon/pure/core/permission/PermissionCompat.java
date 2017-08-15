@@ -76,7 +76,7 @@ public class PermissionCompat {
      * can be used outside of router.
      */
     public static boolean isPermissionGranted(@NonNull IRouter router, @NonNull String permission) {
-        return ContextCompat.checkSelfPermission(router.getActivityCompact(), permission) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(router.getContext(), permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     /**
@@ -85,7 +85,7 @@ public class PermissionCompat {
      * can be used outside of router.
      */
     public static boolean isPermissionDeclined(@NonNull IRouter router, @NonNull String permission) {
-        return ContextCompat.checkSelfPermission(router.getActivityCompact(), permission) != PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(router.getContext(), permission) != PackageManager.PERMISSION_GRANTED;
     }
 
     /**
@@ -118,7 +118,7 @@ public class PermissionCompat {
      * @return true if permission exists in the manifest, false otherwise.
      */
     public static boolean isPermissionExisted(@NonNull IRouter router, @NonNull String permission) {
-        Context context = router.getActivityCompact();
+        Context context = router.getContext();
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
             if (packageInfo.requestedPermissions != null) {
@@ -143,7 +143,7 @@ public class PermissionCompat {
     }
 
     public static boolean isSystemAlertGranted(@NonNull IRouter router) {
-        return isSystemAlertGranted(router.getActivityCompact());
+        return isSystemAlertGranted(router.getContext());
     }
 
 }

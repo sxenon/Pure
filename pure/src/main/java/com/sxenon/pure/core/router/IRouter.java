@@ -32,7 +32,7 @@ import rx.functions.Action0;
 
 /**
  * Treat Activity & Fragment as router
- * Architecture: IRouter-->{@link IViewHolder}/View/Adapter
+ * Architecture: IRouter-->{@link IViewHolder} with Business logic/ViewGroup-->View/Adapter
  * Created by Sui on 2016/11/20.
  */
 
