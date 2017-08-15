@@ -33,7 +33,7 @@ import com.sxenon.pure.core.router.IRouter;
 import rx.functions.Action1;
 
 /**
- * Demo for VerificationCodeViewHoder
+ * Demo for VerificationCodeViewHolder
  * Created by Sui on 2017/8/14.
  */
 

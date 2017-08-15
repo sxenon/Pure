@@ -38,12 +38,12 @@ import rx.Subscriber;
  * Created by Sui on 2017/8/13.
  */
 @Deprecated
-public abstract class VerificationCodeViewHoder<T,R> implements ISubmitResultHandler<R>,ISingleDataSubmitter<T> {
+public abstract class VerificationCodeViewHolder<T,R> implements ISubmitResultHandler<R>,ISingleDataSubmitter<T> {
     private CountDownTimer mCountDownTimer;
     private final long mMillisInFuture;
     private final CountDownListener mCountDownListener;
 
-    public VerificationCodeViewHoder(IRouter router, long millisInFuture, CountDownListener countDownListener){
+    public VerificationCodeViewHolder(IRouter router, long millisInFuture, CountDownListener countDownListener){
         mMillisInFuture=millisInFuture;
         mCountDownListener=countDownListener;
         //noinspection unchecked
