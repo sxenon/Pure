@@ -41,12 +41,12 @@ import rx.schedulers.Schedulers;
  * Created by Sui on 2017/8/13.
  */
 
-public abstract class RxVerificationCodeGroup<T,R> implements ISubmitResultHandler<R>,ISingleDataSubmitter<T> {
+public abstract class RxVerificationCodeViewHolder<T,R> implements ISubmitResultHandler<R>,ISingleDataSubmitter<T> {
     private final int mSecondsInFuture;
     private final CountDownListener mCountDownListener;
     private final IRouter mRouter;
 
-    public RxVerificationCodeGroup(IRouter router, int secondsInFuture, CountDownListener countDownListener){
+    public RxVerificationCodeViewHolder(IRouter router, int secondsInFuture, CountDownListener countDownListener){
         mSecondsInFuture =secondsInFuture;
         mCountDownListener=countDownListener;
         mRouter=router;

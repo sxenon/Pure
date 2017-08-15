@@ -20,9 +20,9 @@ import android.util.Log;
 
 import com.sj.pure.demo.bean.RequestBean;
 import com.sj.pure.demo.bean.ResponseBean;
+import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.viewholder.filler.implement.RefreshAndMoreFillPageStrategy;
 import com.sxenon.pure.core.viewholder.submitter.ISingleDataSubmitter;
-import com.sxenon.pure.core.mvp.IView;
 
 import cn.bingoogolapple.androidcommon.adapter.BGARecyclerViewAdapter;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
@@ -33,9 +33,9 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  */
 
 public class DemoBgaFillerViewHolder extends BGAFillerViewHolder<ResponseBean> implements ISingleDataSubmitter<RequestBean> {
-    private final IView mContainer;
+    private final IRouter mContainer;
 
-    public DemoBgaFillerViewHolder(IView container, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<ResponseBean> adapter){
+    public DemoBgaFillerViewHolder(IRouter container, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<ResponseBean> adapter){
         super(container.getContext(), refreshLayout, adapter, new RefreshAndMoreFillPageStrategy<ResponseBean>());
         mContainer =container;
     }

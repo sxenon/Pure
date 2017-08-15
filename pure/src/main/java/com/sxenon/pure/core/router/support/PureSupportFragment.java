@@ -26,7 +26,6 @@ import android.view.View;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.router.IFragment;
-import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.router.PureRouterVisitorAsPresenter;
 
 import java.util.List;
@@ -110,12 +109,6 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
             mRootPresenter.onCreate(mSavedEventList);
             shouldInitRootPresenter = false;
         }
-    }
-
-    @NonNull
-    @Override
-    public IRouter getRouter() {
-        return this;
     }
 
     @Override

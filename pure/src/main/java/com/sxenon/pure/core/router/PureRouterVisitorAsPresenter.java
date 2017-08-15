@@ -238,5 +238,10 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     public final void requestPermissionsAfterExplanation(@NonNull String[] permissions) {
         permissionHelper.requestPermissionsAfterExplanation(permissions);
     }
+
+    @NonNull
+    public IRouter getRouter() {
+        return getView();
+    }
     //Permission end
 }

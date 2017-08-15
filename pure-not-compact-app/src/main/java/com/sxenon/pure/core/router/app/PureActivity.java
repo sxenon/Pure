@@ -27,7 +27,6 @@ import android.support.v4.app.ActivityCompat;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.router.IActivity;
-import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.router.PureRouterVisitorAsPresenter;
 
 import java.util.HashSet;
@@ -80,12 +79,6 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
         saveEventList(mRootPresenter.getEventForSave());
         mRootPresenter.onDestroy();
         GlobalContext.INSTANCE.activityHistoryManager.remove(this);
-    }
-
-    @NonNull
-    @Override
-    public IRouter getRouter() {
-        return this;
     }
 
     @NonNull

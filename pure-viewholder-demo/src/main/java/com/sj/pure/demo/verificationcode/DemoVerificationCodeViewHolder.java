@@ -28,23 +28,23 @@ import com.sj.pure.demo.bean.RequestBean;
 import com.sj.pure.demo.bean.ResponseBean;
 import com.sj.pure.demo.pull.R;
 import com.sxenon.pure.core.ApiException;
-import com.sxenon.pure.core.mvp.IView;
+import com.sxenon.pure.core.router.IRouter;
 
 import rx.functions.Action1;
 
 /**
- * Demo for VerificationCodeGroup
+ * Demo for VerificationCodeViewHoder
  * Created by Sui on 2017/8/14.
  */
 
-public class DemoVerificationCodeGroup extends RxVerificationCodeGroup<RequestBean, ResponseBean> {
+public class DemoVerificationCodeViewHolder extends RxVerificationCodeViewHolder<RequestBean, ResponseBean> {
     private static final String TAG = "Demo";
-    private final IView mContainer;
+    private final IRouter mContainer;
     private final Button mCodeBtn;
     private final TextView mCountDownTv;
 
-    public DemoVerificationCodeGroup(final IView container, int secondsInFuture, final Button codeBtn, final TextView countDownTv, final Action1<View> requestCodeAction) {
-        super(container.getRouter(), secondsInFuture, new CountDownListener() {
+    public DemoVerificationCodeViewHolder(final IRouter container, int secondsInFuture, final Button codeBtn, final TextView countDownTv, final Action1<View> requestCodeAction) {
+        super(container, secondsInFuture, new CountDownListener() {
             @Override
             public void onStart() {
                 codeBtn.setEnabled(false);//在发送数据的时候设置为不能点击
@@ -95,6 +95,6 @@ public class DemoVerificationCodeGroup extends RxVerificationCodeGroup<RequestBe
         mCodeBtn.setEnabled(true);
         mCodeBtn.setBackgroundColor(Color.parseColor("#f97e7e"));
         //Suppose it is a network exception;
-        mContainer.getRouter().startActivityForResult(new Intent(Settings.ACTION_WIRELESS_SETTINGS),1);
+        mContainer.startActivityForResult(new Intent(Settings.ACTION_WIRELESS_SETTINGS),1);
     }
 }

@@ -19,8 +19,6 @@ package com.sxenon.pure.core.mvp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.sxenon.pure.core.router.IRouter;
-
 import java.lang.ref.WeakReference;
 
 /**
@@ -31,12 +29,10 @@ import java.lang.ref.WeakReference;
 public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
     private final WeakReference<V> viewRef;
     private final WeakReference<Context> contextRef;
-    private final WeakReference<IRouter> routerRef;
 
     public BasePresenter(V view) {
         viewRef = new WeakReference<>(view);
         contextRef = new WeakReference<>(view.getContext());
-        routerRef = new WeakReference<>(view.getRouter());
     }
 
     @Override
@@ -50,9 +46,4 @@ public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
         return contextRef.get();
     }
 
-    @NonNull
-    @Override
-    public IRouter getRouter() {
-        return routerRef.get();
-    }
 }

@@ -19,8 +19,6 @@ package com.sxenon.pure.core.mvp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.sxenon.pure.core.router.IRouter;
-
 /**
  * Presenter For MVP
  * Created by Sui on 2016/11/21.
@@ -31,8 +29,4 @@ public interface IPresenter<V extends IView> {
 
     @NonNull
     Context getContext();
-
-    @NonNull
-    IRouter getRouter();
-
 }
