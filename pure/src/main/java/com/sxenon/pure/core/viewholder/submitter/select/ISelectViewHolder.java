@@ -16,7 +16,7 @@
 
 package com.sxenon.pure.core.viewholder.submitter.select;
 
-import com.sxenon.pure.core.viewholder.submitter.IListDataSubmitter;
+import com.sxenon.pure.core.viewholder.submitter.IListDataSubmitterViewHolder;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Sui on 2016/11/18.
  */
 
-public interface ISelectViewHolder<T> extends IListDataSubmitter<T> {
+public interface ISelectViewHolder<T> extends IListDataSubmitterViewHolder<T> {
 
     void addOption(T data);
 

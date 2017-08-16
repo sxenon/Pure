@@ -18,7 +18,7 @@ package com.sj.pure.demo.verificationcode;
 
 import android.content.Context;
 
-import com.sxenon.pure.core.viewholder.submitter.ISingleDataSubmitter;
+import com.sxenon.pure.core.viewholder.submitter.ISingleDataSubmitterViewHolder;
 import com.sxenon.pure.core.result.ISubmitResultHandler;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.router.IRouterVisitor;
@@ -41,7 +41,7 @@ import rx.schedulers.Schedulers;
  * Created by Sui on 2017/8/13.
  */
 
-public abstract class RxVerificationCodeViewHolder<T,R> implements ISubmitResultHandler<R>,ISingleDataSubmitter<T> {
+public abstract class RxVerificationCodeViewHolder<T,R> implements ISubmitResultHandler<R>,ISingleDataSubmitterViewHolder<T> {
     private final int mSecondsInFuture;
     private final CountDownListener mCountDownListener;
     private final IRouter mRouter;

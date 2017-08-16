@@ -18,11 +18,13 @@ package com.sxenon.pure.core.viewholder.submitter;
 
 import com.sxenon.pure.core.viewholder.IViewHolder;
 
+import java.util.List;
+
 /**
- * Single data submitter
- * Created by Sui on 2016/12/12.
+ * List data submitter
+ * Created by Sui on 2016/11/18.
  */
 
-public interface ISingleDataSubmitter<T> extends IViewHolder {
-    T getDataForSubmit();
+public interface IListDataSubmitterViewHolder<T> extends IViewHolder {
+    List<T> getDataForSubmit();
 }
