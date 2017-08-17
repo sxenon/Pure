@@ -22,6 +22,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import rx.functions.Action1;
+
 /**
  * Base implement for INextViewHolder
  * Created by Sui on 2016/11/11.
@@ -31,9 +33,15 @@ public class BaseNextViewHolder implements INextViewHolder {
     private final ImageView mNextIcon;
     private final TextView mNextText;
 
-    public BaseNextViewHolder(ImageView nextIcon, TextView nextText) {
+    public BaseNextViewHolder(ImageView nextIcon, TextView nextText, final Action1<View> onNext) {
         mNextIcon = nextIcon;
         mNextText = nextText;
+        ((ViewGroup) mNextText.getParent()).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onNext.call(v);
+            }
+        });
     }
 
     public ImageView getNextIcon() {
@@ -42,16 +50,6 @@ public class BaseNextViewHolder implements INextViewHolder {
 
     public TextView getTextView() {
         return mNextText;
-    }
-
-    @Override
-    public void setNextDelegate(final NextDelegate nextDelegate) {
-        ((ViewGroup) mNextText.getParent()).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nextDelegate.onNext();
-            }
-        });
     }
 
     @Override

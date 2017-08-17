@@ -24,9 +24,5 @@ import com.sxenon.pure.core.viewholder.IViewHolder;
  */
 
 public interface INextViewHolder extends IViewHolder {
-    void setNextDelegate(NextDelegate nextDelegate);
 
-    interface NextDelegate {
-        void onNext();
-    }
 }
