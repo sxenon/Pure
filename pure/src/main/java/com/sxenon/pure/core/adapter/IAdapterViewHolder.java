@@ -16,8 +16,7 @@
 
 package com.sxenon.pure.core.adapter;
 
-import android.view.View;
-
+import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 import com.sxenon.pure.core.viewholder.IViewHolder;
 
 /**
@@ -25,10 +24,8 @@ import com.sxenon.pure.core.viewholder.IViewHolder;
  * Created by Sui on 2016/12/25.
  */
 
-public interface IAdapterViewHolder<T> extends IViewHolder{
+public interface IAdapterViewHolder<R> extends IFetchSingleResultHandler<R>,IViewHolder{
     int getPosition();
-
-    void fillItemViewByData(View itemView, T data);
 
     <A extends IPureAdapter> A getAdapter();
 }
