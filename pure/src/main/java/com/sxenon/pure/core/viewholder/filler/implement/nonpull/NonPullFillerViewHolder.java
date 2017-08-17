@@ -19,8 +19,8 @@ package com.sxenon.pure.core.viewholder.filler.implement.nonpull;
 import android.content.Context;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.filler.implement.BaseFillerViewHolder;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
+import com.sxenon.pure.core.viewholder.filler.implement.BaseFillerViewHolder;
 
 /**
  * UnSupport pull!
@@ -28,8 +28,8 @@ import com.sxenon.pure.core.result.IFetchSingleResultHandler;
  */
 
 public class NonPullFillerViewHolder<R> extends BaseFillerViewHolder<R, NonPullLayout> {
-    public NonPullFillerViewHolder(Context context, IFetchSingleResultHandler<R> singleDataResult) {
-        super(context, new NonPullLayout(), singleDataResult, new NonPullFillPageStrategy<R>());
+    public NonPullFillerViewHolder(Context context, IFetchSingleResultHandler<R> fetchSingleResultHandler) {
+        super(context, new NonPullLayout(), fetchSingleResultHandler, new NonPullFillPageStrategy<R>());
     }
 
     public NonPullFillerViewHolder(Context context, IPureAdapter<R> adapter) {

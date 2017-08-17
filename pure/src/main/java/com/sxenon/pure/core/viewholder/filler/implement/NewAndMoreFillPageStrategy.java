@@ -16,11 +16,10 @@
 
 package com.sxenon.pure.core.viewholder.filler.implement;
 
-import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
+import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
-import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
 import java.util.List;
 
@@ -83,7 +82,7 @@ public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processSingleData(IFillerViewHolder<R> fillerViewHolder, R data, IFetchSingleResultHandler<R> singleDataResultHandler, PageInfo pageInfo) {
+    public void processSingleData(IFillerViewHolder<R> fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
         throw new UnsupportedOperationException("Only list data support");
     }
 
@@ -107,14 +106,4 @@ public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
         pageInfo.tempPage = pageInfo.currentPage + 1;
     }
 
-    @Override
-    public void onException(IFillerViewHolder<R> fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResultHandler, PageInfo pageInfo) {
-        if (singleDataResultHandler != null) {
-            singleDataResultHandler.onException(exception);
-        }
-        if (adapter != null) {
-            adapter.clearAllItems();
-        }
-        pageInfo.currentPage = pageInfo.tempPage = -1;
-    }
 }

@@ -16,11 +16,10 @@
 
 package com.sxenon.pure.core.viewholder.filler.implement.nonpull;
 
-import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
+import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.implement.BaseFillPageStrategy;
-import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
 import java.util.List;
 
@@ -41,8 +40,8 @@ public class NonPullFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processSingleData(IFillerViewHolder<R> fillerViewHolder, R data, IFetchSingleResultHandler<R> singleDataResultHandler, PageInfo pageInfo) {
-        singleDataResultHandler.onSingleDataFetched(data);
+    public void processSingleData(IFillerViewHolder<R> fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
+        fetchSingleResultHandler.onSingleDataFetched(data);
     }
 
     @Override
@@ -63,15 +62,5 @@ public class NonPullFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     @Override
     public void onPullUp(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
 
-    }
-
-    @Override
-    public void onException(IFillerViewHolder<R> fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResultHandler, PageInfo pageInfo) {
-        if (singleDataResultHandler != null) {
-            singleDataResultHandler.onException(exception);
-        }
-        if (adapter != null) {
-            adapter.clearAllItems();
-        }
     }
 }

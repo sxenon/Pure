@@ -32,7 +32,7 @@ public interface FillPageStrategy<R> {
 
     void onListDataEmpty(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo);
 
-    void processSingleData(IFillerViewHolder<R> fillerViewHolder, R data, IFetchSingleResultHandler<R> singleDataResultHandler, PageInfo pageInfo);
+    void processSingleData(IFillerViewHolder<R> fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
 
     void onSingleDataEmpty(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo);
 
@@ -42,7 +42,9 @@ public interface FillPageStrategy<R> {
 
     void onPullUp(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo);
 
-    void onException(IFillerViewHolder<R> fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> singleDataResultHandler, PageInfo pageInfo);
+    void onException(IFillerViewHolder<R> fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
+
+    void onCancel(IFillerViewHolder<R> fillerViewHolder, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
 
     class PageInfo {
         public int currentPage;
