@@ -50,7 +50,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
 
     private int mEventWhat = FillEventWhat.WHAT_UNINITIALIZED;
     private ApiException mException;
-    private R mValue;
+    private R mData;
 
     private View mEmptyView;
     private View mExceptionView;
@@ -72,6 +72,9 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
      * @param adapter 列表控件相关的adapter
      */
     public void setAdapter(IPureAdapter<R> adapter){
+        if (mFetchSingleResultHandler!=null){
+            throw new IllegalStateException("IAdapter or IFetchSingleResultHandler!");
+        }
         mAdapter=adapter;
     }
 
@@ -80,6 +83,9 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
      * @param fetchSingleResultHandler 单一数据的Handler
      */
     public void setFetchSingleResultHandler(IFetchSingleResultHandler<R> fetchSingleResultHandler){
+        if (mAdapter!=null){
+            throw new IllegalStateException("IAdapter or IFetchSingleResultHandler!");
+        }
         mFetchSingleResultHandler=fetchSingleResultHandler;
     }
 
@@ -144,7 +150,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
             if (mAdapter != null) {
                 event.obj = mAdapter.getValues();
             } else {
-                event.obj = mValue;
+                event.obj = mData;
             }
         }
         return event;
@@ -183,7 +189,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
     //Implement start
     @Override
     public void onSingleDataFetched(R data) {
-        setValue(data);
+        setData(data);
         Preconditions.checkNotNull(mFetchSingleResultHandler, "single data but no singleDataResult!");
         endAllAnim();
         if (data == null) {
@@ -277,12 +283,12 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         return mFetchSingleResultHandler;
     }
 
-    public R getValue() {
+    public R getData() {
         Preconditions.checkNotNull(mFetchSingleResultHandler, "");
-        return mValue;
+        return mData;
     }
 
-    public List<R> getValues() {
+    public List<R> getDatas() {
         return Preconditions.checkNotNull(mAdapter, "").getValues();
     }
 
@@ -297,8 +303,8 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         mException = exception;
     }
 
-    protected void setValue(R value) {
-        mValue = value;
+    protected void setData(R data) {
+        mData = data;
     }
 
     public int getCurrentPageCount() {
