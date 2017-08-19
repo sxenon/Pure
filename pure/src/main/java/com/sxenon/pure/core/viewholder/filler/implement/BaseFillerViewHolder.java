@@ -141,7 +141,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         if (event.what == FillEventWhat.WHAT_EXCEPTION) {
             event.obj = mException;
         } else {
-            if (getAdapter() != null) {
+            if (mAdapter != null) {
                 event.obj = mAdapter.getValues();
             } else {
                 event.obj = mValue;
@@ -157,7 +157,6 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         }
         mPageInfo.currentPage = mPageInfo.tempPage = savedEvent.arg1;
         mEventWhat = savedEvent.what;
-        Object object = savedEvent.obj;
         switch (savedEvent.what) {
             case FillEventWhat.WHAT_EMPTY:
                 onEmpty();
@@ -169,12 +168,12 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
                 toInitialize();
                 break;
             case FillEventWhat.WHAT_NORMAL:
-                if (object instanceof List) {
+                if (mAdapter!=null){
                     //noinspection unchecked
-                    Preconditions.checkNotNull(mAdapter, "").resetAllItems((List<R>) object);
-                } else {
+                    mAdapter.resetAllItems((List<R>) savedEvent.obj);
+                }else {
                     //noinspection unchecked
-                    Preconditions.checkNotNull(mFetchSingleResultHandler, "").onSingleDataFetched((R) object);
+                    Preconditions.checkNotNull(mFetchSingleResultHandler, "").onSingleDataFetched((R) savedEvent.obj);
                 }
                 break;
         }
