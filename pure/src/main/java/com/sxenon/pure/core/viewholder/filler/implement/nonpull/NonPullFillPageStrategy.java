@@ -21,7 +21,6 @@ import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.implement.BaseFillPageStrategy;
-import com.sxenon.pure.core.viewholder.filler.implement.DefaultFillAdapterStrategy;
 
 import java.util.List;
 
@@ -30,13 +29,13 @@ import java.util.List;
  * Created by Sui on 2017/8/6.
  */
 
-public class NonPullFillPageStrategy<R> extends BaseFillPageStrategy<R> {
+class NonPullFillPageStrategy<R> extends BaseFillPageStrategy<R> {
 
-    public NonPullFillPageStrategy() {
+    NonPullFillPageStrategy() {
         super();
     }
 
-    public NonPullFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy) {
+    NonPullFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy) {
         super(fillAdapterStrategy);
     }
 

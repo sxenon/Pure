@@ -23,7 +23,7 @@ import com.sxenon.pure.core.viewholder.filler.IPullLayout;
  * Created by Sui on 2016/12/27.
  */
 
-public class NonPullLayout implements IPullLayout {
+class NonPullLayout implements IPullLayout {
 
     @Override
     public void beginPullingDown() {
