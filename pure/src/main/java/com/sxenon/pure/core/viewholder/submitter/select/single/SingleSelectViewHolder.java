@@ -14,25 +14,21 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.submitter.select.strategy;
+package com.sxenon.pure.core.viewholder.submitter.select.single;
 
-import com.sxenon.pure.core.viewholder.submitter.select.ISelectViewHolder;
+import android.content.Context;
+import android.support.annotation.NonNull;
 
-import java.util.List;
+import com.sxenon.pure.core.adapter.IPureAdapter;
+import com.sxenon.pure.core.viewholder.submitter.select.BaseSelectViewHolder;
 
 /**
- * Multi strategy implement for SelectStrategy
- * Created by Sui on 2017/1/12.
+ * SingleSelectViewHolder
+ * Created by Sui on 2017/8/20.
  */
 
-public class MultiSelectStrategy implements ISelectViewHolder.SelectStrategy {
-    @Override
-    public void onOptionSelected(List<Boolean> selectedFlags, int position) {
-        selectedFlags.set(position, true);
-    }
-
-    @Override
-    public void onOptionUnSelected(List<Boolean> selectedFlags, int position) {
-        selectedFlags.set(position, false);
+public class SingleSelectViewHolder<T> extends BaseSelectViewHolder<T> {
+    public SingleSelectViewHolder(@NonNull Context context, @NonNull IPureAdapter<T> adapter) {
+        super(context, adapter, new SingleSelectStrategy());
     }
 }

@@ -27,15 +27,15 @@ import java.util.List;
 
 public interface ISelectViewHolder<T> extends IListDataSubmitterViewHolder<T> {
 
-    void addOption(T data);
+    void onOptionAppended();
 
-    void insertFirstOption(T data);
+    void onOptionInserted(int position);
 
-    void removeOption(T data);
+    void onOptionRemoved(int position);
 
-    void removeOption(int position);
+    void onOptionsReset(int size);
 
-    void setOptions(List<T> data);
+    void onOptionsReset();
 
     void onOptionSelected(int position);
 

@@ -14,30 +14,21 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.submitter.select.strategy;
+package com.sxenon.pure.core.viewholder.submitter.select.multi;
 
 import com.sxenon.pure.core.viewholder.submitter.select.ISelectViewHolder;
 
 import java.util.List;
 
 /**
- * Single strategy implement for SelectStrategy
+ * Multi strategy implement for SelectStrategy
  * Created by Sui on 2017/1/12.
  */
 
-public class SingleSelectStrategy implements ISelectViewHolder.SelectStrategy {
-    private int lastSelectedPosition = -1;
-
+public class MultiSelectStrategy implements ISelectViewHolder.SelectStrategy {
     @Override
     public void onOptionSelected(List<Boolean> selectedFlags, int position) {
-        if (lastSelectedPosition == position) {
-            return;
-        }
-        if (lastSelectedPosition >= 0) {
-            selectedFlags.set(lastSelectedPosition, false);
-        }
         selectedFlags.set(position, true);
-        lastSelectedPosition = position;
     }
 
     @Override

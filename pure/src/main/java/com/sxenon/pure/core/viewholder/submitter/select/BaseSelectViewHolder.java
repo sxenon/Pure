@@ -37,67 +37,62 @@ import rx.functions.Func1;
 public abstract class BaseSelectViewHolder<T> implements ISelectViewHolder<T> {
     private final Context mContext;
     private final IPureAdapter<T> mAdapter;
-    private List<Boolean> selectedFlags;
+    private List<Boolean> mSelectedFlags;
     private final ISelectViewHolder.SelectStrategy mSelectStrategy;
 
     public BaseSelectViewHolder(@NonNull Context context, @NonNull IPureAdapter<T> adapter, ISelectViewHolder.SelectStrategy selectStrategy) {
         mContext = context;
         mAdapter = adapter;
         mSelectStrategy = selectStrategy;
-        selectedFlags = new ArrayList<>(mAdapter.getItemCount());
-        Collections.fill(selectedFlags, false);
+        mSelectedFlags = new ArrayList<>(mAdapter.getItemCount());
+        Collections.fill(mSelectedFlags, false);
         SelectGroupHelper.bindAdapterAndSelectViewHolder(adapter, this);
     }
 
     @Override
-    public void addOption(T data) {
-        mAdapter.addItemFromEnd(data);
-        selectedFlags.add(false);
+    public void onOptionAppended() {
+        mSelectedFlags.add(false);
     }
 
     @Override
-    public void insertFirstOption(T data) {
-        mAdapter.addItemFromStart(data);
-        selectedFlags.add(0, false);
+    public void onOptionInserted(int position) {
+        mSelectedFlags.add(position, false);
     }
 
     @Override
-    public void removeOption(T data) {
-        int position = mAdapter.getValues().indexOf(data);
-        removeOption(position);
+    public void onOptionRemoved(int position) {
+        mSelectedFlags.remove(position);
     }
 
     @Override
-    public void removeOption(int position) {
-        mAdapter.removeItem(position);
-        selectedFlags.remove(position);
+    public void onOptionsReset(int size) {
+        mSelectedFlags = new ArrayList<>(size);
+        Collections.fill(mSelectedFlags, false);
     }
 
     @Override
-    public void setOptions(List<T> data) {
-        mAdapter.resetAllItems(data);
-        selectedFlags = new ArrayList<>(data == null ? 0 : data.size());
-        Collections.fill(selectedFlags, false);
+    public void onOptionsReset() {
+        Collections.fill(mSelectedFlags, false);
     }
 
     @Override
     public void onOptionSelected(int position) {
-        mSelectStrategy.onOptionSelected(selectedFlags, position);
+        mSelectStrategy.onOptionSelected(mSelectedFlags, position);
     }
 
     @Override
     public void onOptionUnSelected(int position) {
-        mSelectStrategy.onOptionUnSelected(selectedFlags, position);
+        mSelectStrategy.onOptionUnSelected(mSelectedFlags, position);
     }
 
     @Override
     public List<T> getDataForSubmit() {
         final List<T> selectedOptionList = new ArrayList<>();
-        Observable.range(0, selectedFlags.size())
+        Observable.range(0, mSelectedFlags.size())
                 .filter(new Func1<Integer, Boolean>() {
                     @Override
                     public Boolean call(Integer position) {
-                        return selectedFlags.get(position);
+                        return mSelectedFlags.get(position);
                     }
                 })
                 .subscribe(new Action1<Integer>() {
@@ -111,11 +106,11 @@ public abstract class BaseSelectViewHolder<T> implements ISelectViewHolder<T> {
 
     public List<Integer> getSelectedIndexList() {
         final List<Integer> indexList = new ArrayList<>();
-        Observable.range(0, selectedFlags.size())
+        Observable.range(0, mSelectedFlags.size())
                 .filter(new Func1<Integer, Boolean>() {
                     @Override
                     public Boolean call(Integer position) {
-                        return selectedFlags.get(position);
+                        return mSelectedFlags.get(position);
                     }
                 })
                 .subscribe(new Action1<Integer>() {
@@ -138,7 +133,6 @@ public abstract class BaseSelectViewHolder<T> implements ISelectViewHolder<T> {
     }
 
     public List<Boolean> getSelectedFlags() {
-        return selectedFlags;
+        return mSelectedFlags;
     }
-
 }
