@@ -28,12 +28,7 @@ import com.sxenon.pure.core.viewholder.filler.implement.BaseFillerViewHolder;
  */
 
 public class NonPullFillerViewHolder<R> extends BaseFillerViewHolder<R, NonPullLayout> {
-    public NonPullFillerViewHolder(Context context, IFetchSingleResultHandler<R> fetchSingleResultHandler) {
-        super(context, new NonPullLayout(), fetchSingleResultHandler, new NonPullFillPageStrategy<R>());
+    public NonPullFillerViewHolder(Context context) {
+        super(context, new NonPullLayout(), new NonPullFillPageStrategy<R>());
     }
-
-    public NonPullFillerViewHolder(Context context, IPureAdapter<R> adapter) {
-        super(context, new NonPullLayout(), adapter, new NonPullFillPageStrategy<R>());
-    }
-
 }

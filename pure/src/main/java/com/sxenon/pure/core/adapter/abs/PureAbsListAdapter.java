@@ -23,7 +23,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.IViewHolder;
+import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -35,22 +35,24 @@ import java.util.List;
  * Created by Sui on 2016/12/25.
  */
 
-public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPureAdapter<T> {
+public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPureAdapter<R> {
 
     private final Object mLock = new Object();
     private final PureAbsListItemViewTypeEntity[] mItemViewTypeEntryArray;
-    private final IViewHolder mContainer;
-    private final List<T> mData = new ArrayList<>();
+    private final IFillerViewHolder<R> mContainer;
+    private final List<R> mData = new ArrayList<>();
 
     /**
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureAbsListAdapter(IViewHolder container, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureAbsListAdapter(IFillerViewHolder<R> container, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
         if (itemViewTypeEntryArray.length == 0) {
             throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
         }
+
         mItemViewTypeEntryArray = itemViewTypeEntryArray;
         mContainer = container;
+        mContainer.setAdapter(this);
     }
 
     @Override
@@ -59,27 +61,27 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
     }
 
     @Override
-    public void addItemFromEnd(T value) {
+    public void addItemFromEnd(R value) {
         addItem(getItemCount(), value);
     }
 
     @Override
-    public void addItemFromStart(T value) {
+    public void addItemFromStart(R value) {
         addItem(0, value);
     }
 
     @Override
-    public void addItemsFromStart(List<T> values) {
+    public void addItemsFromStart(List<R> values) {
         addItems(0, values);
     }
 
     @Override
-    public void addItemsFromEnd(List<T> values) {
+    public void addItemsFromEnd(List<R> values) {
         addItems(getItemCount(), values);
     }
 
     @Override
-    public void addItem(int position, T value) {
+    public void addItem(int position, R value) {
         synchronized (mLock) {
             if (position < 0 || position > getCount() || value == null) {
                 return;
@@ -90,7 +92,7 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
     }
 
     @Override
-    public void addItems(int position, List<T> values) {
+    public void addItems(int position, List<R> values) {
         synchronized (mLock) {
             if (position < 0 || position > getCount() || values == null) {
                 return;
@@ -101,7 +103,7 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
     }
 
     @Override
-    public void removeItems(List<T> values) {
+    public void removeItems(List<R> values) {
         synchronized (mLock) {
             mData.removeAll(values);
             notifyDataSetChanged();
@@ -130,7 +132,7 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
     }
 
     @Override
-    public void removeItem(T value) {
+    public void removeItem(R value) {
         synchronized (mLock) {
             int position = mData.indexOf(value);
             removeItem(position);
@@ -139,12 +141,12 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<T> getValues() {
+    public List<R> getValues() {
         return mData;
     }
 
     @Override
-    public T getValue(int position) {
+    public R getValue(int position) {
         if (position < 0 || position >= getCount()) {
             return null;
         }
@@ -152,7 +154,7 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
     }
 
     @Override
-    public void resetAllItems(List<T> values) {
+    public void resetAllItems(List<R> values) {
         if (values == null) {
             clearAllItems();
         } else {
@@ -173,7 +175,7 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
     }
 
     @Override
-    public void setItem(int position, T value) {
+    public void setItem(int position, R value) {
         synchronized (mLock) {
             if (value == null || position < 0 || position >= getCount()) {
                 return;
@@ -184,7 +186,7 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
     }
 
     @Override
-    public void invalidate(T oldValue, T newValue) {
+    public void invalidate(R oldValue, R newValue) {
         setItem(mData.indexOf(oldValue), newValue);
     }
 
@@ -230,7 +232,7 @@ public abstract class PureAbsListAdapter<T> extends BaseAdapter implements IPure
         return mItemViewTypeEntryArray.length;
     }
 
-    public IViewHolder getContainer(){
+    public IFillerViewHolder<R> getContainer(){
         return mContainer;
     }
 

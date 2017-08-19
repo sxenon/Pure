@@ -6,15 +6,17 @@
       <list>
         <option value="$PROJECT_DIR$/build" />
         <option value="$PROJECT_DIR$/pure/build" />
-        <option value="$PROJECT_DIR$/pure-fresco/build" />
-        <option value="$PROJECT_DIR$/pure-glide/build" />
+
+
         <option value="$PROJECT_DIR$/pure-okhttp3/build" />
-        <option value="$PROJECT_DIR$/pure-okhttp3-demo/build" />
-        <option value="$PROJECT_DIR$/pure-picasso/build" />
+
+
         <option value="$PROJECT_DIR$/pure-pull-demo/build" />
         <option value="$PROJECT_DIR$/pure-retrofit2/build" />
-        <option value="$PROJECT_DIR$/pure-retrofit2-demo/build" />
+
         <option value="$PROJECT_DIR$/pure-not-compact-app/build" />
+        <option value="$PROJECT_DIR$/pure-okgo/build" />
+        <option value="$PROJECT_DIR$/pure-viewholder-demo/build" />
       </list>
     </option>
   </component>

@@ -42,8 +42,8 @@ import java.util.List;
 public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements IFillerViewHolder<R> {
     private final FillPageStrategy.PageInfo mPageInfo = new FillPageStrategy.PageInfo(-1, -1);
 
-    private final IPureAdapter<R> mAdapter;
-    private final IFetchSingleResultHandler<R> mFetchSingleResultHandler;
+    private IPureAdapter<R> mAdapter;
+    private IFetchSingleResultHandler<R> mFetchSingleResultHandler;
     private final FillPageStrategy<R> mFillPageStrategy;
     private final PL mPullLayout;
     private final Context mContext;
@@ -58,30 +58,29 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
     /**
      * Constructor
      *
-     * @param pullLayout              刷新容器
-     * @param fetchSingleResultHandler 单一数据的Handler
+     * @param pullLayout       刷新容器
+     * @param fillPageStrategy 分页数据填充策略
      */
-    public BaseFillerViewHolder(Context context, PL pullLayout, IFetchSingleResultHandler<R> fetchSingleResultHandler, FillPageStrategy<R> fillPageStrategy) {
-        this(context, pullLayout, null, fetchSingleResultHandler, fillPageStrategy);
+    public BaseFillerViewHolder(Context context, PL pullLayout, FillPageStrategy<R> fillPageStrategy) {
+        mPullLayout = pullLayout;
+        mFillPageStrategy = fillPageStrategy;
+        mContext = context;
     }
 
     /**
-     * Constructor
      *
-     * @param pullLayout       刷新容器
-     * @param adapter          列表控件相关的adapter
-     * @param fillPageStrategy 分页数据填充策略
+     * @param adapter 列表控件相关的adapter
      */
-    public BaseFillerViewHolder(Context context, PL pullLayout, IPureAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy) {
-        this(context, pullLayout, adapter, null, fillPageStrategy);
+    public void setAdapter(IPureAdapter<R> adapter){
+        mAdapter=adapter;
     }
 
-    private BaseFillerViewHolder(Context context, PL pullLayout, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> fetchSingleResultHandler, FillPageStrategy<R> fillPageStrategy) {
-        mPullLayout = pullLayout;
-        mAdapter = adapter;
-        mFetchSingleResultHandler = fetchSingleResultHandler;
-        mFillPageStrategy = fillPageStrategy;
-        mContext = context;
+    /**
+     *
+     * @param fetchSingleResultHandler 单一数据的Handler
+     */
+    public void setFetchSingleResultHandler(IFetchSingleResultHandler<R> fetchSingleResultHandler){
+        mFetchSingleResultHandler=fetchSingleResultHandler;
     }
 
     public void setExtraComponents(View emptyView, View exceptionView) {

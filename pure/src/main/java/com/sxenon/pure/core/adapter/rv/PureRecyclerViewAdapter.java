@@ -22,7 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.IViewHolder;
+import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -34,45 +34,47 @@ import java.util.List;
  * Created by Sui on 2016/12/29.
  */
 
-public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<PureRecyclerViewViewHolder> implements IPureAdapter<T> {
+public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<PureRecyclerViewViewHolder> implements IPureAdapter<R> {
     private final PureRecyclerViewItemViewTypeEntity[] mItemViewTypeEntryArray;
-    private final IViewHolder mContainer;
+    private final IFillerViewHolder<R> mContainer;
     private final Object mLock = new Object();
-    private List<T> mData = new ArrayList<>();
+    private List<R> mData = new ArrayList<>();
 
     /**
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureRecyclerViewAdapter(IViewHolder container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureRecyclerViewAdapter(IFillerViewHolder<R> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
         if (itemViewTypeEntryArray.length == 0) {
             throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
         }
+
         mItemViewTypeEntryArray = itemViewTypeEntryArray;
         mContainer = container;
+        mContainer.setAdapter(this);
     }
 
     @Override
-    public void addItemFromEnd(T value) {
+    public void addItemFromEnd(R value) {
         addItem(mData.size(), value);
     }
 
     @Override
-    public void addItemFromStart(T value) {
+    public void addItemFromStart(R value) {
         addItem(0, value);
     }
 
     @Override
-    public void addItemsFromStart(List<T> values) {
+    public void addItemsFromStart(List<R> values) {
         addItems(0, values);
     }
 
     @Override
-    public void addItemsFromEnd(List<T> values) {
+    public void addItemsFromEnd(List<R> values) {
         addItems(mData.size(), values);
     }
 
     @Override
-    public void addItem(int position, T value) {
+    public void addItem(int position, R value) {
         synchronized (mLock) {
             if (position > mData.size() || position < 0 || value == null) {
                 return;
@@ -83,7 +85,7 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     }
 
     @Override
-    public void addItems(int position, List<T> values) {
+    public void addItems(int position, List<R> values) {
         synchronized (mLock) {
             if (position > mData.size() || position < 0 || values == null) {
                 return;
@@ -94,7 +96,7 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     }
 
     @Override
-    public void removeItems(List<T> values) {
+    public void removeItems(List<R> values) {
         synchronized (mLock) {
             mData.removeAll(values);
             notifyDataSetChanged();
@@ -113,7 +115,7 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     }
 
     @Override
-    public void removeItem(T value) {
+    public void removeItem(R value) {
         synchronized (mLock) {
             int position = mData.indexOf(value);
             if (position >= 0) {
@@ -135,12 +137,12 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     }
 
     @Override
-    public List<T> getValues() {
+    public List<R> getValues() {
         return mData;
     }
 
     @Override
-    public T getValue(int position) {
+    public R getValue(int position) {
         if (position < 0 || position >= mData.size()) {
             return null;
         }
@@ -148,7 +150,7 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     }
 
     @Override
-    public void resetAllItems(List<T> values) {
+    public void resetAllItems(List<R> values) {
         synchronized (mLock) {
             if (values == null) {
                 mData.clear();
@@ -168,7 +170,7 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     }
 
     @Override
-    public void setItem(int position, T value) {
+    public void setItem(int position, R value) {
         synchronized (mLock) {
             if (value == null || position >= mData.size() || position < 0) {
                 return;
@@ -179,7 +181,7 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
     }
 
     @Override
-    public void invalidate(T oldValue, T newValue) {
+    public void invalidate(R oldValue, R newValue) {
         setItem(mData.indexOf(oldValue), newValue);
     }
 
@@ -226,7 +228,7 @@ public abstract class PureRecyclerViewAdapter<T> extends RecyclerView.Adapter<Pu
         return mData.size();
     }
 
-    public IViewHolder getContainer(){
+    public IFillerViewHolder<R> getContainer(){
         return mContainer;
     }
 

@@ -36,16 +36,16 @@ public class BGAFillerViewHolder<R> extends BaseFillerViewHolder<R, BGAPullLayou
     private static final String TAG = "FillerGroup";
     private CustomListener mCustomerListener;
 
-    public BGAFillerViewHolder(Context context, BGARefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult, FillPageStrategy<R> fillPageStrategy) {
-        super(context, new BGAPullLayout(refreshLayout), singleDataResult, fillPageStrategy);
+    public BGAFillerViewHolder(Context context, BGARefreshLayout refreshLayout, FillPageStrategy<R> fillPageStrategy) {
+        super(context, new BGAPullLayout(refreshLayout), fillPageStrategy);
     }
 
-    public BGAFillerViewHolder(Context context, BGARefreshLayout refreshLayout, BGARecyclerViewAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy) {
-        super(context, new BGAPullLayout(refreshLayout), new BGAPureRecyclerViewAdapter<>(adapter), fillPageStrategy);
+    public void setAdapter(BGARecyclerViewAdapter<R> adapter){
+        setAdapter( new BGAPureRecyclerViewAdapter<>(adapter));
     }
 
-    public BGAFillerViewHolder(Context context, BGARefreshLayout refreshLayout, BGAAdapterViewAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy) {
-        super(context, new BGAPullLayout(refreshLayout), new BGAPureAdapterViewAdapter<>(adapter), fillPageStrategy);
+    public void setAdapter(BGAAdapterViewAdapter<R> adapter){
+        setAdapter(new BGAPureAdapterViewAdapter<>(adapter));
     }
 
     /**

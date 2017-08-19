@@ -16,6 +16,7 @@
 
 package com.sxenon.pure.core.viewholder.filler;
 
+import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewholder.IViewHolder;
 import com.sxenon.pure.core.result.IFetchListResultHandler;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
@@ -27,4 +28,6 @@ import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
 public interface IFillerViewHolder<R> extends IFetchSingleResultHandler<R>, IFetchListResultHandler<R>, IViewHolder {
     void onEmpty();
+    void setAdapter(IPureAdapter<R> adapter);
+    void setFetchSingleResultHandler(IFetchSingleResultHandler<R> fetchSingleResultHandler);
 }

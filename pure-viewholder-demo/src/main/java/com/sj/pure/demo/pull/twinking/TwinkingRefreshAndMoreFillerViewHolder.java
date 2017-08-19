@@ -31,12 +31,8 @@ import com.sxenon.pure.core.result.IFetchSingleResultHandler;
  */
 
 public class TwinkingRefreshAndMoreFillerViewHolder<R> extends BaseFillerViewHolder<R, TwinklingPullLayout> {
-    public TwinkingRefreshAndMoreFillerViewHolder(Context context, TwinklingRefreshLayout refreshLayout, IFetchSingleResultHandler<R> singleDataResult, FillPageStrategy<R> fillPageStrategy) {
-        super(context, new TwinklingPullLayout(refreshLayout), singleDataResult, fillPageStrategy);
-    }
-
-    public TwinkingRefreshAndMoreFillerViewHolder(Context context, TwinklingRefreshLayout refreshLayout, IPureAdapter<R> adapter, FillPageStrategy<R> fillPageStrategy) {
-        super(context, new TwinklingPullLayout(refreshLayout), adapter, fillPageStrategy);
+    public TwinkingRefreshAndMoreFillerViewHolder(Context context, TwinklingRefreshLayout refreshLayout,FillPageStrategy<R> fillPageStrategy) {
+        super(context, new TwinklingPullLayout(refreshLayout), fillPageStrategy);
     }
 
     /**
