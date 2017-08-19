@@ -18,7 +18,7 @@ package com.sxenon.pure.core.viewholder.filler.implement.strategy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
-import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
+import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
         super();
     }
 
-    public RefreshAndMoreFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy) {
+    public RefreshAndMoreFillPageStrategy(IFillAdapterStrategy<R> fillAdapterStrategy) {
         super(fillAdapterStrategy);
     }
 

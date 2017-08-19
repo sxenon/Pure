@@ -18,7 +18,7 @@ package com.sxenon.pure.core.viewholder.filler.implement.strategy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
-import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
+import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
         mInitPage = initPage;
     }
 
-    public PrevAndNextFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy, int initPage) {
+    public PrevAndNextFillPageStrategy(IFillAdapterStrategy<R> fillAdapterStrategy, int initPage) {
         super(fillAdapterStrategy);
         mInitPage = initPage;
     }

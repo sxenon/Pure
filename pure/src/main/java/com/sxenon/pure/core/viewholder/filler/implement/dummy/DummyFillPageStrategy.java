@@ -18,7 +18,7 @@ package com.sxenon.pure.core.viewholder.filler.implement.dummy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
-import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
+import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.implement.strategy.BaseFillPageStrategy;
 
@@ -35,7 +35,7 @@ class DummyFillPageStrategy<R> extends BaseFillPageStrategy<R> {
         super();
     }
 
-    DummyFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy) {
+    DummyFillPageStrategy(IFillAdapterStrategy<R> fillAdapterStrategy) {
         super(fillAdapterStrategy);
     }
 

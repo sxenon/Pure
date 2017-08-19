@@ -18,7 +18,7 @@ package com.sxenon.pure.core.viewholder.filler.implement.dummy;
 
 import android.content.Context;
 
-import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
+import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.implement.BaseListDataFillerViewHolder;
 
 /**
@@ -31,7 +31,7 @@ public class DummyListDataFillerViewHolder<R> extends BaseListDataFillerViewHold
         super(context, new DummyPullLayout(), new DummyFillPageStrategy<R>());
     }
 
-    public DummyListDataFillerViewHolder(Context context, FillAdapterStrategy<R> fillAdapterStrategy) {
+    public DummyListDataFillerViewHolder(Context context, IFillAdapterStrategy<R> fillAdapterStrategy) {
         super(context, new DummyPullLayout(), new DummyFillPageStrategy<>(fillAdapterStrategy));
     }
 }

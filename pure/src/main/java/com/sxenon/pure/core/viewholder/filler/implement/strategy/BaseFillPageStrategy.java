@@ -19,7 +19,7 @@ package com.sxenon.pure.core.viewholder.filler.implement.strategy;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
-import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
+import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 
@@ -29,17 +29,17 @@ import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
  */
 
 public abstract class BaseFillPageStrategy<R> implements IFillPageStrategy<R> {
-    private final FillAdapterStrategy<R> mFillAdapterStrategy;
+    private final IFillAdapterStrategy<R> mFillAdapterStrategy;
 
     public BaseFillPageStrategy() {
         this(null);
     }
 
-    public BaseFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy) {
+    public BaseFillPageStrategy(IFillAdapterStrategy<R> fillAdapterStrategy) {
         mFillAdapterStrategy = fillAdapterStrategy == null ? new DefaultFillAdapterStrategy<R>() : fillAdapterStrategy;
     }
 
-    protected FillAdapterStrategy<R> getListDataFillStrategy() {
+    protected IFillAdapterStrategy<R> getListDataFillStrategy() {
         return mFillAdapterStrategy;
     }
 

@@ -17,7 +17,7 @@
 package com.sxenon.pure.core.viewholder.filler.implement.strategy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
+import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
  * Created by Sui on 2017/1/12.
  */
 
-public class DefaultFillAdapterStrategy<R> implements FillAdapterStrategy<R> {
+public class DefaultFillAdapterStrategy<R> implements IFillAdapterStrategy<R> {
     @Override
     public void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
         adapter.addItemsFromEnd(data);

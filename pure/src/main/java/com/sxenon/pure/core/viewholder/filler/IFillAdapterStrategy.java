@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Sui on 2017/1/12.
  */
 
-public interface FillAdapterStrategy<R> {
+public interface IFillAdapterStrategy<R> {
     void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data);
 
     void onNewDataFetched(IPureAdapter<R> adapter, List<R> data);
