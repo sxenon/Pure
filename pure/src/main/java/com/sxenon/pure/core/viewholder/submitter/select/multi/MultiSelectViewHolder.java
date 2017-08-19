@@ -44,9 +44,10 @@ public class MultiSelectViewHolder<T> extends BaseSelectViewHolder<T> {
         Collections.fill(getSelectedFlags(),false);
     }
 
-    public void onAllOptionsReverse(){
+    public void onAllOptionsReversed(){
         List<Boolean> selectedFlags=getSelectedFlags();
-        for (int position=0;position<selectedFlags.size();position++){
+        int size=selectedFlags.size();
+        for (int position=0;position<size;position++){
             selectedFlags.set(position,!selectedFlags.get(position));
         }
     }
