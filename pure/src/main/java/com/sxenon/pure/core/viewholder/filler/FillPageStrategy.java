@@ -30,11 +30,11 @@ import java.util.List;
 public interface FillPageStrategy<R> {
     void processListData(IFillerViewHolder<R> fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
 
-    void onListDataEmpty(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo);
+    void onFetchEmptyListData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo);
 
     void processSingleData(IFillerViewHolder<R> fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
 
-    void onSingleDataEmpty(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo);
+    void onFetchEmptySingleData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo);
 
     void onInitialize(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo);
 
@@ -42,9 +42,13 @@ public interface FillPageStrategy<R> {
 
     void onPullUp(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo);
 
-    void onException(IFillerViewHolder<R> fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
+    void onException(IFillerViewHolder<R> fillerViewHolder, ApiException exception, IPureAdapter<R> adapter,PageInfo pageInfo);
 
-    void onCancel(IFillerViewHolder<R> fillerViewHolder, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
+    void onException(IFillerViewHolder<R> fillerViewHolder, ApiException exception, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
+
+    void onCancel(IFillerViewHolder<R> fillerViewHolder, IPureAdapter<R> adapter, PageInfo pageInfo);
+
+    void onCancel(IFillerViewHolder<R> fillerViewHolder, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
 
     class PageInfo {
         public int currentPage;

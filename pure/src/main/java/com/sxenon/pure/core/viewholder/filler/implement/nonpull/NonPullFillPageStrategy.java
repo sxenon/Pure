@@ -45,7 +45,7 @@ class NonPullFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onListDataEmpty(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptyListData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
         fillerViewHolder.onEmpty();
     }
 
@@ -55,7 +55,7 @@ class NonPullFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onSingleDataEmpty(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptySingleData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
         fillerViewHolder.onEmpty();
     }
 

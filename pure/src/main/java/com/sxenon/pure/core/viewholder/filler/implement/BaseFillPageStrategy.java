@@ -44,21 +44,25 @@ public abstract class BaseFillPageStrategy<R> implements FillPageStrategy<R> {
     }
 
     @Override
-    public void onCancel(IFillerViewHolder<R> fillerViewHolder, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
-        if (fetchSingleResultHandler != null) {
-            fetchSingleResultHandler.onCancel();
-        }
+    public void onCancel(IFillerViewHolder<R> fillerViewHolder, IPureAdapter<R> adapter, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage;
     }
 
     @Override
-    public void onException(IFillerViewHolder<R> fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
-        if (fetchSingleResultHandler != null) {
-            fetchSingleResultHandler.onException(exception);
-        }
-        if (adapter != null) {
-            adapter.clearAllItems();
-        }
+    public void onCancel(IFillerViewHolder<R> fillerViewHolder, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
+        fetchSingleResultHandler.onCancel();
+        pageInfo.tempPage = pageInfo.currentPage;
+    }
+    
+    @Override
+    public void onException(IFillerViewHolder<R> fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
+        adapter.clearAllItems();
+        pageInfo.currentPage = pageInfo.tempPage = -1;
+    }
+
+    @Override
+    public void onException(IFillerViewHolder<R> fillerViewHolder, ApiException exception, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
+        fetchSingleResultHandler.onException(exception);
         pageInfo.currentPage = pageInfo.tempPage = -1;
     }
 }

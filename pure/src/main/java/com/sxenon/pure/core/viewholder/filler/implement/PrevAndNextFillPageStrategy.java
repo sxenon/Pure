@@ -52,7 +52,7 @@ public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onListDataEmpty(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptyListData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage;
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
@@ -68,7 +68,7 @@ public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onSingleDataEmpty(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptySingleData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage;
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();

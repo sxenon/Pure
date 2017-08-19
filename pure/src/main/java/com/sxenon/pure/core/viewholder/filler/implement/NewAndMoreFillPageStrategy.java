@@ -70,7 +70,7 @@ public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onListDataEmpty(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptyListData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
         } else if (pageInfo.tempPage == pageInfo.currentPage) {//refreshForAdd
@@ -87,7 +87,7 @@ public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onSingleDataEmpty(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptySingleData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
         throw new UnsupportedOperationException("Only list data support");
     }
 

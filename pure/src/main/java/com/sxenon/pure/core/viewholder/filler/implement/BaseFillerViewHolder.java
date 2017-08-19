@@ -187,7 +187,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         Preconditions.checkNotNull(mFetchSingleResultHandler, "single data but no singleDataResult!");
         endAllAnim();
         if (data == null) {
-            mFillPageStrategy.onSingleDataEmpty(this, mPageInfo);
+            mFillPageStrategy.onFetchEmptySingleData(this, mPageInfo);
         } else {
             mEventWhat = FillEventWhat.WHAT_NORMAL;
             CommonUtils.setViewVisibility(mEmptyView, View.GONE);
@@ -204,7 +204,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         Preconditions.checkNotNull(mAdapter, "list data but no adapter!");
         endAllAnim();
         if (data == null || data.isEmpty()) {
-            mFillPageStrategy.onListDataEmpty(this, mPageInfo);
+            mFillPageStrategy.onFetchEmptyListData(this, mPageInfo);
         } else {
             mFillPageStrategy.processListData(this, data, mAdapter, mPageInfo);
         }
@@ -213,7 +213,11 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
     @Override
     public void onCancel() {
         endAllAnim();
-        mFillPageStrategy.onCancel(this,mAdapter,mFetchSingleResultHandler,mPageInfo);
+        if (mAdapter!=null){
+            mFillPageStrategy.onCancel(this,mAdapter,mPageInfo);
+        }else {
+            mFillPageStrategy.onCancel(this,Preconditions.checkNotNull(mFetchSingleResultHandler,""),mPageInfo);
+        }
     }
 
     @Override
@@ -223,7 +227,11 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         mException = exception;
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.VISIBLE);
-        mFillPageStrategy.onException(this, exception, mAdapter, mFetchSingleResultHandler, mPageInfo);
+        if (mAdapter!=null){
+            mFillPageStrategy.onException(this,exception,mAdapter,mPageInfo);
+        }else {
+            mFillPageStrategy.onException(this,exception,Preconditions.checkNotNull(mFetchSingleResultHandler,""),mPageInfo);
+        }
     }
 
     @Override
