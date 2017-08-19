@@ -18,8 +18,10 @@ package com.sxenon.pure.core.viewholder.filler.implement.nonpull;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
+import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.implement.BaseFillPageStrategy;
+import com.sxenon.pure.core.viewholder.filler.implement.DefaultFillAdapterStrategy;
 
 import java.util.List;
 
@@ -29,6 +31,15 @@ import java.util.List;
  */
 
 public class NonPullFillPageStrategy<R> extends BaseFillPageStrategy<R> {
+
+    public NonPullFillPageStrategy() {
+        super();
+    }
+
+    public NonPullFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy) {
+        super(fillAdapterStrategy);
+    }
+
     @Override
     public void processListData(IFillerViewHolder<R> fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         getListDataFillStrategy().onInitDataFetched(adapter, data);

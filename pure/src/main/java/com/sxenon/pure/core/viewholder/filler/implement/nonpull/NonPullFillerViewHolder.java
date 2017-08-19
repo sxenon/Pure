@@ -20,6 +20,7 @@ import android.content.Context;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
+import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.implement.BaseFillerViewHolder;
 
 /**
@@ -30,5 +31,9 @@ import com.sxenon.pure.core.viewholder.filler.implement.BaseFillerViewHolder;
 public class NonPullFillerViewHolder<R> extends BaseFillerViewHolder<R, NonPullLayout> {
     public NonPullFillerViewHolder(Context context) {
         super(context, new NonPullLayout(), new NonPullFillPageStrategy<R>());
+    }
+
+    public NonPullFillerViewHolder(Context context,FillAdapterStrategy<R> fillAdapterStrategy) {
+        super(context, new NonPullLayout(), new NonPullFillPageStrategy<>(fillAdapterStrategy));
     }
 }
