@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement.nonpull;
+package com.sxenon.pure.core.viewholder.filler.implement.dummy;
 
 import android.content.Context;
 
 import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
-import com.sxenon.pure.core.viewholder.filler.implement.BaseFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.implement.BaseListDataFillerViewHolder;
 
 /**
  * UnSupport pull!
  * Created by Sui on 2016/12/12.
  */
 
-public class NonPullFillerViewHolder<R> extends BaseFillerViewHolder<R, NonPullLayout> {
-    public NonPullFillerViewHolder(Context context) {
-        super(context, new NonPullLayout(), new NonPullFillPageStrategy<R>());
+public class DummyListDataFillerViewHolder<R> extends BaseListDataFillerViewHolder<R, DummyPullLayout> {
+    public DummyListDataFillerViewHolder(Context context) {
+        super(context, new DummyPullLayout(), new DummyFillPageStrategy<R>());
     }
 
-    public NonPullFillerViewHolder(Context context, FillAdapterStrategy<R> fillAdapterStrategy) {
-        super(context, new NonPullLayout(), new NonPullFillPageStrategy<>(fillAdapterStrategy));
+    public DummyListDataFillerViewHolder(Context context, FillAdapterStrategy<R> fillAdapterStrategy) {
+        super(context, new DummyPullLayout(), new DummyFillPageStrategy<>(fillAdapterStrategy));
     }
 }

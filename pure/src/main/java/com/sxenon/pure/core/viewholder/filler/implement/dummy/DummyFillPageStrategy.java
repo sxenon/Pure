@@ -14,63 +14,63 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement.nonpull;
+package com.sxenon.pure.core.viewholder.filler.implement.dummy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
-import com.sxenon.pure.core.viewholder.filler.implement.BaseFillPageStrategy;
+import com.sxenon.pure.core.viewholder.filler.implement.strategy.BaseFillPageStrategy;
 
 import java.util.List;
 
 /**
- * NonPull implement for FillPageStrategy
+ * NonPull implement for IFillPageStrategy
  * Created by Sui on 2017/8/6.
  */
 
-class NonPullFillPageStrategy<R> extends BaseFillPageStrategy<R> {
+class DummyFillPageStrategy<R> extends BaseFillPageStrategy<R> {
 
-    NonPullFillPageStrategy() {
+    DummyFillPageStrategy() {
         super();
     }
 
-    NonPullFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy) {
+    DummyFillPageStrategy(FillAdapterStrategy<R> fillAdapterStrategy) {
         super(fillAdapterStrategy);
     }
 
     @Override
-    public void processListData(IFillerViewHolder<R> fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processListData(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         getListDataFillStrategy().onInitDataFetched(adapter, data);
     }
 
     @Override
-    public void onFetchEmptyListData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptyListData(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         fillerViewHolder.onEmpty();
     }
 
     @Override
-    public void processSingleData(IFillerViewHolder<R> fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
+    public void processSingleData(IFillerViewHolder fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
         fetchSingleResultHandler.onSingleDataFetched(data);
     }
 
     @Override
-    public void onFetchEmptySingleData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptySingleData(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         fillerViewHolder.onEmpty();
     }
 
     @Override
-    public void onInitialize(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onInitialize(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
 
     }
 
     @Override
-    public void onPullDown(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onPullDown(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
 
     }
 
     @Override
-    public void onPullUp(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onPullUp(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
 
     }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement.nonpull;
+package com.sxenon.pure.core.viewholder.filler.implement.dummy;
 
 import com.sxenon.pure.core.viewholder.filler.IPullLayout;
 
@@ -23,7 +23,7 @@ import com.sxenon.pure.core.viewholder.filler.IPullLayout;
  * Created by Sui on 2016/12/27.
  */
 
-class NonPullLayout implements IPullLayout {
+class DummyPullLayout implements IPullLayout {
 
     @Override
     public void beginPullingDown() {

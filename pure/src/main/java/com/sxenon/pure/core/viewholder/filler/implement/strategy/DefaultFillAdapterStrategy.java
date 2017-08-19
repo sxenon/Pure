@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement;
+package com.sxenon.pure.core.viewholder.filler.implement.strategy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewholder.filler.FillAdapterStrategy;

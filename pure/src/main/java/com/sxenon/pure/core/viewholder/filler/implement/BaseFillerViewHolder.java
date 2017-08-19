@@ -23,34 +23,26 @@ import android.view.View;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 import com.sxenon.pure.core.util.CommonUtils;
-import com.sxenon.pure.core.util.Preconditions;
 import com.sxenon.pure.core.viewholder.filler.FillEventWhat;
-import com.sxenon.pure.core.viewholder.filler.FillPageStrategy;
+import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.IPullLayout;
-
-import java.util.List;
 
 /**
  * Base implement for IFillerViewHolder
  * Created by Sui on 2017/8/4.
  */
 
-public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements IFillerViewHolder<R> {
-    private final FillPageStrategy.PageInfo mPageInfo = new FillPageStrategy.PageInfo(-1, -1);
+public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements IFillerViewHolder {
+    private final IFillPageStrategy.PageInfo pageInfo = new IFillPageStrategy.PageInfo(-1, -1);
 
-    private IPureAdapter<R> mAdapter;
-    private IFetchSingleResultHandler<R> mFetchSingleResultHandler;
-    private final FillPageStrategy<R> mFillPageStrategy;
+    private final IFillPageStrategy<R> mFillPageStrategy;
     private final PL mPullLayout;
     private final Context mContext;
 
     private int mEventWhat = FillEventWhat.WHAT_UNINITIALIZED;
     private ApiException mException;
-    private R mData;
 
     private View mEmptyView;
     private View mExceptionView;
@@ -58,35 +50,14 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
     /**
      * Constructor
      *
+     * @param context          上下文
      * @param pullLayout       刷新容器
      * @param fillPageStrategy 分页数据填充策略
      */
-    public BaseFillerViewHolder(Context context, PL pullLayout, FillPageStrategy<R> fillPageStrategy) {
+    public BaseFillerViewHolder(Context context, PL pullLayout, IFillPageStrategy<R> fillPageStrategy) {
         mPullLayout = pullLayout;
         mFillPageStrategy = fillPageStrategy;
         mContext = context;
-    }
-
-    /**
-     *
-     * @param adapter 列表控件相关的adapter
-     */
-    public void setAdapter(IPureAdapter<R> adapter){
-        if (mFetchSingleResultHandler!=null){
-            throw new IllegalStateException("IAdapter or IFetchSingleResultHandler!");
-        }
-        mAdapter=adapter;
-    }
-
-    /**
-     *
-     * @param fetchSingleResultHandler 单一数据的Handler
-     */
-    public void setFetchSingleResultHandler(IFetchSingleResultHandler<R> fetchSingleResultHandler){
-        if (mAdapter!=null){
-            throw new IllegalStateException("IAdapter or IFetchSingleResultHandler!");
-        }
-        mFetchSingleResultHandler=fetchSingleResultHandler;
     }
 
     public void setExtraComponents(View emptyView, View exceptionView) {
@@ -107,9 +78,9 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
      */
     protected final void onBeginPullingDown() {
         if (FillEventWhat.WHAT_UNINITIALIZED == mEventWhat) {
-            mFillPageStrategy.onInitialize(this, mPageInfo);
+            mFillPageStrategy.onInitialize(this, pageInfo);
         } else {
-            mFillPageStrategy.onPullDown(this, mPageInfo);
+            mFillPageStrategy.onPullDown(this, pageInfo);
         }
     }
 
@@ -117,7 +88,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
      * For subclass call,see demo
      */
     protected final void onBeginPullingUp() {
-        mFillPageStrategy.onPullUp(this, mPageInfo);
+        mFillPageStrategy.onPullUp(this, pageInfo);
     }
 
     protected void toInitialize() {
@@ -142,16 +113,12 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
     public Event getCurrentEvent() {
         Event event = new Event();
         event.what = mEventWhat;
-        event.arg1 = mPageInfo.currentPage;
+        event.arg1 = pageInfo.currentPage;
 
         if (event.what == FillEventWhat.WHAT_EXCEPTION) {
             event.obj = mException;
         } else {
-            if (mAdapter != null) {
-                event.obj = mAdapter.getValues();
-            } else {
-                event.obj = mData;
-            }
+            event.obj = getData();
         }
         return event;
     }
@@ -161,7 +128,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
             toInitialize();
             return;
         }
-        mPageInfo.currentPage = mPageInfo.tempPage = savedEvent.arg1;
+        pageInfo.currentPage = pageInfo.tempPage = savedEvent.arg1;
         mEventWhat = savedEvent.what;
         switch (savedEvent.what) {
             case FillEventWhat.WHAT_EMPTY:
@@ -174,13 +141,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
                 toInitialize();
                 break;
             case FillEventWhat.WHAT_NORMAL:
-                if (mAdapter!=null){
-                    //noinspection unchecked
-                    mAdapter.resetAllItems((List<R>) savedEvent.obj);
-                }else {
-                    //noinspection unchecked
-                    Preconditions.checkNotNull(mFetchSingleResultHandler, "").onSingleDataFetched((R) savedEvent.obj);
-                }
+                restoreData(savedEvent.obj);
                 break;
         }
     }
@@ -188,42 +149,15 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
 
     //Implement start
     @Override
-    public void onSingleDataFetched(R data) {
-        setData(data);
-        Preconditions.checkNotNull(mFetchSingleResultHandler, "single data but no singleDataResult!");
-        endAllAnim();
-        if (data == null) {
-            mFillPageStrategy.onFetchEmptySingleData(this, mPageInfo);
-        } else {
-            mEventWhat = FillEventWhat.WHAT_NORMAL;
-            CommonUtils.setViewVisibility(mEmptyView, View.GONE);
-            CommonUtils.setViewVisibility(mExceptionView, View.GONE);
-            mFillPageStrategy.processSingleData(this, data, mFetchSingleResultHandler, mPageInfo);
-        }
-    }
-
-    @Override
-    public void onListDataFetched(List<R> data) {
+    public void onNormal(){
         mEventWhat = FillEventWhat.WHAT_NORMAL;
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
-        Preconditions.checkNotNull(mAdapter, "list data but no adapter!");
-        endAllAnim();
-        if (data == null || data.isEmpty()) {
-            mFillPageStrategy.onFetchEmptyListData(this, mPageInfo);
-        } else {
-            mFillPageStrategy.processListData(this, data, mAdapter, mPageInfo);
-        }
     }
 
     @Override
     public void onCancel() {
         endAllAnim();
-        if (mAdapter!=null){
-            mFillPageStrategy.onCancel(this,mAdapter,mPageInfo);
-        }else {
-            mFillPageStrategy.onCancel(this,Preconditions.checkNotNull(mFetchSingleResultHandler,""),mPageInfo);
-        }
     }
 
     @Override
@@ -233,17 +167,12 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         mException = exception;
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.VISIBLE);
-        if (mAdapter!=null){
-            mFillPageStrategy.onException(this,exception,mAdapter,mPageInfo);
-        }else {
-            mFillPageStrategy.onException(this,exception,Preconditions.checkNotNull(mFetchSingleResultHandler,""),mPageInfo);
-        }
     }
 
     @Override
     public void onEmpty() {
         mEventWhat = FillEventWhat.WHAT_EMPTY;
-        mPageInfo.currentPage = mPageInfo.tempPage = -1;
+        pageInfo.currentPage = pageInfo.tempPage = -1;
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
         CommonUtils.setViewVisibility(mEmptyView, View.VISIBLE);
     }
@@ -271,30 +200,20 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         return mContext;
     }
 
-    public IPureAdapter<R> getAdapter() {
-        return mAdapter;
-    }
-
     public ApiException getException() {
         return mException;
     }
 
-    public IFetchSingleResultHandler<R> getFetchSingleResultHandler() {
-        return mFetchSingleResultHandler;
+    protected IFillPageStrategy<R> getFillPageStrategy(){
+        return mFillPageStrategy;
     }
 
-    public R getData() {
-        Preconditions.checkNotNull(mFetchSingleResultHandler, "");
-        return mData;
-    }
-
-    public List<R> getDatas() {
-        return Preconditions.checkNotNull(mAdapter, "").getValues();
-    }
-
+    protected abstract Object getData();
     //Getter end
 
     //Setter start
+    protected abstract void restoreData(Object data);
+
     protected void setFillerEventWhat(int eventWhat) {
         mEventWhat = eventWhat;
     }
@@ -303,12 +222,12 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         mException = exception;
     }
 
-    protected void setData(R data) {
-        mData = data;
+    public int getCurrentPageCount() {
+        return pageInfo.currentPage;
     }
 
-    public int getCurrentPageCount() {
-        return mPageInfo.currentPage;
+    public IFillPageStrategy.PageInfo getPageInfo(){
+        return pageInfo;
     }
     //Setter end
 }

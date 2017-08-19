@@ -25,9 +25,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
-import com.sxenon.pure.core.util.PureKeyboardUtil;
 import com.sxenon.pure.core.util.Preconditions;
+import com.sxenon.pure.core.util.PureKeyboardUtil;
 
 import rx.functions.Action0;
 import rx.functions.Func1;

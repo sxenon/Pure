@@ -16,15 +16,14 @@
 
 package com.sxenon.pure.core.viewholder.filler;
 
-import com.sxenon.pure.core.result.IResultHandler;
-import com.sxenon.pure.core.viewholder.IViewHolder;
+import com.sxenon.pure.core.adapter.IPureAdapter;
+import com.sxenon.pure.core.result.IFetchListResultHandler;
 
 /**
- * Interface for FillerViewHolder
- * Created by Sui on 2017/8/4.
+ * FillerViewHolder for list data
+ * Created by Sui on 2017/8/19.
  */
 
-public interface IFillerViewHolder extends IResultHandler,IViewHolder {
-    void onEmpty();
-    void onNormal();
+public interface IListDataFillerViewHolder<R> extends IFetchListResultHandler<R>,IFillerViewHolder {
+    void setAdapter(IPureAdapter<R> adapter);
 }

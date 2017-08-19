@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement;
+package com.sxenon.pure.core.viewholder.filler.implement.strategy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
@@ -24,7 +24,7 @@ import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import java.util.List;
 
 /**
- * PrevAndNext implement for FillPageStrategy
+ * PrevAndNext implement for IFillPageStrategy
  * Created by Sui on 2017/8/6.
  */
 
@@ -46,13 +46,13 @@ public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processListData(IFillerViewHolder<R> fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processListData(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         pageInfo.currentPage = pageInfo.tempPage;
         getListDataFillStrategy().onInitDataFetched(adapter, data);
     }
 
     @Override
-    public void onFetchEmptyListData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptyListData(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage;
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
@@ -62,13 +62,13 @@ public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processSingleData(IFillerViewHolder<R> fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
+    public void processSingleData(IFillerViewHolder fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
         pageInfo.currentPage = pageInfo.tempPage;
         fetchSingleResultHandler.onSingleDataFetched(data);
     }
 
     @Override
-    public void onFetchEmptySingleData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptySingleData(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage;
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
@@ -78,18 +78,18 @@ public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onInitialize(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onInitialize(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         pageInfo.currentPage = -1;
         pageInfo.tempPage = mInitPage;
     }
 
     @Override
-    public void onPullDown(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onPullDown(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage - 1;
     }
 
     @Override
-    public void onPullUp(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onPullUp(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage + 1;
     }
 

@@ -1,0 +1,91 @@
+/*
+ * Copyright (c) 2017  sxenon
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.sxenon.pure.core.viewholder.filler.implement;
+
+import android.content.Context;
+
+import com.sxenon.pure.core.ApiException;
+import com.sxenon.pure.core.result.IFetchSingleResultHandler;
+import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
+import com.sxenon.pure.core.viewholder.filler.IPullLayout;
+import com.sxenon.pure.core.viewholder.filler.ISingleDataFillerViewHolder;
+
+/**
+ * Single data implement for FillerViewHolder
+ * Created by Sui on 2017/8/19.
+ */
+
+public class BaseSingleDataFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R,PL> implements ISingleDataFillerViewHolder<R> {
+    private IFetchSingleResultHandler<R> mFetchSingleResultHandler;
+    private R mData;
+    /**
+     * Constructor
+     *
+     * @param context          上下文
+     * @param pullLayout       刷新容器
+     * @param fillPageStrategy 分页数据填充策略
+     */
+    public BaseSingleDataFillerViewHolder(Context context, PL pullLayout, IFillPageStrategy<R> fillPageStrategy) {
+        super(context, pullLayout, fillPageStrategy);
+    }
+
+    /**
+     *
+     * @param fetchSingleResultHandler 单一数据的Handler
+     */
+    @Override
+    public void setFetchSingleResultHandler(IFetchSingleResultHandler<R> fetchSingleResultHandler){
+        mFetchSingleResultHandler=fetchSingleResultHandler;
+    }
+
+    @Override
+    protected Object getData() {
+        return mData;
+    }
+
+    @Override
+    protected void restoreData(Object data) {
+        //noinspection unchecked
+        mData= (R) data;
+        mFetchSingleResultHandler.onSingleDataFetched(mData);
+    }
+
+
+    @Override
+    public void onSingleDataFetched(R data) {
+        mData=data;
+        endAllAnim();
+        if (data == null) {
+            getFillPageStrategy().onFetchEmptySingleData(this, getPageInfo());
+        } else {
+            onNormal();
+            getFillPageStrategy().processSingleData(this, data, mFetchSingleResultHandler, getPageInfo());
+        }
+    }
+
+    @Override
+    public void onCancel() {
+        super.onCancel();
+        getFillPageStrategy().onCancel(this,mFetchSingleResultHandler, getPageInfo());
+    }
+
+    @Override
+    public void onException(ApiException exception) {
+        super.onException(exception);
+        getFillPageStrategy().onException(this,exception,mFetchSingleResultHandler, getPageInfo());
+    }
+}

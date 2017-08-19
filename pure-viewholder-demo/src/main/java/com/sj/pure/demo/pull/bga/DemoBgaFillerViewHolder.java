@@ -21,7 +21,7 @@ import android.util.Log;
 import com.sj.pure.demo.bean.RequestBean;
 import com.sj.pure.demo.bean.ResponseBean;
 import com.sxenon.pure.core.router.IRouter;
-import com.sxenon.pure.core.viewholder.filler.implement.RefreshAndMoreFillPageStrategy;
+import com.sxenon.pure.core.viewholder.filler.implement.strategy.RefreshAndMoreFillPageStrategy;
 import com.sxenon.pure.core.viewholder.submitter.ISingleDataSubmitterViewHolder;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;

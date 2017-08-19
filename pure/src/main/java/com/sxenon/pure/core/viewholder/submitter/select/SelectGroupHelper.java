@@ -18,7 +18,6 @@ package com.sxenon.pure.core.viewholder.submitter.select;
 
 import android.support.annotation.NonNull;
 
-
 import com.sxenon.pure.core.adapter.IPureAdapter;
 
 import java.util.WeakHashMap;

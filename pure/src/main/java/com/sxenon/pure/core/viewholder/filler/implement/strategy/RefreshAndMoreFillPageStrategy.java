@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement;
+package com.sxenon.pure.core.viewholder.filler.implement.strategy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
@@ -51,22 +51,22 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onInitialize(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onInitialize(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         pageInfo.tempPage = 0;
     }
 
     @Override
-    public void onPullDown(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onPullDown(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         pageInfo.tempPage = 0;
     }
 
     @Override
-    public void onPullUp(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onPullUp(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage + 1;
     }
 
     @Override
-    public void processListData(IFillerViewHolder<R> fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processListData(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.tempPage == 0) {
             onInitDataFetched(adapter, data);
         } else {
@@ -76,7 +76,7 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onFetchEmptyListData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptyListData(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
         } else {
@@ -86,13 +86,13 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processSingleData(IFillerViewHolder<R> fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
+    public void processSingleData(IFillerViewHolder fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
         fetchSingleResultHandler.onSingleDataFetched(data);
         pageInfo.tempPage = pageInfo.currentPage = 0;
     }
 
     @Override
-    public void onFetchEmptySingleData(IFillerViewHolder<R> fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptySingleData(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         fillerViewHolder.onEmpty();
     }
 }
