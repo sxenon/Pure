@@ -69,10 +69,10 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseF
         mData=data;
         endAllAnim();
         if (data == null) {
-            getFillPageStrategy().onFetchEmptySingleData(this, getPageInfo());
+            getFillPageStrategy().onFetchEmptySingle(this, getPageInfo());
         } else {
             onNormal();
-            getFillPageStrategy().processSingleData(this, data, mFetchSingleResultHandler, getPageInfo());
+            getFillPageStrategy().processSingle(this, data, mFetchSingleResultHandler, getPageInfo());
         }
     }
 

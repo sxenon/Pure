@@ -59,10 +59,10 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFil
     public void onListDataFetched(List<R> data) {
         endAllAnim();
         if (data == null || data.isEmpty()) {
-            getFillPageStrategy().onFetchEmptyListData(this, getPageInfo());
+            getFillPageStrategy().onFetchEmptyList(this, getPageInfo());
         } else {
             onNormal();
-            getFillPageStrategy().processListData(this, data, mAdapter, getPageInfo());
+            getFillPageStrategy().processList(this, data, mAdapter, getPageInfo());
         }
     }
 

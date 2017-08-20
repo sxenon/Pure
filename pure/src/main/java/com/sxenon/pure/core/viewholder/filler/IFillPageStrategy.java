@@ -28,13 +28,13 @@ import java.util.List;
  */
 
 public interface IFillPageStrategy<R> {
-    void processListData(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
+    void processList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
 
-    void onFetchEmptyListData(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
+    void onFetchEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
 
-    void processSingleData(IFillerViewHolder fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
+    void processSingle(IFillerViewHolder fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
 
-    void onFetchEmptySingleData(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
+    void onFetchEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
 
     void onInitialize(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
 

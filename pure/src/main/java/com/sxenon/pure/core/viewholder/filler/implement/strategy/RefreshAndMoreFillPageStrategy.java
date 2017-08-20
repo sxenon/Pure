@@ -66,7 +66,7 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processListData(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.tempPage == 0) {
             onInitDataFetched(adapter, data);
         } else {
@@ -76,7 +76,7 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onFetchEmptyListData(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
         } else {
@@ -86,13 +86,13 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processSingleData(IFillerViewHolder fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
+    public void processSingle(IFillerViewHolder fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
         fetchSingleResultHandler.onSingleDataFetched(data);
         pageInfo.tempPage = pageInfo.currentPage = 0;
     }
 
     @Override
-    public void onFetchEmptySingleData(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+    public void onFetchEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         fillerViewHolder.onEmpty();
     }
 }
