@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.submitter.select;
+package com.sxenon.pure.core.request.select;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-
-import com.sxenon.pure.core.adapter.IPureAdapter;
+import com.sxenon.pure.core.request.IRequestSubmitter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,87 +27,55 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
- * Base impl for ISelectViewHolder
  * Created by Sui on 2016/11/18.
  */
 
-public abstract class BaseSelectViewHolder<T> implements ISelectViewHolder<T> {
-    private final Context mContext;
-    private final IPureAdapter<T> mAdapter;
+public abstract class BaseSelectSubmitter implements IRequestSubmitter<List<Integer>> {
     private List<Boolean> mSelectedFlags;
-    private final ISelectViewHolder.SelectStrategy mSelectStrategy;
+    private final SelectStrategy mSelectStrategy;
 
     /**
-     * TODO
-     * Override {@link IPureAdapter#resetAllItems(List)},and call this int it;
-     * @param context ?
-     * @param adapter adapter
-     * @param selectStrategy SelectStrategy
+     * Usually use in an Adapter for select
+     * @param selectStrategy MultiSelect,SingleSelect or others
+     * @param selectedFlags  selectedFlags in an adapter
      */
-    public BaseSelectViewHolder(@NonNull Context context, @NonNull IPureAdapter<T> adapter, ISelectViewHolder.SelectStrategy selectStrategy) {
-        mContext = context;
-        mAdapter = adapter;
+    public BaseSelectSubmitter(SelectStrategy selectStrategy, List<Boolean> selectedFlags) {
         mSelectStrategy = selectStrategy;
-        mSelectedFlags = new ArrayList<>(mAdapter.getItemCount());
+        mSelectedFlags = selectedFlags;
         Collections.fill(mSelectedFlags, false);
     }
 
-    @Override
     public void onOptionAppended() {
         mSelectedFlags.add(false);
     }
 
-    @Override
     public void onOptionInserted(int position) {
         mSelectedFlags.add(position, false);
     }
 
-    @Override
     public void onOptionRemoved(int position) {
         mSelectedFlags.remove(position);
     }
 
-    @Override
     public void onOptionsReset(int size) {
         mSelectedFlags = new ArrayList<>(size);
         Collections.fill(mSelectedFlags, false);
     }
 
-    @Override
     public void onOptionsReset() {
         Collections.fill(mSelectedFlags, false);
     }
 
-    @Override
     public void onOptionSelected(int position) {
         mSelectStrategy.onOptionSelected(mSelectedFlags, position);
     }
 
-    @Override
     public void onOptionUnSelected(int position) {
         mSelectStrategy.onOptionUnSelected(mSelectedFlags, position);
     }
 
     @Override
-    public List<T> getDataForSubmit() {
-        final List<T> selectedOptionList = new ArrayList<>();
-        Observable.range(0, mSelectedFlags.size())
-                .filter(new Func1<Integer, Boolean>() {
-                    @Override
-                    public Boolean call(Integer position) {
-                        return mSelectedFlags.get(position);
-                    }
-                })
-                .subscribe(new Action1<Integer>() {
-                    @Override
-                    public void call(Integer position) {
-                        selectedOptionList.add(mAdapter.getValues().get(position));
-                    }
-                });
-        return selectedOptionList;
-    }
-
-    public List<Integer> getSelectedIndexList() {
+    public List<Integer> getDataForSubmit() {
         final List<Integer> indexList = new ArrayList<>();
         Observable.range(0, mSelectedFlags.size())
                 .filter(new Func1<Integer, Boolean>() {
@@ -126,16 +91,6 @@ public abstract class BaseSelectViewHolder<T> implements ISelectViewHolder<T> {
                     }
                 });
         return indexList;
-    }
-
-    @NonNull
-    @Override
-    public Context getContext() {
-        return mContext;
-    }
-
-    public IPureAdapter<T> getAdapter() {
-        return mAdapter;
     }
 
     public List<Boolean> getSelectedFlags() {

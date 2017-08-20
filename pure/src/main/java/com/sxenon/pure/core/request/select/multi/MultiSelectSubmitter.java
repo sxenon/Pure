@@ -14,26 +14,22 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.submitter.select.multi;
+package com.sxenon.pure.core.request.select.multi;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-
-import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.submitter.select.BaseSelectViewHolder;
+import com.sxenon.pure.core.request.select.BaseSelectSubmitter;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * MultiSelectViewHolder
+ * MultiSelectSubmitter
  * Created by Sui on 2017/8/20.
  */
 
-public class MultiSelectViewHolder<T> extends BaseSelectViewHolder<T> {
+public class MultiSelectSubmitter extends BaseSelectSubmitter {
 
-    public MultiSelectViewHolder(@NonNull Context context, @NonNull IPureAdapter<T> adapter) {
-        super(context, adapter, new MultiSelectStrategy());
+    public MultiSelectSubmitter(List<Boolean> selectedFlags) {
+        super(new MultiSelectStrategy(),selectedFlags);
     }
 
     public void onAllOptionsSelected(){

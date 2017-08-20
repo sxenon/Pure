@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.submitter;
-
-import com.sxenon.pure.core.viewholder.IViewHolder;
+package com.sxenon.pure.core.request.select;
 
 import java.util.List;
 
 /**
- * List data submitter
- * Created by Sui on 2016/11/18.
+ * Strategy for select
+ * Created by Sui on 2017/8/20.
  */
 
-public interface IListSubmitterViewHolder<T> extends ISubmitListHandler<T>,IViewHolder {
+public interface SelectStrategy {
+    void onOptionSelected(List<Boolean> selectedFlags, int position);
 
+    void onOptionUnSelected(List<Boolean> selectedFlags, int position);
 }

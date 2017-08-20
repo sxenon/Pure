@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.submitter;
+package com.sxenon.pure.core.request.select.single;
 
-import com.sxenon.pure.core.viewholder.IViewHolder;
+import com.sxenon.pure.core.request.select.BaseSelectSubmitter;
+
+import java.util.List;
 
 /**
- * Single data submitter
- * Created by Sui on 2016/12/12.
+ * SingleSelectSubmitter
+ * Created by Sui on 2017/8/20.
  */
 
-public interface ISingleSubmitterViewHolder<T> extends ISubmitSingleHandler<T>,IViewHolder {
-
+public class SingleSelectSubmitter<T> extends BaseSelectSubmitter {
+    public SingleSelectSubmitter(List<Boolean> selectedFlags) {
+        super(new SingleSelectStrategy(),selectedFlags);
+    }
 }

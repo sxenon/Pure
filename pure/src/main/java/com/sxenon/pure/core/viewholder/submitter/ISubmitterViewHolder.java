@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017  sxenon
+ * Copyright (c) 2017 sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,14 @@
 
 package com.sxenon.pure.core.viewholder.submitter;
 
-import java.util.List;
+import com.sxenon.pure.core.request.IRequestSubmitter;
+import com.sxenon.pure.core.viewholder.IViewHolder;
 
 /**
- * ISubmitListHandler
- * Created by Sui on 2017/8/20.
+ * Single data submitter
+ * Created by Sui on 2016/12/12.
  */
 
-public interface ISubmitListHandler<T> {
-    List<T> getDataForSubmit();
+public interface ISubmitterViewHolder<T> extends IRequestSubmitter<T>,IViewHolder {
+
 }

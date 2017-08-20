@@ -14,13 +14,25 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.submitter;
+package com.sxenon.pure.core.request.select.multi;
+
+import com.sxenon.pure.core.request.select.SelectStrategy;
+
+import java.util.List;
 
 /**
- * ISubmitSingleHandler
- * Created by Sui on 2017/8/20.
+ * Multi strategy implement for SelectStrategy
+ * Created by Sui on 2017/1/12.
  */
 
-public interface ISubmitSingleHandler<T> {
-    T getDataForSubmit();
+public class MultiSelectStrategy implements SelectStrategy {
+    @Override
+    public void onOptionSelected(List<Boolean> selectedFlags, int position) {
+        selectedFlags.set(position, true);
+    }
+
+    @Override
+    public void onOptionUnSelected(List<Boolean> selectedFlags, int position) {
+        selectedFlags.set(position, false);
+    }
 }

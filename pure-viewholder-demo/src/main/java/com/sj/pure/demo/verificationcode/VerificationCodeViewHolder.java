@@ -18,7 +18,7 @@ package com.sj.pure.demo.verificationcode;
 
 import android.os.CountDownTimer;
 
-import com.sxenon.pure.core.viewholder.submitter.ISingleSubmitterViewHolder;
+import com.sxenon.pure.core.viewholder.submitter.ISubmitterViewHolder;
 import com.sxenon.pure.core.result.ISubmitResultHandler;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.router.RouterEvent;
@@ -38,7 +38,7 @@ import rx.Subscriber;
  * Created by Sui on 2017/8/13.
  */
 @Deprecated
-public abstract class VerificationCodeViewHolder<T,R> implements ISubmitResultHandler<R>,ISingleSubmitterViewHolder<T> {
+public abstract class VerificationCodeViewHolder<T,R> implements ISubmitResultHandler<R>,ISubmitterViewHolder<T> {
     private CountDownTimer mCountDownTimer;
     private final long mMillisInFuture;
     private final CountDownListener mCountDownListener;

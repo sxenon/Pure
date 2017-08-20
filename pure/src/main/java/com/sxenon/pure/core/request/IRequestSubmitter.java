@@ -14,21 +14,13 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.submitter.select.single;
-
-import android.content.Context;
-import android.support.annotation.NonNull;
-
-import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.submitter.select.BaseSelectViewHolder;
+package com.sxenon.pure.core.request;
 
 /**
- * SingleSelectViewHolder
+ * IRequestSubmitter
  * Created by Sui on 2017/8/20.
  */
 
-public class SingleSelectViewHolder<T> extends BaseSelectViewHolder<T> {
-    public SingleSelectViewHolder(@NonNull Context context, @NonNull IPureAdapter<T> adapter) {
-        super(context, adapter, new SingleSelectStrategy());
-    }
+public interface IRequestSubmitter<T> {
+    T getDataForSubmit();
 }
