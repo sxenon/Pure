@@ -19,19 +19,19 @@ package com.sxenon.pure.core.viewholder.filler.implement.dummy;
 import android.content.Context;
 
 import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
-import com.sxenon.pure.core.viewholder.filler.implement.BaseListDataFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.implement.BaseListFillerViewHolder;
 
 /**
  * UnSupport pull!
  * Created by Sui on 2016/12/12.
  */
 
-public class DummyListDataFillerViewHolder<R> extends BaseListDataFillerViewHolder<R, DummyPullLayout> {
-    public DummyListDataFillerViewHolder(Context context) {
+public class DummyListFillerViewHolder<R> extends BaseListFillerViewHolder<R, DummyPullLayout> {
+    public DummyListFillerViewHolder(Context context) {
         super(context, new DummyPullLayout(), new DummyFillPageStrategy<R>());
     }
 
-    public DummyListDataFillerViewHolder(Context context, IFillAdapterStrategy<R> fillAdapterStrategy) {
+    public DummyListFillerViewHolder(Context context, IFillAdapterStrategy<R> fillAdapterStrategy) {
         super(context, new DummyPullLayout(), new DummyFillPageStrategy<>(fillAdapterStrategy));
     }
 }

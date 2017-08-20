@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017  sxenon
+ * Copyright (c) 2017 sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler;
+package com.sxenon.pure.core.viewholder.submitter;
 
-import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.IFetchListResultHandler;
+import com.sxenon.pure.core.viewholder.IViewHolder;
 
 /**
- * FillerViewHolder for list data
- * Created by Sui on 2017/8/19.
+ * Single data submitter
+ * Created by Sui on 2016/12/12.
  */
 
-public interface IListDataFillerViewHolder<R> extends IFetchListResultHandler<R>,IFillerViewHolder {
-    void setAdapter(IPureAdapter<R> adapter);
+public interface ISingleSubmitterViewHolder<T> extends ISubmitSingleHandler<T>,IViewHolder {
+
 }

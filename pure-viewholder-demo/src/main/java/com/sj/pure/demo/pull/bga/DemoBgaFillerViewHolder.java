@@ -22,7 +22,7 @@ import com.sj.pure.demo.bean.RequestBean;
 import com.sj.pure.demo.bean.ResponseBean;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.viewholder.filler.implement.strategy.RefreshAndMoreFillPageStrategy;
-import com.sxenon.pure.core.viewholder.submitter.ISingleDataSubmitterViewHolder;
+import com.sxenon.pure.core.viewholder.submitter.ISingleSubmitterViewHolder;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
@@ -31,7 +31,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by Sui on 2017/8/14.
  */
 
-public class DemoBgaFillerViewHolder extends BGAFillerViewHolder<ResponseBean> implements ISingleDataSubmitterViewHolder<RequestBean> {
+public class DemoBgaFillerViewHolder extends BGAFillerViewHolder<ResponseBean> implements ISingleSubmitterViewHolder<RequestBean> {
     private final IRouter mContainer;
 
     public DemoBgaFillerViewHolder(IRouter container, BGARefreshLayout refreshLayout){

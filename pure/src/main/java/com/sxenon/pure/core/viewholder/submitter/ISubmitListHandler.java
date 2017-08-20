@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler;
+package com.sxenon.pure.core.viewholder.submitter;
 
-import com.sxenon.pure.core.result.IFetchSingleResultHandler;
+import java.util.List;
 
 /**
- * FillerViewHolder for single data
- * Created by Sui on 2017/8/19.
+ * ISubmitListHandler
+ * Created by Sui on 2017/8/20.
  */
 
-public interface ISingleDataFillerViewHolder<R> extends IFetchSingleResultHandler<R>,IFillerViewHolder{
-    void setFetchSingleResultHandler(IFetchSingleResultHandler<R> fetchSingleResultHandler);
+public interface ISubmitListHandler<T> {
+    List<T> getDataForSubmit();
 }

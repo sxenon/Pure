@@ -25,6 +25,6 @@ import java.util.List;
  * Created by Sui on 2016/11/18.
  */
 
-public interface IListDataSubmitterViewHolder<T> extends IViewHolder {
-    List<T> getDataForSubmit();
+public interface IListSubmitterViewHolder<T> extends ISubmitListHandler<T>,IViewHolder {
+
 }

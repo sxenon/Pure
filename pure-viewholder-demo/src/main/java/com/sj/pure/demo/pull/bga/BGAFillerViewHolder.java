@@ -20,7 +20,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
-import com.sxenon.pure.core.viewholder.filler.implement.BaseListDataFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.implement.BaseListFillerViewHolder;
 
 import cn.bingoogolapple.androidcommon.adapter.BGAAdapterViewAdapter;
 import cn.bingoogolapple.androidcommon.adapter.BGARecyclerViewAdapter;
@@ -31,7 +31,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by Sui on 2016/12/27.
  */
 
-public class BGAFillerViewHolder<R> extends BaseListDataFillerViewHolder<R, BGAPullLayout> {
+public class BGAFillerViewHolder<R> extends BaseListFillerViewHolder<R, BGAPullLayout> {
     private static final String TAG = "FillerGroup";
     private CustomListener mCustomerListener;
 

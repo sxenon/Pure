@@ -21,7 +21,7 @@ import android.content.Context;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
-import com.sxenon.pure.core.viewholder.filler.IListDataFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.IListFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.IPullLayout;
 
 import java.util.List;
@@ -31,7 +31,7 @@ import java.util.List;
  * Created by Sui on 2017/8/19.
  */
 
-public class BaseListDataFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R,PL> implements IListDataFillerViewHolder<R> {
+public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R,PL> implements IListFillerViewHolder<R> {
 
     private IPureAdapter<R> mAdapter;
 
@@ -42,7 +42,7 @@ public class BaseListDataFillerViewHolder<R, PL extends IPullLayout> extends Bas
      * @param pullLayout       刷新容器
      * @param fillPageStrategy 分页数据填充策略
      */
-    public BaseListDataFillerViewHolder(Context context, PL pullLayout, IFillPageStrategy<R> fillPageStrategy) {
+    public BaseListFillerViewHolder(Context context, PL pullLayout, IFillPageStrategy<R> fillPageStrategy) {
         super(context, pullLayout, fillPageStrategy);
     }
 

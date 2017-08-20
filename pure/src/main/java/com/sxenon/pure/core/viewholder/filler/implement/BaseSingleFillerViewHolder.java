@@ -22,14 +22,14 @@ import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
 import com.sxenon.pure.core.viewholder.filler.IPullLayout;
-import com.sxenon.pure.core.viewholder.filler.ISingleDataFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.ISingleFillerViewHolder;
 
 /**
  * Single data implement for FillerViewHolder
  * Created by Sui on 2017/8/19.
  */
 
-public class BaseSingleDataFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R,PL> implements ISingleDataFillerViewHolder<R> {
+public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R,PL> implements ISingleFillerViewHolder<R> {
     private IFetchSingleResultHandler<R> mFetchSingleResultHandler;
     private R mData;
     /**
@@ -39,7 +39,7 @@ public class BaseSingleDataFillerViewHolder<R, PL extends IPullLayout> extends B
      * @param pullLayout       刷新容器
      * @param fillPageStrategy 分页数据填充策略
      */
-    public BaseSingleDataFillerViewHolder(Context context, PL pullLayout, IFillPageStrategy<R> fillPageStrategy) {
+    public BaseSingleFillerViewHolder(Context context, PL pullLayout, IFillPageStrategy<R> fillPageStrategy) {
         super(context, pullLayout, fillPageStrategy);
     }
 

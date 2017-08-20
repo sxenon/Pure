@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.submitter;
+package com.sxenon.pure.core.viewholder.filler;
 
-import com.sxenon.pure.core.viewholder.IViewHolder;
+import com.sxenon.pure.core.result.IFetchSingleResultHandler;
 
 /**
- * Single data submitter
- * Created by Sui on 2016/12/12.
+ * FillerViewHolder for single data
+ * Created by Sui on 2017/8/19.
  */
 
-public interface ISingleDataSubmitterViewHolder<T> extends IViewHolder {
-    T getDataForSubmit();
+public interface ISingleFillerViewHolder<R> extends IFetchSingleResultHandler<R>,IFillerViewHolder{
+    void setFetchSingleResultHandler(IFetchSingleResultHandler<R> fetchSingleResultHandler);
 }

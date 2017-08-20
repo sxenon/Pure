@@ -21,14 +21,14 @@ import android.content.Context;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
-import com.sxenon.pure.core.viewholder.filler.implement.BaseListDataFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.implement.BaseListFillerViewHolder;
 
 /**
  * Wrap with TwinklingPullLayout
  * Created by Sui on 2016/12/27.
  */
 
-public class TwinkingRefreshAndMoreFillerViewHolder<R> extends BaseListDataFillerViewHolder<R, TwinklingPullLayout> {
+public class TwinkingRefreshAndMoreFillerViewHolder<R> extends BaseListFillerViewHolder<R, TwinklingPullLayout> {
     public TwinkingRefreshAndMoreFillerViewHolder(Context context, TwinklingRefreshLayout refreshLayout,IFillPageStrategy<R> fillPageStrategy) {
         super(context, new TwinklingPullLayout(refreshLayout), fillPageStrategy);
     }
