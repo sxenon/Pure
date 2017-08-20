@@ -40,13 +40,19 @@ public abstract class BaseSelectViewHolder<T> implements ISelectViewHolder<T> {
     private List<Boolean> mSelectedFlags;
     private final ISelectViewHolder.SelectStrategy mSelectStrategy;
 
+    /**
+     * TODO
+     * Override {@link IPureAdapter#resetAllItems(List)},and call this int it;
+     * @param context ?
+     * @param adapter adapter
+     * @param selectStrategy SelectStrategy
+     */
     public BaseSelectViewHolder(@NonNull Context context, @NonNull IPureAdapter<T> adapter, ISelectViewHolder.SelectStrategy selectStrategy) {
         mContext = context;
         mAdapter = adapter;
         mSelectStrategy = selectStrategy;
         mSelectedFlags = new ArrayList<>(mAdapter.getItemCount());
         Collections.fill(mSelectedFlags, false);
-        SelectGroupHelper.bindAdapterAndSelectViewHolder(adapter, this);
     }
 
     @Override
