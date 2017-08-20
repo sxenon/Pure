@@ -19,6 +19,7 @@ package com.sxenon.pure.core.request.select.multi;
 import com.sxenon.pure.core.request.select.BaseSelectSubmitter;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -48,8 +49,13 @@ public class MultiSelectSubmitter extends BaseSelectSubmitter {
         }
     }
 
-    public void onSelectedOptionsDeleted(List<Integer> selectedIndexList){
-        int newSize=getSelectedFlags().size()-selectedIndexList.size();
-        onOptionsReset(newSize);
+    public void onSelectedOptionsDeleted(){
+        List<Boolean> selectedFlags=getSelectedFlags();
+        Iterator<Boolean> iterator=selectedFlags.iterator();
+        while (iterator.hasNext()){
+            if (iterator.next()){
+                iterator.remove();
+            }
+        }
     }
 }

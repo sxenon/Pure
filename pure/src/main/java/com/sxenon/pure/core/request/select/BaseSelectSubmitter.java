@@ -27,6 +27,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
+ * Base implement for SelectSubmitter
  * Created by Sui on 2016/11/18.
  */
 
