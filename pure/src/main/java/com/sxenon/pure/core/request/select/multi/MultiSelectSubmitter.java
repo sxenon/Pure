@@ -18,8 +18,6 @@ package com.sxenon.pure.core.request.select.multi;
 
 import com.sxenon.pure.core.request.select.BaseSelectSubmitter;
 
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -31,31 +29,5 @@ public class MultiSelectSubmitter extends BaseSelectSubmitter {
 
     public MultiSelectSubmitter(List<Boolean> selectedFlags) {
         super(new MultiSelectStrategy(),selectedFlags);
-    }
-
-    public void onAllOptionsSelected(){
-        Collections.fill(getSelectedFlags(),true);
-    }
-
-    public void onAllOptionsUnSelected(){
-        Collections.fill(getSelectedFlags(),false);
-    }
-
-    public void onAllOptionsReversed(){
-        List<Boolean> selectedFlags=getSelectedFlags();
-        int size=selectedFlags.size();
-        for (int position=0;position<size;position++){
-            selectedFlags.set(position,!selectedFlags.get(position));
-        }
-    }
-
-    public void onSelectedOptionsDeleted(){
-        List<Boolean> selectedFlags=getSelectedFlags();
-        Iterator<Boolean> iterator=selectedFlags.iterator();
-        while (iterator.hasNext()){
-            if (iterator.next()){
-                iterator.remove();
-            }
-        }
     }
 }

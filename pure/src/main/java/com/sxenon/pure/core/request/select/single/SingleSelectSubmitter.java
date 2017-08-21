@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Sui on 2017/8/20.
  */
 
-public class SingleSelectSubmitter<T> extends BaseSelectSubmitter {
+public class SingleSelectSubmitter extends BaseSelectSubmitter {
     public SingleSelectSubmitter(List<Boolean> selectedFlags) {
         super(new SingleSelectStrategy(),selectedFlags);
     }

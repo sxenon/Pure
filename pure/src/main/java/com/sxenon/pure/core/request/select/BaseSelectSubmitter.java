@@ -20,6 +20,7 @@ import com.sxenon.pure.core.request.IRequestSubmitter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import rx.Observable;
@@ -36,7 +37,7 @@ public abstract class BaseSelectSubmitter implements IRequestSubmitter<List<Inte
     private final SelectStrategy mSelectStrategy;
 
     /**
-     * Usually use in an Adapter for select
+     * 一般需结合具体类型的Adapter使用
      * @param selectStrategy MultiSelect,SingleSelect or others
      * @param selectedFlags  selectedFlags in an adapter
      */
@@ -58,21 +59,36 @@ public abstract class BaseSelectSubmitter implements IRequestSubmitter<List<Inte
         mSelectedFlags.remove(position);
     }
 
-    public void onOptionsReset(int size) {
-        mSelectedFlags = new ArrayList<>(size);
-        Collections.fill(mSelectedFlags, false);
-    }
-
-    public void onOptionsReset() {
-        Collections.fill(mSelectedFlags, false);
-    }
-
     public void onOptionSelected(int position) {
         mSelectStrategy.onOptionSelected(mSelectedFlags, position);
     }
 
     public void onOptionUnSelected(int position) {
         mSelectStrategy.onOptionUnSelected(mSelectedFlags, position);
+    }
+
+    public void onAllOptionsSelected(){
+        Collections.fill(mSelectedFlags,true);
+    }
+
+    public void onAllOptionsUnSelected(){
+        Collections.fill(mSelectedFlags,false);
+    }
+
+    public void onAllOptionsReversed(){
+        int size=mSelectedFlags.size();
+        for (int position=0;position<size;position++){
+            mSelectedFlags.set(position,!mSelectedFlags.get(position));
+        }
+    }
+
+    public void onSelectedOptionsDeleted(){
+        Iterator<Boolean> iterator=mSelectedFlags.iterator();
+        while (iterator.hasNext()){
+            if (iterator.next()){
+                iterator.remove();
+            }
+        }
     }
 
     @Override
