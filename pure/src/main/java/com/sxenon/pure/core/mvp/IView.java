@@ -28,6 +28,5 @@ public interface IView<P extends IPresenter> {
 
     P getPresenter();
 
-    @NonNull
     Context getContext();
 }

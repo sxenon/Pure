@@ -18,7 +18,9 @@ package com.sxenon.pure.core.router.app;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +28,7 @@ import android.support.v13.app.FragmentCompat;
 import android.view.View;
 
 import com.sxenon.pure.core.Event;
+import com.sxenon.pure.core.router.BuildConfig;
 import com.sxenon.pure.core.router.IFragment;
 import com.sxenon.pure.core.router.PureRouterVisitorAsPresenter;
 
@@ -125,6 +128,15 @@ public abstract class PureFragment<P extends PureRouterVisitorAsPresenter> exten
     @Override
     public Activity getActivityCompact() {
         return getActivity();
+    }
+
+    @Override
+    public Context getContext() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return super.getContext();
+        }else {
+            return getActivity();
+        }
     }
 
     @Override
