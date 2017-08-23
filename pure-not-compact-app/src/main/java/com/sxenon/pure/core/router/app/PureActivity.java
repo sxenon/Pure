@@ -42,42 +42,42 @@ import rx.functions.Action0;
  */
 
 public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> extends Activity implements IActivity<P> {
-    private P mRootPresenter;
+    private P mPresenter;
     private final Set<PureFragment> mVisibleFragmentSet = new HashSet<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView(savedInstanceState);
-        mRootPresenter = bindPresenter();
-        mRootPresenter.onCreate(savedInstanceState == null ? null : GlobalContext.INSTANCE.savedEventList);
+        mPresenter = bindPresenter();
+        mPresenter.onCreate(savedInstanceState == null ? null : GlobalContext.INSTANCE.savedEventList);
         GlobalContext.INSTANCE.activityHistoryManager.add(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mRootPresenter.onResume();
+        mPresenter.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mRootPresenter.onPause();
+        mPresenter.onPause();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mRootPresenter.onStop();
+        mPresenter.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         //noinspection unchecked
-        saveEventList(mRootPresenter.getEventForSave());
-        mRootPresenter.onDestroy();
+        saveEventList(mPresenter.getEventForSave());
+        mPresenter.onDestroy();
         GlobalContext.INSTANCE.activityHistoryManager.remove(this);
     }
 
@@ -89,7 +89,7 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
 
     @Override
     public P getPresenter() {
-        return mRootPresenter;
+        return mPresenter;
     }
 
     @Override
@@ -120,12 +120,12 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
 
     @Override
     public final void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mRootPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        mPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
     protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mRootPresenter.onActivityResult(requestCode, resultCode, data);
+        mPresenter.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -141,7 +141,7 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
                 handled = true;
             }
         }
-        if (!handled && !mRootPresenter.onBackPressed()) {
+        if (!handled && !mPresenter.onBackPressed()) {
             super.onBackPressed();
         }
     }

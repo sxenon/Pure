@@ -42,9 +42,9 @@ import rx.functions.Action0;
 
 public abstract class PureFragment<P extends PureRouterVisitorAsPresenter> extends Fragment implements IFragment<P> {
     private List<Event> mSavedEventList;
-    private P mRootPresenter;
+    private P mPresenter;
     private boolean mViewCreated;
-    private boolean shouldInitRootPresenter;
+    private boolean hasPresenterInitialized;
     /**
      * 真正的对用户可见的状态！！！
      */
@@ -54,49 +54,49 @@ public abstract class PureFragment<P extends PureRouterVisitorAsPresenter> exten
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view, savedInstanceState);
-        mRootPresenter = bindPresenter();
+        mPresenter = bindPresenter();
         mViewCreated = true;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initRootPresenterIfNeeded();
+        initPresenterIfNeeded();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mRootPresenter.onResume();
+        mPresenter.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mRootPresenter.onPause();
+        mPresenter.onPause();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mRootPresenter.onStop();
+        mPresenter.onStop();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         //noinspection unchecked
-        saveEventList(mRootPresenter.getEventForSave());
-        mRootPresenter.onDestroy();
+        saveEventList(mPresenter.getEventForSave());
+        mPresenter.onDestroy();
         mViewCreated = false;
-        shouldInitRootPresenter = true;
+        hasPresenterInitialized = false;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         mVisible = mViewCreated && isVisibleToUser;
-        initRootPresenterIfNeeded();
+        initPresenterIfNeeded();
         PureActivity activity = (PureActivity) getActivity();
         if (mVisible) {
             activity.addToVisibleSet(this);
@@ -107,16 +107,16 @@ public abstract class PureFragment<P extends PureRouterVisitorAsPresenter> exten
         }
     }
 
-    private void initRootPresenterIfNeeded() {
-        if (mVisible && shouldInitRootPresenter) {
-            mRootPresenter.onCreate(mSavedEventList);
-            shouldInitRootPresenter = false;
+    private void initPresenterIfNeeded() {
+        if (mVisible && !hasPresenterInitialized) {
+            mPresenter.onCreate(mSavedEventList);
+            hasPresenterInitialized = true;
         }
     }
 
     @Override
     public P getPresenter() {
-        return mRootPresenter;
+        return mPresenter;
     }
 
     @Override
@@ -151,7 +151,7 @@ public abstract class PureFragment<P extends PureRouterVisitorAsPresenter> exten
 
     @Override
     public final void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mRootPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        mPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -161,7 +161,7 @@ public abstract class PureFragment<P extends PureRouterVisitorAsPresenter> exten
 
     @Override
     public final void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mRootPresenter.onActivityResult(requestCode, resultCode, data);
+        mPresenter.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -170,7 +170,7 @@ public abstract class PureFragment<P extends PureRouterVisitorAsPresenter> exten
     }
 
     public final boolean onBackPressed() {
-        return mRootPresenter.onBackPressed();
+        return mPresenter.onBackPressed();
     }
 
 }

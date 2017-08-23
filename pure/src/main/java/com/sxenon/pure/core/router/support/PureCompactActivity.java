@@ -43,42 +43,42 @@ import rx.functions.Action0;
  */
 
 public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter> extends AppCompatActivity implements IActivity<P> {
-    private P mRootPresenter;
+    private P mPresenter;
     private final Set<PureSupportFragment> mVisibleFragmentSet = new HashSet<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView(savedInstanceState);
-        mRootPresenter = bindPresenter();
-        mRootPresenter.onCreate(savedInstanceState == null ? null : GlobalContext.INSTANCE.savedEventList);
+        mPresenter = bindPresenter();
+        mPresenter.onCreate(savedInstanceState == null ? null : GlobalContext.INSTANCE.savedEventList);
         GlobalContext.INSTANCE.activityHistoryManager.add(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mRootPresenter.onResume();
+        mPresenter.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mRootPresenter.onPause();
+        mPresenter.onPause();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mRootPresenter.onStop();
+        mPresenter.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         //noinspection unchecked
-        saveEventList(mRootPresenter.getEventForSave());
-        mRootPresenter.onDestroy();
+        saveEventList(mPresenter.getEventForSave());
+        mPresenter.onDestroy();
         GlobalContext.INSTANCE.activityHistoryManager.remove(this);
     }
 
@@ -90,7 +90,7 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
 
     @Override
     public P getPresenter() {
-        return mRootPresenter;
+        return mPresenter;
     }
 
     @Override
@@ -116,7 +116,7 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
 
     @Override
     public final void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (!mRootPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
+        if (!mPresenter.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
             //deliver to v4.fragment
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -124,7 +124,7 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
 
     @Override
     protected final void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (!mRootPresenter.onActivityResult(requestCode, resultCode, data)) {
+        if (!mPresenter.onActivityResult(requestCode, resultCode, data)) {
             //deliver to v4.fragment
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -146,7 +146,7 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
                 handled = true;
             }
         }
-        if (!handled && !mRootPresenter.onBackPressed()) {
+        if (!handled && !mPresenter.onBackPressed()) {
             super.onBackPressed();
         }
     }
