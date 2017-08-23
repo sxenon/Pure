@@ -28,7 +28,6 @@ import android.support.v13.app.FragmentCompat;
 import android.view.View;
 
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.router.BuildConfig;
 import com.sxenon.pure.core.router.IFragment;
 import com.sxenon.pure.core.router.PureRouterVisitorAsPresenter;
 
