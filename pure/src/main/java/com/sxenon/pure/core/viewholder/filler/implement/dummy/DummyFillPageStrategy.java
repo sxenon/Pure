@@ -17,7 +17,7 @@
 package com.sxenon.pure.core.viewholder.filler.implement.dummy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.IFetchSingleResultHandler;
+import com.sxenon.pure.core.result.filler.ISingleResultFiller;
 import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.implement.strategy.BaseFillPageStrategy;
@@ -50,8 +50,8 @@ class DummyFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processSingle(IFillerViewHolder fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
-        fetchSingleResultHandler.onSingleDataFetched(data);
+    public void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
+        singleResultFiller.onSingleDataFetched(data);
     }
 
     @Override

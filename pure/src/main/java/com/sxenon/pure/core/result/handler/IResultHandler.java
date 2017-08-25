@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.result.handler;
 
-import com.sxenon.pure.core.result.filler.ISingleResultFiller;
-import com.sxenon.pure.core.viewholder.IViewHolder;
+import com.sxenon.pure.core.ApiException;
 
 /**
- * Interface for adapter`s viewHolder
- * Created by Sui on 2016/12/25.
+ * Interface for common result handler
+ * Direct subclasses:
+ * {@link IFetchListResultHandler},{@link IFetchSingleResultHandler},{@link ISubmitResultHandler}
+ * {@link com.sxenon.pure.core.mvp.IView}s should implement one of the above if need.
+ * Created by Sui on 2016/11/20.
  */
 
-public interface IAdapterViewHolder<R> extends ISingleResultFiller<R>,IViewHolder{
-    int getPosition();
+public interface IResultHandler {
+    void onCancel();
 
-    <A extends IPureAdapter> A getAdapter();
+    void onException(ApiException exception);
 }

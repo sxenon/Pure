@@ -17,7 +17,7 @@
 package com.sj.pure.retrofit2.dispatcher;
 
 import com.sxenon.pure.core.result.BaseResultDispatcher;
-import com.sxenon.pure.core.result.IResultHandler;
+import com.sxenon.pure.core.result.handler.IResultHandler;
 import com.sxenon.pure.core.result.ResultHandlerType;
 
 import retrofit2.Call;

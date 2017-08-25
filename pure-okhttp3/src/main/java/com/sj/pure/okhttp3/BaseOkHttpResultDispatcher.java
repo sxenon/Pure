@@ -19,7 +19,7 @@ package com.sj.pure.okhttp3;
 import com.sj.pure.okhttp3.converter.Converter;
 import com.sj.pure.okhttp3.converter.LConverter;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
-import com.sxenon.pure.core.result.IResultHandler;
+import com.sxenon.pure.core.result.handler.IResultHandler;
 import com.sxenon.pure.core.result.ResultHandlerType;
 import com.sxenon.pure.core.util.Preconditions;
 

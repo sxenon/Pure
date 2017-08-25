@@ -19,7 +19,7 @@ package com.sxenon.pure.core.viewholder.filler.implement;
 import android.content.Context;
 
 import com.sxenon.pure.core.ApiException;
-import com.sxenon.pure.core.result.IFetchSingleResultHandler;
+import com.sxenon.pure.core.result.filler.ISingleResultFiller;
 import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
 import com.sxenon.pure.core.viewholder.filler.IPullLayout;
 import com.sxenon.pure.core.viewholder.filler.ISingleFillerViewHolder;
@@ -30,7 +30,7 @@ import com.sxenon.pure.core.viewholder.filler.ISingleFillerViewHolder;
  */
 
 public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R,PL> implements ISingleFillerViewHolder<R> {
-    private IFetchSingleResultHandler<R> mFetchSingleResultHandler;
+    private ISingleResultFiller<R> mSingleResultFiller;
     private R mData;
     /**
      * Constructor
@@ -45,11 +45,11 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseF
 
     /**
      *
-     * @param fetchSingleResultHandler 单一数据的Handler
+     * @param singleResultFiller 单一数据的Filler
      */
     @Override
-    public void setFetchSingleResultHandler(IFetchSingleResultHandler<R> fetchSingleResultHandler){
-        mFetchSingleResultHandler=fetchSingleResultHandler;
+    public void setFetchSingleResultHandler(ISingleResultFiller<R> singleResultFiller){
+        mSingleResultFiller =singleResultFiller;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseF
     protected final void restoreData(Object data) {
         //noinspection unchecked
         mData= (R) data;
-        mFetchSingleResultHandler.onSingleDataFetched(mData);
+        mSingleResultFiller.onSingleDataFetched(mData);
     }
 
     @Override
@@ -72,19 +72,19 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseF
             getFillPageStrategy().onFetchEmptySingle(this, getPageInfo());
         } else {
             onNormal();
-            getFillPageStrategy().processSingle(this, data, mFetchSingleResultHandler, getPageInfo());
+            getFillPageStrategy().processSingle(this, data, mSingleResultFiller, getPageInfo());
         }
     }
 
     @Override
     public void onCancel() {
         super.onCancel();
-        getFillPageStrategy().onCancel(this,mFetchSingleResultHandler, getPageInfo());
+        getFillPageStrategy().onCancel(this, mSingleResultFiller, getPageInfo());
     }
 
     @Override
     public void onException(ApiException exception) {
         super.onException(exception);
-        getFillPageStrategy().onException(this,exception,mFetchSingleResultHandler, getPageInfo());
+        getFillPageStrategy().onException(this,exception, mSingleResultFiller, getPageInfo());
     }
 }

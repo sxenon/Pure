@@ -17,7 +17,7 @@
 package com.sxenon.pure.core.viewholder.filler.implement.strategy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.IFetchSingleResultHandler;
+import com.sxenon.pure.core.result.filler.ISingleResultFiller;
 import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 
@@ -86,8 +86,8 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processSingle(IFillerViewHolder fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
-        fetchSingleResultHandler.onSingleDataFetched(data);
+    public void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
+        singleResultFiller.onSingleDataFetched(data);
         pageInfo.tempPage = pageInfo.currentPage = 0;
     }
 

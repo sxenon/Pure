@@ -26,8 +26,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
-import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.global.IntentManager;
+import com.sxenon.pure.core.router.IRouter;
 
 import java.util.ArrayList;
 import java.util.List;

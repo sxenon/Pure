@@ -18,7 +18,7 @@ package com.sj.pure.okgo.dispatcher;
 
 import com.lzy.okgo.model.Response;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
-import com.sxenon.pure.core.result.IFetchListResultHandler;
+import com.sxenon.pure.core.result.handler.IFetchListResultHandler;
 
 import java.util.List;
 

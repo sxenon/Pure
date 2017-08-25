@@ -17,7 +17,7 @@
 package com.sj.pure.okhttp3;
 
 import com.sxenon.pure.core.result.BaseResultDispatcher;
-import com.sxenon.pure.core.result.IResultHandler;
+import com.sxenon.pure.core.result.handler.IResultHandler;
 
 import okhttp3.Response;
 import okhttp3.WebSocket;

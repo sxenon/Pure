@@ -18,7 +18,7 @@ package com.sxenon.pure.core.viewholder.filler.implement.strategy;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.IFetchSingleResultHandler;
+import com.sxenon.pure.core.result.filler.ISingleResultFiller;
 import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
@@ -49,8 +49,7 @@ public abstract class BaseFillPageStrategy<R> implements IFillPageStrategy<R> {
     }
 
     @Override
-    public void onCancel(IFillerViewHolder fillerViewHolder, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
-        fetchSingleResultHandler.onCancel();
+    public void onCancel(IFillerViewHolder fillerViewHolder, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage;
     }
     
@@ -61,8 +60,7 @@ public abstract class BaseFillPageStrategy<R> implements IFillPageStrategy<R> {
     }
 
     @Override
-    public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo) {
-        fetchSingleResultHandler.onException(exception);
+    public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
         pageInfo.currentPage = pageInfo.tempPage = -1;
     }
 }

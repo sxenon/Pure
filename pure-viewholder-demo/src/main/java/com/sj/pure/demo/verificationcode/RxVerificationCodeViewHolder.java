@@ -19,7 +19,7 @@ package com.sj.pure.demo.verificationcode;
 import android.content.Context;
 
 import com.sxenon.pure.core.viewholder.submitter.ISubmitterViewHolder;
-import com.sxenon.pure.core.result.ISubmitResultHandler;
+import com.sxenon.pure.core.result.handler.ISubmitResultHandler;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.router.IRouterVisitor;
 import com.sxenon.pure.core.router.RouterEvent;

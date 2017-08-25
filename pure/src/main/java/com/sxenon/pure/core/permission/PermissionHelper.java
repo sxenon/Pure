@@ -25,8 +25,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.global.IntentManager;
+import com.sxenon.pure.core.router.IRouter;
 
 import java.util.List;
 

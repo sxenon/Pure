@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.result;
+package com.sxenon.pure.core.result.filler;
+
+import java.util.List;
 
 /**
- * ResultHandler for fetching single data
- * Created by Sui on 2016/12/8.
+ * IListResultFiller
+ * Created by Sui on 2017/8/25.
  */
 
-public interface IFetchSingleResultHandler<R> extends IResultHandler {
-    void onSingleDataFetched(R data);
+public interface IListResultFiller<R> {
+    void onListDataFetched(List<R> data);
 }

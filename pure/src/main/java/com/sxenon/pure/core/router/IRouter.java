@@ -23,8 +23,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.viewholder.IViewHolder;
 import com.sxenon.pure.core.mvp.IView;
+import com.sxenon.pure.core.viewholder.IViewHolder;
 
 import java.util.List;
 

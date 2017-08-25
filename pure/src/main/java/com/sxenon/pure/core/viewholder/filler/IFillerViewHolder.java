@@ -16,7 +16,7 @@
 
 package com.sxenon.pure.core.viewholder.filler;
 
-import com.sxenon.pure.core.result.IResultHandler;
+import com.sxenon.pure.core.result.handler.IResultHandler;
 import com.sxenon.pure.core.viewholder.IViewHolder;
 
 /**

@@ -17,7 +17,6 @@
 package com.sxenon.pure.core.mvp;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 /**
  * View for MVP,include common view and viewComponentGroup

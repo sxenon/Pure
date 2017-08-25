@@ -16,6 +16,10 @@
 
 package com.sxenon.pure.core.result;
 
+import com.sxenon.pure.core.result.handler.IFetchListResultHandler;
+import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
+import com.sxenon.pure.core.result.handler.ISubmitResultHandler;
+
 /**
  * Dispatch result to its really handler
  * For Map,use its entrySet or just treat as single.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.result;
-
-import com.sxenon.pure.core.ApiException;
+package com.sxenon.pure.core.result.filler;
 
 /**
- * Interface for common result handler
- * Direct subclasses:
- * {@link IFetchListResultHandler},{@link IFetchSingleResultHandler},{@link ISubmitResultHandler}
- * {@link com.sxenon.pure.core.mvp.IView}s should implement one of the above if need.
- * Created by Sui on 2016/11/20.
+ * ISubmitResultFiller
+ * Created by Sui on 2017/8/25.
  */
 
-public interface IResultHandler {
-    void onCancel();
+public interface ISubmitResultFiller<R> {
+    void onSubmitSuccess(R result);
 
-    void onException(ApiException exception);
+    void onSubmitFailed(R result);
 }

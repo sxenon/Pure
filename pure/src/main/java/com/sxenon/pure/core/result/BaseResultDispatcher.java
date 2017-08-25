@@ -17,6 +17,10 @@
 package com.sxenon.pure.core.result;
 
 import com.sxenon.pure.core.ApiException;
+import com.sxenon.pure.core.result.handler.IFetchListResultHandler;
+import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
+import com.sxenon.pure.core.result.handler.IResultHandler;
+import com.sxenon.pure.core.result.handler.ISubmitResultHandler;
 
 import java.util.List;
 

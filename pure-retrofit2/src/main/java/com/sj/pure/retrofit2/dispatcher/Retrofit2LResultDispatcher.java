@@ -17,7 +17,7 @@
 package com.sj.pure.retrofit2.dispatcher;
 
 import com.sxenon.pure.core.result.BaseResultDispatcher;
-import com.sxenon.pure.core.result.IFetchListResultHandler;
+import com.sxenon.pure.core.result.handler.IFetchListResultHandler;
 
 import java.util.List;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.result;
+package com.sxenon.pure.core.result.handler;
+
+import com.sxenon.pure.core.result.filler.ISingleResultFiller;
 
 /**
- * ResultHandler for submitting
- * Created by Sui on 2016/12/12.
+ * ResultHandler for fetching single data
+ * Created by Sui on 2016/12/8.
  */
 
-public interface ISubmitResultHandler<R> extends IResultHandler {
-    void onSubmitSuccess(R result);
+public interface IFetchSingleResultHandler<R> extends ISingleResultFiller<R>,IResultHandler {
 
-    void onSubmitFailed(R result);
 }

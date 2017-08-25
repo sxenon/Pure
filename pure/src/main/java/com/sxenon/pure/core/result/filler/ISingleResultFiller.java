@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
-
-import com.sxenon.pure.core.result.filler.ISingleResultFiller;
-import com.sxenon.pure.core.viewholder.IViewHolder;
+package com.sxenon.pure.core.result.filler;
 
 /**
- * Interface for adapter`s viewHolder
- * Created by Sui on 2016/12/25.
+ * ISingleResultFiller
+ * Created by Sui on 2017/8/25.
  */
 
-public interface IAdapterViewHolder<R> extends ISingleResultFiller<R>,IViewHolder{
-    int getPosition();
-
-    <A extends IPureAdapter> A getAdapter();
+public interface ISingleResultFiller<R> {
+    void onSingleDataFetched(R data);
 }

@@ -18,7 +18,7 @@ package com.sxenon.pure.core.viewholder.filler;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.IFetchSingleResultHandler;
+import com.sxenon.pure.core.result.filler.ISingleResultFiller;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public interface IFillPageStrategy<R> {
 
     void onFetchEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
 
-    void processSingle(IFillerViewHolder fillerViewHolder, R data, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
+    void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
 
     void onFetchEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
 
@@ -44,11 +44,11 @@ public interface IFillPageStrategy<R> {
 
     void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter,PageInfo pageInfo);
 
-    void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
+    void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
 
     void onCancel(IFillerViewHolder fillerViewHolder, IPureAdapter<R> adapter, PageInfo pageInfo);
 
-    void onCancel(IFillerViewHolder fillerViewHolder, IFetchSingleResultHandler<R> fetchSingleResultHandler, PageInfo pageInfo);
+    void onCancel(IFillerViewHolder fillerViewHolder, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
 
     class PageInfo {
         public int currentPage;

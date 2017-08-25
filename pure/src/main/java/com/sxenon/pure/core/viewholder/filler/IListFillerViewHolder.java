@@ -17,7 +17,7 @@
 package com.sxenon.pure.core.viewholder.filler;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.IFetchListResultHandler;
+import com.sxenon.pure.core.result.handler.IFetchListResultHandler;
 
 /**
  * FillerViewHolder for list data

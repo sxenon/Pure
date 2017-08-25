@@ -16,7 +16,8 @@
 
 package com.sxenon.pure.core.viewholder.filler;
 
-import com.sxenon.pure.core.result.IFetchSingleResultHandler;
+import com.sxenon.pure.core.result.filler.ISingleResultFiller;
+import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
 
 /**
  * FillerViewHolder for single data
@@ -24,5 +25,5 @@ import com.sxenon.pure.core.result.IFetchSingleResultHandler;
  */
 
 public interface ISingleFillerViewHolder<R> extends IFetchSingleResultHandler<R>,IFillerViewHolder{
-    void setFetchSingleResultHandler(IFetchSingleResultHandler<R> fetchSingleResultHandler);
+    void setFetchSingleResultHandler(ISingleResultFiller<R> fetchSingleResultHandler);
 }
