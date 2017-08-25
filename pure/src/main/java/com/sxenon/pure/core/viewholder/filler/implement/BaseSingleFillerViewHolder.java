@@ -48,7 +48,7 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseF
      * @param singleResultFiller 单一数据的Filler
      */
     @Override
-    public void setFetchSingleResultHandler(ISingleResultFiller<R> singleResultFiller){
+    public void setSingleResultFiller(ISingleResultFiller<R> singleResultFiller){
         mSingleResultFiller =singleResultFiller;
     }
 
