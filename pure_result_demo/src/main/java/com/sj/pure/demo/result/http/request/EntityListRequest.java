@@ -22,6 +22,7 @@ import com.yanzhenjie.nohttp.RequestMethod;
 import java.util.List;
 
 /**
+ * EntityListRequest
  * Created by Yan Zhenjie on 2016/12/17.
  */
 public class EntityListRequest<Entity> extends AbstractRequest<List<Entity>> {

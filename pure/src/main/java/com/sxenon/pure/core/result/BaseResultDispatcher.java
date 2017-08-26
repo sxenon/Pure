@@ -29,7 +29,7 @@ import java.util.List;
  * Created by Sui on 2016/12/15.
  */
 
-public class BaseResultDispatcher<R> implements IResultDispatcher<R> {
+public class BaseResultDispatcher<R> implements IResultDispatcher {
     private final IResultHandler mResultHandler;
     private ResultHandlerType mResultHandlerType = ResultHandlerType.NONE;
 
@@ -55,37 +55,34 @@ public class BaseResultDispatcher<R> implements IResultDispatcher<R> {
     /**
      * {@link ResultHandlerType#FETCH_LIST}
      */
-    @Override
-    public void onListDataFetched(List<R> data) {
+
+    public void onListDataFetched(R data) {
         //noinspection unchecked
-        ((IFetchListResultHandler<R>) mResultHandler).onListDataFetched(data);
+        ((IFetchListResultHandler) mResultHandler).onListDataFetched((List) data);
     }
 
     /**
      * {@link ResultHandlerType#FETCH_SINGLE}
      */
-    @Override
     public void onSingleDataFetched(R data) {
         //noinspection unchecked
-        ((IFetchSingleResultHandler<R>) mResultHandler).onSingleDataFetched(data);
+        ((IFetchSingleResultHandler) mResultHandler).onSingleDataFetched(data);
     }
 
     /**
      * {@link ResultHandlerType#SUBMIT}
      */
-    @Override
     public void onSubmitSuccess(R result) {
         //noinspection unchecked
-        ((ISubmitResultHandler<R>) mResultHandler).onSubmitSuccess(result);
+        ((ISubmitResultHandler) mResultHandler).onSubmitSuccess(result);
     }
 
     /**
      * {@link ResultHandlerType#SUBMIT}
      */
-    @Override
     public void onSubmitFailed(R result) {
         //noinspection unchecked
-        ((ISubmitResultHandler<R>) mResultHandler).onSubmitFailed(result);
+        ((ISubmitResultHandler) mResultHandler).onSubmitFailed(result);
     }
 
     @Override

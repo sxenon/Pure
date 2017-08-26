@@ -19,6 +19,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * ProjectEntity
  * Created by Yan Zhenjie on 2016/12/17.
  */
 public class ProjectEntity implements Parcelable {

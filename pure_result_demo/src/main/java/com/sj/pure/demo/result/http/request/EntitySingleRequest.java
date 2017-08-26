@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSON;
 import com.yanzhenjie.nohttp.RequestMethod;
 
 /**
+ * EntitySingleRequest
  * Created by Yan Zhenjie on 2016/12/17.
  */
 public class EntitySingleRequest<Entity> extends AbstractRequest<Entity> {

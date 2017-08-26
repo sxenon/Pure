@@ -16,14 +16,50 @@
 
 package com.sj.pure.demo.result.http.response;
 
-import com.sj.pure.demo.result.http.response.result.Result;
+import android.support.annotation.NonNull;
+
+import com.sj.pure.demo.result.http.exception.BusinessException;
+import com.sj.pure.demo.result.http.exception.NetworkException;
+import com.sj.pure.demo.result.http.request.AbstractRequest;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
+import com.yanzhenjie.nohttp.rest.Response;
 
 /**
+ * ResponseListener
  * Created by Sui on 2017/8/27.
  */
 
-public abstract class BaseResponseListener<T> implements OnResponseListener<Result<T>> {
+public class BaseResponseListener<T> implements OnResponseListener<Result<T>> {
+    private BaseNoHttpResultDispatcher<T> resultDispatcher;
+    private AbstractRequest<T> request;
+
+    public BaseResponseListener(@NonNull BaseNoHttpResultDispatcher<T> resultDispatcher, AbstractRequest<T> request) {
+        this.resultDispatcher = resultDispatcher;
+        this.request = request;
+    }
+
+    @Override
+    public void onSucceed(int what, Response<Result<T>> response) {
+        // http层的请求成功，响应码可能是200、400、500。
+        if (!request.isCanceled()){
+            Result<T> result=response.get();
+            if (result.isSucceed()){
+                resultDispatcher.handleSuccessResult(result.getResult());
+            }else {
+                BusinessException businessException=new BusinessException(result.getHeaders(),result.getError(),what);
+                resultDispatcher.onApiException(businessException);
+            }
+        }
+    }
+
+    @Override
+    public void onFailed(int what, Response<Result<T>> response) {
+        @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+        Exception exception = response.getException();
+        NetworkException networkException=new NetworkException(exception,what);
+        resultDispatcher.onApiException(networkException);
+    }
+
     @Override
     public void onStart(int what) {
 

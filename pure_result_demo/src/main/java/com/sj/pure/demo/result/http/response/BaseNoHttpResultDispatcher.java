@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.result.http.response.result;
+package com.sj.pure.demo.result.http.response;
 
 import android.util.Log;
 
@@ -22,10 +22,12 @@ import com.sj.pure.demo.result.http.exception.BusinessException;
 import com.sj.pure.demo.result.http.exception.NetworkException;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
+import com.sxenon.pure.core.result.ResultHandlerType;
 import com.sxenon.pure.core.result.handler.IResultHandler;
 import com.yanzhenjie.nohttp.error.TimeoutError;
 
 /**
+ * ResultDispatcher fo NoHttp
  * Created by Sui on 2017/8/27.
  */
 
@@ -34,6 +36,30 @@ public class BaseNoHttpResultDispatcher<T> extends BaseResultDispatcher<T>  {
 
     public BaseNoHttpResultDispatcher(IResultHandler resultHandler) {
         super(resultHandler);
+    }
+
+    /**
+     * 是业务意义上的Success！
+     */
+    public void handleSuccessResult(T result) {
+        ResultHandlerType resultHandlerType = getResultHandlerType();
+        switch (resultHandlerType) {
+            case FETCH_SINGLE: {
+                onSingleDataFetched(result);
+            }
+            break;
+            case FETCH_LIST:{
+                onListDataFetched(result);
+            }
+            break;
+            case SUBMIT: {
+                onSubmitSuccess(result);
+            }
+            break;
+            default: {
+                throw new IllegalArgumentException("IResultHandler with wrong type");
+            }
+        }
     }
 
     @Override

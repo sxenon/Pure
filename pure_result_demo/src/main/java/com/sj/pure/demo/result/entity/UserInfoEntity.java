@@ -21,6 +21,7 @@ import android.os.Parcelable;
 import java.util.List;
 
 /**
+ * UserInfoEntity
  * Created by Yan Zhenjie on 2016/12/17.
  */
 public class UserInfoEntity implements Parcelable {

@@ -16,9 +16,7 @@
 
 package com.sxenon.pure.core.result;
 
-import com.sxenon.pure.core.result.handler.IFetchListResultHandler;
-import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
-import com.sxenon.pure.core.result.handler.ISubmitResultHandler;
+import com.sxenon.pure.core.result.handler.IResultHandler;
 
 /**
  * Dispatch result to its really handler
@@ -27,6 +25,6 @@ import com.sxenon.pure.core.result.handler.ISubmitResultHandler;
  * Created by Sui on 2016/12/13.
  */
 
-public interface IResultDispatcher<R> extends ISubmitResultHandler<R>, IFetchListResultHandler<R>, IFetchSingleResultHandler<R> {
+public interface IResultDispatcher extends IResultHandler {
 
 }

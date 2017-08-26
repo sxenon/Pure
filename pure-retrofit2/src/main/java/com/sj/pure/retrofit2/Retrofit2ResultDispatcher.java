@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sj.pure.retrofit2.dispatcher;
+package com.sj.pure.retrofit2;
 
 import com.sxenon.pure.core.result.BaseResultDispatcher;
 import com.sxenon.pure.core.result.handler.IResultHandler;
@@ -44,6 +44,9 @@ public abstract class Retrofit2ResultDispatcher<R> extends BaseResultDispatcher<
                 onSingleDataFetched(response.body());
             }
             break;
+            case FETCH_LIST:{
+                onListDataFetched(response.body());
+            }
             case SUBMIT: {
                 onSubmitSuccess(response.body());
             }

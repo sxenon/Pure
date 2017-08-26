@@ -19,6 +19,7 @@ package com.sj.pure.demo.result.http.exception;
 import com.sxenon.pure.core.ApiException;
 
 /**
+ * Exception for network
  * Created by Sui on 2017/8/27.
  */
 

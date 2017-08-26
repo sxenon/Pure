@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.sj.pure.retrofit2.generator;
+package com.sj.pure.retrofit2;
 
 import android.support.annotation.NonNull;
-
-import com.sj.pure.retrofit2.dispatcher.Retrofit2ResultDispatcher;
 
 import retrofit2.Call;
 import retrofit2.Callback;

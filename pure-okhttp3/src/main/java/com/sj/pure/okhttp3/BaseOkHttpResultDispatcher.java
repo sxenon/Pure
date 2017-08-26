@@ -17,14 +17,11 @@
 package com.sj.pure.okhttp3;
 
 import com.sj.pure.okhttp3.converter.Converter;
-import com.sj.pure.okhttp3.converter.LConverter;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
 import com.sxenon.pure.core.result.handler.IResultHandler;
 import com.sxenon.pure.core.result.ResultHandlerType;
-import com.sxenon.pure.core.util.Preconditions;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -36,16 +33,10 @@ import okhttp3.Response;
 
 public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher<R> {
     private Converter<R> mConverter;
-    private LConverter<R> mLConvert;
 
     public BaseOkHttpResultDispatcher(IResultHandler resultHandler, Converter<R> converter) {
         super(resultHandler);
         mConverter = converter;
-    }
-
-    public BaseOkHttpResultDispatcher(IResultHandler resultHandler, LConverter<R> converter) {
-        super(resultHandler);
-        mLConvert = converter;
     }
 
     /**
@@ -53,20 +44,22 @@ public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher
      */
     protected void handleSuccessResult(Response response) throws Exception {
         ResultHandlerType resultHandlerType = getResultHandlerType();
+        R result = mConverter.convertResponse(response);
         switch (resultHandlerType) {
             case FETCH_LIST: {
-                List<R> result = Preconditions.checkNotNull(mLConvert, "").convertResponse(response);
                 onListDataFetched(result);
             }
+            break;
             case FETCH_SINGLE: {
-                R result = Preconditions.checkNotNull(mConverter, "").convertResponse(response);
                 onSingleDataFetched(result);
             }
-            case SUBMIT:
-            default: {
-                R result = Preconditions.checkNotNull(mConverter, "").convertResponse(response);
+            break;
+            case SUBMIT: {
                 onSubmitSuccess(result);
             }
+            break;
+            default:
+                break;
         }
     }
 

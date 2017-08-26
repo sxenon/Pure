@@ -41,6 +41,10 @@ public abstract class BaseOkgoResultDispatcher<R> extends BaseResultDispatcher<R
                 onSingleDataFetched(response.body());
             }
             break;
+            case FETCH_LIST:{
+                onListDataFetched(response.body());
+            }
+            break;
             case SUBMIT: {
                 onSubmitSuccess(response.body());
             }

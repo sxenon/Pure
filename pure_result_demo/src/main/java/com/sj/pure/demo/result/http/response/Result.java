@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.result.http.response.result;
+package com.sj.pure.demo.result.http.response;
 
 import com.yanzhenjie.nohttp.Headers;
 
 /**
+ * Wrapper for JavaBean
  * Created by Yan Zhenjie on 2016/12/17.
  */
 public class Result<Result> {

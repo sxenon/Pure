@@ -19,6 +19,7 @@ package com.sj.pure.demo.result.http.request;
 import com.yanzhenjie.nohttp.RequestMethod;
 
 /**
+ * StringRequest
  * Created by Yan Zhenjie on 2016/12/17.
  */
 public class StringRequest extends AbstractRequest<String> {

@@ -20,6 +20,7 @@ import com.sxenon.pure.core.ApiException;
 import com.yanzhenjie.nohttp.Headers;
 
 /**
+ * Exception for Business
  * Created by Sui on 2017/8/27.
  */
 
