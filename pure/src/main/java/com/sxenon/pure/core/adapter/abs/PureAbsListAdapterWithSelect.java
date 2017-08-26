@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.adapter;
+package com.sxenon.pure.core.adapter.abs;
 
-import com.sj.pure.demo.bean.ResponseBean;
-import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapter;
-import com.sxenon.pure.core.adapter.rv.PureRecyclerViewItemViewTypeEntity;
 import com.sxenon.pure.core.request.select.PureAdapterSelectSubmitter;
 import com.sxenon.pure.core.request.select.multi.MultiSelectSubmitter;
 import com.sxenon.pure.core.viewholder.filler.IListFillerViewHolder;
@@ -27,22 +24,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * PureRecyclerViewAdapterWithSelect
  * Created by Sui on 2017/8/21.
  */
 
-public class DemoPureRecyclerViewAdapterWithSelect extends PureRecyclerViewAdapter<ResponseBean> {
-    private PureAdapterSelectSubmitter<ResponseBean> selectSubmitter;
+public class PureAbsListAdapterWithSelect<T> extends PureAbsListAdapter<T> {
+    private PureAdapterSelectSubmitter<T> selectSubmitter;
 
     /**
      * @param container The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public DemoPureRecyclerViewAdapterWithSelect(IListFillerViewHolder<ResponseBean> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureAbsListAdapterWithSelect(IListFillerViewHolder<T> container, PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
         super(container, itemViewTypeEntryArray);
     }
 
     @Override
-    public void resetAllItems(List<ResponseBean> values) {
+    public void resetAllItems(List<T> values) {
         super.resetAllItems(values);
         selectSubmitter = new PureAdapterSelectSubmitter<>(this,new MultiSelectSubmitter(new ArrayList<Boolean>(getItemCount())));
     }
@@ -51,4 +49,41 @@ public class DemoPureRecyclerViewAdapterWithSelect extends PureRecyclerViewAdapt
     public int getItemViewType(int position) {
         return 0;
     }
+
+    public void appendOption(T data){
+        selectSubmitter.appendOption(data);
+    }
+
+    public void insertOption(int position,T data){
+        selectSubmitter.insertOption(position, data);
+    }
+
+    public void removeOption(int position){
+        selectSubmitter.removeOption(position);
+    }
+
+    public void selectOption(int position){
+        selectSubmitter.selectOption(position);
+    }
+
+    public void unSelectOption(int position){
+        selectSubmitter.unSelectOption(position);
+    }
+
+    public void selectAllOptions(){
+        selectSubmitter.selectAllOptions();
+    }
+
+    public void unSelectAllOptions(){
+        selectSubmitter.unSelectAllOptions();
+    }
+
+    public void reverseAllOptions(){
+        selectSubmitter.reverseAllOptions();
+    }
+
+    public void deletedSelectedOptions(){
+        selectSubmitter.deletedSelectedOptions();
+    }
+
 }
