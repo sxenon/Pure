@@ -94,7 +94,7 @@ public class BaseResultDispatcher<R> implements IResultDispatcher<R> {
     }
 
     @Override
-    public void onException(ApiException exception) {
-        mResultHandler.onException(exception);
+    public void onApiException(ApiException apiException) {
+        mResultHandler.onApiException(apiException);
     }
 }

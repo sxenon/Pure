@@ -42,7 +42,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
     private final Context mContext;
 
     private int mEventWhat = FillEventWhat.WHAT_UNINITIALIZED;
-    private ApiException mException;
+    private ApiException mApiException;
 
     private View mEmptyView;
     private View mExceptionView;
@@ -116,7 +116,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         event.arg1 = pageInfo.currentPage;
 
         if (event.what == FillEventWhat.WHAT_EXCEPTION) {
-            event.obj = mException;
+            event.obj = mApiException;
         } else {
             event.obj = getData();
         }
@@ -135,7 +135,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
                 onEmpty();
                 break;
             case FillEventWhat.WHAT_EXCEPTION:
-                onException((ApiException) savedEvent.obj);
+                onApiException((ApiException) savedEvent.obj);
                 break;
             case FillEventWhat.WHAT_UNINITIALIZED:
                 toInitialize();
@@ -161,10 +161,10 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
     }
 
     @Override
-    public void onException(ApiException exception) {
+    public void onApiException(ApiException apiException) {
         endAllAnim();
         mEventWhat = FillEventWhat.WHAT_EXCEPTION;
-        mException = exception;
+        mApiException = apiException;
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.VISIBLE);
     }
@@ -201,7 +201,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
     }
 
     public ApiException getException() {
-        return mException;
+        return mApiException;
     }
 
     protected IFillPageStrategy<R> getFillPageStrategy(){
@@ -219,7 +219,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
     }
 
     protected void setException(ApiException exception) {
-        mException = exception;
+        mApiException = exception;
     }
 
     public int getCurrentPageCount() {

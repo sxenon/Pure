@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.result.http.result;
+package com.sj.pure.demo.result.http.response.result;
 
 import com.sxenon.pure.core.result.ResultHandlerType;
 import com.sxenon.pure.core.result.handler.IResultHandler;
@@ -23,8 +23,8 @@ import com.sxenon.pure.core.result.handler.IResultHandler;
  * Created by Sui on 2017/8/26.
  */
 
-public abstract class AbsNoHttpSingleResultDispatcher<T> extends BaseNoHttpResultDispatcher<T>{
-    public AbsNoHttpSingleResultDispatcher(IResultHandler resultHandler) {
+public abstract class BaseNoHttpSingleResultDispatcher<T> extends BaseNoHttpResultDispatcher<T> {
+    public BaseNoHttpSingleResultDispatcher(IResultHandler resultHandler) {
         super(resultHandler);
     }
 

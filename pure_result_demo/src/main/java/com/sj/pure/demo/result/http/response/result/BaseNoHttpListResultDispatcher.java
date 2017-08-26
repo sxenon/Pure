@@ -13,27 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sj.pure.demo.result.http;
 
-import com.alibaba.fastjson.JSON;
-import com.yanzhenjie.nohttp.RequestMethod;
+package com.sj.pure.demo.result.http.response.result;
+
+import com.sxenon.pure.core.result.handler.IResultHandler;
 
 import java.util.List;
 
 /**
- * Created by Yan Zhenjie on 2016/12/17.
+ * Created by Sui on 2017/8/26.
  */
-public class EntityListRequest<Entity> extends AbstractRequest<List<Entity>> {
 
-    private Class<Entity> aClazz;
-
-    public EntityListRequest(String url, RequestMethod requestMethod, Class<Entity> clazz) {
-        super(url, requestMethod);
-        this.aClazz = clazz;
+public abstract class BaseNoHttpListResultDispatcher<T> extends BaseNoHttpResultDispatcher<T> {
+    public BaseNoHttpListResultDispatcher(IResultHandler resultHandler) {
+        super(resultHandler);
     }
 
-    @Override
-    protected List<Entity> getResult(String responseBody) throws Exception {
-        return JSON.parseArray(responseBody, aClazz);
+    /**
+     * 是业务意义上的Success！
+     */
+    public void handleSuccessResult(List<T> result) {
+        onListDataFetched(result);
     }
 }

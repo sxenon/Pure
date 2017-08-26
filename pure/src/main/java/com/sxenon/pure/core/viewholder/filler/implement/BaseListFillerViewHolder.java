@@ -73,9 +73,9 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFil
     }
 
     @Override
-    public void onException(ApiException exception) {
-        super.onException(exception);
-        getFillPageStrategy().onException(this,exception,mAdapter, getPageInfo());
+    public void onApiException(ApiException apiException) {
+        super.onApiException(apiException);
+        getFillPageStrategy().onException(this, apiException,mAdapter, getPageInfo());
     }
 
     @Override

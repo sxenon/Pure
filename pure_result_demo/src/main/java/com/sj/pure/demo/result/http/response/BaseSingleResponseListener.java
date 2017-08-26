@@ -13,46 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sj.pure.demo.result.http;
+
+package com.sj.pure.demo.result.http.response;
 
 import android.support.annotation.NonNull;
 
 import com.sj.pure.demo.result.http.exception.BusinessException;
 import com.sj.pure.demo.result.http.exception.NetworkException;
-import com.sj.pure.demo.result.http.result.AbsNoHttpSingleResultDispatcher;
-import com.sxenon.pure.core.ApiException;
-import com.yanzhenjie.nohttp.error.TimeoutError;
-import com.yanzhenjie.nohttp.rest.OnResponseListener;
+import com.sj.pure.demo.result.http.request.EntitySingleRequest;
+import com.sj.pure.demo.result.http.response.result.BaseNoHttpSingleResultDispatcher;
+import com.sj.pure.demo.result.http.response.result.Result;
 import com.yanzhenjie.nohttp.rest.Response;
 
 /**
  * Created by Yan Zhenjie on 2016/12/17.
  */
-public class DefaultResponseListener<T> implements OnResponseListener<Result<T>> {
+public class BaseSingleResponseListener<T> extends BaseResponseListener<T> {
 
-    private AbsNoHttpSingleResultDispatcher<T> resultDispatcher;
-    private AbstractRequest<T> abstractRequest;
+    private BaseNoHttpSingleResultDispatcher<T> resultDispatcher;
+    private EntitySingleRequest<T> request;
 
-    public DefaultResponseListener(@NonNull AbsNoHttpSingleResultDispatcher<T> resultDispatcher, AbstractRequest<T> abstractRequest) {
+    public BaseSingleResponseListener(@NonNull BaseNoHttpSingleResultDispatcher<T> resultDispatcher, EntitySingleRequest<T> request) {
         this.resultDispatcher = resultDispatcher;
-        this.abstractRequest = abstractRequest;
-    }
-
-    @Override
-    public void onStart(int what) {
-        resultDispatcher.onStart(what);
+        this.request = request;
     }
 
     @Override
     public void onSucceed(int what, Response<Result<T>> response) {
         // http层的请求成功，响应码可能是200、400、500。
-        if (!abstractRequest.isCanceled()){
+        if (!request.isCanceled()){
             Result<T> result=response.get();
             if (result.isSucceed()){
                 resultDispatcher.handleSuccessResult(result.getResult());
             }else {
                 BusinessException businessException=new BusinessException(result.getHeaders(),result.getError(),what);
-                resultDispatcher.onException(businessException);
+                resultDispatcher.onApiException(businessException);
             }
         }
     }
@@ -62,20 +57,7 @@ public class DefaultResponseListener<T> implements OnResponseListener<Result<T>>
         @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
         Exception exception = response.getException();
         NetworkException networkException=new NetworkException(exception,what);
-        resultDispatcher.onException(networkException);
-//        ApiException apiException=new ApiException(exception.getClass().getSimpleName(),exception.getMessage());
-//        resultDispatcher.onException(apiException);
-//        if (exception instanceof TimeoutError) { // 超时。
-//            // Toast
-//
-//        }
-//        if (!abstractRequest.isCanceled()){
-//            resultDispatcher.onFailed(what);
-//        }
+        resultDispatcher.onApiException(networkException);
     }
 
-    @Override
-    public void onFinish(int what) {
-        resultDispatcher.onFinish(what);
-    }
 }

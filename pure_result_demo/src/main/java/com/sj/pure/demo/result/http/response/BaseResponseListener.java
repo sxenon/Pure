@@ -13,25 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sj.pure.demo.result.http;
 
-import com.alibaba.fastjson.JSON;
-import com.yanzhenjie.nohttp.RequestMethod;
+package com.sj.pure.demo.result.http.response;
+
+import com.sj.pure.demo.result.http.response.result.Result;
+import com.yanzhenjie.nohttp.rest.OnResponseListener;
 
 /**
- * Created by Yan Zhenjie on 2016/12/17.
+ * Created by Sui on 2017/8/27.
  */
-public class EntitySingleRequest<Entity> extends AbstractRequest<Entity> {
 
-    private Class<Entity> aClazz;
+public abstract class BaseResponseListener<T> implements OnResponseListener<Result<T>> {
+    @Override
+    public void onStart(int what) {
 
-    public EntitySingleRequest(String url, RequestMethod requestMethod, Class<Entity> clazz) {
-        super(url, requestMethod);
-        this.aClazz = clazz;
     }
 
     @Override
-    protected Entity getResult(String responseBody) throws Exception {
-        return JSON.parseObject(responseBody, aClazz);
+    public void onFinish(int what) {
+
     }
 }

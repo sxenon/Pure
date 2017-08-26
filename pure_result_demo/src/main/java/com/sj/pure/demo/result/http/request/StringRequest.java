@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sj.pure.demo.result.http;
+
+package com.sj.pure.demo.result.http.request;
 
 import com.yanzhenjie.nohttp.RequestMethod;
 

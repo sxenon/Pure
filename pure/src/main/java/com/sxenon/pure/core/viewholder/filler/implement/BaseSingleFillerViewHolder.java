@@ -83,8 +83,8 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseF
     }
 
     @Override
-    public void onException(ApiException exception) {
-        super.onException(exception);
-        getFillPageStrategy().onException(this,exception, mSingleResultFiller, getPageInfo());
+    public void onApiException(ApiException apiException) {
+        super.onApiException(apiException);
+        getFillPageStrategy().onException(this, apiException, mSingleResultFiller, getPageInfo());
     }
 }

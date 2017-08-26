@@ -90,8 +90,8 @@ public class DemoVerificationCodeViewHolder extends RxVerificationCodeViewHolder
     }
 
     @Override
-    public void onException(ApiException exception) {
-        mCountDownTv.setText(exception.toString());
+    public void onApiException(ApiException apiException) {
+        mCountDownTv.setText(apiException.toString());
         mCodeBtn.setEnabled(true);
         mCodeBtn.setBackgroundColor(Color.parseColor("#f97e7e"));
         //Suppose it is a network exception;

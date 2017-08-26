@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.result.handler;
+package com.sj.pure.demo.result.http.request;
 
-import com.sxenon.pure.core.ApiException;
+import com.alibaba.fastjson.JSON;
+import com.yanzhenjie.nohttp.RequestMethod;
 
 /**
- * Interface for common result handler
- * Direct subclasses:
- * {@link IFetchListResultHandler},{@link IFetchSingleResultHandler},{@link ISubmitResultHandler}
- * {@link com.sxenon.pure.core.mvp.IView}s should implement one of the above if need.
- * Created by Sui on 2016/11/20.
+ * Created by Yan Zhenjie on 2016/12/17.
  */
+public class EntitySingleRequest<Entity> extends AbstractRequest<Entity> {
 
-public interface IResultHandler {
-    void onCancel();
+    private Class<Entity> aClazz;
 
-    void onApiException(ApiException apiException);
+    public EntitySingleRequest(String url, RequestMethod requestMethod, Class<Entity> clazz) {
+        super(url, requestMethod);
+        this.aClazz = clazz;
+    }
+
+    @Override
+    protected Entity getResult(String responseBody) throws Exception {
+        return JSON.parseObject(responseBody, aClazz);
+    }
 }

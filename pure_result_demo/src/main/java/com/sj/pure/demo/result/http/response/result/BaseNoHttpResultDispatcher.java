@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.result.http.result;
+package com.sj.pure.demo.result.http.response.result;
 
 import android.util.Log;
 
@@ -23,6 +23,7 @@ import com.sj.pure.demo.result.http.exception.NetworkException;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
 import com.sxenon.pure.core.result.handler.IResultHandler;
+import com.yanzhenjie.nohttp.error.TimeoutError;
 
 /**
  * Created by Sui on 2017/8/27.
@@ -35,25 +36,17 @@ public class BaseNoHttpResultDispatcher<T> extends BaseResultDispatcher<T>  {
         super(resultHandler);
     }
 
-    public void onStart(int what){
-
-    }
-
-    public void onFailed(int what) {
-
-    }
-
-    public void onFinish(int what) {
-
-    }
-
     @Override
-    public void onException(ApiException exception) {
-        if (exception instanceof NetworkException){
-            Log.d(TAG,((NetworkException) exception).getException().getMessage());
-        }else if (exception instanceof BusinessException){
-            Log.w(TAG,((BusinessException) exception).getError());
+    public void onApiException(ApiException apiException) {
+        if (apiException instanceof NetworkException){
+            Exception exception=((NetworkException) apiException).getException();
+            Log.e(TAG,exception.getMessage());
+            if (exception instanceof TimeoutError){
+                Log.e(TAG,"Timeout");
+            }
+        }else if (apiException instanceof BusinessException){
+            Log.w(TAG,((BusinessException) apiException).getError());
         }
-        super.onException(exception);
+        super.onApiException(apiException);
     }
 }
