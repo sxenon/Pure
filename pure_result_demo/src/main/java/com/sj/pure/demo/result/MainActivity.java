@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core;
+package com.sj.pure.demo.result;
 
-/**
- * Project based
- * Repository based
- * Created by Sui on 2016/11/20.
- */
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-public interface ApiException {
+public class MainActivity extends AppCompatActivity {
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
 }

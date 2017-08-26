@@ -36,7 +36,7 @@ public abstract class BaseOkgoLResultDispatcher<R> extends BaseResultDispatcher<
     /**
      * 是业务意义上的Success！
      */
-    protected void handleSuccessResult(Response<List<R>> response) {
+    public void handleSuccessResult(Response<List<R>> response) {
         onListDataFetched(response.body());
     }
 

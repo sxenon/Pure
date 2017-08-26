@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,28 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core;
+package com.sj.pure.demo.result.http.exception;
+
+import com.sxenon.pure.core.ApiException;
 
 /**
- * Project based
- * Repository based
- * Created by Sui on 2016/11/20.
+ * Created by Sui on 2017/8/27.
  */
 
-public interface ApiException {
+public class NetworkException implements ApiException {
+    private final Exception exception;
+    private final int what;
 
+    public Exception getException() {
+        return exception;
+    }
+
+    public int getWhat() {
+        return what;
+    }
+
+    public NetworkException(Exception exception, int what) {
+        this.exception = exception;
+        this.what = what;
+    }
 }

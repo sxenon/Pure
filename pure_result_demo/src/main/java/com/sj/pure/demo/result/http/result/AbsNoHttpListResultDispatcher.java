@@ -14,35 +14,25 @@
  * limitations under the License.
  */
 
-package com.sj.pure.retrofit2.dispatcher;
+package com.sj.pure.demo.result.http.result;
 
-import com.sxenon.pure.core.result.BaseResultDispatcher;
-import com.sxenon.pure.core.result.handler.IFetchListResultHandler;
+import com.sxenon.pure.core.result.handler.IResultHandler;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Response;
-
 /**
- * ResultDispatcher for Retrofit2
- * Created by Sui on 2017/7/27.
+ * Created by Sui on 2017/8/26.
  */
 
-public abstract class Retrofit2LResultDispatcher<R> extends BaseResultDispatcher<R> {
-
-    public Retrofit2LResultDispatcher(IFetchListResultHandler<R> resultHandler) {
+public abstract class AbsNoHttpListResultDispatcher<T> extends BaseNoHttpResultDispatcher<T>{
+    public AbsNoHttpListResultDispatcher(IResultHandler resultHandler) {
         super(resultHandler);
     }
 
     /**
      * 是业务意义上的Success！
      */
-    public void handleSuccessResult(Response<List<R>> response) {
-        onListDataFetched(response.body());
+    public void handleSuccessResult(List<T> result) {
+        onListDataFetched(result);
     }
-
-    public abstract void onResponse(Call<List<R>> call, Response<List<R>> response);
-
-    public abstract void onFailure(Call<List<R>> call, Throwable t);
 }

@@ -34,15 +34,17 @@ public abstract class BaseOkgoResultDispatcher<R> extends BaseResultDispatcher<R
     /**
      * 是业务意义上的Success！
      */
-    protected void handleSuccessResult(Response<R> response) {
+    public void handleSuccessResult(Response<R> response) {
         ResultHandlerType resultHandlerType = getResultHandlerType();
         switch (resultHandlerType) {
             case FETCH_SINGLE: {
                 onSingleDataFetched(response.body());
             }
+            break;
             case SUBMIT: {
                 onSubmitSuccess(response.body());
             }
+            break;
             default: {
                 throw new IllegalArgumentException("IResultHandler with wrong type");
             }

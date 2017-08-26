@@ -14,47 +14,35 @@
  * limitations under the License.
  */
 
-package com.sj.pure.retrofit2.dispatcher;
+package com.sj.pure.demo.result.http.result;
 
-import com.sxenon.pure.core.result.BaseResultDispatcher;
-import com.sxenon.pure.core.result.handler.IResultHandler;
 import com.sxenon.pure.core.result.ResultHandlerType;
-
-import retrofit2.Call;
-import retrofit2.Response;
+import com.sxenon.pure.core.result.handler.IResultHandler;
 
 /**
- * ResultDispatcher for Retrofit2
- * Created by Sui on 2017/7/27.
+ * Created by Sui on 2017/8/26.
  */
 
-public abstract class Retrofit2ResultDispatcher<R> extends BaseResultDispatcher<R> {
-
-    public Retrofit2ResultDispatcher(IResultHandler resultHandler) {
+public abstract class AbsNoHttpSingleResultDispatcher<T> extends BaseNoHttpResultDispatcher<T>{
+    public AbsNoHttpSingleResultDispatcher(IResultHandler resultHandler) {
         super(resultHandler);
     }
 
-    /**
-     * 是业务意义上的Success！
-     */
-    public void handleSuccessResult(Response<R> response) {
+    public void handleSuccessResult(T result) {
         ResultHandlerType resultHandlerType = getResultHandlerType();
         switch (resultHandlerType) {
             case FETCH_SINGLE: {
-                onSingleDataFetched(response.body());
+                onSingleDataFetched(result);
             }
             break;
             case SUBMIT: {
-                onSubmitSuccess(response.body());
+                onSubmitSuccess(result);
             }
-            break;
             default: {
                 throw new IllegalArgumentException("IResultHandler with wrong type");
             }
         }
     }
 
-    public abstract void onResponse(Call<R> call, Response<R> response);
 
-    public abstract void onFailure(Call<R> call, Throwable t);
 }

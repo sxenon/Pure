@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.sj.pure.demo.result.http;
 
-package com.sxenon.pure.core;
+import com.yanzhenjie.nohttp.RequestMethod;
 
 /**
- * Project based
- * Repository based
- * Created by Sui on 2016/11/20.
+ * Created by Yan Zhenjie on 2016/12/17.
  */
+public class StringRequest extends AbstractRequest<String> {
 
-public interface ApiException {
+    public StringRequest(String url, RequestMethod requestMethod) {
+        super(url, requestMethod);
+    }
+
+    @Override
+    protected String getResult(String responseBody) throws Exception {
+        return responseBody;
+    }
 
 }
