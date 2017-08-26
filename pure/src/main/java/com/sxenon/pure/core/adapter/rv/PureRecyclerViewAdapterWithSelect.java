@@ -28,7 +28,7 @@ import java.util.List;
  * Created by Sui on 2017/8/21.
  */
 
-public class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerViewAdapter<T> {
+public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerViewAdapter<T> {
     private PureAdapterSelectSubmitter<T> selectSubmitter;
 
     /**
@@ -43,11 +43,6 @@ public class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerViewAdapte
     public void resetAllItems(List<T> values) {
         super.resetAllItems(values);
         selectSubmitter = new PureAdapterSelectSubmitter<>(this,new MultiSelectSubmitter(new ArrayList<Boolean>(getItemCount())));
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return 0;
     }
 
     public void appendOption(T data){

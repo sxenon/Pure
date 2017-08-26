@@ -62,11 +62,6 @@ public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPure
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
     public int getCount() {
         return mData.size();
     }
