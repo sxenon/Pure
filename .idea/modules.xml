@@ -7,9 +7,9 @@
       <module fileurl="file://$PROJECT_DIR$/pure-not-compact-app/pure-not-compact-app.iml" filepath="$PROJECT_DIR$/pure-not-compact-app/pure-not-compact-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-okgo/pure-okgo.iml" filepath="$PROJECT_DIR$/pure-okgo/pure-okgo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-okhttp3/pure-okhttp3.iml" filepath="$PROJECT_DIR$/pure-okhttp3/pure-okhttp3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pure-result-demo/pure-result-demo.iml" filepath="$PROJECT_DIR$/pure-result-demo/pure-result-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-retrofit2/pure-retrofit2.iml" filepath="$PROJECT_DIR$/pure-retrofit2/pure-retrofit2.iml" />
       <module fileurl="file://$PROJECT_DIR$/pure-viewholder-demo/pure-viewholder-demo.iml" filepath="$PROJECT_DIR$/pure-viewholder-demo/pure-viewholder-demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pure_result_demo/pure_result_demo.iml" filepath="$PROJECT_DIR$/pure_result_demo/pure_result_demo.iml" />
     </modules>
   </component>
 </project>

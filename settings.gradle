@@ -1,1 +1,1 @@
-include ':pure', ':pure-okhttp3', ':pure-retrofit2', ':pure-viewholder-demo', ':pure-not-compact-app', ':pure-okgo', ':pure_result_demo'
+include ':pure', ':pure-okhttp3', ':pure-retrofit2', ':pure-viewholder-demo', ':pure-not-compact-app', ':pure-okgo', ':pure-result-demo'
