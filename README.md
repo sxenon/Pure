@@ -29,7 +29,7 @@
 
 ##4、IResultDispatcher、IResultHandler
 
-所有对M的请求结果，由IResultDispatcher来进行分发，交给合适的IResultHandler来处理(ISubmitResultHandler、IFetchListResultHandler、IFetchSingleResultHandler、IFetchSetResultHandler)
+所有对M的请求结果，由IResultDispatcher来进行分发，交给合适的IResultHandler来处理(ISubmitResultHandler、IFetchListResultHandler、IFetchSingleResultHandler)，详见pure-result-demo，改写自NoHttp（https://github.com/yanzhenjie/NoHttp ）作者的一个Demo，在此表示感谢。
 
 ##TODO
 1、待架构基本完善之后，构建2.x分支，RxJava部分的代码用 2.x替代1.x
