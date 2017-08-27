@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.result.http.request;
-
-import com.yanzhenjie.nohttp.RequestMethod;
+package com.sj.pure.demo.result.http.response;
 
 /**
- * StringRequest
- * Created by Yan Zhenjie on 2016/12/17.
+ * Wrapper
+ * Created by Sui on 2017/8/27.
  */
-public class StringRequest extends AbstractRequest<String> {
 
-    public StringRequest(String url, RequestMethod requestMethod) {
-        super(url, requestMethod);
+public class Wrapper<T> {
+    private T entry;
+
+    public T getEntry() {
+        return entry;
     }
 
-    @Override
-    protected String getResult(String responseBody) throws Exception {
-        return responseBody;
+    public Wrapper(T entry) {
+        this.entry = entry;
     }
-
 }

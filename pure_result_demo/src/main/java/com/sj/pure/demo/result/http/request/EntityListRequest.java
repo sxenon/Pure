@@ -17,17 +17,26 @@
 package com.sj.pure.demo.result.http.request;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.yanzhenjie.nohttp.Headers;
 import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.RestRequest;
+import com.yanzhenjie.nohttp.rest.StringRequest;
 
 import java.util.List;
 
 /**
- * EntityListRequest
- * Created by Yan Zhenjie on 2016/12/17.
+ * EntitySingleRequest
+ * Created by Sui on 2017/8/27.
  */
-public class EntityListRequest<Entity> extends AbstractRequest<List<Entity>> {
 
+public class EntityListRequest<Entity> extends RestRequest<List<Entity>> {
     private Class<Entity> aClazz;
+
+    public EntityListRequest(String url, Class<Entity> clazz) {
+        super(url);
+        this.aClazz = clazz;
+    }
 
     public EntityListRequest(String url, RequestMethod requestMethod, Class<Entity> clazz) {
         super(url, requestMethod);
@@ -35,7 +44,7 @@ public class EntityListRequest<Entity> extends AbstractRequest<List<Entity>> {
     }
 
     @Override
-    protected List<Entity> getResult(String responseBody) throws Exception {
-        return JSON.parseArray(responseBody, aClazz);
+    public List<Entity> parseResponse(Headers responseHeaders, byte[] responseBody) throws Exception {
+        return JSON.parseArray(StringRequest.parseResponseString(responseHeaders,responseBody), aClazz);
     }
 }

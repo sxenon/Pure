@@ -17,15 +17,25 @@
 package com.sj.pure.demo.result.http.request;
 
 import com.alibaba.fastjson.JSON;
+import com.yanzhenjie.nohttp.Headers;
 import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.RestRequest;
+import com.yanzhenjie.nohttp.rest.StringRequest;
+
+import java.util.List;
 
 /**
  * EntitySingleRequest
- * Created by Yan Zhenjie on 2016/12/17.
+ * Created by Sui on 2017/8/27.
  */
-public class EntitySingleRequest<Entity> extends AbstractRequest<Entity> {
 
+public class EntitySingleRequest<Entity> extends RestRequest<Entity> {
     private Class<Entity> aClazz;
+
+    public EntitySingleRequest(String url, Class<Entity> clazz) {
+        super(url);
+        this.aClazz = clazz;
+    }
 
     public EntitySingleRequest(String url, RequestMethod requestMethod, Class<Entity> clazz) {
         super(url, requestMethod);
@@ -33,7 +43,7 @@ public class EntitySingleRequest<Entity> extends AbstractRequest<Entity> {
     }
 
     @Override
-    protected Entity getResult(String responseBody) throws Exception {
-        return JSON.parseObject(responseBody, aClazz);
+    public Entity parseResponse(Headers responseHeaders, byte[] responseBody) throws Exception {
+        return JSON.parseObject(StringRequest.parseResponseString(responseHeaders,responseBody), aClazz);
     }
 }

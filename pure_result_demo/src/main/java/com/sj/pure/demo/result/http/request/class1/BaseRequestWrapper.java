@@ -14,23 +14,28 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.result.http.request;
+package com.sj.pure.demo.result.http.request.class1;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONException;
 import com.sj.pure.demo.result.http.response.Result;
 import com.yanzhenjie.nohttp.Headers;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.RestRequest;
-import com.yanzhenjie.nohttp.rest.StringRequest;
+
+import java.lang.reflect.Field;
 
 /**
  * <p>业务状态码用Http响应码返回。</p>
- * Created by Yan Zhenjie on 2016/12/17.
+ * @param <T> 可以是任何类型（包括Entry，String，Bitmap，File...）
+ * Created by Sui on 2017/8/27.
  */
-public abstract class AbstractRequest<T> extends RestRequest<Result<T>> {
 
-    public AbstractRequest(String url, RequestMethod requestMethod) {
+public abstract class BaseRequestWrapper<T> extends RestRequest<Result<T>> {
+    public BaseRequestWrapper(String url) {
+        super(url);
+    }
+
+    public BaseRequestWrapper(String url, RequestMethod requestMethod) {
         super(url, requestMethod);
     }
 
@@ -39,25 +44,17 @@ public abstract class AbstractRequest<T> extends RestRequest<Result<T>> {
         int responseCode = headers.getResponseCode();
         // 响应码正确，且包体不为空。
         if (responseCode == 200 && body != null && body.length > 0) {
-            String result = StringRequest.parseResponseString(headers, body);
             try {
-                T t = getResult(result);
-                return new Result<>(true, t, headers, null);
+                return getResult(headers, body);
+            } catch (JSONException e){
+                String error = "JSON解析错误";
+                return new Result<>(false, null, headers, error);
             } catch (Exception e) { // 解析发生错误。
                 String error = "服务器返回数据格式错误，请稍后重试";
                 return new Result<>(false, null, headers, error);
             }
         } else if (responseCode >= 400) { // 其它响应码处理。
-            String result = StringRequest.parseResponseString(headers, body);
-
             String error = "服务器发生错误，请稍后重试";
-            // 错误响应码时正常解析说明是服务器返回的json数据。
-            // 非正常解析说明是服务器返回的崩溃信息html等。
-            try {
-                JSONObject jsonObject = JSON.parseObject(result);
-                error = jsonObject.getString("message");
-            } catch (Exception ignored) {
-            }
             return new Result<>(false, null, headers, error);
         } else {
             String error = "服务器返回数据格式错误，请稍后重试";
@@ -65,5 +62,19 @@ public abstract class AbstractRequest<T> extends RestRequest<Result<T>> {
         }
     }
 
-    protected abstract T getResult(String responseBody) throws Exception;
+    /**
+     * Request 里面为什么会有parseResponse？应该解耦的
+     */
+    protected static String getBaseUrl(RestRequest request){
+        String url="";
+        try {
+            Field urlField = request.getClass().getField("url");
+            url= (String) urlField.get(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    protected abstract Result<T> getResult(Headers headers, byte[] body) throws Exception;
 }

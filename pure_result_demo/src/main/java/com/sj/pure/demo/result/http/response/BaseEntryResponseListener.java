@@ -20,20 +20,20 @@ import android.support.annotation.NonNull;
 
 import com.sj.pure.demo.result.http.exception.BusinessException;
 import com.sj.pure.demo.result.http.exception.NetworkException;
-import com.sj.pure.demo.result.http.request.AbstractRequest;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
 import com.yanzhenjie.nohttp.rest.Response;
+import com.yanzhenjie.nohttp.rest.RestRequest;
 
 /**
  * ResponseListener
  * Created by Sui on 2017/8/27.
  */
 
-public class BaseResponseListener<T> implements OnResponseListener<Result<T>> {
+public class BaseEntryResponseListener<T> implements OnResponseListener<Result<T>> {
     private BaseNoHttpResultDispatcher<T> resultDispatcher;
-    private AbstractRequest<T> request;
+    private RestRequest<T> request;
 
-    public BaseResponseListener(@NonNull BaseNoHttpResultDispatcher<T> resultDispatcher, AbstractRequest<T> request) {
+    public BaseEntryResponseListener(@NonNull BaseNoHttpResultDispatcher<T> resultDispatcher, RestRequest<T> request) {
         this.resultDispatcher = resultDispatcher;
         this.request = request;
     }

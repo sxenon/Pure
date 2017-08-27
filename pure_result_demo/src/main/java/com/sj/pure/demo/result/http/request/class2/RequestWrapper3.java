@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.result.http.request;
+package com.sj.pure.demo.result.http.request.class2;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -25,12 +25,18 @@ import com.yanzhenjie.nohttp.rest.RestRequest;
 import com.yanzhenjie.nohttp.rest.StringRequest;
 
 /**
+ * 起个好名字好难，所以暂时就这样
  * <p>业务状态码在HttpBody中返回。</p>
+ * @param <T> 只能是Entry
  * Created by Yan Zhenjie on 2016/12/17.
+ * Modified by Sui on 2017/8/27.
  */
-public abstract class AbstractRequest2<T> extends RestRequest<Result<T>> {
+public class RequestWrapper3<T> extends RestRequest<Result<T>> {
+    public RequestWrapper3(String url){
+        super(url);
+    }
 
-    public AbstractRequest2(String url, RequestMethod requestMethod) {
+    public RequestWrapper3(String url, RequestMethod requestMethod) {
         super(url, requestMethod);
     }
 
@@ -49,9 +55,9 @@ public abstract class AbstractRequest2<T> extends RestRequest<Result<T>> {
                     JSONObject bodyObject = JSON.parseObject(bodyString);
                     // 业务层成功。
                     if (bodyObject.getIntValue("errorCode") == 1) {
-                        String data = bodyObject.getString("data");
                         // 重点、重点、重点：调用子类，解析出真正的数据。
-                        T result = getResult(data);
+                        @SuppressWarnings("unchecked")
+                        T result = (T) bodyObject.get("result");
                         return new Result<>(true, result, headers, null);
                     } else {
                         String error = bodyObject.getString("message");
@@ -68,6 +74,4 @@ public abstract class AbstractRequest2<T> extends RestRequest<Result<T>> {
             return new Result<>(false, null, headers, error);
         }
     }
-
-    protected abstract T getResult(String responseBody) throws Exception;
 }
