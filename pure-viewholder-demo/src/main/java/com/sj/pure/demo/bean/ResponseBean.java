@@ -22,4 +22,13 @@ package com.sj.pure.demo.bean;
  */
 
 public class ResponseBean {
+    private final boolean success;
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public ResponseBean(boolean success) {
+        this.success = success;
+    }
 }

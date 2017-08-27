@@ -53,7 +53,11 @@ public abstract class RxVerificationCodeViewHolder<T,R> implements ISubmitResult
     }
 
     @Override
-    public void onSubmitSuccess(R result) {
+    public Context getContext() {
+        return mRouter.getContext();
+    }
+
+    protected void startCountDown(){
         final IRouterVisitor routerVisitor=mRouter.getPresenter();
         //noinspection unchecked
         Observable.interval(0, 1, TimeUnit.SECONDS)
@@ -93,11 +97,6 @@ public abstract class RxVerificationCodeViewHolder<T,R> implements ISubmitResult
                         }
                     }
                 });
-    }
-
-    @Override
-    public Context getContext() {
-        return mRouter.getContext();
     }
 
     private boolean isRouterOnActive(IRouterVisitor routerVisitor){

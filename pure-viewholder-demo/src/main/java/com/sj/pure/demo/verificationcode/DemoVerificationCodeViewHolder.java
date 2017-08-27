@@ -75,8 +75,10 @@ public class DemoVerificationCodeViewHolder extends RxVerificationCodeViewHolder
     }
 
     @Override
-    public void onSubmitFailed(ResponseBean result) {
-        Log.i(TAG, "onSubmitFailed,result=" + result.toString());
+    public void onResultFetched(ResponseBean result) {
+        if (result.isSuccess()){
+            startCountDown();
+        }
     }
 
     @Override

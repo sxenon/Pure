@@ -31,58 +31,24 @@ import java.util.List;
 
 public class BaseResultDispatcher<R> implements IResultDispatcher {
     private final IResultHandler mResultHandler;
-    private ResultHandlerType mResultHandlerType = ResultHandlerType.NONE;
 
     public BaseResultDispatcher(IResultHandler resultHandler) {
         mResultHandler = resultHandler;
     }
 
-    public ResultHandlerType getResultHandlerType() {
-        if (ResultHandlerType.NONE == mResultHandlerType) {
-            if (mResultHandler instanceof ISubmitResultHandler) {
-                mResultHandlerType = ResultHandlerType.SUBMIT;
-            } else if (mResultHandler instanceof IFetchListResultHandler) {
-                mResultHandlerType = ResultHandlerType.FETCH_LIST;
-            } else if (mResultHandler instanceof IFetchSingleResultHandler) {
-                mResultHandlerType = ResultHandlerType.FETCH_SINGLE;
-            } else {
-                throw new IllegalArgumentException("The type of resultHandle is wrong");
-            }
+    public void handleResult(R data) {
+        if (mResultHandler instanceof ISubmitResultHandler) {
+            //noinspection unchecked
+            ((ISubmitResultHandler) mResultHandler).onResultFetched(data);
+        } else if (mResultHandler instanceof IFetchListResultHandler) {
+            //noinspection unchecked
+            ((IFetchListResultHandler) mResultHandler).onListDataFetched((List) data);
+        } else if (mResultHandler instanceof IFetchSingleResultHandler) {
+            //noinspection unchecked
+            ((IFetchSingleResultHandler) mResultHandler).onSingleDataFetched(data);
+        } else {
+            throw new IllegalArgumentException("The type of resultHandle is wrong");
         }
-        return mResultHandlerType;
-    }
-
-    /**
-     * {@link ResultHandlerType#FETCH_LIST}
-     */
-
-    public void onListDataFetched(R data) {
-        //noinspection unchecked
-        ((IFetchListResultHandler) mResultHandler).onListDataFetched((List) data);
-    }
-
-    /**
-     * {@link ResultHandlerType#FETCH_SINGLE}
-     */
-    public void onSingleDataFetched(R data) {
-        //noinspection unchecked
-        ((IFetchSingleResultHandler) mResultHandler).onSingleDataFetched(data);
-    }
-
-    /**
-     * {@link ResultHandlerType#SUBMIT}
-     */
-    public void onSubmitSuccess(R result) {
-        //noinspection unchecked
-        ((ISubmitResultHandler) mResultHandler).onSubmitSuccess(result);
-    }
-
-    /**
-     * {@link ResultHandlerType#SUBMIT}
-     */
-    public void onSubmitFailed(R result) {
-        //noinspection unchecked
-        ((ISubmitResultHandler) mResultHandler).onSubmitFailed(result);
     }
 
     @Override

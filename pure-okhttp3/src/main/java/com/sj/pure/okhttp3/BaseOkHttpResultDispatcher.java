@@ -17,9 +17,9 @@
 package com.sj.pure.okhttp3;
 
 import com.sj.pure.okhttp3.converter.Converter;
+import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
 import com.sxenon.pure.core.result.handler.IResultHandler;
-import com.sxenon.pure.core.result.ResultHandlerType;
 
 import java.io.IOException;
 
@@ -28,6 +28,7 @@ import okhttp3.Response;
 
 /**
  * BaseResultDispatcher for OkHttp
+ * Project based,it`s just a demo
  * Created by Sui on 2016/12/15.
  */
 
@@ -39,31 +40,31 @@ public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher
         mConverter = converter;
     }
 
-    /**
-     * 是业务意义上的Success！
-     */
-    protected void handleSuccessResult(Response response) throws Exception {
-        ResultHandlerType resultHandlerType = getResultHandlerType();
+    public void onFailure(Call call, IOException e) {
+        onApiException(new OKHttpException(call, e));
+    }
+
+    public void onResponse(Call call, Response response) throws Exception {
         R result = mConverter.convertResponse(response);
-        switch (resultHandlerType) {
-            case FETCH_LIST: {
-                onListDataFetched(result);
-            }
-            break;
-            case FETCH_SINGLE: {
-                onSingleDataFetched(result);
-            }
-            break;
-            case SUBMIT: {
-                onSubmitSuccess(result);
-            }
-            break;
-            default:
-                break;
+        handleResult(result);
+    }
+
+    private class OKHttpException implements ApiException {
+        private Call call;
+        private IOException e;
+
+        public Call getCall() {
+            return call;
+        }
+
+        public IOException getE() {
+            return e;
+        }
+
+        OKHttpException(Call call, IOException e) {
+            this.call = call;
+            this.e = e;
         }
     }
 
-    public abstract void onFailure(Call call, IOException e);
-
-    public abstract void onResponse(Call call, Response response);
 }

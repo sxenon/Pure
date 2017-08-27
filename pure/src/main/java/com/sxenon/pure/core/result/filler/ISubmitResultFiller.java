@@ -22,7 +22,5 @@ package com.sxenon.pure.core.result.filler;
  */
 
 public interface ISubmitResultFiller<R> {
-    void onSubmitSuccess(R result);
-
-    void onSubmitFailed(R result);
+    void onResultFetched(R result);
 }

@@ -22,7 +22,6 @@ import com.sj.pure.demo.result.http.exception.BusinessException;
 import com.sj.pure.demo.result.http.exception.NetworkException;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.result.BaseResultDispatcher;
-import com.sxenon.pure.core.result.ResultHandlerType;
 import com.sxenon.pure.core.result.handler.IResultHandler;
 import com.yanzhenjie.nohttp.error.TimeoutError;
 
@@ -38,29 +37,6 @@ public class BaseNoHttpResultDispatcher<T> extends BaseResultDispatcher<T>  {
         super(resultHandler);
     }
 
-    /**
-     * 是业务意义上的Success！
-     */
-    public void handleSuccessResult(T result) {
-        ResultHandlerType resultHandlerType = getResultHandlerType();
-        switch (resultHandlerType) {
-            case FETCH_SINGLE: {
-                onSingleDataFetched(result);
-            }
-            break;
-            case FETCH_LIST:{
-                onListDataFetched(result);
-            }
-            break;
-            case SUBMIT: {
-                onSubmitSuccess(result);
-            }
-            break;
-            default: {
-                throw new IllegalArgumentException("IResultHandler with wrong type");
-            }
-        }
-    }
 
     @Override
     public void onApiException(ApiException apiException) {

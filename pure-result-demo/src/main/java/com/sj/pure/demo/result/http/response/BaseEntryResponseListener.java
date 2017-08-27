@@ -44,7 +44,7 @@ public class BaseEntryResponseListener<T> implements OnResponseListener<Result<T
         if (!request.isCanceled()){
             Result<T> result=response.get();
             if (result.isSucceed()){
-                resultDispatcher.handleSuccessResult(result.getResult());
+                resultDispatcher.handleResult(result.getResult());
             }else {
                 BusinessException businessException=new BusinessException(result.getHeaders(),result.getError(),what);
                 resultDispatcher.onApiException(businessException);
