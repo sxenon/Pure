@@ -16,8 +16,9 @@
 
 package com.sxenon.pure.core.adapter.rv;
 
+import com.sxenon.pure.core.request.select.BaseSelectSubmitter;
 import com.sxenon.pure.core.request.select.PureAdapterSelectSubmitter;
-import com.sxenon.pure.core.request.select.multi.MultiSelectSubmitter;
+import com.sxenon.pure.core.request.select.strategy.ISelectStrategy;
 import com.sxenon.pure.core.viewholder.filler.IListFillerViewHolder;
 
 import java.util.ArrayList;
@@ -30,19 +31,21 @@ import java.util.List;
 
 public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerViewAdapter<T> {
     private PureAdapterSelectSubmitter<T> selectSubmitter;
+    private final ISelectStrategy selectStrategy;
 
     /**
      * @param container The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureRecyclerViewAdapterWithSelect(IListFillerViewHolder<T> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureRecyclerViewAdapterWithSelect(IListFillerViewHolder<T> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray,ISelectStrategy selectStrategy) {
         super(container, itemViewTypeEntryArray);
+        this.selectStrategy=selectStrategy;
     }
 
     @Override
     public void resetAllItems(List<T> values) {
         super.resetAllItems(values);
-        selectSubmitter = new PureAdapterSelectSubmitter<>(this,new MultiSelectSubmitter(new ArrayList<Boolean>(getItemCount())));
+        selectSubmitter = new PureAdapterSelectSubmitter<>(this,new BaseSelectSubmitter(selectStrategy,new ArrayList<Boolean>(getItemCount())));
     }
 
     public void appendOption(T data){

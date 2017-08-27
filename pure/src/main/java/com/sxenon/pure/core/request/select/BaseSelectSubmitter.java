@@ -17,6 +17,7 @@
 package com.sxenon.pure.core.request.select;
 
 import com.sxenon.pure.core.request.IRequestSubmitter;
+import com.sxenon.pure.core.request.select.strategy.ISelectStrategy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,16 +33,16 @@ import rx.functions.Func1;
  * Created by Sui on 2016/11/18.
  */
 
-public abstract class BaseSelectSubmitter implements IRequestSubmitter<List<Integer>> {
+public  class BaseSelectSubmitter implements IRequestSubmitter<List<Integer>> {
     private List<Boolean> mSelectedFlags;
-    private final SelectStrategy mSelectStrategy;
+    private final ISelectStrategy mSelectStrategy;
 
     /**
      * 一般需结合具体类型的Adapter使用
      * @param selectStrategy MultiSelect,SingleSelect or others
      * @param selectedFlags  selectedFlags in an adapter
      */
-    public BaseSelectSubmitter(SelectStrategy selectStrategy, List<Boolean> selectedFlags) {
+    public BaseSelectSubmitter(ISelectStrategy selectStrategy, List<Boolean> selectedFlags) {
         mSelectStrategy = selectStrategy;
         mSelectedFlags = selectedFlags;
         Collections.fill(mSelectedFlags, false);
