@@ -31,9 +31,9 @@ import com.yanzhenjie.nohttp.rest.RestRequest;
 
 public class BaseEntryResponseListener<T> implements OnResponseListener<Result<T>> {
     private BaseNoHttpResultDispatcher<T> resultDispatcher;
-    private RestRequest<T> request;
+    private RestRequest request;
 
-    public BaseEntryResponseListener(@NonNull BaseNoHttpResultDispatcher<T> resultDispatcher, RestRequest<T> request) {
+    public BaseEntryResponseListener(@NonNull BaseNoHttpResultDispatcher<T> resultDispatcher, RestRequest request) {
         this.resultDispatcher = resultDispatcher;
         this.request = request;
     }
