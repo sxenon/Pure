@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select;
+package com.sxenon.pure.core.request.select.strategy;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
  * Created by Sui on 2017/8/20.
  */
 
-public interface SelectStrategy {
+public interface ISelectStrategy {
     void onOptionSelected(List<Boolean> selectedFlags, int position);
 
     void onOptionUnSelected(List<Boolean> selectedFlags, int position);

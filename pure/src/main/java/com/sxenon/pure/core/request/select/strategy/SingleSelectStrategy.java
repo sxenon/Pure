@@ -14,21 +14,28 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.multi;
-
-import com.sxenon.pure.core.request.select.SelectStrategy;
+package com.sxenon.pure.core.request.select.strategy;
 
 import java.util.List;
 
 /**
- * Multi strategy implement for SelectStrategy
+ * Single strategy implement for ISelectStrategy
  * Created by Sui on 2017/1/12.
  */
 
-public class MultiSelectStrategy implements SelectStrategy {
+public class SingleSelectStrategy implements ISelectStrategy {
+    private int lastSelectedPosition = -1;
+
     @Override
     public void onOptionSelected(List<Boolean> selectedFlags, int position) {
+        if (lastSelectedPosition == position) {
+            return;
+        }
+        if (lastSelectedPosition >= 0) {
+            selectedFlags.set(lastSelectedPosition, false);
+        }
         selectedFlags.set(position, true);
+        lastSelectedPosition = position;
     }
 
     @Override
