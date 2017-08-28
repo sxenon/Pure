@@ -68,7 +68,7 @@ public class TwinklingPullLayout implements IPullLayout {
     /**
      * 项目级别通用的初始化工作
      */
-    protected void defaultInit(TwinklingRefreshLayout realLayout) {
+    private void defaultInit(TwinklingRefreshLayout realLayout) {
         Log.i(TAG, "defaultInit");
     }
 }

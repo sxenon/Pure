@@ -39,7 +39,7 @@ public abstract class BaseFillPageStrategy<R> implements IFillPageStrategy<R> {
         mFillAdapterStrategy = fillAdapterStrategy == null ? new DefaultFillAdapterStrategy<R>() : fillAdapterStrategy;
     }
 
-    protected IFillAdapterStrategy<R> getListDataFillStrategy() {
+    public IFillAdapterStrategy<R> getListDataFillStrategy() {
         return mFillAdapterStrategy;
     }
 

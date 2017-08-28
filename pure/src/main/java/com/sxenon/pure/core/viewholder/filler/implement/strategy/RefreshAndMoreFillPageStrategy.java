@@ -38,11 +38,11 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
         super(fillAdapterStrategy);
     }
 
-    protected void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    public void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
         getListDataFillStrategy().onMoreDataFetched(adapter, data);
     }
 
-    protected void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    public void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
         getListDataFillStrategy().onInitDataFetched(adapter, data);
     }
 

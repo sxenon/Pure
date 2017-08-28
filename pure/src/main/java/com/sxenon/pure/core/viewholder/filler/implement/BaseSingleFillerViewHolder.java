@@ -53,12 +53,12 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseF
     }
 
     @Override
-    protected final Object getData() {
+    public final Object getData() {
         return mData;
     }
 
     @Override
-    protected final void restoreData(Object data) {
+    public final void restoreData(Object data) {
         //noinspection unchecked
         mData= (R) data;
         mSingleResultFiller.onSingleDataFetched(mData);

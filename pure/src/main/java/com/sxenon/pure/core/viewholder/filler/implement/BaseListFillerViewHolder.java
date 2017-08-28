@@ -79,12 +79,12 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFil
     }
 
     @Override
-    protected final Object getData() {
+    public final Object getData() {
         return mAdapter.getValues();
     }
 
     @Override
-    protected final void restoreData(Object data) {
+    public final void restoreData(Object data) {
         //noinspection unchecked
         mAdapter.resetAllItems((List<R>) data);
     }

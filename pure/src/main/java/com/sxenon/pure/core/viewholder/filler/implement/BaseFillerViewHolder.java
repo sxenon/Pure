@@ -68,7 +68,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
     }
 
-    protected void endAllAnim() {
+    public void endAllAnim() {
         mPullLayout.endPullingUp();
         mPullLayout.endPullingDown();
     }
@@ -91,7 +91,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         mFillPageStrategy.onPullUp(this, pageInfo);
     }
 
-    protected void toInitialize() {
+    public void toInitialize() {
         Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
             @Override
             public boolean queueIdle() {
@@ -204,21 +204,21 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         return mApiException;
     }
 
-    protected IFillPageStrategy<R> getFillPageStrategy(){
+    public IFillPageStrategy<R> getFillPageStrategy(){
         return mFillPageStrategy;
     }
 
-    protected abstract Object getData();
+    public abstract Object getData();
     //Getter end
 
     //Setter start
-    protected abstract void restoreData(Object data);
+    public abstract void restoreData(Object data);
 
-    protected void setFillerEventWhat(int eventWhat) {
+    public void setFillerEventWhat(int eventWhat) {
         mEventWhat = eventWhat;
     }
 
-    protected void setException(ApiException exception) {
+    public void setException(ApiException exception) {
         mApiException = exception;
     }
 

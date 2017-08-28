@@ -68,7 +68,7 @@ public class BGAPullLayout implements IPullLayout {
     /**
      * 项目级别通用的初始化工作
      */
-    protected void defaultInit(BGARefreshLayout realLayout) {
+    private void defaultInit(BGARefreshLayout realLayout) {
         Log.i(TAG, "defaultInit");
     }
 
