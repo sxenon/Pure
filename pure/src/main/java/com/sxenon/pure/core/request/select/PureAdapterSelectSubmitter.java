@@ -30,7 +30,7 @@ import java.util.List;
 
 public class PureAdapterSelectSubmitter<T> implements IRequestSubmitter<List<Integer>> {
     private final IPureAdapter<T> mAdapter;
-    private final BaseSelectSubmitter mSelectSubmitter;
+    private final BaseSelectSubmitter mInnerSubmitter;
     private final ISelectInAdapterStrategy mSelectInAdapterStrategy;
     /**
      * Use in an adapter
@@ -38,44 +38,44 @@ public class PureAdapterSelectSubmitter<T> implements IRequestSubmitter<List<Int
     public PureAdapterSelectSubmitter(IPureAdapter<T> adapter, ISelectInAdapterStrategy selectInAdapterStrategy){
         mAdapter=adapter;
         mSelectInAdapterStrategy=selectInAdapterStrategy;
-        mSelectSubmitter=new BaseSelectSubmitter(selectInAdapterStrategy,new ArrayList<Boolean>(adapter.getItemCount()));
+        mInnerSubmitter =new BaseSelectSubmitter(selectInAdapterStrategy,new ArrayList<Boolean>(adapter.getItemCount()));
     }
 
     public void appendOption(T data){
-        mSelectSubmitter.onOptionAppended();
+        mInnerSubmitter.onOptionAppended();
         mAdapter.addItemFromEnd(data);
     }
 
     public void insertOption(int position,T data){
-        mSelectSubmitter.onOptionInserted(position);
+        mInnerSubmitter.onOptionInserted(position);
         mAdapter.addItem(position, data);
     }
 
     public void removeOption(int position){
-        mSelectSubmitter.onOptionRemoved(position);
+        mInnerSubmitter.onOptionRemoved(position);
         mAdapter.removeItem(position);
     }
 
     public void selectOption(int position){
-        mSelectInAdapterStrategy.onOptionSelected(mSelectSubmitter.getSelectedFlags(),position,mAdapter);
+        mSelectInAdapterStrategy.onOptionSelected(mInnerSubmitter.getSelectedFlags(),position,mAdapter);
     }
 
     public void unSelectOption(int position){
-        mSelectInAdapterStrategy.onOptionUnSelected(mSelectSubmitter.getSelectedFlags(),position,mAdapter);
+        mSelectInAdapterStrategy.onOptionUnSelected(mInnerSubmitter.getSelectedFlags(),position,mAdapter);
     }
 
     public void selectAllOptions(){
-        mSelectSubmitter.onAllOptionsSelected();
+        mInnerSubmitter.onAllOptionsSelected();
         mAdapter.notifyDataSetChanged();
     }
 
     public void unSelectAllOptions(){
-        mSelectSubmitter.onAllOptionsUnSelected();
+        mInnerSubmitter.onAllOptionsUnSelected();
         mAdapter.notifyDataSetChanged();
     }
 
     public void reverseAllOptions(){
-        mSelectSubmitter.onAllOptionsReversed();
+        mInnerSubmitter.onAllOptionsReversed();
         mAdapter.notifyDataSetChanged();
     }
 
@@ -85,7 +85,7 @@ public class PureAdapterSelectSubmitter<T> implements IRequestSubmitter<List<Int
             return;
         }
 
-        mSelectSubmitter.onSelectedOptionsDeleted();
+        mInnerSubmitter.onSelectedOptionsDeleted();
 
         List<T> data=mAdapter.getValues();
         for (int i=selectedIndexList.size()-1;i>=0;i--){
@@ -96,6 +96,6 @@ public class PureAdapterSelectSubmitter<T> implements IRequestSubmitter<List<Int
 
     @Override
     public List<Integer> getDataForSubmit() {
-        return mSelectSubmitter.getDataForSubmit();
+        return mInnerSubmitter.getDataForSubmit();
     }
 }
