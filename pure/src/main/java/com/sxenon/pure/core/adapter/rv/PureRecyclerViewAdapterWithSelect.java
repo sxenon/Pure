@@ -16,10 +16,11 @@
 
 package com.sxenon.pure.core.adapter.rv;
 
-import com.sxenon.pure.core.request.select.PureAdapterSelectSubmitter;
-import com.sxenon.pure.core.request.select.strategy.adapter.ISelectInAdapterStrategy;
+import com.sxenon.pure.core.request.select.BaseSelectSubmitter;
+import com.sxenon.pure.core.adapter.rv.select.ISelectInRvAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IListFillerViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,58 +29,90 @@ import java.util.List;
  */
 
 public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerViewAdapter<T> {
-    private PureAdapterSelectSubmitter<T> selectSubmitter;
-    private final ISelectInAdapterStrategy selectStrategy;
+    private BaseSelectSubmitter selectSubmitter;
+    private final ISelectInRvAdapterStrategy selectStrategy;
 
     /**
-     * @param container The viewHolder which contain the adapter
+     * @param container              The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureRecyclerViewAdapterWithSelect(IListFillerViewHolder<T> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray,ISelectInAdapterStrategy selectStrategy) {
+    public PureRecyclerViewAdapterWithSelect(IListFillerViewHolder<T> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray, ISelectInRvAdapterStrategy selectStrategy) {
         super(container, itemViewTypeEntryArray);
-        this.selectStrategy=selectStrategy;
+        this.selectStrategy = selectStrategy;
     }
 
     @Override
     public void resetAllItems(List<T> values) {
         super.resetAllItems(values);
-        selectSubmitter = new PureAdapterSelectSubmitter<>(this,selectStrategy);
+        selectSubmitter = new BaseSelectSubmitter(selectStrategy, new ArrayList<Boolean>(getItemCount()));
     }
 
-    public void appendOption(T data){
-        selectSubmitter.appendOption(data);
+    public void appendOption(T data) {
+        selectSubmitter.onOptionAppended();
+        addItemFromEnd(data);
     }
 
-    public void insertOption(int position,T data){
-        selectSubmitter.insertOption(position, data);
+    public void insertOption(int position, T data) {
+        selectSubmitter.onOptionInserted(position);
+        addItem(position, data);
     }
 
-    public void removeOption(int position){
-        selectSubmitter.removeOption(position);
+    public void removeOption(int position) {
+        selectSubmitter.onOptionRemoved(position);
+        removeItem(position);
     }
 
-    public void selectOption(int position){
-        selectSubmitter.selectOption(position);
+    public void selectOption(int position) {
+        selectStrategy.onOptionSelected(selectSubmitter.getSelectedFlags(), position, this);
     }
 
-    public void unSelectOption(int position){
-        selectSubmitter.unSelectOption(position);
+    public void unSelectOption(int position) {
+        selectStrategy.onOptionUnSelected(selectSubmitter.getSelectedFlags(), position, this);
     }
 
-    public void selectAllOptions(){
-        selectSubmitter.selectAllOptions();
+    public void selectAllOptions() {
+        selectSubmitter.onAllOptionsSelected();
+        notifySelectReset();
     }
 
-    public void unSelectAllOptions(){
-        selectSubmitter.unSelectAllOptions();
+    public void unSelectAllOptions() {
+        selectSubmitter.onAllOptionsUnSelected();
+        notifySelectReset();
     }
 
-    public void reverseAllOptions(){
-        selectSubmitter.reverseAllOptions();
+    public void reverseAllOptions() {
+        selectSubmitter.onAllOptionsReversed();
+        notifySelectReset();
     }
 
-    public void deletedSelectedOptions(){
-        selectSubmitter.deletedSelectedOptions();
+    public void deletedSelectedOptions() {
+        List<Integer> selectedIndexList = selectSubmitter.getDataForSubmit();
+        if (selectedIndexList.isEmpty()) {
+            return;
+        }
+
+        selectSubmitter.onSelectedOptionsDeleted();
+
+        List<T> data = getValues();
+        for (int i = selectedIndexList.size() - 1; i >= 0; i--) {
+            data.remove((int) selectedIndexList.get(i));
+        }
+        notifyDataSetChanged();
     }
+
+    /**
+     * Concrete adapter based
+     * notifyItemRangeChanged(0,getItemCount(),true);
+     * notifyDataSetChanged();
+     */
+    public abstract void notifySelectReset();
+
+    /**
+     * Concrete adapter based
+     * It can be:
+     * notifyItemChanged(position,true);
+     * notifyItemChanged(position);
+     */
+    public abstract void notifySelectChange(int position);
 
 }

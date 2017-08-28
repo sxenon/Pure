@@ -16,10 +16,11 @@
 
 package com.sxenon.pure.core.adapter.abs;
 
-import com.sxenon.pure.core.request.select.PureAdapterSelectSubmitter;
-import com.sxenon.pure.core.request.select.strategy.adapter.ISelectInAdapterStrategy;
+import com.sxenon.pure.core.request.select.BaseSelectSubmitter;
+import com.sxenon.pure.core.request.select.strategy.ISelectStrategy;
 import com.sxenon.pure.core.viewholder.filler.IListFillerViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,14 +29,14 @@ import java.util.List;
  */
 
 public abstract class PureAbsListAdapterWithSelect<T> extends PureAbsListAdapter<T> {
-    private PureAdapterSelectSubmitter<T> selectSubmitter;
-    private final ISelectInAdapterStrategy selectStrategy;
+    private BaseSelectSubmitter selectSubmitter;
+    private final ISelectStrategy selectStrategy;
 
     /**
      * @param container The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureAbsListAdapterWithSelect(IListFillerViewHolder<T> container, PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray,ISelectInAdapterStrategy selectStrategy) {
+    public PureAbsListAdapterWithSelect(IListFillerViewHolder<T> container, PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray,ISelectStrategy selectStrategy) {
         super(container, itemViewTypeEntryArray);
         this.selectStrategy= selectStrategy;
     }
@@ -43,43 +44,62 @@ public abstract class PureAbsListAdapterWithSelect<T> extends PureAbsListAdapter
     @Override
     public void resetAllItems(List<T> values) {
         super.resetAllItems(values);
-        selectSubmitter = new PureAdapterSelectSubmitter<>(this,selectStrategy);
+        selectSubmitter = new BaseSelectSubmitter(selectStrategy,new ArrayList<Boolean>(getItemCount()));
     }
 
     public void appendOption(T data){
-        selectSubmitter.appendOption(data);
+        selectSubmitter.onOptionAppended();
+        addItemFromEnd(data);
     }
 
     public void insertOption(int position,T data){
-        selectSubmitter.insertOption(position, data);
+        selectSubmitter.onOptionInserted(position);
+        addItem(position, data);
     }
 
     public void removeOption(int position){
-        selectSubmitter.removeOption(position);
+        selectSubmitter.onOptionRemoved(position);
+        removeItem(position);
     }
 
     public void selectOption(int position){
-        selectSubmitter.selectOption(position);
+        selectSubmitter.onOptionSelected(position);
+        notifyDataSetChanged();
     }
 
     public void unSelectOption(int position){
-        selectSubmitter.unSelectOption(position);
+        selectSubmitter.onOptionUnSelected(position);
+        notifyDataSetChanged();
     }
 
     public void selectAllOptions(){
-        selectSubmitter.selectAllOptions();
+        selectSubmitter.onAllOptionsSelected();
+        notifyDataSetChanged();
     }
 
     public void unSelectAllOptions(){
-        selectSubmitter.unSelectAllOptions();
+        selectSubmitter.onAllOptionsUnSelected();
+        notifyDataSetChanged();
     }
 
     public void reverseAllOptions(){
-        selectSubmitter.reverseAllOptions();
+        selectSubmitter.onAllOptionsReversed();
+        notifyDataSetChanged();
     }
 
     public void deletedSelectedOptions(){
-        selectSubmitter.deletedSelectedOptions();
+        List<Integer> selectedIndexList=selectSubmitter.getDataForSubmit();
+        if (selectedIndexList.isEmpty()){
+            return;
+        }
+
+        selectSubmitter.onSelectedOptionsDeleted();
+
+        List<T> data=getValues();
+        for (int i=selectedIndexList.size()-1;i>=0;i--){
+            data.remove((int)selectedIndexList.get(i));
+        }
+        notifyDataSetChanged();
     }
 
 }

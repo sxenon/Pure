@@ -42,4 +42,8 @@ public class SingleSelectStrategy implements ISelectStrategy {
     public void onOptionUnSelected(List<Boolean> selectedFlags, int position) {
         selectedFlags.set(position, false);
     }
+
+    protected int getLastSelectedPosition() {
+        return lastSelectedPosition;
+    }
 }

@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.strategy;
+package com.sxenon.pure.core.adapter.rv.select;
 
-import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapter;
+import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapterWithSelect;
 import com.sxenon.pure.core.request.select.strategy.SingleSelectStrategy;
-import com.sxenon.pure.core.request.select.strategy.adapter.ISelectInAdapterStrategy;
 
 import java.util.List;
 
@@ -28,18 +26,16 @@ import java.util.List;
  * Created by Sui on 2017/8/28.
  */
 
-public class MultiSelectInRecyclerViewAdapterStrategy extends SingleSelectStrategy implements ISelectInAdapterStrategy {
+public class MultiSelectInRvAdapterStrategy extends SingleSelectStrategy implements ISelectInRvAdapterStrategy {
     @Override
-    public void onOptionSelected(List<Boolean> selectedFlags, int position, IPureAdapter adapter) {
+    public void onOptionSelected(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapterWithSelect adapter) {
         onOptionSelected(selectedFlags, position);
-        PureRecyclerViewAdapter recyclerViewAdapter= (PureRecyclerViewAdapter) adapter;
-        recyclerViewAdapter.notifyItemChanged(0,true);
+        adapter.notifySelectChange(position);
     }
 
     @Override
-    public void onOptionUnSelected(List<Boolean> selectedFlags, int position, IPureAdapter adapter) {
+    public void onOptionUnSelected(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapterWithSelect adapter) {
         onOptionSelected(selectedFlags, position);
-        PureRecyclerViewAdapter recyclerViewAdapter= (PureRecyclerViewAdapter) adapter;
-        recyclerViewAdapter.notifyItemChanged(0,false);
+        adapter.notifySelectChange(position);
     }
 }

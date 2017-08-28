@@ -14,29 +14,31 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.strategy.adapter;
+package com.sxenon.pure.core.adapter.rv.select;
 
-import com.sxenon.pure.core.adapter.IPureAdapter;
+import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapterWithSelect;
 import com.sxenon.pure.core.request.select.strategy.SingleSelectStrategy;
 
 import java.util.List;
 
 /**
- * Single strategy implement for ISelectInAdapterStrategy
- * Created by Sui on 2017/1/12.
+ * Concrete adapter based
+ * Created by Sui on 2017/8/28.
  */
 
-public class SingleSelectInAdapterStrategy extends SingleSelectStrategy implements ISelectInAdapterStrategy {
-
+public class SingleSelectInRvAdapterStrategy extends SingleSelectStrategy implements ISelectInRvAdapterStrategy {
     @Override
-    public void onOptionSelected(List<Boolean> selectedFlags, int position, IPureAdapter adapter) {
+    public void onOptionSelected(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapterWithSelect adapter) {
+        if (getLastSelectedPosition()==position){
+            return;
+        }
         onOptionSelected(selectedFlags, position);
-        adapter.notifyDataSetChanged();
+        adapter.notifySelectReset();
     }
 
     @Override
-    public void onOptionUnSelected(List<Boolean> selectedFlags, int position, IPureAdapter adapter) {
-        onOptionUnSelected(selectedFlags, position);
-        adapter.notifyItemChanged(position);
+    public void onOptionUnSelected(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapterWithSelect adapter) {
+        onOptionSelected(selectedFlags, position);
+        adapter.notifySelectChange(position);
     }
 }

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.strategy.adapter;
+package com.sxenon.pure.core.adapter.rv.select;
 
-import com.sxenon.pure.core.adapter.IPureAdapter;
+import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapterWithSelect;
 import com.sxenon.pure.core.request.select.strategy.ISelectStrategy;
 
 import java.util.List;
@@ -26,8 +26,8 @@ import java.util.List;
  * Created by Sui on 2017/8/28.
  */
 
-public interface ISelectInAdapterStrategy extends ISelectStrategy {
-    void onOptionSelected(List<Boolean> selectedFlags, int position, IPureAdapter adapter);
+public interface ISelectInRvAdapterStrategy extends ISelectStrategy {
+    void onOptionSelected(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapterWithSelect adapter);
 
-    void onOptionUnSelected(List<Boolean> selectedFlags, int position,IPureAdapter adapter);
+    void onOptionUnSelected(List<Boolean> selectedFlags, int position,PureRecyclerViewAdapterWithSelect adapter);
 }

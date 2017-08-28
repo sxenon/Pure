@@ -123,14 +123,4 @@ public class BGAPureAdapterViewAdapter<T> implements IPureAdapter<T> {
     public void moveItem(int fromPosition, int toPosition) {
         bgaAdapterViewAdapter.moveItem(fromPosition, toPosition);
     }
-
-    @Override
-    public void notifyDataSetChanged() {
-        bgaAdapterViewAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void notifyItemChanged(int position) {
-        bgaAdapterViewAdapter.notifyDataSetChanged();
-    }
 }
