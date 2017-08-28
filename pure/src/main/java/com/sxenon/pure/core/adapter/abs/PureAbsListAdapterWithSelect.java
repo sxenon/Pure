@@ -102,4 +102,7 @@ public abstract class PureAbsListAdapterWithSelect<T> extends PureAbsListAdapter
         notifyDataSetChanged();
     }
 
+    public BaseSelectSubmitter getSelectSubmitter() {
+        return selectSubmitter;
+    }
 }

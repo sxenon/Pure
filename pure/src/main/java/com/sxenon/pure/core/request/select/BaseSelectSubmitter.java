@@ -18,6 +18,7 @@ package com.sxenon.pure.core.request.select;
 
 import com.sxenon.pure.core.request.IRequestSubmitter;
 import com.sxenon.pure.core.request.select.strategy.ISelectStrategy;
+import com.sxenon.pure.core.request.select.strategy.SingleSelectStrategy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -95,6 +96,13 @@ public  class BaseSelectSubmitter implements IRequestSubmitter<List<Integer>> {
     @Override
     public List<Integer> getDataForSubmit() {
         final List<Integer> indexList = new ArrayList<>();
+        if (mSelectStrategy instanceof SingleSelectStrategy){
+            Integer selectedPosition=((SingleSelectStrategy) mSelectStrategy).getLastSelectedPosition();
+            if (selectedPosition>=0){
+                indexList.add(selectedPosition);
+            }
+            return indexList;
+        }
         Observable.range(0, mSelectedFlags.size())
                 .filter(new Func1<Integer, Boolean>() {
                     @Override

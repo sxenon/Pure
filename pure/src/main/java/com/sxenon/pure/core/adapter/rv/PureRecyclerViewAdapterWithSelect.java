@@ -100,6 +100,10 @@ public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerV
         notifyDataSetChanged();
     }
 
+    public BaseSelectSubmitter getSelectSubmitter() {
+        return selectSubmitter;
+    }
+
     /**
      * Concrete adapter based
      * notifyItemRangeChanged(0,getItemCount(),true);

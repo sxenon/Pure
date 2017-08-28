@@ -43,7 +43,7 @@ public class SingleSelectStrategy implements ISelectStrategy {
         selectedFlags.set(position, false);
     }
 
-    protected int getLastSelectedPosition() {
+    public int getLastSelectedPosition() {
         return lastSelectedPosition;
     }
 }
