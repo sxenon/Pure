@@ -24,13 +24,20 @@ import java.util.List;
  */
 
 public class MultiSelectStrategy implements ISelectStrategy {
+    private List<Boolean> selectedFlags;
+
     @Override
-    public void onOptionSelected(List<Boolean> selectedFlags, int position) {
+    public void onOptionSelected(int position) {
         selectedFlags.set(position, true);
     }
 
     @Override
-    public void onOptionUnSelected(List<Boolean> selectedFlags, int position) {
+    public void onOptionUnSelected(int position) {
         selectedFlags.set(position, false);
+    }
+
+    @Override
+    public void bindSelectedFlags(List<Boolean> selectedFlags) {
+        this.selectedFlags=selectedFlags;
     }
 }

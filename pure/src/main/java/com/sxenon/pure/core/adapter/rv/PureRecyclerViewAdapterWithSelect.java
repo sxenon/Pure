@@ -63,11 +63,11 @@ public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerV
     }
 
     public void selectOption(int position) {
-        selectStrategy.onOptionSelected(selectSubmitter.getSelectedFlags(), position, this);
+        selectStrategy.onOptionSelected(position, this);
     }
 
     public void unSelectOption(int position) {
-        selectStrategy.onOptionUnSelected(selectSubmitter.getSelectedFlags(), position, this);
+        selectStrategy.onOptionUnSelected(position, this);
     }
 
     public void selectAllOptions() {

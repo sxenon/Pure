@@ -28,14 +28,14 @@ import java.util.List;
 
 public class MultiSelectInRvAdapterStrategy extends SingleSelectStrategy implements ISelectInRvAdapterStrategy {
     @Override
-    public void onOptionSelected(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapterWithSelect adapter) {
-        onOptionSelected(selectedFlags, position);
+    public void onOptionSelected(int position, PureRecyclerViewAdapterWithSelect adapter) {
+        onOptionSelected(position);
         adapter.notifySelectChange(position);
     }
 
     @Override
-    public void onOptionUnSelected(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapterWithSelect adapter) {
-        onOptionSelected(selectedFlags, position);
+    public void onOptionUnSelected(int position, PureRecyclerViewAdapterWithSelect adapter) {
+        onOptionSelected(position);
         adapter.notifySelectChange(position);
     }
 }

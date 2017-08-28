@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 public interface ISelectInRvAdapterStrategy extends ISelectStrategy {
-    void onOptionSelected(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapterWithSelect adapter);
+    void onOptionSelected(int position, PureRecyclerViewAdapterWithSelect adapter);
 
-    void onOptionUnSelected(List<Boolean> selectedFlags, int position,PureRecyclerViewAdapterWithSelect adapter);
+    void onOptionUnSelected(int position,PureRecyclerViewAdapterWithSelect adapter);
 }

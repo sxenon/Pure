@@ -28,17 +28,17 @@ import java.util.List;
 
 public class SingleSelectInRvAdapterStrategy extends SingleSelectStrategy implements ISelectInRvAdapterStrategy {
     @Override
-    public void onOptionSelected(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapterWithSelect adapter) {
+    public void onOptionSelected(int position, PureRecyclerViewAdapterWithSelect adapter) {
         if (getLastSelectedPosition()==position){
             return;
         }
-        onOptionSelected(selectedFlags, position);
+        onOptionSelected(position);
         adapter.notifySelectReset();
     }
 
     @Override
-    public void onOptionUnSelected(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapterWithSelect adapter) {
-        onOptionSelected(selectedFlags, position);
+    public void onOptionUnSelected(int position, PureRecyclerViewAdapterWithSelect adapter) {
+        onOptionSelected(position);
         adapter.notifySelectChange(position);
     }
 }

@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import rx.Observable;
+import rx.Subscriber;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
@@ -46,7 +47,9 @@ public  class BaseSelectSubmitter implements IRequestSubmitter<List<Integer>> {
     public BaseSelectSubmitter(ISelectStrategy selectStrategy, List<Boolean> selectedFlags) {
         mSelectStrategy = selectStrategy;
         mSelectedFlags = selectedFlags;
+
         Collections.fill(mSelectedFlags, false);
+        selectStrategy.bindSelectedFlags(mSelectedFlags);
     }
 
     public void onOptionAppended() {
@@ -62,11 +65,11 @@ public  class BaseSelectSubmitter implements IRequestSubmitter<List<Integer>> {
     }
 
     public void onOptionSelected(int position) {
-        mSelectStrategy.onOptionSelected(mSelectedFlags, position);
+        mSelectStrategy.onOptionSelected(position);
     }
 
     public void onOptionUnSelected(int position) {
-        mSelectStrategy.onOptionUnSelected(mSelectedFlags, position);
+        mSelectStrategy.onOptionUnSelected(position);
     }
 
     public void onAllOptionsSelected(){

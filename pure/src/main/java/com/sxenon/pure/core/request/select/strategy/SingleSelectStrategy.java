@@ -24,10 +24,11 @@ import java.util.List;
  */
 
 public class SingleSelectStrategy implements ISelectStrategy {
-    private int lastSelectedPosition = -1;
+    private List<Boolean> selectedFlags;
 
     @Override
-    public void onOptionSelected(List<Boolean> selectedFlags, int position) {
+    public void onOptionSelected(int position) {
+        int lastSelectedPosition = selectedFlags.indexOf(true);
         if (lastSelectedPosition == position) {
             return;
         }
@@ -35,15 +36,18 @@ public class SingleSelectStrategy implements ISelectStrategy {
             selectedFlags.set(lastSelectedPosition, false);
         }
         selectedFlags.set(position, true);
-        lastSelectedPosition = position;
     }
 
     @Override
-    public void onOptionUnSelected(List<Boolean> selectedFlags, int position) {
+    public void onOptionUnSelected(int position) {
         selectedFlags.set(position, false);
     }
 
+    public void bindSelectedFlags(List<Boolean> selectedFlags) {
+        this.selectedFlags = selectedFlags;
+    }
+
     public int getLastSelectedPosition() {
-        return lastSelectedPosition;
+        return selectedFlags.indexOf(true);
     }
 }
