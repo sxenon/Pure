@@ -15,6 +15,8 @@
  */
 package com.sj.pure.okhttp3.converter;
 
+import java.io.IOException;
+
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -30,7 +32,7 @@ import okhttp3.ResponseBody;
 public class StringConverter implements Converter<String> {
 
     @Override
-    public String convertResponse(Response response) throws Exception {
+    public String convertResponse(Response response) throws IOException {
         ResponseBody body = response.body();
         if (body == null) {
             return null;

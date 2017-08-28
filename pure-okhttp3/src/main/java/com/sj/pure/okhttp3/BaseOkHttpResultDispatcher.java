@@ -44,7 +44,7 @@ public abstract class BaseOkHttpResultDispatcher<R> extends BaseResultDispatcher
         onApiException(new OKHttpException(call, e));
     }
 
-    public void onResponse(Call call, Response response) throws Exception {
+    public void onResponse(Call call, Response response) throws IOException {
         R result = mConverter.convertResponse(response);
         handleResult(result);
     }

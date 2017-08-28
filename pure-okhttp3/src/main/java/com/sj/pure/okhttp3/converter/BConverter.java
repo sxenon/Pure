@@ -16,6 +16,7 @@
 
 package com.sj.pure.okhttp3.converter;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 
 import okhttp3.Response;
@@ -33,7 +34,7 @@ public abstract class BConverter<T> implements Converter<T> {
     }
 
     @Override
-    public T convertResponse(Response response) throws Exception {
+    public T convertResponse(Response response) throws IOException {
         String beanString = new StringConverter().convertResponse(response);
         if (beanString == null) {
             return null;

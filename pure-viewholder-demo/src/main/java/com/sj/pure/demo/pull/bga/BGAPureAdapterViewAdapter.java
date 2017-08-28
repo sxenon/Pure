@@ -128,4 +128,9 @@ public class BGAPureAdapterViewAdapter<T> implements IPureAdapter<T> {
     public void notifyDataSetChanged() {
         bgaAdapterViewAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void notifyItemChanged(int position) {
+        bgaAdapterViewAdapter.notifyDataSetChanged();
+    }
 }

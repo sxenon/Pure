@@ -61,4 +61,6 @@ public interface IPureAdapter<T> {
     void moveItem(int fromPosition, int toPosition);
 
     void notifyDataSetChanged();
+
+    void notifyItemChanged(int position);
 }

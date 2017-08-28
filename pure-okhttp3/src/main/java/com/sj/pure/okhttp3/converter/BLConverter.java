@@ -16,6 +16,7 @@
 
 package com.sj.pure.okhttp3.converter;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public abstract class BLConverter<T> implements LConverter<T> {
     }
 
     @Override
-    public List<T> convertResponse(Response response) throws Exception {
+    public List<T> convertResponse(Response response) throws IOException {
         String beanListString = new StringConverter().convertResponse(response);
         if (beanListString == null) {
             return null;

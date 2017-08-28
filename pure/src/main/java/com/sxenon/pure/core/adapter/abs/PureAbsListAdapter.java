@@ -247,6 +247,11 @@ public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPure
         return mContainer;
     }
 
+    @Override
+    public void notifyItemChanged(int position) {
+        notifyDataSetChanged();
+    }
+
     /**
      * You must override it!
      */

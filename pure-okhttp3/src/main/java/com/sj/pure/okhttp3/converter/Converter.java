@@ -16,6 +16,8 @@
 
 package com.sj.pure.okhttp3.converter;
 
+import java.io.IOException;
+
 import okhttp3.Response;
 
 /**
@@ -24,5 +26,5 @@ import okhttp3.Response;
  */
 
 public interface Converter<T> {
-    T convertResponse(Response response) throws Exception;
+    T convertResponse(Response response) throws IOException;
 }

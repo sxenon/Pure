@@ -22,8 +22,6 @@ import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.RestRequest;
 import com.yanzhenjie.nohttp.rest.StringRequest;
 
-import java.util.List;
-
 /**
  * EntitySingleRequest
  * Created by Sui on 2017/8/27.

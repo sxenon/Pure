@@ -18,7 +18,9 @@ package com.sxenon.pure.core.request.select;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.request.IRequestSubmitter;
+import com.sxenon.pure.core.request.select.strategy.adapter.ISelectInAdapterStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,49 +31,52 @@ import java.util.List;
 public class PureAdapterSelectSubmitter<T> implements IRequestSubmitter<List<Integer>> {
     private final IPureAdapter<T> mAdapter;
     private final BaseSelectSubmitter mSelectSubmitter;
-
+    private final ISelectInAdapterStrategy mSelectInAdapterStrategy;
     /**
      * Use in an adapter
-     * See demo to know how to use.
      */
-    public PureAdapterSelectSubmitter(IPureAdapter<T> adapter, BaseSelectSubmitter selectSubmitter){
+    public PureAdapterSelectSubmitter(IPureAdapter<T> adapter, ISelectInAdapterStrategy selectInAdapterStrategy){
         mAdapter=adapter;
-        mSelectSubmitter=selectSubmitter;
+        mSelectInAdapterStrategy=selectInAdapterStrategy;
+        mSelectSubmitter=new BaseSelectSubmitter(selectInAdapterStrategy,new ArrayList<Boolean>(adapter.getItemCount()));
     }
 
     public void appendOption(T data){
-        mAdapter.addItemFromEnd(data);
         mSelectSubmitter.onOptionAppended();
+        mAdapter.addItemFromEnd(data);
     }
 
     public void insertOption(int position,T data){
-        mAdapter.addItem(position, data);
         mSelectSubmitter.onOptionInserted(position);
+        mAdapter.addItem(position, data);
     }
 
     public void removeOption(int position){
-        mAdapter.removeItem(position);
         mSelectSubmitter.onOptionRemoved(position);
+        mAdapter.removeItem(position);
     }
 
     public void selectOption(int position){
-        mSelectSubmitter.onOptionSelected(position);
+        mSelectInAdapterStrategy.onOptionSelected(mSelectSubmitter.getSelectedFlags(),position,mAdapter);
     }
 
     public void unSelectOption(int position){
-        mSelectSubmitter.onOptionUnSelected(position);
+        mSelectInAdapterStrategy.onOptionUnSelected(mSelectSubmitter.getSelectedFlags(),position,mAdapter);
     }
 
     public void selectAllOptions(){
         mSelectSubmitter.onAllOptionsSelected();
+        mAdapter.notifyDataSetChanged();
     }
 
     public void unSelectAllOptions(){
         mSelectSubmitter.onAllOptionsUnSelected();
+        mAdapter.notifyDataSetChanged();
     }
 
     public void reverseAllOptions(){
         mSelectSubmitter.onAllOptionsReversed();
+        mAdapter.notifyDataSetChanged();
     }
 
     public void deletedSelectedOptions(){
@@ -80,12 +85,13 @@ public class PureAdapterSelectSubmitter<T> implements IRequestSubmitter<List<Int
             return;
         }
 
+        mSelectSubmitter.onSelectedOptionsDeleted();
+
         List<T> data=mAdapter.getValues();
         for (int i=selectedIndexList.size()-1;i>=0;i--){
             data.remove((int)selectedIndexList.get(i));
         }
         mAdapter.notifyDataSetChanged();
-        mSelectSubmitter.onSelectedOptionsDeleted();
     }
 
     @Override

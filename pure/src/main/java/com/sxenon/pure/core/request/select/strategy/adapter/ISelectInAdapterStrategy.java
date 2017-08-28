@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.result;
+package com.sxenon.pure.core.request.select.strategy.adapter;
 
-import org.junit.Test;
+import com.sxenon.pure.core.adapter.IPureAdapter;
+import com.sxenon.pure.core.request.select.strategy.ISelectStrategy;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Select strategy in IPureAdapter
+ * Created by Sui on 2017/8/28.
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
+
+public interface ISelectInAdapterStrategy extends ISelectStrategy {
+    void onOptionSelected(List<Boolean> selectedFlags, int position, IPureAdapter adapter);
+
+    void onOptionUnSelected(List<Boolean> selectedFlags, int position,IPureAdapter adapter);
 }

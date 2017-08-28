@@ -16,12 +16,10 @@
 
 package com.sxenon.pure.core.adapter.abs;
 
-import com.sxenon.pure.core.request.select.BaseSelectSubmitter;
 import com.sxenon.pure.core.request.select.PureAdapterSelectSubmitter;
-import com.sxenon.pure.core.request.select.strategy.ISelectStrategy;
+import com.sxenon.pure.core.request.select.strategy.adapter.ISelectInAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IListFillerViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,21 +29,21 @@ import java.util.List;
 
 public abstract class PureAbsListAdapterWithSelect<T> extends PureAbsListAdapter<T> {
     private PureAdapterSelectSubmitter<T> selectSubmitter;
-    private final ISelectStrategy selectStrategy;
+    private final ISelectInAdapterStrategy selectStrategy;
 
     /**
      * @param container The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureAbsListAdapterWithSelect(IListFillerViewHolder<T> container, PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray,ISelectStrategy selectStrategy) {
+    public PureAbsListAdapterWithSelect(IListFillerViewHolder<T> container, PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray,ISelectInAdapterStrategy selectStrategy) {
         super(container, itemViewTypeEntryArray);
-        this.selectStrategy=selectStrategy;
+        this.selectStrategy= selectStrategy;
     }
 
     @Override
     public void resetAllItems(List<T> values) {
         super.resetAllItems(values);
-        selectSubmitter = new PureAdapterSelectSubmitter<>(this,new BaseSelectSubmitter(selectStrategy,new ArrayList<Boolean>(getItemCount())));
+        selectSubmitter = new PureAdapterSelectSubmitter<>(this,selectStrategy);
     }
 
     public void appendOption(T data){
