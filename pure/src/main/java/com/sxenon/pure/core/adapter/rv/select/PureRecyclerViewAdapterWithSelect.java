@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter.rv;
+package com.sxenon.pure.core.adapter.rv.select;
 
-import com.sxenon.pure.core.adapter.IPureAdapterWithSelect;
+import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapter;
+import com.sxenon.pure.core.adapter.rv.PureRecyclerViewItemViewTypeEntity;
 import com.sxenon.pure.core.request.select.BaseSelectSubmitter;
-import com.sxenon.pure.core.adapter.rv.select.ISelectInRvAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IListFillerViewHolder;
 
 import java.util.ArrayList;

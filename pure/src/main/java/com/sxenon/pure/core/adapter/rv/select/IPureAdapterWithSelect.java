@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.adapter.rv.select;
+
+import com.sxenon.pure.core.adapter.IPureAdapter;
 
 /**
  * IPureAdapterWithSelect,for RecyclerView.Adapter

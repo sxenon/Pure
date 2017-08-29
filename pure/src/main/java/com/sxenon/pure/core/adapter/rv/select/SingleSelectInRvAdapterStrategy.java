@@ -16,7 +16,6 @@
 
 package com.sxenon.pure.core.adapter.rv.select;
 
-import com.sxenon.pure.core.adapter.IPureAdapterWithSelect;
 import com.sxenon.pure.core.request.select.strategy.SingleSelectStrategy;
 
 /**
