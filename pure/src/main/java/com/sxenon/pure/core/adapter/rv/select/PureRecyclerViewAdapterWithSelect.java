@@ -51,10 +51,6 @@ public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerV
         selectStrategy.onOptionAppended(selectedFlags,data,this);
     }
 
-    public void insertOption(int position, T data) {
-        selectStrategy.onOptionInserted(selectedFlags,data,position,this);
-    }
-
     public void removeOption(int position) {
         selectStrategy.onOptionRemoved(selectedFlags,position,this);
     }

@@ -43,12 +43,6 @@ public class BaseSelectInPureAbsListAdapterStrategy<T> extends BaseSelectInAbsLi
     }
 
     @Override
-    public void onOptionInserted(List<Boolean> selectedFlags, T data, int position, PureAbsListAdapter<T> adapter) {
-        selectedFlags.add(position,false);
-        adapter.addItem(position,data);
-    }
-
-    @Override
     public void onOptionRemoved(List<Boolean> selectedFlags, int position, PureAbsListAdapter<T> adapter) {
         selectedFlags.remove(position);
         adapter.removeItem(position);

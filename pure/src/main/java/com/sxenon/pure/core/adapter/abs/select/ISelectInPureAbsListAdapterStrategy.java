@@ -29,8 +29,6 @@ import java.util.List;
 public interface ISelectInPureAbsListAdapterStrategy<T> extends ISelectInAbsListAdapterStrategy {
     void onOptionAppended(List<Boolean> selectedFlags, T data, PureAbsListAdapter<T> adapter);
 
-    void onOptionInserted(List<Boolean> selectedFlags, T data, int position, PureAbsListAdapter<T> adapter);
-
     void onOptionRemoved(List<Boolean> selectedFlags, int position, PureAbsListAdapter<T> adapter);
 
     void onSelectedOptionsRemoved(List<Boolean> selectedFlags,PureAbsListAdapter<T> adapter);

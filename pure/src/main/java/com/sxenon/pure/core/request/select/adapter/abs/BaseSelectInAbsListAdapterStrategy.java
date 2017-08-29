@@ -71,13 +71,4 @@ public class BaseSelectInAbsListAdapterStrategy implements ISelectInAbsListAdapt
         innerSelectStrategy.onAllOptionsUnSelected(selectedFlags);
         adapter.notifyDataSetChanged();
     }
-
-//    @Override
-//    public void onSelectedOptionsRemoved(List<Boolean> selectedFlags, BaseAdapter adapter) {
-//        List<Integer> selectedPositionList=innerSelectStrategy.onSelectedOptionsRemoved(selectedFlags);
-//        int size=selectedPositionList.size();
-//        if (size==0){
-//            return;
-//        }
-//    }
 }

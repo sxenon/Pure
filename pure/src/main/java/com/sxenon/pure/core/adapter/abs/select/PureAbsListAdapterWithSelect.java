@@ -51,10 +51,6 @@ public abstract class PureAbsListAdapterWithSelect<T> extends PureAbsListAdapter
         selectStrategy.onOptionAppended(selectedFlags,data,this);
     }
 
-    public void insertOption(int position,T data){
-        selectStrategy.onOptionInserted(selectedFlags,data,position,this);
-    }
-
     public void removeOption(int position){
         selectStrategy.onOptionRemoved(selectedFlags,position,this);
     }

@@ -16,13 +16,8 @@
 
 package com.sxenon.pure.core.request.select.base;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * BaseSelectStrategy
@@ -32,20 +27,20 @@ import rx.functions.Func1;
 public abstract class BaseSelectStrategy implements ISelectStrategy {
     @Override
     public void onAllOptionsReversed(List<Boolean> selectedFlags) {
-        int size=selectedFlags.size();
-        for (int position=0;position<size;position++){
-            selectedFlags.set(position,!selectedFlags.get(position));
+        int size = selectedFlags.size();
+        for (int position = 0; position < size; position++) {
+            selectedFlags.set(position, !selectedFlags.get(position));
         }
     }
 
     @Override
     public void onAllOptionsSelected(List<Boolean> selectedFlags) {
-        Collections.fill(selectedFlags,true);
+        Collections.fill(selectedFlags, true);
     }
 
     @Override
     public void onAllOptionsUnSelected(List<Boolean> selectedFlags) {
-        Collections.fill(selectedFlags,false);
+        Collections.fill(selectedFlags, false);
     }
 
     @Override
@@ -54,47 +49,7 @@ public abstract class BaseSelectStrategy implements ISelectStrategy {
     }
 
     @Override
-    public void onOptionInserted(List<Boolean> selectedFlags, int position) {
-        selectedFlags.add(position,false);
-    }
-
-    @Override
     public void onOptionRemoved(List<Boolean> selectedFlags, int position) {
         selectedFlags.remove(position);
-    }
-
-    @Override
-    public List<Integer> onSelectedOptionsRemoved(final List<Boolean> selectedFlags) {
-        final List<Integer> selectedPositionList=new ArrayList<>();
-        if (this instanceof SingleSelectStrategy){
-            Integer selectedPosition=selectedFlags.indexOf(true);
-            if (selectedPosition>=0){
-                selectedPositionList.add(selectedPosition);
-            }
-            selectedFlags.remove((int)selectedPosition);
-            return selectedPositionList;
-        }
-        final int size=selectedFlags.size();
-        Observable.range(0, size)
-                .map(new Func1<Integer, Integer>() {
-                    @Override
-                    public Integer call(Integer integer) {
-                        return size-integer;
-                    }
-                })
-                .filter(new Func1<Integer, Boolean>() {
-                    @Override
-                    public Boolean call(Integer position) {
-                        return selectedFlags.get(position);
-                    }
-                })
-                .subscribe(new Action1<Integer>() {
-                    @Override
-                    public void call(Integer position) {
-                        selectedFlags.remove((int)position);
-                        selectedPositionList.add(position);
-                    }
-                });
-        return selectedPositionList;
     }
 }

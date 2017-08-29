@@ -23,7 +23,6 @@ import com.sxenon.pure.core.request.select.adapter.rv.BaseSelectInRecyclerViewAd
 import com.sxenon.pure.core.request.select.base.ISelectStrategy;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,12 +40,6 @@ public abstract class BaseSelectInPureRecyclerViewAdapterStrategy<T> extends Bas
     public void onOptionAppended(List<Boolean> selectedFlags, T data, PureRecyclerViewAdapter<T> adapter) {
         selectedFlags.add(false);
         adapter.addItemFromEnd(data);
-    }
-
-    @Override
-    public void onOptionInserted(List<Boolean> selectedFlags, T data, int position, PureRecyclerViewAdapter<T> adapter) {
-        selectedFlags.add(position, false);
-        adapter.addItem(position, data);
     }
 
     @Override

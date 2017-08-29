@@ -29,8 +29,6 @@ import java.util.List;
 public interface ISelectInPureRecyclerViewAdapterStrategy<T> extends ISelectInRecyclerViewAdapterStrategy {
     void onOptionAppended(List<Boolean> selectedFlags, T data, PureRecyclerViewAdapter<T> adapter);
 
-    void onOptionInserted(List<Boolean> selectedFlags, T data,int position,PureRecyclerViewAdapter<T> adapter);
-
     void onOptionRemoved(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapter<T> adapter);
 
     void onSelectedOptionsRemoved(List<Boolean> selectedFlags, PureRecyclerViewAdapter<T> adapter);

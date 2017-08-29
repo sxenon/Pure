@@ -24,9 +24,9 @@ import java.util.List;
  */
 
 public interface ISelectStrategy {
-    void onOptionSelected(List<Boolean> selectedFlags,int position);
+    void onOptionSelected(List<Boolean> selectedFlags, int position);
 
-    void onOptionUnSelected(List<Boolean> selectedFlags,int position);
+    void onOptionUnSelected(List<Boolean> selectedFlags, int position);
 
     void onAllOptionsReversed(List<Boolean> selectedFlags);
 
@@ -36,9 +36,5 @@ public interface ISelectStrategy {
 
     void onOptionAppended(List<Boolean> selectedFlags);
 
-    void onOptionInserted(List<Boolean> selectedFlags,int position);
-
-    void onOptionRemoved(List<Boolean> selectedFlags,int position);
-
-    List<Integer> onSelectedOptionsRemoved(List<Boolean> selectedFlags);
+    void onOptionRemoved(List<Boolean> selectedFlags, int position);
 }
