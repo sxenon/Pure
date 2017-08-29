@@ -47,6 +47,11 @@ public class SingleSelectStrategy implements ISelectStrategy {
         this.selectedFlags = selectedFlags;
     }
 
+    @Override
+    public List<Boolean> getSelectedFlags() {
+        return selectedFlags;
+    }
+
     public int getLastSelectedPosition() {
         return selectedFlags.indexOf(true);
     }

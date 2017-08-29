@@ -40,4 +40,9 @@ public class MultiSelectStrategy implements ISelectStrategy {
     public void bindSelectedFlags(List<Boolean> selectedFlags) {
         this.selectedFlags=selectedFlags;
     }
+
+    @Override
+    public List<Boolean> getSelectedFlags() {
+        return selectedFlags;
+    }
 }

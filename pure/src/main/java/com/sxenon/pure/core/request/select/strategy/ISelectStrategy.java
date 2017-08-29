@@ -29,4 +29,6 @@ public interface ISelectStrategy {
     void onOptionUnSelected(int position);
 
     void bindSelectedFlags(List<Boolean> selectedFlags);
+
+    List<Boolean> getSelectedFlags();
 }

@@ -27,14 +27,15 @@ public class SingleSelectInRvAdapterStrategy extends SingleSelectStrategy implem
     @Override
     public void onOptionSelected(int position, IPureAdapterWithSelect adapter) {
         int lastSelectedPosition = getLastSelectedPosition();
-        if (getLastSelectedPosition() == position) {
+        if (lastSelectedPosition == position) {
             return;
         }
 
-        onOptionSelected(position);
         if (lastSelectedPosition >= 0) {
+            getSelectedFlags().set(lastSelectedPosition, false);
             adapter.notifySelectChange(lastSelectedPosition);
         }
+        getSelectedFlags().set(position, true);
     }
 
     @Override
