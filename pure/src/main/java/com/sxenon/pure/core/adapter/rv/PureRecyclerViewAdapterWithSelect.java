@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter.rv.select;
+package com.sxenon.pure.core.adapter.rv;
 
-import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapter;
-import com.sxenon.pure.core.adapter.rv.PureRecyclerViewItemViewTypeEntity;
 import com.sxenon.pure.core.request.select.BaseSelectSubmitter;
+import com.sxenon.pure.core.request.select.strategy.adapter.IPureAdapterWithSelect;
+import com.sxenon.pure.core.request.select.strategy.adapter.ISelectInAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IListFillerViewHolder;
 
 import java.util.ArrayList;
@@ -29,15 +29,15 @@ import java.util.List;
  * Created by Sui on 2017/8/21.
  */
 
-public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerViewAdapter<T> implements IPureAdapterWithSelect<T>{
+public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerViewAdapter<T> implements IPureAdapterWithSelect<T> {
     private BaseSelectSubmitter selectSubmitter;
-    private final ISelectInRvAdapterStrategy selectStrategy;
+    private final ISelectInAdapterStrategy selectStrategy;
 
     /**
      * @param container              The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureRecyclerViewAdapterWithSelect(IListFillerViewHolder<T> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray, ISelectInRvAdapterStrategy selectStrategy) {
+    public PureRecyclerViewAdapterWithSelect(IListFillerViewHolder<T> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray, ISelectInAdapterStrategy selectStrategy) {
         super(container, itemViewTypeEntryArray);
         this.selectStrategy = selectStrategy;
     }
@@ -64,11 +64,11 @@ public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerV
     }
 
     public void selectOption(int position) {
-        selectStrategy.onOptionSelected(position, this);
+        selectStrategy.onOptionSelected(selectSubmitter.getSelectedFlags(),position, this);
     }
 
     public void unSelectOption(int position) {
-        selectStrategy.onOptionUnSelected(position, this);
+        selectStrategy.onOptionUnSelected(selectSubmitter.getSelectedFlags(),position, this);
     }
 
     public void selectAllOptions() {

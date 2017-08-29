@@ -49,7 +49,6 @@ public  class BaseSelectSubmitter implements IRequestSubmitter<List<Integer>> {
         mSelectedFlags = selectedFlags;
 
         Collections.fill(mSelectedFlags, false);
-        selectStrategy.bindSelectedFlags(mSelectedFlags);
     }
 
     public void onOptionAppended() {
@@ -65,11 +64,11 @@ public  class BaseSelectSubmitter implements IRequestSubmitter<List<Integer>> {
     }
 
     public void onOptionSelected(int position) {
-        mSelectStrategy.onOptionSelected(position);
+        mSelectStrategy.onOptionSelected(mSelectedFlags,position);
     }
 
     public void onOptionUnSelected(int position) {
-        mSelectStrategy.onOptionUnSelected(position);
+        mSelectStrategy.onOptionUnSelected(mSelectedFlags,position);
     }
 
     public void onAllOptionsSelected(){
@@ -100,7 +99,7 @@ public  class BaseSelectSubmitter implements IRequestSubmitter<List<Integer>> {
     public List<Integer> getDataForSubmit() {
         final List<Integer> positionList = new ArrayList<>();
         if (mSelectStrategy instanceof SingleSelectStrategy){
-            Integer selectedPosition=((SingleSelectStrategy) mSelectStrategy).getLastSelectedPosition();
+            Integer selectedPosition=mSelectedFlags.indexOf(true);
             if (selectedPosition>=0){
                 positionList.add(selectedPosition);
             }

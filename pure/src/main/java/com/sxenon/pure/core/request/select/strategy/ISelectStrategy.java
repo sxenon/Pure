@@ -24,11 +24,7 @@ import java.util.List;
  */
 
 public interface ISelectStrategy {
-    void onOptionSelected(int position);
+    void onOptionSelected(List<Boolean> selectedFlags,int position);
 
-    void onOptionUnSelected(int position);
-
-    void bindSelectedFlags(List<Boolean> selectedFlags);
-
-    List<Boolean> getSelectedFlags();
+    void onOptionUnSelected(List<Boolean> selectedFlags,int position);
 }

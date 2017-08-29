@@ -14,25 +14,27 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter.rv.select;
+package com.sxenon.pure.core.request.select.strategy.adapter;
 
 import com.sxenon.pure.core.request.select.strategy.MultiSelectStrategy;
+
+import java.util.List;
 
 /**
  * Concrete adapter based
  * Created by Sui on 2017/8/28.
  */
 
-public class MultiSelectInRvAdapterStrategy extends MultiSelectStrategy implements ISelectInRvAdapterStrategy {
+public class MultiSelectInAdapterStrategy extends MultiSelectStrategy implements ISelectInAdapterStrategy {
     @Override
-    public void onOptionSelected(int position, IPureAdapterWithSelect adapter) {
-        onOptionSelected(position);
+    public void onOptionSelected(List<Boolean> selectedFlags, int position, IPureAdapterWithSelect adapter) {
+        onOptionSelected(selectedFlags,position);
         //adapter.notifySelectChange(position);
     }
 
     @Override
-    public void onOptionUnSelected(int position, IPureAdapterWithSelect adapter) {
-        onOptionUnSelected(position);
+    public void onOptionUnSelected(List<Boolean> selectedFlags,int position, IPureAdapterWithSelect adapter) {
+        onOptionUnSelected(selectedFlags,position);
         //adapter.notifySelectChange(position);
     }
 }

@@ -14,33 +14,35 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter.rv.select;
+package com.sxenon.pure.core.request.select.strategy.adapter;
 
 import com.sxenon.pure.core.request.select.strategy.SingleSelectStrategy;
+
+import java.util.List;
 
 /**
  * Concrete adapter based
  * Created by Sui on 2017/8/28.
  */
 
-public class SingleSelectInRvAdapterStrategy extends SingleSelectStrategy implements ISelectInRvAdapterStrategy {
+public class SingleSelectInAdapterStrategy extends SingleSelectStrategy implements ISelectInAdapterStrategy {
     @Override
-    public void onOptionSelected(int position, IPureAdapterWithSelect adapter) {
-        int lastSelectedPosition = getLastSelectedPosition();
+    public void onOptionSelected(List<Boolean> selectedFlags, int position, IPureAdapterWithSelect adapter) {
+        int lastSelectedPosition = selectedFlags.indexOf(true);
         if (lastSelectedPosition == position) {
             return;
         }
 
         if (lastSelectedPosition >= 0) {
-            getSelectedFlags().set(lastSelectedPosition, false);
+            selectedFlags.set(lastSelectedPosition, false);
             adapter.notifySelectChange(lastSelectedPosition);
         }
-        getSelectedFlags().set(position, true);
+        selectedFlags.set(position, true);
     }
 
     @Override
-    public void onOptionUnSelected(int position, IPureAdapterWithSelect adapter) {
-        onOptionUnSelected(position);
+    public void onOptionUnSelected(List<Boolean> selectedFlags,int position, IPureAdapterWithSelect adapter) {
+        onOptionUnSelected(selectedFlags,position);
         //adapter.notifySelectChange(position);
     }
 }
