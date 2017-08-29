@@ -80,7 +80,6 @@ public abstract class PureAbsListAdapterWithSelect<T> extends PureAbsListAdapter
     }
 
     public void removeSelectedOptions(){
-
         selectStrategy.onSelectedOptionsRemoved(selectedFlags,this);
     }
 

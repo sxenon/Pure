@@ -33,4 +33,6 @@ public interface ISelectInPureRecyclerViewAdapterStrategy<T> extends ISelectInRe
 
     void onOptionRemoved(List<Boolean> selectedFlags, int position, PureRecyclerViewAdapter<T> adapter);
 
+    void onSelectedOptionsRemoved(List<Boolean> selectedFlags, PureRecyclerViewAdapter<T> adapter);
+
 }

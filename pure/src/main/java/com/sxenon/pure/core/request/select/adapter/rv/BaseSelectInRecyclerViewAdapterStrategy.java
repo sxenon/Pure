@@ -16,6 +16,7 @@
 
 package com.sxenon.pure.core.request.select.adapter.rv;
 
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 
 import com.sxenon.pure.core.request.select.base.ISelectStrategy;
@@ -28,7 +29,7 @@ import java.util.List;
  * Created by Sui on 2017/8/28.
  */
 
-public class BaseSelectInRecyclerViewAdapterStrategy implements ISelectInRecyclerViewAdapterStrategy {
+public abstract class BaseSelectInRecyclerViewAdapterStrategy implements ISelectInRecyclerViewAdapterStrategy {
     private ISelectStrategy innerSelectStrategy;
 
     public BaseSelectInRecyclerViewAdapterStrategy(ISelectStrategy innerSelectStrategy){
@@ -42,7 +43,8 @@ public class BaseSelectInRecyclerViewAdapterStrategy implements ISelectInRecycle
         }
         List<Boolean> oldSelectedFlags=new ArrayList<>(selectedFlags);
         innerSelectStrategy.onOptionSelected(selectedFlags,position);
-        SelectDiffCallBack.dispatchUpdatesToAdapter(oldSelectedFlags,selectedFlags,adapter);
+        DiffUtil.DiffResult result=DiffUtil.calculateDiff(genSelectDiffCallBack(oldSelectedFlags,selectedFlags),false);
+        result.dispatchUpdatesTo(adapter);
     }
 
     @Override
@@ -52,27 +54,34 @@ public class BaseSelectInRecyclerViewAdapterStrategy implements ISelectInRecycle
         }
         List<Boolean> oldSelectedFlags=new ArrayList<>(selectedFlags);
         innerSelectStrategy.onOptionUnSelected(selectedFlags,position);
-        SelectDiffCallBack.dispatchUpdatesToAdapter(oldSelectedFlags,selectedFlags,adapter);
+        DiffUtil.DiffResult result=DiffUtil.calculateDiff(genSelectDiffCallBack(oldSelectedFlags,selectedFlags),false);
+        result.dispatchUpdatesTo(adapter);
     }
 
     @Override
     public void onAllOptionsReversed(List<Boolean> selectedFlags, RecyclerView.Adapter adapter) {
         List<Boolean> oldSelectedFlags=new ArrayList<>(selectedFlags);
         innerSelectStrategy.onAllOptionsReversed(selectedFlags);
-        SelectDiffCallBack.dispatchUpdatesToAdapter(oldSelectedFlags,selectedFlags,adapter);
+        DiffUtil.DiffResult result=DiffUtil.calculateDiff(genSelectDiffCallBack(oldSelectedFlags,selectedFlags),false);
+        result.dispatchUpdatesTo(adapter);
     }
 
     @Override
     public void onAllOptionsSelected(List<Boolean> selectedFlags, RecyclerView.Adapter adapter) {
         List<Boolean> oldSelectedFlags=new ArrayList<>(selectedFlags);
         innerSelectStrategy.onAllOptionsSelected(selectedFlags);
-        SelectDiffCallBack.dispatchUpdatesToAdapter(oldSelectedFlags,selectedFlags,adapter);
+        DiffUtil.DiffResult result=DiffUtil.calculateDiff(genSelectDiffCallBack(oldSelectedFlags,selectedFlags),false);
+        result.dispatchUpdatesTo(adapter);
     }
 
     @Override
     public void onAllOptionsUnSelected(List<Boolean> selectedFlags, RecyclerView.Adapter adapter) {
         List<Boolean> oldSelectedFlags=new ArrayList<>(selectedFlags);
         innerSelectStrategy.onAllOptionsUnSelected(selectedFlags);
-        SelectDiffCallBack.dispatchUpdatesToAdapter(oldSelectedFlags,selectedFlags,adapter);
+        DiffUtil.DiffResult result=DiffUtil.calculateDiff(genSelectDiffCallBack(oldSelectedFlags,selectedFlags),false);
+        result.dispatchUpdatesTo(adapter);
     }
+
+    protected abstract SelectDiffCallBack genSelectDiffCallBack(List<Boolean> oldSelectedFlags, List<Boolean> newSelectedFlags);
+
 }

@@ -16,10 +16,15 @@
 
 package com.sxenon.pure.core.adapter.rv.select;
 
-import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapter;
-import com.sxenon.pure.core.request.select.base.ISelectStrategy;
-import com.sxenon.pure.core.request.select.adapter.rv.BaseSelectInRecyclerViewAdapterStrategy;
+import android.support.v7.util.DiffUtil;
 
+import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapter;
+import com.sxenon.pure.core.request.select.adapter.rv.BaseSelectInRecyclerViewAdapterStrategy;
+import com.sxenon.pure.core.request.select.base.ISelectStrategy;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -27,7 +32,7 @@ import java.util.List;
  * Created by Sui on 2017/8/29.
  */
 
-public class BaseSelectInPureRecyclerViewAdapterStrategy<T> extends BaseSelectInRecyclerViewAdapterStrategy implements ISelectInPureRecyclerViewAdapterStrategy<T> {
+public abstract class BaseSelectInPureRecyclerViewAdapterStrategy<T> extends BaseSelectInRecyclerViewAdapterStrategy implements ISelectInPureRecyclerViewAdapterStrategy<T> {
     public BaseSelectInPureRecyclerViewAdapterStrategy(ISelectStrategy innerSelectStrategy) {
         super(innerSelectStrategy);
     }
@@ -40,8 +45,8 @@ public class BaseSelectInPureRecyclerViewAdapterStrategy<T> extends BaseSelectIn
 
     @Override
     public void onOptionInserted(List<Boolean> selectedFlags, T data, int position, PureRecyclerViewAdapter<T> adapter) {
-        selectedFlags.add(position,false);
-        adapter.addItem(position,data);
+        selectedFlags.add(position, false);
+        adapter.addItem(position, data);
     }
 
     @Override
@@ -49,4 +54,32 @@ public class BaseSelectInPureRecyclerViewAdapterStrategy<T> extends BaseSelectIn
         selectedFlags.remove(position);
         adapter.removeItem(position);
     }
+
+    @Override
+    public void onSelectedOptionsRemoved(List<Boolean> selectedFlags, PureRecyclerViewAdapter<T> adapter) {
+        int size = selectedFlags.size();
+        List<Integer> beforeRemoved = new ArrayList<>(size);
+        for (int position = 0; position < size; position++) {
+            beforeRemoved.set(position, position);
+        }
+
+        List<Integer> afterRemoved = new ArrayList<>(beforeRemoved);
+        for (int position = size - 1; position >= 0; position--) {
+            if (selectedFlags.get(position)) {
+                afterRemoved.remove((Integer) position);
+                adapter.removeItem(position);
+            }
+        }
+
+        Iterator<Boolean> iterator=selectedFlags.iterator();
+        while (iterator.hasNext()){
+            if (iterator.next()){
+                iterator.remove();
+            }
+        }
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(genRemoveDiffCallBack(beforeRemoved, afterRemoved));
+        result.dispatchUpdatesTo(adapter);
+    }
+
+    protected abstract RemoveDiffCallBack genRemoveDiffCallBack(List<Integer> beforeRemoved, List<Integer> afterReMoved);
 }

@@ -79,29 +79,11 @@ public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerV
         selectStrategy.onAllOptionsReversed(selectedFlags,this);
     }
 
-    public List<Boolean> getSelectedFlags() {
-        return selectedFlags;
+    public void removeSelectedOptions() {
+        selectStrategy.onSelectedOptionsRemoved(selectedFlags,this);
     }
 
-    //TODO
-    public void deletedSelectedOptions() {
-//        List<Integer> selectedPositionList = selectSubmitter.getDataForSubmit();
-//        int selectedSize=selectedPositionList.size();
-//        if (selectedSize==0) {
-//            return;
-//        }
-//
-//        if (selectedSize==1){
-//            int selectedPosition = selectedPositionList.get(0);
-//            removeOption(selectedPosition);
-//            return;
-//        }
-//
-//        selectSubmitter.onSelectedOptionsDeleted();
-//        List<T> data = getValues();
-//        for (int i = selectedSize - 1; i >= 0; i--) {
-//            data.remove((int) selectedPositionList.get(i));
-//        }
-//        notifyDataSetChanged();
+    public List<Boolean> getSelectedFlags() {
+        return selectedFlags;
     }
 }
