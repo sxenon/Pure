@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.adapter.abs;
+package com.sxenon.pure.core.select.adapter.abs;
 
 import android.widget.BaseAdapter;
 
-import com.sxenon.pure.core.request.select.base.ISelectStrategy;
+import com.sxenon.pure.core.select.base.ISelectStrategy;
 
 import java.util.List;
 

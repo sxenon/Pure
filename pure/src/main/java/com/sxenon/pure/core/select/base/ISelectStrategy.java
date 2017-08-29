@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.base;
+package com.sxenon.pure.core.select.base;
 
 import java.util.List;
 

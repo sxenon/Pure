@@ -17,7 +17,7 @@
 
 package com.sj.pure.demo.strategy;
 
-import com.sxenon.pure.core.request.select.strategy.ISelectStrategy;
+import com.sxenon.pure.core.select.strategy.ISelectStrategy;
 
 import java.util.Collections;
 import java.util.List;

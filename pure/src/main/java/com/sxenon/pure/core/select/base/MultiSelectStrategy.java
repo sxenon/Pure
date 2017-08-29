@@ -14,26 +14,19 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.base;
+package com.sxenon.pure.core.select.base;
 
 import java.util.List;
 
 /**
- * Single strategy implement for ISelectStrategy
+ * Multi strategy implement for ISelectStrategy
  * Created by Sui on 2017/1/12.
  */
 
-public class SingleSelectStrategy extends BaseSelectStrategy {
+public class MultiSelectStrategy extends BaseSelectStrategy {
 
     @Override
     public void onOptionSelected(List<Boolean> selectedFlags, int position) {
-        int lastSelectedPosition = selectedFlags.indexOf(true);
-        if (lastSelectedPosition == position) {
-            return;
-        }
-        if (lastSelectedPosition >= 0) {
-            selectedFlags.set(lastSelectedPosition, false);
-        }
         selectedFlags.set(position, true);
     }
 
@@ -41,4 +34,5 @@ public class SingleSelectStrategy extends BaseSelectStrategy {
     public void onOptionUnSelected(List<Boolean> selectedFlags, int position) {
         selectedFlags.set(position, false);
     }
+
 }

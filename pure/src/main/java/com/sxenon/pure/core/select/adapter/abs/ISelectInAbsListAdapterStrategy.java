@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.adapter.abs;
+package com.sxenon.pure.core.select.adapter.abs;
 
 import android.widget.BaseAdapter;
 

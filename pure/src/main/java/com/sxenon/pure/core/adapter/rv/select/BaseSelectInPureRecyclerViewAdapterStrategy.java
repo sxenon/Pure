@@ -19,8 +19,8 @@ package com.sxenon.pure.core.adapter.rv.select;
 import android.support.v7.util.DiffUtil;
 
 import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapter;
-import com.sxenon.pure.core.request.select.adapter.rv.BaseSelectInRecyclerViewAdapterStrategy;
-import com.sxenon.pure.core.request.select.base.ISelectStrategy;
+import com.sxenon.pure.core.select.adapter.rv.BaseSelectInRecyclerViewAdapterStrategy;
+import com.sxenon.pure.core.select.base.ISelectStrategy;
 
 import java.util.ArrayList;
 import java.util.Iterator;

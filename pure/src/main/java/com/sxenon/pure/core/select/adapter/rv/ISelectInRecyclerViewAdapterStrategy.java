@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.adapter.rv;
+package com.sxenon.pure.core.select.adapter.rv;
 
 import android.support.v7.widget.RecyclerView;
 

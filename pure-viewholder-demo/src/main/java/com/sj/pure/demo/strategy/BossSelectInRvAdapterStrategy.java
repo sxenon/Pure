@@ -19,7 +19,7 @@ package com.sj.pure.demo.strategy;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.sxenon.pure.core.request.select.adapter.rv.ISelectInRecyclerViewAdapterStrategy;
+import com.sxenon.pure.core.select.adapter.rv.ISelectInRecyclerViewAdapterStrategy;
 
 import java.util.Collections;
 import java.util.List;

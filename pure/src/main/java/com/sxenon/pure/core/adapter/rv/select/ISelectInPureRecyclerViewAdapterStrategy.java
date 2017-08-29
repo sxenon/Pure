@@ -17,7 +17,7 @@
 package com.sxenon.pure.core.adapter.rv.select;
 
 import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapter;
-import com.sxenon.pure.core.request.select.adapter.rv.ISelectInRecyclerViewAdapterStrategy;
+import com.sxenon.pure.core.select.adapter.rv.ISelectInRecyclerViewAdapterStrategy;
 
 import java.util.List;
 
