@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.strategy.adapter;
+package com.sxenon.pure.core.request.select.adapter.rv;
 
-import com.sxenon.pure.core.request.select.strategy.ISelectStrategy;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
@@ -25,8 +25,14 @@ import java.util.List;
  * Created by Sui on 2017/8/28.
  */
 
-public interface ISelectInAdapterStrategy extends ISelectStrategy {
-    void onOptionSelected(List<Boolean> selectedFlags, int position, IPureAdapterWithSelect adapter);
+public interface ISelectInRecyclerViewAdapterStrategy {
+    void onOptionSelected(List<Boolean> selectedFlags, int position, RecyclerView.Adapter adapter);
 
-    void onOptionUnSelected(List<Boolean> selectedFlags,int position, IPureAdapterWithSelect adapter);
+    void onOptionUnSelected(List<Boolean> selectedFlags, int position, RecyclerView.Adapter adapter);
+
+    void onAllOptionsReversed(List<Boolean> selectedFlags, RecyclerView.Adapter adapter);
+
+    void onAllOptionsSelected(List<Boolean> selectedFlags, RecyclerView.Adapter adapter);
+
+    void onAllOptionsUnSelected(List<Boolean> selectedFlags, RecyclerView.Adapter adapter);
 }

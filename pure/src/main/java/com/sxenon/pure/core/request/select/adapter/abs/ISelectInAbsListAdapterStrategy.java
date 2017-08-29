@@ -14,28 +14,25 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.strategy.adapter;
+package com.sxenon.pure.core.request.select.adapter.abs;
 
-import com.sxenon.pure.core.adapter.IPureAdapter;
+import android.widget.BaseAdapter;
+
+import java.util.List;
 
 /**
- * IPureAdapterWithSelect,for RecyclerView.Adapter
+ * ISelectInAbsListAdapterStrategy
  * Created by Sui on 2017/8/29.
  */
 
-public interface IPureAdapterWithSelect<T> extends IPureAdapter<T> {
-    /**
-     * Concrete adapter based
-     * notifyItemRangeChanged(0,getItemCount(),true);
-     * notifyDataSetChanged();
-     */
-    void notifySelectReset();
+public interface ISelectInAbsListAdapterStrategy {
+    void onOptionSelected(List<Boolean> selectedFlags, int position, BaseAdapter adapter);
 
-    /**
-     * Concrete adapter based
-     * It can be:
-     * notifyItemChanged(position,true);
-     * notifyItemChanged(position);
-     */
-    void notifySelectChange(int position);
+    void onOptionUnSelected(List<Boolean> selectedFlags, int position, BaseAdapter adapter);
+
+    void onAllOptionsReversed(List<Boolean> selectedFlags, BaseAdapter adapter);
+
+    void onAllOptionsSelected(List<Boolean> selectedFlags, BaseAdapter adapter);
+
+    void onAllOptionsUnSelected(List<Boolean> selectedFlags, BaseAdapter adapter);
 }

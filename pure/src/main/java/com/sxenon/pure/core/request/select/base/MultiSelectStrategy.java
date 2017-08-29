@@ -14,17 +14,25 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.strategy;
+package com.sxenon.pure.core.request.select.base;
 
 import java.util.List;
 
 /**
- * Strategy for select
- * Created by Sui on 2017/8/20.
+ * Multi strategy implement for ISelectStrategy
+ * Created by Sui on 2017/1/12.
  */
 
-public interface ISelectStrategy {
-    void onOptionSelected(List<Boolean> selectedFlags,int position);
+public class MultiSelectStrategy extends BaseSelectStrategy {
 
-    void onOptionUnSelected(List<Boolean> selectedFlags,int position);
+    @Override
+    public void onOptionSelected(List<Boolean> selectedFlags,int position) {
+        selectedFlags.set(position, true);
+    }
+
+    @Override
+    public void onOptionUnSelected(List<Boolean> selectedFlags,int position) {
+        selectedFlags.set(position, false);
+    }
+
 }

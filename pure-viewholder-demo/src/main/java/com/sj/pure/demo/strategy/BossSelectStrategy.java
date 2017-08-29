@@ -12,7 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *//*
+
 
 package com.sj.pure.demo.strategy;
 
@@ -21,10 +22,12 @@ import com.sxenon.pure.core.request.select.strategy.ISelectStrategy;
 import java.util.Collections;
 import java.util.List;
 
+*/
 /**
  * Boss直聘上 区域选择的效果实现
  * Created by Sui on 2017/8/29.
- */
+ *//*
+
 
 public class BossSelectStrategy implements ISelectStrategy {
 
@@ -46,3 +49,4 @@ public class BossSelectStrategy implements ISelectStrategy {
         }
     }
 }
+*/

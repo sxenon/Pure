@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.request.select.strategy;
+package com.sxenon.pure.core.request.select.base;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
  * Created by Sui on 2017/1/12.
  */
 
-public class SingleSelectStrategy implements ISelectStrategy {
+public class SingleSelectStrategy extends BaseSelectStrategy {
 
     @Override
     public void onOptionSelected(List<Boolean> selectedFlags,int position) {
