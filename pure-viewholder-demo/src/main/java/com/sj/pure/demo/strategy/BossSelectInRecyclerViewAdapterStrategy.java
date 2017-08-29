@@ -19,11 +19,8 @@ package com.sj.pure.demo.strategy;
 import android.support.v7.widget.RecyclerView;
 
 import com.sxenon.pure.core.select.adapter.rv.BaseSelectInRecyclerViewAdapterStrategy;
-import com.sxenon.pure.core.select.adapter.rv.ISelectInRecyclerViewAdapterStrategy;
 import com.sxenon.pure.core.select.adapter.rv.SelectDiffCallBack;
-import com.sxenon.pure.core.select.base.ISelectStrategy;
 
-import java.util.Collections;
 import java.util.List;
 
 
@@ -35,8 +32,8 @@ import java.util.List;
 
 public class BossSelectInRecyclerViewAdapterStrategy extends BaseSelectInRecyclerViewAdapterStrategy {
 
-    public BossSelectInRecyclerViewAdapterStrategy() {
-        super(new BossSelectStrategy());
+    public BossSelectInRecyclerViewAdapterStrategy(BossSelectStrategy innerSelectStrategy) {
+        super(innerSelectStrategy);
     }
 
     @Override
