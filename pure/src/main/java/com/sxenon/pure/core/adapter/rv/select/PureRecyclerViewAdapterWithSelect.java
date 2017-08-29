@@ -98,7 +98,7 @@ public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerV
         for (int i = selectedIndexList.size() - 1; i >= 0; i--) {
             data.remove((int) selectedIndexList.get(i));
         }
-        notifyDataSetChanged();
+        notifySelectReset();
     }
 
     public BaseSelectSubmitter getSelectSubmitter() {
