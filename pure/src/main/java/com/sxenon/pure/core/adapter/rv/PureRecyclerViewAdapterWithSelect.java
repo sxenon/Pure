@@ -16,6 +16,7 @@
 
 package com.sxenon.pure.core.adapter.rv;
 
+import com.sxenon.pure.core.adapter.IPureAdapterWithSelect;
 import com.sxenon.pure.core.request.select.BaseSelectSubmitter;
 import com.sxenon.pure.core.adapter.rv.select.ISelectInRvAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IListFillerViewHolder;
@@ -28,7 +29,7 @@ import java.util.List;
  * Created by Sui on 2017/8/21.
  */
 
-public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerViewAdapter<T> {
+public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerViewAdapter<T> implements IPureAdapterWithSelect<T>{
     private BaseSelectSubmitter selectSubmitter;
     private final ISelectInRvAdapterStrategy selectStrategy;
 
@@ -103,20 +104,5 @@ public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerV
     public BaseSelectSubmitter getSelectSubmitter() {
         return selectSubmitter;
     }
-
-    /**
-     * Concrete adapter based
-     * notifyItemRangeChanged(0,getItemCount(),true);
-     * notifyDataSetChanged();
-     */
-    public abstract void notifySelectReset();
-
-    /**
-     * Concrete adapter based
-     * It can be:
-     * notifyItemChanged(position,true);
-     * notifyItemChanged(position);
-     */
-    public abstract void notifySelectChange(int position);
 
 }

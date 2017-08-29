@@ -16,26 +16,24 @@
 
 package com.sxenon.pure.core.adapter.rv.select;
 
-import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapterWithSelect;
-import com.sxenon.pure.core.request.select.strategy.SingleSelectStrategy;
-
-import java.util.List;
+import com.sxenon.pure.core.adapter.IPureAdapterWithSelect;
+import com.sxenon.pure.core.request.select.strategy.MultiSelectStrategy;
 
 /**
  * Concrete adapter based
  * Created by Sui on 2017/8/28.
  */
 
-public class MultiSelectInRvAdapterStrategy extends SingleSelectStrategy implements ISelectInRvAdapterStrategy {
+public class MultiSelectInRvAdapterStrategy extends MultiSelectStrategy implements ISelectInRvAdapterStrategy {
     @Override
-    public void onOptionSelected(int position, PureRecyclerViewAdapterWithSelect adapter) {
+    public void onOptionSelected(int position, IPureAdapterWithSelect adapter) {
         onOptionSelected(position);
-        adapter.notifySelectChange(position);
+        //adapter.notifySelectChange(position);
     }
 
     @Override
-    public void onOptionUnSelected(int position, PureRecyclerViewAdapterWithSelect adapter) {
-        onOptionSelected(position);
-        adapter.notifySelectChange(position);
+    public void onOptionUnSelected(int position, IPureAdapterWithSelect adapter) {
+        onOptionUnSelected(position);
+        //adapter.notifySelectChange(position);
     }
 }

@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter.rv.select;
-
-import com.sxenon.pure.core.adapter.IPureAdapterWithSelect;
-import com.sxenon.pure.core.request.select.strategy.ISelectStrategy;
+package com.sxenon.pure.core.adapter;
 
 /**
- * Select strategy in IPureAdapter
- * Created by Sui on 2017/8/28.
+ * IPureAdapterWithSelect,for RecyclerView.Adapter
+ * Created by Sui on 2017/8/29.
  */
 
-public interface ISelectInRvAdapterStrategy extends ISelectStrategy {
-    void onOptionSelected(int position, IPureAdapterWithSelect adapter);
+public interface IPureAdapterWithSelect<T> extends IPureAdapter<T> {
+    /**
+     * Concrete adapter based
+     * notifyItemRangeChanged(0,getItemCount(),true);
+     * notifyDataSetChanged();
+     */
+    void notifySelectReset();
 
-    void onOptionUnSelected(int position, IPureAdapterWithSelect adapter);
+    /**
+     * Concrete adapter based
+     * It can be:
+     * notifyItemChanged(position,true);
+     * notifyItemChanged(position);
+     */
+    void notifySelectChange(int position);
 }
