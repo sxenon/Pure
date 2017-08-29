@@ -41,7 +41,7 @@ public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<Pu
     private List<R> mData = new ArrayList<>();
 
     /**
-     * @param container The viewHolder which contain the adapter
+     * @param container              The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
     public PureRecyclerViewAdapter(IListFillerViewHolder<R> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
@@ -229,7 +229,7 @@ public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<Pu
         return mData.size();
     }
 
-    public IListFillerViewHolder<R> getContainer(){
+    public IListFillerViewHolder<R> getContainer() {
         return mContainer;
     }
 

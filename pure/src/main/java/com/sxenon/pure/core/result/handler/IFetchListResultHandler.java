@@ -23,6 +23,6 @@ import com.sxenon.pure.core.result.filler.IListResultFiller;
  * Created by Sui on 2016/12/8.
  */
 
-public interface IFetchListResultHandler<R> extends IListResultFiller<R>,IResultHandler {
+public interface IFetchListResultHandler<R> extends IListResultFiller<R>, IResultHandler {
 
 }

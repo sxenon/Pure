@@ -44,39 +44,39 @@ public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerV
     @Override
     public void resetAllItems(List<T> values) {
         super.resetAllItems(values);
-        selectedFlags=new ArrayList<>(getItemCount());
+        selectedFlags = new ArrayList<>(getItemCount());
     }
 
     public void appendOption(T data) {
-        selectStrategy.onOptionAppended(selectedFlags,data,this);
+        selectStrategy.onOptionAppended(selectedFlags, data, this);
     }
 
     public void removeOption(int position) {
-        selectStrategy.onOptionRemoved(selectedFlags,position,this);
+        selectStrategy.onOptionRemoved(selectedFlags, position, this);
     }
 
     public void selectOption(int position) {
-        selectStrategy.onOptionSelected(selectedFlags,position, this);
+        selectStrategy.onOptionSelected(selectedFlags, position, this);
     }
 
     public void unSelectOption(int position) {
-        selectStrategy.onOptionUnSelected(selectedFlags,position, this);
+        selectStrategy.onOptionUnSelected(selectedFlags, position, this);
     }
 
     public void selectAllOptions() {
-        selectStrategy.onAllOptionsSelected(selectedFlags,this);
+        selectStrategy.onAllOptionsSelected(selectedFlags, this);
     }
 
     public void unSelectAllOptions() {
-        selectStrategy.onAllOptionsUnSelected(selectedFlags,this);
+        selectStrategy.onAllOptionsUnSelected(selectedFlags, this);
     }
 
     public void reverseAllOptions() {
-        selectStrategy.onAllOptionsReversed(selectedFlags,this);
+        selectStrategy.onAllOptionsReversed(selectedFlags, this);
     }
 
     public void removeSelectedOptions() {
-        selectStrategy.onSelectedOptionsRemoved(selectedFlags,this);
+        selectStrategy.onSelectedOptionsRemoved(selectedFlags, this);
     }
 
     public List<Boolean> getSelectedFlags() {

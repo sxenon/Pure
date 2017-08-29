@@ -30,13 +30,13 @@ import java.util.List;
 public class BaseSelectInAbsListAdapterStrategy implements ISelectInAbsListAdapterStrategy {
     private ISelectStrategy innerSelectStrategy;
 
-    public BaseSelectInAbsListAdapterStrategy(ISelectStrategy innerSelectStrategy){
-        this.innerSelectStrategy=innerSelectStrategy;
+    public BaseSelectInAbsListAdapterStrategy(ISelectStrategy innerSelectStrategy) {
+        this.innerSelectStrategy = innerSelectStrategy;
     }
 
     @Override
     public void onOptionSelected(List<Boolean> selectedFlags, int position, BaseAdapter adapter) {
-        if (selectedFlags.get(position)){
+        if (selectedFlags.get(position)) {
             return;
         }
 
@@ -46,7 +46,7 @@ public class BaseSelectInAbsListAdapterStrategy implements ISelectInAbsListAdapt
 
     @Override
     public void onOptionUnSelected(List<Boolean> selectedFlags, int position, BaseAdapter adapter) {
-        if (!selectedFlags.get(position)){
+        if (!selectedFlags.get(position)) {
             return;
         }
 

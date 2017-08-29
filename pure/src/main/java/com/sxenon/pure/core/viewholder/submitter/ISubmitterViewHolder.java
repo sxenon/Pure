@@ -24,6 +24,6 @@ import com.sxenon.pure.core.viewholder.IViewHolder;
  * Created by Sui on 2016/12/12.
  */
 
-public interface ISubmitterViewHolder<T> extends IRequestSubmitter<T>,IViewHolder {
+public interface ISubmitterViewHolder<T> extends IRequestSubmitter<T>, IViewHolder {
 
 }

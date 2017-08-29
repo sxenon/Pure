@@ -23,6 +23,6 @@ import com.sxenon.pure.core.result.filler.ISubmitResultFiller;
  * Created by Sui on 2016/12/12.
  */
 
-public interface ISubmitResultHandler<R> extends ISubmitResultFiller<R>,IResultHandler {
+public interface ISubmitResultHandler<R> extends ISubmitResultFiller<R>, IResultHandler {
 
 }

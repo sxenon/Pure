@@ -24,6 +24,6 @@ import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
  * Created by Sui on 2017/8/19.
  */
 
-public interface ISingleFillerViewHolder<R> extends IFetchSingleResultHandler<R>,IFillerViewHolder{
+public interface ISingleFillerViewHolder<R> extends IFetchSingleResultHandler<R>, IFillerViewHolder {
     void setSingleResultFiller(ISingleResultFiller<R> fetchSingleResultHandler);
 }

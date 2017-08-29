@@ -26,12 +26,12 @@ import java.util.List;
 public class MultiSelectStrategy extends BaseSelectStrategy {
 
     @Override
-    public void onOptionSelected(List<Boolean> selectedFlags,int position) {
+    public void onOptionSelected(List<Boolean> selectedFlags, int position) {
         selectedFlags.set(position, true);
     }
 
     @Override
-    public void onOptionUnSelected(List<Boolean> selectedFlags,int position) {
+    public void onOptionUnSelected(List<Boolean> selectedFlags, int position) {
         selectedFlags.set(position, false);
     }
 

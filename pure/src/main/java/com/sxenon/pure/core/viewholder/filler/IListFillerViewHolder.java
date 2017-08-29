@@ -24,6 +24,6 @@ import com.sxenon.pure.core.result.handler.IFetchListResultHandler;
  * Created by Sui on 2017/8/19.
  */
 
-public interface IListFillerViewHolder<R> extends IFetchListResultHandler<R>,IFillerViewHolder {
+public interface IListFillerViewHolder<R> extends IFetchListResultHandler<R>, IFillerViewHolder {
     void setAdapter(IPureAdapter<R> adapter);
 }

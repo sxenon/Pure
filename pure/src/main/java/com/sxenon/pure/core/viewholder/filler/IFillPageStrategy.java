@@ -42,7 +42,7 @@ public interface IFillPageStrategy<R> {
 
     void onPullUp(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
 
-    void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter,PageInfo pageInfo);
+    void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo);
 
     void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
 

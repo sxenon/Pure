@@ -20,7 +20,7 @@ import android.content.Context;
 
 /**
  * Does not equal to ViewGroup,nothing about UI
- *
+ * <p>
  * Created by Sui on 2016/11/20.
  */
 

@@ -149,7 +149,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
 
     //Implement start
     @Override
-    public void onNormal(){
+    public void onNormal() {
         mEventWhat = FillEventWhat.WHAT_NORMAL;
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
@@ -204,7 +204,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         return mApiException;
     }
 
-    public IFillPageStrategy<R> getFillPageStrategy(){
+    public IFillPageStrategy<R> getFillPageStrategy() {
         return mFillPageStrategy;
     }
 
@@ -226,7 +226,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         return pageInfo.currentPage;
     }
 
-    public IFillPageStrategy.PageInfo getPageInfo(){
+    public IFillPageStrategy.PageInfo getPageInfo() {
         return pageInfo;
     }
     //Setter end

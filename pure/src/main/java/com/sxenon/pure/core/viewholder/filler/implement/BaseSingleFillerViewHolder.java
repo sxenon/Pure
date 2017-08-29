@@ -29,9 +29,10 @@ import com.sxenon.pure.core.viewholder.filler.ISingleFillerViewHolder;
  * Created by Sui on 2017/8/19.
  */
 
-public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R,PL> implements ISingleFillerViewHolder<R> {
+public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R, PL> implements ISingleFillerViewHolder<R> {
     private ISingleResultFiller<R> mSingleResultFiller;
     private R mData;
+
     /**
      * Constructor
      *
@@ -44,12 +45,11 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseF
     }
 
     /**
-     *
      * @param singleResultFiller 单一数据的Filler
      */
     @Override
-    public void setSingleResultFiller(ISingleResultFiller<R> singleResultFiller){
-        mSingleResultFiller =singleResultFiller;
+    public void setSingleResultFiller(ISingleResultFiller<R> singleResultFiller) {
+        mSingleResultFiller = singleResultFiller;
     }
 
     @Override
@@ -60,13 +60,13 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseF
     @Override
     public final void restoreData(Object data) {
         //noinspection unchecked
-        mData= (R) data;
+        mData = (R) data;
         mSingleResultFiller.onSingleDataFetched(mData);
     }
 
     @Override
     public void onSingleDataFetched(R data) {
-        mData=data;
+        mData = data;
         endAllAnim();
         if (data == null) {
             getFillPageStrategy().onFetchEmptySingle(this, getPageInfo());

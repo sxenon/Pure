@@ -43,7 +43,7 @@ public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPure
     private final List<R> mData = new ArrayList<>();
 
     /**
-     * @param container The viewHolder which contain the adapter
+     * @param container              The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
     public PureAbsListAdapter(IListFillerViewHolder<R> container, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
@@ -243,7 +243,7 @@ public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPure
         return mItemViewTypeEntryArray.length;
     }
 
-    public IListFillerViewHolder<R> getContainer(){
+    public IListFillerViewHolder<R> getContainer() {
         return mContainer;
     }
 

@@ -24,7 +24,8 @@ import com.sxenon.pure.core.viewholder.IViewHolder;
  * Created by Sui on 2017/8/4.
  */
 
-public interface IFillerViewHolder extends IResultHandler,IViewHolder {
+public interface IFillerViewHolder extends IResultHandler, IViewHolder {
     void onEmpty();
+
     void onNormal();
 }

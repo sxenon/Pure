@@ -24,7 +24,7 @@ import com.sxenon.pure.core.viewholder.IViewHolder;
  * Created by Sui on 2016/12/25.
  */
 
-public interface IAdapterViewHolder<R> extends ISingleResultFiller<R>,IViewHolder{
+public interface IAdapterViewHolder<R> extends ISingleResultFiller<R>, IViewHolder {
     int getPosition();
 
     <A extends IPureAdapter> A getAdapter();

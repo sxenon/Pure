@@ -31,5 +31,5 @@ public interface ISelectInPureAbsListAdapterStrategy<T> extends ISelectInAbsList
 
     void onOptionRemoved(List<Boolean> selectedFlags, int position, PureAbsListAdapter<T> adapter);
 
-    void onSelectedOptionsRemoved(List<Boolean> selectedFlags,PureAbsListAdapter<T> adapter);
+    void onSelectedOptionsRemoved(List<Boolean> selectedFlags, PureAbsListAdapter<T> adapter);
 }

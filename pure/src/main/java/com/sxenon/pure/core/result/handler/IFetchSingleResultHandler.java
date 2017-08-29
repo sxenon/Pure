@@ -23,6 +23,6 @@ import com.sxenon.pure.core.result.filler.ISingleResultFiller;
  * Created by Sui on 2016/12/8.
  */
 
-public interface IFetchSingleResultHandler<R> extends ISingleResultFiller<R>,IResultHandler {
+public interface IFetchSingleResultHandler<R> extends ISingleResultFiller<R>, IResultHandler {
 
 }

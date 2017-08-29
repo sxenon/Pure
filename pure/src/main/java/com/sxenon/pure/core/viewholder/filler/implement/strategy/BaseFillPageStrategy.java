@@ -52,7 +52,7 @@ public abstract class BaseFillPageStrategy<R> implements IFillPageStrategy<R> {
     public void onCancel(IFillerViewHolder fillerViewHolder, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage;
     }
-    
+
     @Override
     public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
         adapter.clearAllItems();

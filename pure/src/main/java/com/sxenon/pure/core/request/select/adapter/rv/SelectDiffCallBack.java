@@ -46,11 +46,11 @@ public class SelectDiffCallBack extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldItemPosition==newItemPosition;
+        return oldItemPosition == newItemPosition;
     }
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldSelectedFlags.get(oldItemPosition)==newSelectedFlags.get(newItemPosition);
+        return oldSelectedFlags.get(oldItemPosition) == newSelectedFlags.get(newItemPosition);
     }
 }

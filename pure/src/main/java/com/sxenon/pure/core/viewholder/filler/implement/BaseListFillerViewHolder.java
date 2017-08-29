@@ -31,7 +31,7 @@ import java.util.List;
  * Created by Sui on 2017/8/19.
  */
 
-public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R,PL> implements IListFillerViewHolder<R> {
+public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R, PL> implements IListFillerViewHolder<R> {
 
     private IPureAdapter<R> mAdapter;
 
@@ -47,12 +47,11 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFil
     }
 
     /**
-     *
      * @param adapter 列表控件相关的adapter
      */
     @Override
-    public void setAdapter(IPureAdapter<R> adapter){
-        mAdapter=adapter;
+    public void setAdapter(IPureAdapter<R> adapter) {
+        mAdapter = adapter;
     }
 
     @Override
@@ -69,13 +68,13 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFil
     @Override
     public void onCancel() {
         super.onCancel();
-        getFillPageStrategy().onCancel(this,mAdapter, getPageInfo());
+        getFillPageStrategy().onCancel(this, mAdapter, getPageInfo());
     }
 
     @Override
     public void onApiException(ApiException apiException) {
         super.onApiException(apiException);
-        getFillPageStrategy().onException(this, apiException,mAdapter, getPageInfo());
+        getFillPageStrategy().onException(this, apiException, mAdapter, getPageInfo());
     }
 
     @Override

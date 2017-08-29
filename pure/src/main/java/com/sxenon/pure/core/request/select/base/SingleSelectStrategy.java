@@ -26,7 +26,7 @@ import java.util.List;
 public class SingleSelectStrategy extends BaseSelectStrategy {
 
     @Override
-    public void onOptionSelected(List<Boolean> selectedFlags,int position) {
+    public void onOptionSelected(List<Boolean> selectedFlags, int position) {
         int lastSelectedPosition = selectedFlags.indexOf(true);
         if (lastSelectedPosition == position) {
             return;
@@ -38,7 +38,7 @@ public class SingleSelectStrategy extends BaseSelectStrategy {
     }
 
     @Override
-    public void onOptionUnSelected(List<Boolean> selectedFlags,int position) {
+    public void onOptionUnSelected(List<Boolean> selectedFlags, int position) {
         selectedFlags.set(position, false);
     }
 }

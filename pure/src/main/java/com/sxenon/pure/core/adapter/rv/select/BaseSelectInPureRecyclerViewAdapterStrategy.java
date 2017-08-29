@@ -64,9 +64,9 @@ public abstract class BaseSelectInPureRecyclerViewAdapterStrategy<T> extends Bas
             }
         }
 
-        Iterator<Boolean> iterator=selectedFlags.iterator();
-        while (iterator.hasNext()){
-            if (iterator.next()){
+        Iterator<Boolean> iterator = selectedFlags.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next()) {
                 iterator.remove();
             }
         }
