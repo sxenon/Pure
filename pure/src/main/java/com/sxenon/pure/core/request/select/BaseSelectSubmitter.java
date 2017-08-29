@@ -98,13 +98,13 @@ public  class BaseSelectSubmitter implements IRequestSubmitter<List<Integer>> {
 
     @Override
     public List<Integer> getDataForSubmit() {
-        final List<Integer> indexList = new ArrayList<>();
+        final List<Integer> positionList = new ArrayList<>();
         if (mSelectStrategy instanceof SingleSelectStrategy){
             Integer selectedPosition=((SingleSelectStrategy) mSelectStrategy).getLastSelectedPosition();
             if (selectedPosition>=0){
-                indexList.add(selectedPosition);
+                positionList.add(selectedPosition);
             }
-            return indexList;
+            return positionList;
         }
         Observable.range(0, mSelectedFlags.size())
                 .filter(new Func1<Integer, Boolean>() {
@@ -116,10 +116,10 @@ public  class BaseSelectSubmitter implements IRequestSubmitter<List<Integer>> {
                 .subscribe(new Action1<Integer>() {
                     @Override
                     public void call(Integer position) {
-                        indexList.add(position);
+                        positionList.add(position);
                     }
                 });
-        return indexList;
+        return positionList;
     }
 
     public List<Boolean> getSelectedFlags() {

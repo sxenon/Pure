@@ -87,16 +87,22 @@ public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerV
     }
 
     public void deletedSelectedOptions() {
-        List<Integer> selectedIndexList = selectSubmitter.getDataForSubmit();
-        if (selectedIndexList.isEmpty()) {
+        List<Integer> selectedPositionList = selectSubmitter.getDataForSubmit();
+        int selectedSize=selectedPositionList.size();
+        if (selectedSize==0) {
+            return;
+        }
+
+        if (selectedSize==1){
+            int selectedPosition = selectedPositionList.get(0);
+            removeOption(selectedPosition);
             return;
         }
 
         selectSubmitter.onSelectedOptionsDeleted();
-
         List<T> data = getValues();
-        for (int i = selectedIndexList.size() - 1; i >= 0; i--) {
-            data.remove((int) selectedIndexList.get(i));
+        for (int i = selectedSize - 1; i >= 0; i--) {
+            data.remove((int) selectedPositionList.get(i));
         }
         notifyDataSetChanged();
     }
