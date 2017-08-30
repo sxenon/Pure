@@ -42,14 +42,4 @@ public abstract class BaseSelectStrategy implements ISelectStrategy {
     public void onAllOptionsUnSelected(List<Boolean> selectedFlags) {
         Collections.fill(selectedFlags, false);
     }
-
-    @Override
-    public void onOptionAppended(List<Boolean> selectedFlags) {
-        selectedFlags.add(false);
-    }
-
-    @Override
-    public void onOptionRemoved(List<Boolean> selectedFlags, int position) {
-        selectedFlags.remove(position);
-    }
 }

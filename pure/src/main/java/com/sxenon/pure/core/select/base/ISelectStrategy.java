@@ -33,8 +33,4 @@ public interface ISelectStrategy {
     void onAllOptionsSelected(List<Boolean> selectedFlags);
 
     void onAllOptionsUnSelected(List<Boolean> selectedFlags);
-
-    void onOptionAppended(List<Boolean> selectedFlags);
-
-    void onOptionRemoved(List<Boolean> selectedFlags, int position);
 }
