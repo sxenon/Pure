@@ -17,8 +17,8 @@
 package com.sxenon.pure.core.adapter.abs.select;
 
 import com.sxenon.pure.core.adapter.abs.PureAbsListAdapter;
-import com.sxenon.pure.core.select.base.ISelectStrategy;
 import com.sxenon.pure.core.select.adapter.abs.BaseSelectInAbsListAdapterStrategy;
+import com.sxenon.pure.core.select.base.ISelectStrategy;
 
 import java.util.List;
 
