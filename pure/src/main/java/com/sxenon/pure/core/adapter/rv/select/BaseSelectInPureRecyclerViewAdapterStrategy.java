@@ -52,16 +52,15 @@ public abstract class BaseSelectInPureRecyclerViewAdapterStrategy<T> extends Bas
     @Override
     public void onSelectedOptionsRemoved(List<Boolean> selectedFlags, PureRecyclerViewAdapter<T> adapter) {
         int size = selectedFlags.size();
-        SparseIntArray beforeRemoved = new SparseIntArray();
-
+        List<Integer> beforeRemoved = new ArrayList<>();
         for (int position = 0; position < size; position++) {
-            beforeRemoved.append(position, position);
+            beforeRemoved.add(position);
         }
 
-        SparseIntArray afterRemoved = beforeRemoved.clone();
+        List<Integer> afterRemoved = new ArrayList<>(beforeRemoved);
         for (int position = size - 1; position >= 0; position--) {
             if (selectedFlags.get(position)) {
-                afterRemoved.delete(position);
+                afterRemoved.remove(position);
                 adapter.removeItem(position);
             }
         }

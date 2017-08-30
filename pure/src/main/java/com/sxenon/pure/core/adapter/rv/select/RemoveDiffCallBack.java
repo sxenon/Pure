@@ -17,7 +17,8 @@
 package com.sxenon.pure.core.adapter.rv.select;
 
 import android.support.v7.util.DiffUtil;
-import android.util.SparseIntArray;
+
+import java.util.List;
 
 /**
  * RemoveDiffCallBack
@@ -25,10 +26,10 @@ import android.util.SparseIntArray;
  */
 
 class RemoveDiffCallBack extends DiffUtil.Callback {
-    private SparseIntArray beforeRemoved;
-    private SparseIntArray afterRemoved;
+    private List<Integer> beforeRemoved;
+    private List<Integer> afterRemoved;
 
-    RemoveDiffCallBack(SparseIntArray beforeRemoved, SparseIntArray afterRemoved) {
+    RemoveDiffCallBack(List<Integer> beforeRemoved, List<Integer> afterRemoved) {
         this.beforeRemoved = beforeRemoved;
         this.afterRemoved = afterRemoved;
     }
@@ -45,7 +46,7 @@ class RemoveDiffCallBack extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return beforeRemoved.keyAt(oldItemPosition) == afterRemoved.keyAt(newItemPosition);
+        return (int)beforeRemoved.get(oldItemPosition) == afterRemoved.get(newItemPosition);
     }
 
     @Override
