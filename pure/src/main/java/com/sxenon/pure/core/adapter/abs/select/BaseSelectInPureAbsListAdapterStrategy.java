@@ -51,26 +51,17 @@ public class BaseSelectInPureAbsListAdapterStrategy<T> extends BaseSelectInAbsLi
     @Override
     public void onSelectedOptionsRemoved(final List<Boolean> selectedFlags, final PureAbsListAdapter<T> adapter) {
         final int size = selectedFlags.size();
-        Observable.range(0, size)
-                .map(new Func1<Integer, Integer>() {
-                    @Override
-                    public Integer call(Integer integer) {
-                        return size - integer;
-                    }
-                })
-                .filter(new Func1<Integer, Boolean>() {
-                    @Override
-                    public Boolean call(Integer position) {
-                        return selectedFlags.get(position);
-                    }
-                })
-                .subscribe(new Action1<Integer>() {
-                    @Override
-                    public void call(Integer position) {
-                        selectedFlags.remove((int) position);
-                        adapter.removeItem(position);
-                    }
-                });
-        adapter.notifyDataSetChanged();
+        boolean selected = false;
+
+        for (int position = size - 1; position >= 0; position--) {
+            if (selectedFlags.get(position)) {
+                adapter.removeItem(position);
+                selected = true;
+            }
+        }
+        if (selected) {
+            selectedFlags.remove(true);
+            adapter.notifyDataSetChanged();
+        }
     }
 }

@@ -55,18 +55,22 @@ public abstract class BaseSelectInPureRecyclerViewAdapterStrategy<T> extends Bas
             beforeRemoved.add(position);
         }
 
+        boolean selected = false;
         List<Integer> afterRemoved = new ArrayList<>(beforeRemoved);
         for (int position = size - 1; position >= 0; position--) {
             if (selectedFlags.get(position)) {
                 afterRemoved.remove(position);
                 adapter.removeItem(position);
+                selected=true;
             }
         }
 
-        selectedFlags.remove(true);
+        if (selected){
+            selectedFlags.remove(true);
 
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new RemoveDiffCallBack(beforeRemoved, afterRemoved), false);
-        result.dispatchUpdatesTo(adapter);
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new RemoveDiffCallBack(beforeRemoved, afterRemoved), false);
+            result.dispatchUpdatesTo(adapter);
+        }
     }
 
 }
