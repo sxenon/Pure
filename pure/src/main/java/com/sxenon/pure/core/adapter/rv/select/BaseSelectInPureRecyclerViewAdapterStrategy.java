@@ -17,6 +17,7 @@
 package com.sxenon.pure.core.adapter.rv.select;
 
 import android.support.v7.util.DiffUtil;
+import android.util.SparseIntArray;
 
 import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapter;
 import com.sxenon.pure.core.select.adapter.rv.BaseSelectInRecyclerViewAdapterStrategy;
@@ -51,28 +52,24 @@ public abstract class BaseSelectInPureRecyclerViewAdapterStrategy<T> extends Bas
     @Override
     public void onSelectedOptionsRemoved(List<Boolean> selectedFlags, PureRecyclerViewAdapter<T> adapter) {
         int size = selectedFlags.size();
-        List<Integer> beforeRemoved = new ArrayList<>(size);
+        SparseIntArray beforeRemoved = new SparseIntArray();
+
         for (int position = 0; position < size; position++) {
-            beforeRemoved.set(position, position);
+            beforeRemoved.append(position, position);
         }
 
-        List<Integer> afterRemoved = new ArrayList<>(beforeRemoved);
+        SparseIntArray afterRemoved = beforeRemoved.clone();
         for (int position = size - 1; position >= 0; position--) {
             if (selectedFlags.get(position)) {
-                afterRemoved.remove((Integer) position);
+                afterRemoved.delete(position);
                 adapter.removeItem(position);
             }
         }
 
-        Iterator<Boolean> iterator = selectedFlags.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next()) {
-                iterator.remove();
-            }
-        }
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff(genRemoveDiffCallBack(beforeRemoved, afterRemoved));
+        selectedFlags.remove(true);
+
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new RemoveDiffCallBack(beforeRemoved, afterRemoved), false);
         result.dispatchUpdatesTo(adapter);
     }
 
-    protected abstract RemoveDiffCallBack genRemoveDiffCallBack(List<Integer> beforeRemoved, List<Integer> afterReMoved);
 }
