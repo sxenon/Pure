@@ -38,7 +38,7 @@ public class BossSubAreaSelectStrategy extends BaseSelectInRecyclerViewAdapterSt
 
     @Override
     public void onAllOptionsReversed(List<Boolean> selectedFlags, RecyclerView.Adapter adapter) {
-        throw new UnsupportedOperationException("UnSupport for reversed all");
+        throw new UnsupportedOperationException("UnSupport for reverse all");
     }
 
     @Override
