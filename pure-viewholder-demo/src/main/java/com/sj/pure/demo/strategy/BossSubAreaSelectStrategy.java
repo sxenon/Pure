@@ -37,19 +37,23 @@ public class BossSubAreaSelectStrategy extends BaseSelectInRecyclerViewAdapterSt
     }
 
     @Override
+    public void onAllOptionsReversed(List<Boolean> selectedFlags, RecyclerView.Adapter adapter) {
+        throw new UnsupportedOperationException("UnSupport for reversed all");
+    }
+
+    @Override
     public void onAllOptionsSelected(List<Boolean> selectedFlags, RecyclerView.Adapter adapter) {
-        if (getInnerSelectStrategy().getSelectedCount() == selectedFlags.size()) {
-            return;
-        }
-        super.onAllOptionsSelected(selectedFlags, adapter);
+        throw new UnsupportedOperationException("UnSupport for select all");
     }
 
     @Override
     public void onAllOptionsUnSelected(List<Boolean> selectedFlags, RecyclerView.Adapter adapter) {
-        if (getInnerSelectStrategy().getSelectedCount() == 0) {
-            return;
-        }
-        super.onAllOptionsUnSelected(selectedFlags, adapter);
+       throw new UnsupportedOperationException("UnSupport for unSelect all");
+    }
+
+    @Override
+    public void onOptionSelected(List<Boolean> selectedFlags, int position, RecyclerView.Adapter adapter) {
+        super.onOptionSelected(selectedFlags, position, adapter);
     }
 
     @Override
