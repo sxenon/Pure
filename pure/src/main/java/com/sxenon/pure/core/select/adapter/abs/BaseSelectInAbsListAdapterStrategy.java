@@ -27,10 +27,10 @@ import java.util.List;
  * Created by Sui on 2017/8/29.
  */
 
-public class BaseSelectInAbsListAdapterStrategy implements ISelectInAbsListAdapterStrategy {
-    private ISelectStrategy innerSelectStrategy;
+public class BaseSelectInAbsListAdapterStrategy<S extends ISelectStrategy> implements ISelectInAbsListAdapterStrategy {
+    private S innerSelectStrategy;
 
-    public BaseSelectInAbsListAdapterStrategy(ISelectStrategy innerSelectStrategy) {
+    public BaseSelectInAbsListAdapterStrategy(S innerSelectStrategy) {
         this.innerSelectStrategy = innerSelectStrategy;
     }
 
@@ -70,5 +70,9 @@ public class BaseSelectInAbsListAdapterStrategy implements ISelectInAbsListAdapt
     public void onAllOptionsUnSelected(List<Boolean> selectedFlags, BaseAdapter adapter) {
         innerSelectStrategy.onAllOptionsUnSelected(selectedFlags);
         adapter.notifyDataSetChanged();
+    }
+
+    public S getInnerSelectStrategy() {
+        return innerSelectStrategy;
     }
 }

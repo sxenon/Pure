@@ -22,17 +22,13 @@ import com.sxenon.pure.core.select.base.ISelectStrategy;
 
 import java.util.List;
 
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func1;
-
 /**
  * BaseSelectInAbsListAdapterStrategy
  * Created by Sui on 2017/8/29.
  */
 
-public class BaseSelectInPureAbsListAdapterStrategy<T> extends BaseSelectInAbsListAdapterStrategy implements ISelectInPureAbsListAdapterStrategy<T> {
-    public BaseSelectInPureAbsListAdapterStrategy(ISelectStrategy innerSelectStrategy) {
+public class BaseSelectInPureAbsListAdapterStrategy<T, S extends ISelectStrategy> extends BaseSelectInAbsListAdapterStrategy<S> implements ISelectInPureAbsListAdapterStrategy<T> {
+    public BaseSelectInPureAbsListAdapterStrategy(S innerSelectStrategy) {
         super(innerSelectStrategy);
     }
 

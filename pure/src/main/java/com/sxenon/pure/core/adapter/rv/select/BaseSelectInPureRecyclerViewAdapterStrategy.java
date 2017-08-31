@@ -30,8 +30,8 @@ import java.util.List;
  * Created by Sui on 2017/8/29.
  */
 
-public abstract class BaseSelectInPureRecyclerViewAdapterStrategy<T> extends BaseSelectInRecyclerViewAdapterStrategy implements ISelectInPureRecyclerViewAdapterStrategy<T> {
-    public BaseSelectInPureRecyclerViewAdapterStrategy(ISelectStrategy innerSelectStrategy) {
+public abstract class BaseSelectInPureRecyclerViewAdapterStrategy<T,S extends ISelectStrategy> extends BaseSelectInRecyclerViewAdapterStrategy<S> implements ISelectInPureRecyclerViewAdapterStrategy<T> {
+    public BaseSelectInPureRecyclerViewAdapterStrategy(S innerSelectStrategy) {
         super(innerSelectStrategy);
     }
 

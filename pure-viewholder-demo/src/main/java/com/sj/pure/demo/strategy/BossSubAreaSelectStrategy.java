@@ -30,10 +30,26 @@ import java.util.List;
  */
 
 
-public class BossSelectInRecyclerViewAdapterStrategy extends BaseSelectInRecyclerViewAdapterStrategy {
+public class BossSubAreaSelectStrategy extends BaseSelectInRecyclerViewAdapterStrategy<BossSubAreaInnerSelectStrategy> {
 
-    public BossSelectInRecyclerViewAdapterStrategy(BossSelectStrategy innerSelectStrategy) {
+    public BossSubAreaSelectStrategy(BossSubAreaInnerSelectStrategy innerSelectStrategy) {
         super(innerSelectStrategy);
+    }
+
+    @Override
+    public void onAllOptionsSelected(List<Boolean> selectedFlags, RecyclerView.Adapter adapter) {
+        if (getInnerSelectStrategy().getSelectedCount() == selectedFlags.size()) {
+            return;
+        }
+        super.onAllOptionsSelected(selectedFlags, adapter);
+    }
+
+    @Override
+    public void onAllOptionsUnSelected(List<Boolean> selectedFlags, RecyclerView.Adapter adapter) {
+        if (getInnerSelectStrategy().getSelectedCount() == 0) {
+            return;
+        }
+        super.onAllOptionsUnSelected(selectedFlags, adapter);
     }
 
     @Override
@@ -48,5 +64,6 @@ public class BossSelectInRecyclerViewAdapterStrategy extends BaseSelectInRecycle
     protected SelectDiffCallBack genSelectDiffCallBack(List<Boolean> oldSelectedFlags, List<Boolean> newSelectedFlags) {
         return new SelectDiffCallBack(oldSelectedFlags, newSelectedFlags);
     }
+
 }
 

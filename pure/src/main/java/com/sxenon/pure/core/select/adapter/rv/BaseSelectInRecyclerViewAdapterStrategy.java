@@ -29,10 +29,10 @@ import java.util.List;
  * Created by Sui on 2017/8/28.
  */
 
-public abstract class BaseSelectInRecyclerViewAdapterStrategy implements ISelectInRecyclerViewAdapterStrategy {
-    private ISelectStrategy innerSelectStrategy;
+public abstract class BaseSelectInRecyclerViewAdapterStrategy<S extends ISelectStrategy> implements ISelectInRecyclerViewAdapterStrategy {
+    private S innerSelectStrategy;
 
-    public BaseSelectInRecyclerViewAdapterStrategy(ISelectStrategy innerSelectStrategy) {
+    public BaseSelectInRecyclerViewAdapterStrategy(S innerSelectStrategy) {
         this.innerSelectStrategy = innerSelectStrategy;
     }
 
@@ -80,6 +80,10 @@ public abstract class BaseSelectInRecyclerViewAdapterStrategy implements ISelect
         innerSelectStrategy.onAllOptionsUnSelected(selectedFlags);
         DiffUtil.DiffResult result = DiffUtil.calculateDiff(genSelectDiffCallBack(oldSelectedFlags, selectedFlags), false);
         result.dispatchUpdatesTo(adapter);
+    }
+
+    public S getInnerSelectStrategy() {
+        return innerSelectStrategy;
     }
 
     protected abstract SelectDiffCallBack genSelectDiffCallBack(List<Boolean> oldSelectedFlags, List<Boolean> newSelectedFlags);
