@@ -38,7 +38,11 @@ public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
         super(fillAdapterStrategy);
     }
 
-    public void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    public void onFullMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
+        getListDataFillStrategy().onMoreDataFetched(adapter, data);
+    }
+
+    public void onPartialMoreDataFetched(IPureAdapter<R> adapter, List<R> data){
         getListDataFillStrategy().onMoreDataFetched(adapter, data);
     }
 
@@ -65,8 +69,13 @@ public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
         } else if (pageInfo.tempPage == pageInfo.currentPage) {//refresh
             onNewDataFetched(adapter, data);
         } else {
-            onMoreDataFetched(adapter, data);
+            if (data.size()< getListSizeInFullPage()){
+                onPartialMoreDataFetched(adapter,data);
+            }else {
+                onFullMoreDataFetched(adapter, data);
+            }
         }
+        pageInfo.currentPage = pageInfo.tempPage;
     }
 
     @Override
@@ -105,5 +114,4 @@ public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     public void onPullUp(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage + 1;
     }
-
 }

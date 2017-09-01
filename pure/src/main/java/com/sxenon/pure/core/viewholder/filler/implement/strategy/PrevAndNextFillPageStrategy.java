@@ -45,36 +45,48 @@ public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
 
     }
 
+    public void onFullNextDataFetched(IPureAdapter<R> adapter, List<R> data) {
+        getListDataFillStrategy().onMoreDataFetched(adapter, data);
+    }
+
+    public void onPartialNextDataFetched(IPureAdapter<R> adapter, List<R> data){
+        getListDataFillStrategy().onMoreDataFetched(adapter, data);
+    }
+
     @Override
     public void processList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+        if (data.size()< getListSizeInFullPage()){
+            onPartialNextDataFetched(adapter,data);
+        }else {
+            onFullNextDataFetched(adapter, data);
+        }
         pageInfo.currentPage = pageInfo.tempPage;
-        getListDataFillStrategy().onInitDataFetched(adapter, data);
     }
 
     @Override
     public void onFetchEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
-        pageInfo.tempPage = pageInfo.currentPage;
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
         } else {
             onNoMoreData();
         }
+        pageInfo.tempPage = pageInfo.currentPage;
     }
 
     @Override
     public void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
-        pageInfo.currentPage = pageInfo.tempPage;
         singleResultFiller.onSingleDataFetched(data);
+        pageInfo.currentPage = pageInfo.tempPage;
     }
 
     @Override
     public void onFetchEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
-        pageInfo.tempPage = pageInfo.currentPage;
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
         } else {
             onNoMoreData();
         }
+        pageInfo.tempPage = pageInfo.currentPage;
     }
 
     @Override
@@ -92,5 +104,4 @@ public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     public void onPullUp(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage + 1;
     }
-
 }

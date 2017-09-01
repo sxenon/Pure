@@ -63,4 +63,12 @@ public abstract class BaseFillPageStrategy<R> implements IFillPageStrategy<R> {
     public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
         pageInfo.currentPage = pageInfo.tempPage = -1;
     }
+
+    /**
+     * list size in full page
+     * @return 完整页的list size
+     */
+    protected int getListSizeInFullPage(){
+        return 0;
+    }
 }
