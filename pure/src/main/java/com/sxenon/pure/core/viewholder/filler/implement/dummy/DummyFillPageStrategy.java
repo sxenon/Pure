@@ -40,12 +40,17 @@ class DummyFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processFullList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         getListDataFillStrategy().onInitDataFetched(adapter, data);
     }
 
     @Override
-    public void onFetchEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+    public void processPartialList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+        getListDataFillStrategy().onInitDataFetched(adapter, data);
+    }
+
+    @Override
+    public void processEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         fillerViewHolder.onEmpty();
     }
 
@@ -55,7 +60,7 @@ class DummyFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onFetchEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+    public void processEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         fillerViewHolder.onEmpty();
     }
 

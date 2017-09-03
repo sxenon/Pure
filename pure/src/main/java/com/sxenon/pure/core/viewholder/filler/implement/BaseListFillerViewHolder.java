@@ -35,15 +35,19 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFil
 
     private IPureAdapter<R> mAdapter;
 
+    private int mDataSizeInFullPage;
+
     /**
      * Constructor
      *
      * @param context          上下文
      * @param pullLayout       刷新容器
      * @param fillPageStrategy 分页数据填充策略
+     * @param dataSizeInFullPage 完整页数据个数
      */
-    public BaseListFillerViewHolder(Context context, PL pullLayout, IFillPageStrategy<R> fillPageStrategy) {
+    public BaseListFillerViewHolder(Context context, PL pullLayout, IFillPageStrategy<R> fillPageStrategy,int dataSizeInFullPage) {
         super(context, pullLayout, fillPageStrategy);
+        mDataSizeInFullPage = dataSizeInFullPage;
     }
 
     /**
@@ -58,10 +62,14 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFil
     public void onListDataFetched(List<R> data) {
         endAllAnim();
         if (data == null || data.isEmpty()) {
-            getFillPageStrategy().onFetchEmptyList(this, getPageInfo());
+            getFillPageStrategy().processEmptyList(this, getPageInfo());
         } else {
-            onNormal();
-            getFillPageStrategy().processList(this, data, mAdapter, getPageInfo());
+            onNonEmpty();
+            if (data.size()<mDataSizeInFullPage){
+                getFillPageStrategy().processPartialList(this,data,mAdapter,getPageInfo());
+            }else {
+                getFillPageStrategy().processFullList(this, data, mAdapter, getPageInfo());
+            }
         }
     }
 

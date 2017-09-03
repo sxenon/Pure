@@ -23,7 +23,7 @@ package com.sxenon.pure.core.viewholder.filler;
 
 public class FillEventWhat {
     public static final int WHAT_UNINITIALIZED = 1;
-    public static final int WHAT_NORMAL = 2;
+    public static final int WHAT_NON_EMPTY = 2;
     public static final int WHAT_EMPTY = 3;
     public static final int WHAT_EXCEPTION = 4;
 }

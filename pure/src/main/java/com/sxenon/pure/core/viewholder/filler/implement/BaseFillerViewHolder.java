@@ -140,7 +140,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
             case FillEventWhat.WHAT_UNINITIALIZED:
                 toInitialize();
                 break;
-            case FillEventWhat.WHAT_NORMAL:
+            case FillEventWhat.WHAT_NON_EMPTY:
                 restoreData(savedEvent.obj);
                 break;
         }
@@ -149,8 +149,8 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
 
     //Implement start
     @Override
-    public void onNormal() {
-        mEventWhat = FillEventWhat.WHAT_NORMAL;
+    public void onNonEmpty() {
+        mEventWhat = FillEventWhat.WHAT_NON_EMPTY;
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
     }

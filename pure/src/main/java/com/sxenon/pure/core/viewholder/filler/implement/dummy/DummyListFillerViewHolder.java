@@ -27,11 +27,11 @@ import com.sxenon.pure.core.viewholder.filler.implement.BaseListFillerViewHolder
  */
 
 public class DummyListFillerViewHolder<R> extends BaseListFillerViewHolder<R, DummyPullLayout> {
-    public DummyListFillerViewHolder(Context context) {
-        super(context, new DummyPullLayout(), new DummyFillPageStrategy<R>());
+    public DummyListFillerViewHolder(Context context,int dataSizeInFullPage) {
+        super(context, new DummyPullLayout(), new DummyFillPageStrategy<R>(),dataSizeInFullPage);
     }
 
-    public DummyListFillerViewHolder(Context context, IFillAdapterStrategy<R> fillAdapterStrategy) {
-        super(context, new DummyPullLayout(), new DummyFillPageStrategy<>(fillAdapterStrategy));
+    public DummyListFillerViewHolder(Context context, IFillAdapterStrategy<R> fillAdapterStrategy,int dataSizeInFullPage) {
+        super(context, new DummyPullLayout(), new DummyFillPageStrategy<>(fillAdapterStrategy),dataSizeInFullPage);
     }
 }

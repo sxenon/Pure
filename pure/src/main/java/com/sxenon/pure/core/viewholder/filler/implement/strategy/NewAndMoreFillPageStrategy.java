@@ -63,23 +63,31 @@ public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processPartialList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             onInitDataFetched(adapter, data);
         } else if (pageInfo.tempPage == pageInfo.currentPage) {//refresh
             onNewDataFetched(adapter, data);
         } else {
-            if (data.size()< getListSizeInFullPage()){
-                onPartialMoreDataFetched(adapter,data);
-            }else {
-                onFullMoreDataFetched(adapter, data);
-            }
+            onPartialMoreDataFetched(adapter,data);
         }
         pageInfo.currentPage = pageInfo.tempPage;
     }
 
     @Override
-    public void onFetchEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+    public void processFullList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+        if (pageInfo.currentPage == -1) {
+            onInitDataFetched(adapter, data);
+        } else if (pageInfo.tempPage == pageInfo.currentPage) {//refresh
+            onNewDataFetched(adapter, data);
+        } else {
+            onFullMoreDataFetched(adapter, data);
+        }
+        pageInfo.currentPage = pageInfo.tempPage;
+    }
+
+    @Override
+    public void processEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
         } else if (pageInfo.tempPage == pageInfo.currentPage) {//refreshForAdd
@@ -96,7 +104,7 @@ public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onFetchEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+    public void processEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         throw new UnsupportedOperationException("Only list data support");
     }
 

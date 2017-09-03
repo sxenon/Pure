@@ -54,17 +54,19 @@ public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
-        if (data.size()< getListSizeInFullPage()){
-            onPartialNextDataFetched(adapter,data);
-        }else {
-            onFullNextDataFetched(adapter, data);
-        }
+    public void processPartialList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+        onPartialNextDataFetched(adapter,data);
         pageInfo.currentPage = pageInfo.tempPage;
     }
 
     @Override
-    public void onFetchEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+    public void processFullList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+        onFullNextDataFetched(adapter, data);
+        pageInfo.currentPage = pageInfo.tempPage;
+    }
+
+    @Override
+    public void processEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
         } else {
@@ -80,7 +82,7 @@ public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void onFetchEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+    public void processEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
         } else {

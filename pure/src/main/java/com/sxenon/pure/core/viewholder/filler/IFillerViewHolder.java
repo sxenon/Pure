@@ -27,5 +27,5 @@ import com.sxenon.pure.core.viewholder.IViewHolder;
 public interface IFillerViewHolder extends IResultHandler, IViewHolder {
     void onEmpty();
 
-    void onNormal();
+    void onNonEmpty();
 }
