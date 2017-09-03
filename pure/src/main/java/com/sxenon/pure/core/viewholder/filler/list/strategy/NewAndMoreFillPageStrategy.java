@@ -152,4 +152,42 @@ public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategyForList<R
         void onInitialize();
     }
 
+    public static class SimpleFillEventListener<R> implements FillEventListener<R>{
+
+        @Override
+        public void onFullMoreDataFetched(List<R> data) {
+
+        }
+
+        @Override
+        public void onPartialMoreDataFetched(List<R> data) {
+
+        }
+
+        @Override
+        public void onNewDataFetched(List<R> data) {
+
+        }
+
+        @Override
+        public void onInitDataFetched(List<R> data) {
+
+        }
+
+        @Override
+        public void onNoMoreData() {
+
+        }
+
+        @Override
+        public void onNoNewData() {
+
+        }
+
+        @Override
+        public void onInitialize() {
+
+        }
+    }
+
 }

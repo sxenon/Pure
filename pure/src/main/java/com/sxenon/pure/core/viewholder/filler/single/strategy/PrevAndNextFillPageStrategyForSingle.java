@@ -116,4 +116,32 @@ public class PrevAndNextFillPageStrategyForSingle<R> extends BaseFillPageStrateg
         void onNoNextData();
         void onInitialize();
     }
+
+    public static class SimpleFillEventListener<R> implements FillEventListener<R>{
+
+        @Override
+        public void onNextDataFetched(R data) {
+
+        }
+
+        @Override
+        public void onPrevDataFetched(R data) {
+
+        }
+
+        @Override
+        public void onNoPrevData() {
+
+        }
+
+        @Override
+        public void onNoNextData() {
+
+        }
+
+        @Override
+        public void onInitialize() {
+
+        }
+    }
 }

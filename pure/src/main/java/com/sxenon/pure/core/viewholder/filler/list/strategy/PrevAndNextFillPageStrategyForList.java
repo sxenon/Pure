@@ -140,4 +140,37 @@ public class PrevAndNextFillPageStrategyForList<R> extends BaseFillPageStrategyF
         void onNoNextData();
         void onInitialize();
     }
+
+    public static class SimpleFillEventListener<R> implements FillEventListener<R>{
+
+        @Override
+        public void onFullNextDataFetched(List<R> data) {
+
+        }
+
+        @Override
+        public void onPartialNextDataFetched(List<R> data) {
+
+        }
+
+        @Override
+        public void onPrevDataFetched(List<R> data) {
+
+        }
+
+        @Override
+        public void onNoPrevData() {
+
+        }
+
+        @Override
+        public void onNoNextData() {
+
+        }
+
+        @Override
+        public void onInitialize() {
+
+        }
+    }
 }

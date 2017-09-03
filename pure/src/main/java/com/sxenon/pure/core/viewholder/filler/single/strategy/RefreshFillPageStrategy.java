@@ -71,4 +71,17 @@ public class RefreshFillPageStrategy<R> extends BaseFillPageStrategyForSingle<R>
         void onInitialize();
         void onInitDataFetched(R data);
     }
+
+    public static class SimpleFillEventListener<R> implements FillEventListener<R>{
+
+        @Override
+        public void onInitialize() {
+
+        }
+
+        @Override
+        public void onInitDataFetched(R data) {
+
+        }
+    }
 }
