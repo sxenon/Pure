@@ -22,8 +22,6 @@ package com.sxenon.pure.core.viewholder.filler;
  */
 
 public interface IFillPageStrategy {
-    void onInitialize();
-
     void onPullDown(PageInfo pageInfo);
 
     void onPullUp(PageInfo pageInfo);

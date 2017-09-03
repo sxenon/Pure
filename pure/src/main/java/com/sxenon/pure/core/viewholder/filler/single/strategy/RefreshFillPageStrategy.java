@@ -26,10 +26,12 @@ import com.sxenon.pure.core.viewholder.filler.single.BaseFillPageStrategyForSing
  */
 
 public class RefreshFillPageStrategy<R> extends BaseFillPageStrategyForSingle<R> {
+    private FillEventListener mFillEventListener;
 
-    @Override
-    public void onInitialize() {
-
+    private void onInitialize() {
+        if (mFillEventListener!=null){
+            mFillEventListener.onInitialize();
+        }
     }
 
     @Override
@@ -49,11 +51,24 @@ public class RefreshFillPageStrategy<R> extends BaseFillPageStrategyForSingle<R>
     public void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
         singleResultFiller.onSingleDataFetched(data);
         pageInfo.tempPage = pageInfo.currentPage = 0;
+        if (mFillEventListener!=null){
+            //noinspection unchecked
+            mFillEventListener.onInitDataFetched(data);
+        }
     }
 
     @Override
     public void processEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
         fillerViewHolder.onEmpty();
         pageInfo.tempPage = pageInfo.currentPage =-1;
+    }
+
+    public void setFillEventListener(FillEventListener fillEventListener) {
+        this.mFillEventListener = fillEventListener;
+    }
+
+    public interface FillEventListener<R> {
+        void onInitialize();
+        void onInitDataFetched(R data);
     }
 }

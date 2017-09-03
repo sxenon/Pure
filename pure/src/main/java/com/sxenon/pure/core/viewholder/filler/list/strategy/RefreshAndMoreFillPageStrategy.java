@@ -30,6 +30,8 @@ import java.util.List;
 
 public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategyForList<R> {
 
+    private FillEventListener mFillEventListener;
+
     public RefreshAndMoreFillPageStrategy() {
         super();
     }
@@ -38,25 +40,40 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategyForLi
         super(fillAdapterStrategy);
     }
 
-    public void onFullMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    private void onFullMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
         getListDataFillStrategy().onMoreDataFetched(adapter, data);
+        if (mFillEventListener!=null){
+            //noinspection unchecked
+            mFillEventListener.onFullMoreDataFetched(data);
+        }
     }
 
-    public void onPartialMoreDataFetched(IPureAdapter<R> adapter, List<R> data){
+    private void onPartialMoreDataFetched(IPureAdapter<R> adapter, List<R> data){
         getListDataFillStrategy().onMoreDataFetched(adapter, data);
+        if (mFillEventListener!=null){
+            //noinspection unchecked
+            mFillEventListener.onPartialMoreDataFetched(data);
+        }
     }
 
-    public void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    private void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
         getListDataFillStrategy().onInitDataFetched(adapter, data);
+        if (mFillEventListener!=null){
+            //noinspection unchecked
+            mFillEventListener.onInitDataFetched(data);
+        }
     }
 
-    public void onNoMoreData() {
-
+    private void onNoMoreData() {
+        if (mFillEventListener!=null){
+            mFillEventListener.onNoMoreData();
+        }
     }
 
-    @Override
-    public void onInitialize() {
-
+    private void onInitialize() {
+        if (mFillEventListener!=null){
+            mFillEventListener.onInitialize();
+        }
     }
 
     @Override
@@ -100,5 +117,17 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategyForLi
             onNoMoreData();
         }
         pageInfo.tempPage = pageInfo.currentPage;
+    }
+
+    public void setFillEventListener(FillEventListener fillEventListener) {
+        this.mFillEventListener = fillEventListener;
+    }
+
+    public interface FillEventListener<R>{
+        void onFullMoreDataFetched(List<R> data);
+        void onPartialMoreDataFetched(List<R> data);
+        void onInitDataFetched(List<R> data);
+        void onNoMoreData();
+        void onInitialize();
     }
 }

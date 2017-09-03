@@ -27,28 +27,54 @@ import com.sxenon.pure.core.viewholder.filler.single.BaseFillPageStrategyForSing
 
 public class PrevAndNextFillPageStrategyForSingle<R> extends BaseFillPageStrategyForSingle<R> {
     private final int mInitPage;
+    private FillEventListener mFillEventListener;
 
     public PrevAndNextFillPageStrategyForSingle(int initPage) {
         super();
         mInitPage = initPage;
     }
 
-    @Override
-    public void onInitialize() {
-
+    private void onInitialize() {
+        if (mFillEventListener!=null){
+            mFillEventListener.onInitialize();
+        }
     }
 
-    public void onNoPrevData(){
-
+    private void onNoPrevData(){
+        if (mFillEventListener!=null){
+            mFillEventListener.onNoPrevData();
+        }
     }
 
-    public void onNoNextData() {
+    private void onNoNextData() {
+        if (mFillEventListener!=null){
+            mFillEventListener.onNoNextData();
+        }
+    }
 
+    private void onNextDataFetched(ISingleResultFiller<R> singleResultFiller,R data){
+        singleResultFiller.onSingleDataFetched(data);
+        if (mFillEventListener!=null){
+            //noinspection unchecked
+            mFillEventListener.onNextDataFetched(data);
+        }
+    }
+
+    private void onPrevDataFetched(ISingleResultFiller<R> singleResultFiller,R data){
+        singleResultFiller.onSingleDataFetched(data);
+        if (mFillEventListener!=null){
+            //noinspection unchecked
+            mFillEventListener.onPrevDataFetched(data);
+        }
     }
 
     @Override
     public void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
-        singleResultFiller.onSingleDataFetched(data);
+        if (pageInfo.currentPage<pageInfo.tempPage){
+            onNextDataFetched(singleResultFiller, data);
+        }else {
+            onPrevDataFetched(singleResultFiller, data);
+        }
         pageInfo.currentPage = pageInfo.tempPage;
     }
 
@@ -77,5 +103,17 @@ public class PrevAndNextFillPageStrategyForSingle<R> extends BaseFillPageStrateg
     @Override
     public void onPullUp(PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage + 1;
+    }
+
+    public void setFillEventListener(FillEventListener fillEventListener) {
+        this.mFillEventListener = fillEventListener;
+    }
+
+    public interface FillEventListener<R>{
+        void onNextDataFetched(R data);
+        void onPrevDataFetched(R data);
+        void onNoPrevData();
+        void onNoNextData();
+        void onInitialize();
     }
 }
