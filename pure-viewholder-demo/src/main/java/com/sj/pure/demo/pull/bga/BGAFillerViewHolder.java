@@ -19,8 +19,8 @@ package com.sj.pure.demo.pull.bga;
 import android.content.Context;
 import android.util.Log;
 
-import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
-import com.sxenon.pure.core.viewholder.filler.implement.BaseListFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.list.BaseListFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.list.IFillPageStrategyForList;
 
 import cn.bingoogolapple.androidcommon.adapter.BGAAdapterViewAdapter;
 import cn.bingoogolapple.androidcommon.adapter.BGARecyclerViewAdapter;
@@ -31,12 +31,12 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by Sui on 2016/12/27.
  */
 
-public class BGAFillerViewHolder<R> extends BaseListFillerViewHolder<R, BGAPullLayout> {
+public class BGAFillerViewHolder<R> extends BaseListFillerViewHolder<R, BGAPullLayout,IFillPageStrategyForList<R>> {
     private static final String TAG = "FillerGroup";
     private CustomListener mCustomerListener;
 
-    public BGAFillerViewHolder(Context context, BGARefreshLayout refreshLayout, IFillPageStrategy<R> fillPageStrategy) {
-        super(context, new BGAPullLayout(refreshLayout), fillPageStrategy);
+    public BGAFillerViewHolder(Context context, BGARefreshLayout refreshLayout, IFillPageStrategyForList<R> fillPageStrategy,int dataSizeForFullPage) {
+        super(context, new BGAPullLayout(refreshLayout), fillPageStrategy,dataSizeForFullPage);
     }
 
     public void setAdapter(BGARecyclerViewAdapter<R> adapter){

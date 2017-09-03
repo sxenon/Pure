@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement.strategy;
+package com.sxenon.pure.core.viewholder.filler.list.strategy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.filler.ISingleResultFiller;
-import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.list.BaseFillPageStrategyForList;
+import com.sxenon.pure.core.viewholder.filler.list.IFillAdapterStrategy;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ import java.util.List;
  * Created by Sui on 2017/8/6.
  */
 
-public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
+public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategyForList<R> {
 
     public NewAndMoreFillPageStrategy() {
         super();
@@ -99,27 +99,20 @@ public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategy<R> {
     }
 
     @Override
-    public void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
-        throw new UnsupportedOperationException("Only list data support");
+    public void onInitialize() {
+
     }
 
     @Override
-    public void processEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
-        throw new UnsupportedOperationException("Only list data support");
-    }
-
-    @Override
-    public void onInitialize(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+    public void onPullDown(PageInfo pageInfo) {
+        if (pageInfo.currentPage == -1){
+            onInitialize();
+        }
         pageInfo.tempPage = pageInfo.currentPage;
     }
 
     @Override
-    public void onPullDown(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
-        pageInfo.tempPage = pageInfo.currentPage;
-    }
-
-    @Override
-    public void onPullUp(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+    public void onPullUp(PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage + 1;
     }
 }

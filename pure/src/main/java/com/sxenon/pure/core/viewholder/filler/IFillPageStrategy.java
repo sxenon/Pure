@@ -16,41 +16,17 @@
 
 package com.sxenon.pure.core.viewholder.filler;
 
-import com.sxenon.pure.core.ApiException;
-import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.filler.ISingleResultFiller;
-
-import java.util.List;
-
 /**
  * 分页数据填充策略
  * Created by Sui on 2017/8/6.
  */
 
-public interface IFillPageStrategy<R> {
-    void processFullList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
+public interface IFillPageStrategy {
+    void onInitialize();
 
-    void processPartialList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
+    void onPullDown(PageInfo pageInfo);
 
-    void processEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
-
-    void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
-
-    void processEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
-
-    void onInitialize(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
-
-    void onPullDown(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
-
-    void onPullUp(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
-
-    void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo);
-
-    void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
-
-    void onCancel(IFillerViewHolder fillerViewHolder, IPureAdapter<R> adapter, PageInfo pageInfo);
-
-    void onCancel(IFillerViewHolder fillerViewHolder, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
+    void onPullUp(PageInfo pageInfo);
 
     class PageInfo {
         public int currentPage;

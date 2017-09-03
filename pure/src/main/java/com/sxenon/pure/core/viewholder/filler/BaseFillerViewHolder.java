@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement;
+package com.sxenon.pure.core.viewholder.filler;
 
 import android.content.Context;
 import android.os.Looper;
@@ -24,20 +24,16 @@ import android.view.View;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.util.CommonUtils;
-import com.sxenon.pure.core.viewholder.filler.FillEventWhat;
-import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
-import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
-import com.sxenon.pure.core.viewholder.filler.IPullLayout;
 
 /**
  * Base implement for IFillerViewHolder
  * Created by Sui on 2017/8/4.
  */
 
-public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements IFillerViewHolder {
+public abstract class BaseFillerViewHolder<PL extends IPullLayout,S extends IFillPageStrategy> implements IFillerViewHolder {
     private final IFillPageStrategy.PageInfo pageInfo = new IFillPageStrategy.PageInfo(-1, -1);
 
-    private final IFillPageStrategy<R> mFillPageStrategy;
+    private final S mFillPageStrategy;
     private final PL mPullLayout;
     private final Context mContext;
 
@@ -54,7 +50,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
      * @param pullLayout       刷新容器
      * @param fillPageStrategy 分页数据填充策略
      */
-    public BaseFillerViewHolder(Context context, PL pullLayout, IFillPageStrategy<R> fillPageStrategy) {
+    public BaseFillerViewHolder(Context context, PL pullLayout, S fillPageStrategy) {
         mPullLayout = pullLayout;
         mFillPageStrategy = fillPageStrategy;
         mContext = context;
@@ -77,18 +73,14 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
      * For subclass call,see demo
      */
     protected final void onBeginPullingDown() {
-        if (FillEventWhat.WHAT_UNINITIALIZED == mEventWhat) {
-            mFillPageStrategy.onInitialize(this, pageInfo);
-        } else {
-            mFillPageStrategy.onPullDown(this, pageInfo);
-        }
+        mFillPageStrategy.onPullDown(pageInfo);
     }
 
     /**
      * For subclass call,see demo
      */
     protected final void onBeginPullingUp() {
-        mFillPageStrategy.onPullUp(this, pageInfo);
+        mFillPageStrategy.onPullUp(pageInfo);
     }
 
     public void toInitialize() {
@@ -204,7 +196,7 @@ public abstract class BaseFillerViewHolder<R, PL extends IPullLayout> implements
         return mApiException;
     }
 
-    public IFillPageStrategy<R> getFillPageStrategy() {
+    public S getFillPageStrategy() {
         return mFillPageStrategy;
     }
 

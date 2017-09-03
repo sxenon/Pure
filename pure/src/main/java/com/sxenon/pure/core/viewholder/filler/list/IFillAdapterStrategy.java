@@ -14,31 +14,21 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement.strategy;
+package com.sxenon.pure.core.viewholder.filler.list;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 
 import java.util.List;
 
 /**
- * Default Strategy for ListDataFill
+ * Strategy Interface for ListDataFiller
  * Created by Sui on 2017/1/12.
  */
 
-public class DefaultFillAdapterStrategy<R> implements IFillAdapterStrategy<R> {
-    @Override
-    public void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        adapter.addItemsFromEnd(data);
-    }
+public interface IFillAdapterStrategy<R> {
+    void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data);
 
-    @Override
-    public void onNewDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        adapter.addItemsFromStart(data);
-    }
+    void onNewDataFetched(IPureAdapter<R> adapter, List<R> data);
 
-    @Override
-    public void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        adapter.resetAllItems(data);
-    }
+    void onInitDataFetched(IPureAdapter<R> adapter, List<R> data);
 }

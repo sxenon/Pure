@@ -14,16 +14,30 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler;
+package com.sxenon.pure.core.viewholder.filler.list;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.handler.IFetchListResultHandler;
+
+import java.util.List;
 
 /**
- * FillerViewHolder for list data
- * Created by Sui on 2017/8/19.
+ * Default Strategy for ListDataFill
+ * Created by Sui on 2017/1/12.
  */
 
-public interface IListFillerViewHolder<R> extends IFetchListResultHandler<R>, IFillerViewHolder {
-    void setAdapter(IPureAdapter<R> adapter);
+public class DefaultFillAdapterStrategy<R> implements IFillAdapterStrategy<R> {
+    @Override
+    public void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
+        adapter.addItemsFromEnd(data);
+    }
+
+    @Override
+    public void onNewDataFetched(IPureAdapter<R> adapter, List<R> data) {
+        adapter.addItemsFromStart(data);
+    }
+
+    @Override
+    public void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
+        adapter.resetAllItems(data);
+    }
 }

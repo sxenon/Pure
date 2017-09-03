@@ -14,28 +14,25 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement.strategy;
+package com.sxenon.pure.core.viewholder.filler.list;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.filler.ISingleResultFiller;
-import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
-import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 
 /**
- * Base implement for IFillPageStrategy
- * Created by Sui on 2017/8/6.
+ * BaseFillPageStrategyForList
+ * Created by Sui on 2017/9/3.
  */
 
-public abstract class BaseFillPageStrategy<R> implements IFillPageStrategy<R> {
+public abstract class BaseFillPageStrategyForList<R> implements IFillPageStrategyForList<R> {
     private final IFillAdapterStrategy<R> mFillAdapterStrategy;
 
-    public BaseFillPageStrategy() {
+    public BaseFillPageStrategyForList() {
         this(null);
     }
 
-    public BaseFillPageStrategy(IFillAdapterStrategy<R> fillAdapterStrategy) {
+    public BaseFillPageStrategyForList(IFillAdapterStrategy<R> fillAdapterStrategy) {
         mFillAdapterStrategy = fillAdapterStrategy == null ? new DefaultFillAdapterStrategy<R>() : fillAdapterStrategy;
     }
 
@@ -49,18 +46,8 @@ public abstract class BaseFillPageStrategy<R> implements IFillPageStrategy<R> {
     }
 
     @Override
-    public void onCancel(IFillerViewHolder fillerViewHolder, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
-        pageInfo.tempPage = pageInfo.currentPage;
-    }
-
-    @Override
     public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
         adapter.clearAllItems();
-        pageInfo.currentPage = pageInfo.tempPage = -1;
-    }
-
-    @Override
-    public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
         pageInfo.currentPage = pageInfo.tempPage = -1;
     }
 }

@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement.dummy;
+package com.sxenon.pure.core.viewholder.filler.single.dummy;
 
 import android.content.Context;
 
-import com.sxenon.pure.core.viewholder.filler.implement.BaseSingleFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.DummyPullLayout;
+import com.sxenon.pure.core.viewholder.filler.single.BaseSingleFillerViewHolder;
 
 /**
  * SingleData implement for DummyFillerViewHolder
  * Created by Sui on 2017/8/19.
  */
 
-public class DummySingleFillerViewHolder<R> extends BaseSingleFillerViewHolder<R, DummyPullLayout> {
+public class DummySingleFillerViewHolder<R> extends BaseSingleFillerViewHolder<R, DummyPullLayout,DummyFillPageStrategyForSingle<R>> {
     /**
      * Constructor
      *
@@ -33,6 +34,6 @@ public class DummySingleFillerViewHolder<R> extends BaseSingleFillerViewHolder<R
      * @param pullLayout 刷新容器
      */
     public DummySingleFillerViewHolder(Context context, DummyPullLayout pullLayout) {
-        super(context, pullLayout, new DummyFillPageStrategy<R>());
+        super(context, pullLayout, new DummyFillPageStrategyForSingle<R>());
     }
 }

@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement.dummy;
+package com.sxenon.pure.core.viewholder.filler.list.dummy;
 
 import android.content.Context;
 
-import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
-import com.sxenon.pure.core.viewholder.filler.implement.BaseListFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.DummyPullLayout;
+import com.sxenon.pure.core.viewholder.filler.list.BaseListFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.list.IFillAdapterStrategy;
 
 /**
  * UnSupport pull!
  * Created by Sui on 2016/12/12.
  */
 
-public class DummyListFillerViewHolder<R> extends BaseListFillerViewHolder<R, DummyPullLayout> {
+public class DummyListFillerViewHolder<R> extends BaseListFillerViewHolder<R, DummyPullLayout,DummyFillPageStrategyForList<R>> {
     public DummyListFillerViewHolder(Context context,int dataSizeInFullPage) {
-        super(context, new DummyPullLayout(), new DummyFillPageStrategy<R>(),dataSizeInFullPage);
+        super(context, new DummyPullLayout(), new DummyFillPageStrategyForList<R>(),dataSizeInFullPage);
     }
 
     public DummyListFillerViewHolder(Context context, IFillAdapterStrategy<R> fillAdapterStrategy,int dataSizeInFullPage) {
-        super(context, new DummyPullLayout(), new DummyFillPageStrategy<>(fillAdapterStrategy),dataSizeInFullPage);
+        super(context, new DummyPullLayout(), new DummyFillPageStrategyForList<>(fillAdapterStrategy),dataSizeInFullPage);
     }
 }

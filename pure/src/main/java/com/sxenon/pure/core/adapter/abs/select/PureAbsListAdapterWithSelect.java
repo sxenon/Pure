@@ -18,7 +18,7 @@ package com.sxenon.pure.core.adapter.abs.select;
 
 import com.sxenon.pure.core.adapter.abs.PureAbsListAdapter;
 import com.sxenon.pure.core.adapter.abs.PureAbsListItemViewTypeEntity;
-import com.sxenon.pure.core.viewholder.filler.IListFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.list.IListFillerViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

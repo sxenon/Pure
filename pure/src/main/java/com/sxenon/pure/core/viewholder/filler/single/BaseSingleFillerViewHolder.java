@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement;
+package com.sxenon.pure.core.viewholder.filler.single;
 
 import android.content.Context;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.result.filler.ISingleResultFiller;
-import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
+import com.sxenon.pure.core.viewholder.filler.BaseFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.IPullLayout;
-import com.sxenon.pure.core.viewholder.filler.ISingleFillerViewHolder;
 
 /**
  * Single data implement for FillerViewHolder
  * Created by Sui on 2017/8/19.
  */
 
-public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R, PL> implements ISingleFillerViewHolder<R> {
+public class BaseSingleFillerViewHolder<R, PL extends IPullLayout,S extends IFillPageStrategyForSingle<R>> extends BaseFillerViewHolder<PL,S> implements ISingleFillerViewHolder<R> {
     private ISingleResultFiller<R> mSingleResultFiller;
     private R mData;
 
@@ -40,7 +39,7 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseF
      * @param pullLayout       刷新容器
      * @param fillPageStrategy 分页数据填充策略
      */
-    public BaseSingleFillerViewHolder(Context context, PL pullLayout, IFillPageStrategy<R> fillPageStrategy) {
+    public BaseSingleFillerViewHolder(Context context, PL pullLayout, S fillPageStrategy) {
         super(context, pullLayout, fillPageStrategy);
     }
 

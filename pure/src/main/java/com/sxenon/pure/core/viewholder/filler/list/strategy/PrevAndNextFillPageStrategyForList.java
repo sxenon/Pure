@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement.strategy;
+package com.sxenon.pure.core.viewholder.filler.list.strategy;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.filler.ISingleResultFiller;
-import com.sxenon.pure.core.viewholder.filler.IFillAdapterStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.list.BaseFillPageStrategyForList;
+import com.sxenon.pure.core.viewholder.filler.list.IFillAdapterStrategy;
 
 import java.util.List;
 
@@ -28,20 +28,29 @@ import java.util.List;
  * Created by Sui on 2017/8/6.
  */
 
-public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
+public class PrevAndNextFillPageStrategyForList<R> extends BaseFillPageStrategyForList<R> {
     private final int mInitPage;
 
-    public PrevAndNextFillPageStrategy(int initPage) {
+    public PrevAndNextFillPageStrategyForList(int initPage) {
         super();
         mInitPage = initPage;
     }
 
-    public PrevAndNextFillPageStrategy(IFillAdapterStrategy<R> fillAdapterStrategy, int initPage) {
+    public PrevAndNextFillPageStrategyForList(IFillAdapterStrategy<R> fillAdapterStrategy, int initPage) {
         super(fillAdapterStrategy);
         mInitPage = initPage;
     }
 
-    public void onNoMoreData() {
+    @Override
+    public void onInitialize() {
+
+    }
+
+    public void onNoPrevData(){
+
+    }
+
+    public void onNoNextData() {
 
     }
 
@@ -70,40 +79,25 @@ public class PrevAndNextFillPageStrategy<R> extends BaseFillPageStrategy<R> {
         if (pageInfo.currentPage == -1) {
             fillerViewHolder.onEmpty();
         } else {
-            onNoMoreData();
+            onNoNextData();
         }
         pageInfo.tempPage = pageInfo.currentPage;
     }
 
     @Override
-    public void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
-        singleResultFiller.onSingleDataFetched(data);
-        pageInfo.currentPage = pageInfo.tempPage;
-    }
-
-    @Override
-    public void processEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
-        if (pageInfo.currentPage == -1) {
-            fillerViewHolder.onEmpty();
-        } else {
-            onNoMoreData();
+    public void onPullDown(PageInfo pageInfo) {
+        if (pageInfo.currentPage==-1){
+            onInitialize();
+            pageInfo.tempPage=mInitPage;
+        }else if (pageInfo.currentPage==0){
+            onNoPrevData();
+        } else{
+            pageInfo.tempPage = pageInfo.currentPage - 1;
         }
-        pageInfo.tempPage = pageInfo.currentPage;
     }
 
     @Override
-    public void onInitialize(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
-        pageInfo.currentPage = -1;
-        pageInfo.tempPage = mInitPage;
-    }
-
-    @Override
-    public void onPullDown(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
-        pageInfo.tempPage = pageInfo.currentPage - 1;
-    }
-
-    @Override
-    public void onPullUp(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+    public void onPullUp(PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage + 1;
     }
 }

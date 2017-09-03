@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement;
+package com.sxenon.pure.core.viewholder.filler.list;
 
 import android.content.Context;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
-import com.sxenon.pure.core.viewholder.filler.IListFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.BaseFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.IPullLayout;
 
 import java.util.List;
@@ -31,7 +30,7 @@ import java.util.List;
  * Created by Sui on 2017/8/19.
  */
 
-public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<R, PL> implements IListFillerViewHolder<R> {
+public class BaseListFillerViewHolder<R, PL extends IPullLayout,S extends IFillPageStrategyForList<R>> extends BaseFillerViewHolder<PL,S> implements IListFillerViewHolder<R> {
 
     private IPureAdapter<R> mAdapter;
 
@@ -45,7 +44,7 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFil
      * @param fillPageStrategy 分页数据填充策略
      * @param dataSizeInFullPage 完整页数据个数
      */
-    public BaseListFillerViewHolder(Context context, PL pullLayout, IFillPageStrategy<R> fillPageStrategy,int dataSizeInFullPage) {
+    public BaseListFillerViewHolder(Context context, PL pullLayout, S fillPageStrategy, int dataSizeInFullPage) {
         super(context, pullLayout, fillPageStrategy);
         mDataSizeInFullPage = dataSizeInFullPage;
     }

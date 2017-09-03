@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.implement.dummy;
-
-import com.sxenon.pure.core.viewholder.filler.IPullLayout;
+package com.sxenon.pure.core.viewholder.filler;
 
 /**
  * Empty implement for IPullLayout
  * Created by Sui on 2016/12/27.
  */
 
-class DummyPullLayout implements IPullLayout {
+public class DummyPullLayout implements IPullLayout {
 
     @Override
     public void beginPullingDown() {

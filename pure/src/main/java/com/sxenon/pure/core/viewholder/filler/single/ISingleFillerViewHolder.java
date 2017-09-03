@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler;
+package com.sxenon.pure.core.viewholder.filler.single;
 
 import com.sxenon.pure.core.result.filler.ISingleResultFiller;
 import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
+import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 
 /**
  * FillerViewHolder for single data
