@@ -54,11 +54,6 @@ class DummyFillPageStrategyForList<R> extends BaseFillPageStrategyForList<R> {
     }
 
     @Override
-    public void onInitialize() {
-
-    }
-
-    @Override
     public void onPullDown(PageInfo pageInfo) {
 
     }

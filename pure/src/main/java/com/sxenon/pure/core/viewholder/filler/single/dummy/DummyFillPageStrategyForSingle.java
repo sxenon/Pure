@@ -26,10 +26,6 @@ import com.sxenon.pure.core.viewholder.filler.single.BaseFillPageStrategyForSing
  */
 
 public class DummyFillPageStrategyForSingle<R> extends BaseFillPageStrategyForSingle<R> {
-    @Override
-    public void onInitialize() {
-
-    }
 
     @Override
     public void onPullDown(PageInfo pageInfo) {
