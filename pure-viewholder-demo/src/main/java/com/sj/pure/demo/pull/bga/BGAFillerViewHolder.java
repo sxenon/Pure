@@ -33,7 +33,6 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 public class BGAFillerViewHolder<R> extends BaseListFillerViewHolder<R, BGAPullLayout,IFillPageStrategyForList<R>> {
     private static final String TAG = "FillerGroup";
-    private CustomListener mCustomerListener;
 
     public BGAFillerViewHolder(Context context, BGARefreshLayout refreshLayout, IFillPageStrategyForList<R> fillPageStrategy,int dataSizeForFullPage) {
         super(context, new BGAPullLayout(refreshLayout), fillPageStrategy,dataSizeForFullPage);
@@ -66,26 +65,16 @@ public class BGAFillerViewHolder<R> extends BaseListFillerViewHolder<R, BGAPullL
         });
     }
 
-    public void setCustomerListener(CustomListener customerListener) {
-        mCustomerListener = customerListener;
-    }
-
     @Override
     public void onEmpty() {
         super.onEmpty();
         commonOnEmpty();
-        if (mCustomerListener != null) {
-            mCustomerListener.onEmpty();
-        }
     }
 
     @Override
     public void onCancel() {
         super.onCancel();
         commonOnCancel();
-        if (mCustomerListener != null) {
-            mCustomerListener.onCancel();
-        }
     }
 
     private void commonOnCancel() {
@@ -96,9 +85,4 @@ public class BGAFillerViewHolder<R> extends BaseListFillerViewHolder<R, BGAPullL
         Log.i(TAG, "commonOnEmpty");
     }
 
-    public interface CustomListener {
-        void onEmpty();
-
-        void onCancel();
-    }
 }

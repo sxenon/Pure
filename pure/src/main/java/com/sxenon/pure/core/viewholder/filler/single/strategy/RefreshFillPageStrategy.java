@@ -26,11 +26,11 @@ import com.sxenon.pure.core.viewholder.filler.single.BaseFillPageStrategyForSing
  */
 
 public class RefreshFillPageStrategy<R> extends BaseFillPageStrategyForSingle<R> {
-    private FillEventListener mFillEventListener;
+    private OnFillEventListener mOnFillEventListener;
 
     private void onInitialize() {
-        if (mFillEventListener!=null){
-            mFillEventListener.onInitialize();
+        if (mOnFillEventListener !=null){
+            mOnFillEventListener.onInitialize();
         }
     }
 
@@ -51,9 +51,9 @@ public class RefreshFillPageStrategy<R> extends BaseFillPageStrategyForSingle<R>
     public void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
         singleResultFiller.onSingleDataFetched(data);
         pageInfo.tempPage = pageInfo.currentPage = 0;
-        if (mFillEventListener!=null){
+        if (mOnFillEventListener !=null){
             //noinspection unchecked
-            mFillEventListener.onInitDataFetched(data);
+            mOnFillEventListener.onInitDataFetched(data);
         }
     }
 
@@ -63,16 +63,16 @@ public class RefreshFillPageStrategy<R> extends BaseFillPageStrategyForSingle<R>
         pageInfo.tempPage = pageInfo.currentPage =-1;
     }
 
-    public void setFillEventListener(FillEventListener fillEventListener) {
-        this.mFillEventListener = fillEventListener;
+    public void setFillEventListener(OnFillEventListener onFillEventListener) {
+        this.mOnFillEventListener = onFillEventListener;
     }
 
-    public interface FillEventListener<R> {
+    public interface OnFillEventListener<R> {
         void onInitialize();
         void onInitDataFetched(R data);
     }
 
-    public static class SimpleFillEventListener<R> implements FillEventListener<R>{
+    public static class SimpleOnFillEventListener<R> implements OnFillEventListener<R> {
 
         @Override
         public void onInitialize() {

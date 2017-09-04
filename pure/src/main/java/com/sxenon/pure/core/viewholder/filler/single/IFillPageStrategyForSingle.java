@@ -33,5 +33,4 @@ public interface IFillPageStrategyForSingle<R> extends IFillPageStrategy {
 
     void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
 
-    void onCancel(IFillerViewHolder fillerViewHolder, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
 }

@@ -30,7 +30,7 @@ import java.util.List;
 
 public class PrevAndNextFillPageStrategyForList<R> extends BaseFillPageStrategyForList<R> {
     private final int mInitPage;
-    private FillEventListener mFillEventListener;
+    private OnFillEventListener mOnFillEventListener;
 
     public PrevAndNextFillPageStrategyForList(int initPage) {
         super();
@@ -44,44 +44,44 @@ public class PrevAndNextFillPageStrategyForList<R> extends BaseFillPageStrategyF
 
 
     private void onNoPrevData(){
-        if (mFillEventListener!=null){
-            mFillEventListener.onNoPrevData();
+        if (mOnFillEventListener !=null){
+            mOnFillEventListener.onNoPrevData();
         }
     }
 
     private void onNoNextData() {
-        if (mFillEventListener!=null){
-            mFillEventListener.onNoNextData();
+        if (mOnFillEventListener !=null){
+            mOnFillEventListener.onNoNextData();
         }
     }
 
     private void onFullNextDataFetched(IPureAdapter<R> adapter, List<R> data) {
         getListDataFillStrategy().onInitDataFetched(adapter, data);
-        if (mFillEventListener!=null){
+        if (mOnFillEventListener !=null){
             //noinspection unchecked
-            mFillEventListener.onFullNextDataFetched(data);
+            mOnFillEventListener.onFullNextDataFetched(data);
         }
     }
 
     private void onPartialNextDataFetched(IPureAdapter<R> adapter, List<R> data){
         getListDataFillStrategy().onInitDataFetched(adapter, data);
-        if (mFillEventListener!=null){
+        if (mOnFillEventListener !=null){
             //noinspection unchecked
-            mFillEventListener.onPrevDataFetched(data);
+            mOnFillEventListener.onPrevDataFetched(data);
         }
     }
 
     private void onPrevDataFetched(IPureAdapter<R> adapter, List<R> data){
         getListDataFillStrategy().onInitDataFetched(adapter, data);
-        if (mFillEventListener!=null){
+        if (mOnFillEventListener !=null){
             //noinspection unchecked
-            mFillEventListener.onPartialNextDataFetched(data);
+            mOnFillEventListener.onPartialNextDataFetched(data);
         }
     }
 
     private void onInitialize() {
-        if (mFillEventListener!=null){
-            mFillEventListener.onInitialize();
+        if (mOnFillEventListener !=null){
+            mOnFillEventListener.onInitialize();
         }
     }
 
@@ -128,11 +128,11 @@ public class PrevAndNextFillPageStrategyForList<R> extends BaseFillPageStrategyF
         pageInfo.tempPage = pageInfo.currentPage + 1;
     }
 
-    public void setFillEventListener(FillEventListener fillEventListener) {
-        this.mFillEventListener = fillEventListener;
+    public void setFillEventListener(OnFillEventListener onFillEventListener) {
+        this.mOnFillEventListener = onFillEventListener;
     }
 
-    public interface FillEventListener<R>{
+    public interface OnFillEventListener<R>{
         void onFullNextDataFetched(List<R> data);
         void onPartialNextDataFetched(List<R> data);
         void onPrevDataFetched(List<R> data);
@@ -141,7 +141,7 @@ public class PrevAndNextFillPageStrategyForList<R> extends BaseFillPageStrategyF
         void onInitialize();
     }
 
-    public static class SimpleFillEventListener<R> implements FillEventListener<R>{
+    public static class SimpleOnFillEventListener<R> implements OnFillEventListener<R> {
 
         @Override
         public void onFullNextDataFetched(List<R> data) {

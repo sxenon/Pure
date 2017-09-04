@@ -73,12 +73,6 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout,S extends IFillP
     }
 
     @Override
-    public void onCancel() {
-        super.onCancel();
-        getFillPageStrategy().onCancel(this, mAdapter, getPageInfo());
-    }
-
-    @Override
     public void onApiException(ApiException apiException) {
         super.onApiException(apiException);
         getFillPageStrategy().onException(this, apiException, mAdapter, getPageInfo());

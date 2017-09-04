@@ -43,6 +43,8 @@ public abstract class BaseFillerViewHolder<PL extends IPullLayout,S extends IFil
     private View mEmptyView;
     private View mExceptionView;
 
+    private OnFillEventListener mOnFillEventListener;
+
     /**
      * Constructor
      *
@@ -150,6 +152,10 @@ public abstract class BaseFillerViewHolder<PL extends IPullLayout,S extends IFil
     @Override
     public void onCancel() {
         endAllAnim();
+        pageInfo.tempPage = pageInfo.currentPage;
+        if (mOnFillEventListener!=null){
+            mOnFillEventListener.onCancel();
+        }
     }
 
     @Override
@@ -159,6 +165,9 @@ public abstract class BaseFillerViewHolder<PL extends IPullLayout,S extends IFil
         mApiException = apiException;
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.VISIBLE);
+        if (mOnFillEventListener!=null){
+            mOnFillEventListener.onApiException(apiException);
+        }
     }
 
     @Override
@@ -167,8 +176,22 @@ public abstract class BaseFillerViewHolder<PL extends IPullLayout,S extends IFil
         pageInfo.currentPage = pageInfo.tempPage = -1;
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
         CommonUtils.setViewVisibility(mEmptyView, View.VISIBLE);
+        if (mOnFillEventListener!=null){
+            mOnFillEventListener.onEmpty();
+        }
     }
     //Implement end
+
+
+    public void setOnFillEventListener(OnFillEventListener mOnFillEventListener) {
+        this.mOnFillEventListener = mOnFillEventListener;
+    }
+
+    public interface OnFillEventListener{
+        void onEmpty();
+        void onApiException(ApiException apiException);
+        void onCancel();
+    }
 
     //Getter start
     public View getExceptionView() {

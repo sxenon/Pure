@@ -76,12 +76,6 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout,S extends IFil
     }
 
     @Override
-    public void onCancel() {
-        super.onCancel();
-        getFillPageStrategy().onCancel(this, mSingleResultFiller, getPageInfo());
-    }
-
-    @Override
     public void onApiException(ApiException apiException) {
         super.onApiException(apiException);
         getFillPageStrategy().onException(this, apiException, mSingleResultFiller, getPageInfo());

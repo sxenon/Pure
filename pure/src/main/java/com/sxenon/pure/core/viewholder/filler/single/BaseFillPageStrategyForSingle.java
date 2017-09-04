@@ -28,11 +28,6 @@ import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 public abstract class BaseFillPageStrategyForSingle<R> implements IFillPageStrategyForSingle<R> {
 
     @Override
-    public void onCancel(IFillerViewHolder fillerViewHolder, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
-        pageInfo.tempPage = pageInfo.currentPage;
-    }
-
-    @Override
     public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
         pageInfo.currentPage = pageInfo.tempPage = -1;
     }

@@ -37,5 +37,4 @@ public interface IFillPageStrategyForList<R> extends IFillPageStrategy {
 
     void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo);
 
-    void onCancel(IFillerViewHolder fillerViewHolder, IPureAdapter<R> adapter, PageInfo pageInfo);
 }

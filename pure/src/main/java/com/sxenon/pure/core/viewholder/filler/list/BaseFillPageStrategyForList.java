@@ -41,11 +41,6 @@ public abstract class BaseFillPageStrategyForList<R> implements IFillPageStrateg
     }
 
     @Override
-    public void onCancel(IFillerViewHolder fillerViewHolder, IPureAdapter<R> adapter, PageInfo pageInfo) {
-        pageInfo.tempPage = pageInfo.currentPage;
-    }
-
-    @Override
     public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
         adapter.clearAllItems();
         pageInfo.currentPage = pageInfo.tempPage = -1;
