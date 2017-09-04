@@ -26,8 +26,8 @@ import java.util.List;
  */
 
 class RemoveDiffCallBack extends DiffUtil.Callback {
-    private List<Integer> beforeRemoved;
-    private List<Integer> afterRemoved;
+    private final List<Integer> beforeRemoved;
+    private final List<Integer> afterRemoved;
 
     RemoveDiffCallBack(List<Integer> beforeRemoved, List<Integer> afterRemoved) {
         this.beforeRemoved = beforeRemoved;

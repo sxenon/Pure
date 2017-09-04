@@ -30,7 +30,7 @@ import java.util.List;
  */
 
 public abstract class BaseSelectInRecyclerViewAdapterStrategy<S extends ISelectStrategy> implements ISelectInRecyclerViewAdapterStrategy {
-    private S innerSelectStrategy;
+    private final S innerSelectStrategy;
 
     public BaseSelectInRecyclerViewAdapterStrategy(S innerSelectStrategy) {
         this.innerSelectStrategy = innerSelectStrategy;

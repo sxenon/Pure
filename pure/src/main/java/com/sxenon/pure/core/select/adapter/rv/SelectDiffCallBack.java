@@ -26,8 +26,8 @@ import java.util.List;
  */
 
 public class SelectDiffCallBack extends DiffUtil.Callback {
-    private List<Boolean> oldSelectedFlags;
-    private List<Boolean> newSelectedFlags;
+    private final List<Boolean> oldSelectedFlags;
+    private final List<Boolean> newSelectedFlags;
 
     public SelectDiffCallBack(List<Boolean> oldSelectedFlags, List<Boolean> newSelectedFlags) {
         this.oldSelectedFlags = oldSelectedFlags;

@@ -28,7 +28,7 @@ import java.util.List;
  */
 
 public class BaseSelectInAbsListAdapterStrategy<S extends ISelectStrategy> implements ISelectInAbsListAdapterStrategy {
-    private S innerSelectStrategy;
+    private final S innerSelectStrategy;
 
     public BaseSelectInAbsListAdapterStrategy(S innerSelectStrategy) {
         this.innerSelectStrategy = innerSelectStrategy;

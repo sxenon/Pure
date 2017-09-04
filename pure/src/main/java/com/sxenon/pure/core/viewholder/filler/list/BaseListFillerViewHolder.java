@@ -34,7 +34,7 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFil
 
     private IPureAdapter<R> mAdapter;
 
-    private int mDataSizeInFullPage;
+    private final int mDataSizeInFullPage;
 
     /**
      * Constructor
