@@ -27,7 +27,7 @@ import com.sxenon.pure.core.viewholder.filler.list.IFillAdapterStrategy;
  * Created by Sui on 2016/12/12.
  */
 
-public class DummyListFillerViewHolder<R> extends BaseListFillerViewHolder<R, DummyPullLayout,DummyFillPageStrategyForList<R>> {
+public class DummyListFillerViewHolder<R> extends BaseListFillerViewHolder<R, DummyPullLayout> {
     public DummyListFillerViewHolder(Context context,int dataSizeInFullPage) {
         super(context, new DummyPullLayout(), new DummyFillPageStrategyForList<R>(),dataSizeInFullPage);
     }

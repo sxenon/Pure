@@ -30,7 +30,7 @@ import java.util.List;
  * Created by Sui on 2017/8/19.
  */
 
-public class BaseListFillerViewHolder<R, PL extends IPullLayout,S extends IFillPageStrategyForList<R>> extends BaseFillerViewHolder<PL,S> implements IListFillerViewHolder<R> {
+public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<PL,IFillPageStrategyForList<R>> implements IListFillerViewHolder<R> {
 
     private IPureAdapter<R> mAdapter;
 
@@ -44,7 +44,7 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout,S extends IFillP
      * @param fillPageStrategy 分页数据填充策略
      * @param dataSizeInFullPage 完整页数据个数
      */
-    public BaseListFillerViewHolder(Context context, PL pullLayout, S fillPageStrategy, int dataSizeInFullPage) {
+    public BaseListFillerViewHolder(Context context, PL pullLayout, IFillPageStrategyForList<R> fillPageStrategy, int dataSizeInFullPage) {
         super(context, pullLayout, fillPageStrategy);
         mDataSizeInFullPage = dataSizeInFullPage;
     }

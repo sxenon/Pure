@@ -26,7 +26,7 @@ import com.sxenon.pure.core.viewholder.filler.single.BaseSingleFillerViewHolder;
  * Created by Sui on 2017/8/19.
  */
 
-public class DummySingleFillerViewHolder<R> extends BaseSingleFillerViewHolder<R, DummyPullLayout,DummyFillPageStrategyForSingle<R>> {
+public class DummySingleFillerViewHolder<R> extends BaseSingleFillerViewHolder<R, DummyPullLayout> {
     /**
      * Constructor
      *
