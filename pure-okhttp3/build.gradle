@@ -26,10 +26,6 @@ dependencies {
     def okhttp3Version='3.8.1'
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile 'junit:junit:4.12'
     compile 'com.squareup.okhttp3:okhttp:'+okhttp3Version
     compile 'com.squareup.okhttp3:logging-interceptor:'+okhttp3Version
     compile project(':pure')
