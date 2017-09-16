@@ -28,7 +28,7 @@ import com.sxenon.pure.core.viewholder.filler.list.IFillPageStrategyForList;
  * Created by Sui on 2016/12/27.
  */
 
-public class TwinkingRefreshAndMoreFillerViewHolder<R> extends BaseListFillerViewHolder<R, TwinklingPullLayout,IFillPageStrategyForList<R>> {
+public class TwinkingRefreshAndMoreFillerViewHolder<R> extends BaseListFillerViewHolder<R, TwinklingPullLayout> {
     public TwinkingRefreshAndMoreFillerViewHolder(Context context, TwinklingRefreshLayout refreshLayout,IFillPageStrategyForList<R> fillPageStrategy,int dataSizeForFullPage) {
         super(context, new TwinklingPullLayout(refreshLayout), fillPageStrategy,dataSizeForFullPage);
     }

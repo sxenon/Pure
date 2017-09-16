@@ -31,7 +31,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * Created by Sui on 2016/12/27.
  */
 
-public class BGAFillerViewHolder<R> extends BaseListFillerViewHolder<R, BGAPullLayout,IFillPageStrategyForList<R>> {
+public class BGAFillerViewHolder<R> extends BaseListFillerViewHolder<R, BGAPullLayout> {
     private static final String TAG = "FillerGroup";
 
     public BGAFillerViewHolder(Context context, BGARefreshLayout refreshLayout, IFillPageStrategyForList<R> fillPageStrategy,int dataSizeForFullPage) {
