@@ -16,6 +16,7 @@
 
 package com.sxenon.pure.core.viewholder.filler.list.strategy;
 
+import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.list.BaseFillPageStrategyForList;
@@ -117,6 +118,12 @@ public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategyForLi
             onNoMoreData();
         }
         pageInfo.tempPage = pageInfo.currentPage;
+    }
+
+    @Override
+    public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
+        adapter.clearAllItems();
+        pageInfo.currentPage = pageInfo.tempPage = -1;
     }
 
     public void setFillEventListener(OnFillEventListener onFillEventListener) {

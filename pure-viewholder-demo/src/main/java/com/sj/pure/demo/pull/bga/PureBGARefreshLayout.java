@@ -16,6 +16,8 @@
 
 package com.sj.pure.demo.pull.bga;
 
+import android.content.Context;
+import android.util.AttributeSet;
 import android.util.Log;
 
 import com.sxenon.pure.core.viewholder.filler.IPullLayout;
@@ -24,51 +26,67 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 /**
  * Adapter from https://github.com/bingoogolapple/BGARefreshLayout-Android to IPullLayout
+ * 类适配器
  * Created by Sui on 2016/12/27.
  */
 
-public class BGAPullLayout implements IPullLayout {
-    private final BGARefreshLayout mRealLayout;
-    private static final String TAG = "BGAPullLayout";
+public class PureBGARefreshLayout extends BGARefreshLayout implements IPullLayout {
+    private static final String TAG = "PureBGARefreshLayout";
 
-    BGAPullLayout(BGARefreshLayout realLayout) {
-        mRealLayout = realLayout;
-        defaultInit(realLayout);
+    public PureBGARefreshLayout(Context context) {
+        super(context);
+        init();
+    }
+
+    public PureBGARefreshLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
     }
 
     @Override
     public void beginPullingDown() {
-        mRealLayout.beginRefreshing();
+        post(new Runnable() {
+            @Override
+            public void run() {
+                beginRefreshing();
+            }
+        });
     }
 
     @Override
     public void beginPullingUp() {
-        mRealLayout.beginLoadingMore();
+        post(new Runnable() {
+            @Override
+            public void run() {
+                beginLoadingMore();
+            }
+        });
     }
 
     @Override
     public void endPullingUp() {
-        mRealLayout.endLoadingMore();
+        post(new Runnable() {
+            @Override
+            public void run() {
+                endLoadingMore();
+            }
+        });
     }
 
     @Override
     public void endPullingDown() {
-        mRealLayout.endRefreshing();
-    }
-
-    @Override
-    public void setVisibility(int visibility) {
-        mRealLayout.setVisibility(visibility);
-    }
-
-    void setDelegate(BGARefreshLayout.BGARefreshLayoutDelegate delegate) {
-        mRealLayout.setDelegate(delegate);
+        post(new Runnable() {
+            @Override
+            public void run() {
+                endRefreshing();
+            }
+        });
     }
 
     /**
      * 项目级别通用的初始化工作
      */
-    private void defaultInit(BGARefreshLayout realLayout) {
+    private void init() {
         Log.i(TAG, "defaultInit");
     }
 

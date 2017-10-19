@@ -16,6 +16,7 @@
 
 package com.sxenon.pure.core.viewholder.filler.list.strategy;
 
+import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.list.BaseFillPageStrategyForList;
@@ -126,6 +127,12 @@ public class PrevAndNextFillPageStrategyForList<R> extends BaseFillPageStrategyF
     @Override
     public void onPullUp(PageInfo pageInfo) {
         pageInfo.tempPage = pageInfo.currentPage + 1;
+    }
+
+    @Override
+    public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
+        adapter.clearAllItems();
+        pageInfo.currentPage = pageInfo.tempPage = -1;
     }
 
     public void setFillEventListener(OnFillEventListener onFillEventListener) {
