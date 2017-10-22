@@ -27,15 +27,15 @@ import cn.bingoogolapple.androidcommon.adapter.BGARecyclerViewAdapter;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 /**
- * Wrap with BGAPullLayout
+ * Wrap with PureBGARefreshLayout
  * Created by Sui on 2016/12/27.
  */
 
-public class BGAFillerViewHolder<R> extends BaseListFillerViewHolder<R, BGAPullLayout> {
+public class BGAFillerViewHolder<R> extends BaseListFillerViewHolder<R, PureBGARefreshLayout> {
     private static final String TAG = "FillerGroup";
 
-    public BGAFillerViewHolder(Context context, BGARefreshLayout refreshLayout, IFillPageStrategyForList<R> fillPageStrategy,int dataSizeForFullPage) {
-        super(context, new BGAPullLayout(refreshLayout), fillPageStrategy,dataSizeForFullPage);
+    public BGAFillerViewHolder(Context context, PureBGARefreshLayout refreshLayout, IFillPageStrategyForList<R> fillPageStrategy,int dataSizeForFullPage) {
+        super(context, refreshLayout, fillPageStrategy,dataSizeForFullPage);
     }
 
     public void setAdapter(BGARecyclerViewAdapter<R> adapter){

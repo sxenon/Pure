@@ -24,6 +24,7 @@ import com.sxenon.pure.core.viewholder.filler.IPullLayout;
 
 /**
  * Adapter from https://github.com/lcodecorex/TwinklingRefreshLayout to IPullLayout
+ * 对象适配器
  * Created by Sui on 2016/12/27.
  */
 

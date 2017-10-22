@@ -16,6 +16,7 @@
 
 package com.sxenon.pure.core.viewholder.filler.list.dummy;
 
+import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.list.BaseFillPageStrategyForList;
@@ -28,9 +29,9 @@ import java.util.List;
  * Created by Sui on 2017/8/6.
  */
 
-class DummyFillPageStrategyForList<R> extends BaseFillPageStrategyForList<R> {
+public class DummyFillPageStrategyForList<R> extends BaseFillPageStrategyForList<R> {
 
-    DummyFillPageStrategyForList() {
+    public DummyFillPageStrategyForList() {
         super();
     }
 
@@ -60,6 +61,11 @@ class DummyFillPageStrategyForList<R> extends BaseFillPageStrategyForList<R> {
 
     @Override
     public void onPullUp(PageInfo pageInfo) {
+
+    }
+
+    @Override
+    public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
 
     }
 }

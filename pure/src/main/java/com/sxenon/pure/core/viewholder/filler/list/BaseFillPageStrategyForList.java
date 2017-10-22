@@ -16,10 +16,6 @@
 
 package com.sxenon.pure.core.viewholder.filler.list;
 
-import com.sxenon.pure.core.ApiException;
-import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
-
 /**
  * BaseFillPageStrategyForList
  * Created by Sui on 2017/9/3.
@@ -38,11 +34,5 @@ public abstract class BaseFillPageStrategyForList<R> implements IFillPageStrateg
 
     public IFillAdapterStrategy<R> getListDataFillStrategy() {
         return mFillAdapterStrategy;
-    }
-
-    @Override
-    public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
-        adapter.clearAllItems();
-        pageInfo.currentPage = pageInfo.tempPage = -1;
     }
 }
