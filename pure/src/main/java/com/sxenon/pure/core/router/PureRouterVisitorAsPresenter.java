@@ -34,7 +34,6 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import rx.Observable;
-import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
 
@@ -156,8 +155,8 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
 
     //Permission start
 
-    public void setPermissionEvent(int what, Action0 action, boolean forceAccepting) {
-        permissionHelper.setPermissionEvent(what, action, forceAccepting);
+    public void setPermissionEvent(int what, Runnable runnable, boolean forceAccepting) {
+        permissionHelper.setPermissionEvent(what, runnable, forceAccepting);
     }
 
     /**
@@ -199,16 +198,16 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     }
 
     @Override
-    public final void requestPermissions(@NonNull String[] permissions, int requestCode, Action0 action, boolean forceAccepting) {
+    public final void requestPermissions(@NonNull String[] permissions, int requestCode, Runnable runnable, boolean forceAccepting) {
         if (Arrays.binarySearch(permissions, Manifest.permission.SYSTEM_ALERT_WINDOW) >= 0) {
-            throw new IllegalArgumentException("Please Call requestSystemAlertPermission(int requestCode, Action0 action) for SYSTEM_ALERT_WINDOW!");
+            throw new IllegalArgumentException("Please Call requestSystemAlertPermission(int requestCode, Runnable runnable) for SYSTEM_ALERT_WINDOW!");
         }
-        permissionHelper.requestPermissions(permissions, requestCode, action, forceAccepting);
+        permissionHelper.requestPermissions(permissions, requestCode, runnable, forceAccepting);
     }
 
     @Override
-    public final void requestSystemAlertPermission(int requestCode, Action0 action) {
-        isRequestingSystemAlertPermission = !permissionHelper.showSystemAlertAtOnce(requestCode, action);
+    public final void requestSystemAlertPermission(int requestCode, Runnable runnable) {
+        isRequestingSystemAlertPermission = !permissionHelper.showSystemAlertAtOnce(requestCode, runnable);
     }
 
     /**
@@ -220,8 +219,8 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     }
 
     @Override
-    public final void onPermissionGranted(Action0 action) {
-        action.call();
+    public final void onPermissionGranted(Runnable runnable) {
+        runnable.run();
     }
 
     @Override

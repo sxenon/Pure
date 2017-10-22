@@ -28,8 +28,6 @@ import com.sxenon.pure.core.viewholder.IViewHolder;
 
 import java.util.List;
 
-import rx.functions.Action0;
-
 /**
  * Treat Activity & Fragment as router
  * Architecture: IRouter-->{@link IViewHolder} with Business logic/ViewGroup-->View/Adapter
@@ -53,7 +51,7 @@ public interface IRouter<P extends PureRouterVisitorAsPresenter> extends IView<P
 
     Activity getActivityCompact();
 
-    void requestPermissionsCompact(@NonNull String[] permissions, int requestCode, Action0 action, boolean forceAccepting);
+    void requestPermissionsCompact(@NonNull String[] permissions, int requestCode, Runnable runnable, boolean forceAccepting);
 
     /**
      * @return Return false if the router is instance of FragmentActivity and its supportFragment request the permission,otherwise true.

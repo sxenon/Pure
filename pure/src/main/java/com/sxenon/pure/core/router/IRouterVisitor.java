@@ -26,8 +26,6 @@ import com.trello.rxlifecycle.LifecycleProvider;
 
 import java.util.List;
 
-import rx.functions.Action0;
-
 /**
  * Visitor for IRouter
  * Created by Sui on 2017/2/5.
@@ -42,9 +40,9 @@ public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifec
 
     void handleActivityResult(int requestCode, int resultCode, Intent data);
 
-    void requestPermissions(@NonNull String[] permissions, int requestCode, Action0 action, boolean forceAccepting);
+    void requestPermissions(@NonNull String[] permissions, int requestCode, Runnable runnable, boolean forceAccepting);
 
-    void requestSystemAlertPermission(int requestCode, Action0 action);
+    void requestSystemAlertPermission(int requestCode, Runnable runnable);
 
     void requestPermissionsAfterExplanation(@NonNull String[] permissions);
 }

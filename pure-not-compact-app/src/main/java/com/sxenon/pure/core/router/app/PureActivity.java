@@ -33,8 +33,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import rx.functions.Action0;
-
 /**
  * To be the purest wrapper for Activity
  * Attention:Those activities which call finish in onCreate() should not inherit it.
@@ -103,8 +101,8 @@ public abstract class PureActivity<P extends PureRouterVisitorAsPresenter> exten
     }
 
     @Override
-    public void requestPermissionsCompact(@NonNull String[] permissions, int requestCode, Action0 action, boolean forceAccepting) {
-        getPresenter().setPermissionEvent(requestCode, action, forceAccepting);
+    public void requestPermissionsCompact(@NonNull String[] permissions, int requestCode, Runnable runnable, boolean forceAccepting) {
+        getPresenter().setPermissionEvent(requestCode, runnable, forceAccepting);
         ActivityCompat.requestPermissions(this, permissions, requestCode);
     }
 

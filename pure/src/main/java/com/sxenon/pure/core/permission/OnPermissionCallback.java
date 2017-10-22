@@ -18,11 +18,9 @@ package com.sxenon.pure.core.permission;
 
 import android.support.annotation.NonNull;
 
-import rx.functions.Action0;
-
 public interface OnPermissionCallback {
 
-    void onPermissionGranted(Action0 action);
+    void onPermissionGranted(Runnable runnable);
 
     void onPermissionDeclined(int requestCode, @NonNull String[] permissions);
 
