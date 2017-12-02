@@ -23,10 +23,8 @@ android {
 }
 
 dependencies {
-    def okhttp3Version='3.9.0'
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.squareup.okhttp3:okhttp:'+okhttp3Version
-    compile 'com.squareup.okhttp3:logging-interceptor:'+okhttp3Version
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
     compile project(':pure')
 }

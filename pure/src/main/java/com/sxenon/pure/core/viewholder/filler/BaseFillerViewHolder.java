@@ -86,13 +86,7 @@ public abstract class BaseFillerViewHolder<PL extends IPullLayout,S extends IFil
     }
 
     public void toInitialize() {
-        Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
-            @Override
-            public boolean queueIdle() {
-                beginPullingDown();
-                return false;
-            }
-        });
+        beginPullingDown();
     }
 
     public void beginPullingDown() {
