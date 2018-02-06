@@ -19,6 +19,7 @@ package com.sxenon.pure.core.adapter.rv;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.sxenon.pure.core.adapter.IAdapterViewHolder;
 import com.sxenon.pure.core.viewholder.IViewHolder;
@@ -46,5 +47,19 @@ public abstract class PureRecyclerViewViewHolder<T> extends RecyclerView.ViewHol
     @Override
     public Context getContext() {
         return adapterContainer.getContext();
+    }
+
+    public void setVisibility(boolean isVisible){
+        RecyclerView.LayoutParams param = (RecyclerView.LayoutParams)itemView.getLayoutParams();
+        if (isVisible){
+            param.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            param.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            itemView.setVisibility(View.VISIBLE);
+        }else{
+            itemView.setVisibility(View.GONE);
+            param.height = 0;
+            param.width = 0;
+        }
+        itemView.setLayoutParams(param);
     }
 }
