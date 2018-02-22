@@ -26,9 +26,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //support
     //Rx 1.x
-    compile 'io.reactivex:rxjava:1.3.5'
+    compile 'io.reactivex:rxjava:1.3.6'
     compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'com.trello:rxlifecycle:1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:appcompat-v7:26.1.0'
 }
