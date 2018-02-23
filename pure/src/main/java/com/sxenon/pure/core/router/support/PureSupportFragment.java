@@ -60,6 +60,12 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.onStart();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         mPresenter.onResume();
@@ -78,13 +84,19 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        mPresenter.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         //noinspection unchecked
         saveEventList(mPresenter.getEventForSave());
-        mPresenter.onDestroy();
         mViewCreated = false;
         hasPresenterInitialized = false;
+        mPresenter.onDestroy();
     }
 
     @Override
