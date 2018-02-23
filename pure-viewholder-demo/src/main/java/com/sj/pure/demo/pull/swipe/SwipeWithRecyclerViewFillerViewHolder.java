@@ -1,0 +1,85 @@
+/*
+ * Copyright (c) 2018  sxenon
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.sj.pure.demo.pull.swipe;
+
+import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
+
+import com.sxenon.pure.core.viewholder.filler.list.BaseListFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.list.strategy.RefreshAndMoreFillPageStrategy;
+
+import java.util.List;
+
+/**
+ * Created by suijun on 23/02/2018.
+ */
+
+public class SwipeWithRecyclerViewFillerViewHolder<R> extends BaseListFillerViewHolder<R, SwipeWithRecyclerViewPullLayout> {
+    private ILoadMore loadMore;
+
+    /**
+     * Constructor
+     *
+     * @param context            上下文
+     * @param pullLayout         刷新容器
+     * @param fillPageStrategy   分页数据填充策略
+     * @param dataSizeInFullPage 完整页数据个数
+     */
+    public SwipeWithRecyclerViewFillerViewHolder(Context context, SwipeWithRecyclerViewPullLayout pullLayout, RefreshAndMoreFillPageStrategy<R> fillPageStrategy, int dataSizeInFullPage, final ILoadMore loadMore) {
+        super(context, pullLayout, fillPageStrategy, dataSizeInFullPage);
+        this.loadMore = loadMore;
+        fillPageStrategy.setFillEventListener(new RefreshAndMoreFillPageStrategy.SimpleOnFillEventListener<R>() {
+
+            @Override
+            public void onPartialMoreDataFetched(List<R> data) {
+                loadMore.onAllLoaded();
+            }
+
+            @Override
+            public void onNoMoreData() {
+                loadMore.onAllLoaded();
+            }
+        });
+    }
+
+    public void setDelegate(final SwipeRefreshLayout.OnRefreshListener onPullDownListener, final EndlessRecyclerOnScrollListener onPullUpListener, RecyclerView.LayoutManager layoutManager){
+        getPullLayout().setDelegate(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onBeginPullingDown();
+                loadMore.startLoadingMore();
+                onPullDownListener.onRefresh();
+                onPullUpListener.resetState();
+            }
+        }, new EndlessRecyclerOnScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                if(!loadMore.hasLoadedAll()){
+                    onBeginPullingUp();
+                    onPullUpListener.onLoadMore(page, totalItemsCount, view);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onEmpty() {
+        super.onEmpty();
+        loadMore.hasLoadedAll();
+    }
+}

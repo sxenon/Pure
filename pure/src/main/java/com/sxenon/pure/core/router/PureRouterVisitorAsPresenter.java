@@ -36,7 +36,7 @@ import java.util.List;
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R>, LifecycleOwner {
+public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R>{
 
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;

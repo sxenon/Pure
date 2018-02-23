@@ -16,6 +16,7 @@
 
 package com.sj.pure.demo.verificationcode;
 
+import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
 
 import com.sxenon.pure.core.viewholder.submitter.ISubmitterViewHolder;
@@ -76,7 +77,6 @@ public abstract class RxVerificationCodeViewHolder<T,R> implements ISubmitResult
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(routerVisitor.<Long>bindUntilEvent(RouterEvent.DESTROY))
                 .subscribe(new Subscriber<Long>() {
                     @Override
                     public void onCompleted() {
@@ -94,13 +94,15 @@ public abstract class RxVerificationCodeViewHolder<T,R> implements ISubmitResult
                     public void onNext(Long aLong) {
                         if (isRouterOnActive(routerVisitor)){
                             mCountDownListener.onTick(aLong);
+                        }else {
+                            unsubscribe();
                         }
                     }
                 });
     }
 
     private boolean isRouterOnActive(IRouterVisitor routerVisitor){
-        return routerVisitor.getCurrentEvent()!= RouterEvent.DESTROY;
+        return routerVisitor.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED);
     }
 
 }

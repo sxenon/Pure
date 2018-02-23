@@ -22,8 +22,8 @@ import android.util.Log;
 import com.sxenon.pure.core.viewholder.filler.list.BaseListFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.list.IFillPageStrategyForList;
 
-import cn.bingoogolapple.androidcommon.adapter.BGAAdapterViewAdapter;
-import cn.bingoogolapple.androidcommon.adapter.BGARecyclerViewAdapter;
+import cn.bingoogolapple.baseadapter.BGAAdapterViewAdapter;
+import cn.bingoogolapple.baseadapter.BGARecyclerViewAdapter;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 /**
