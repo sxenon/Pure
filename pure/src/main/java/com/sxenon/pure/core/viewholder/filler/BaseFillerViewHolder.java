@@ -24,6 +24,7 @@ import android.view.View;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.util.CommonUtils;
+import com.sxenon.pure.core.viewholder.ILoadingView;
 
 /**
  * Base implement for IFillerViewHolder
@@ -42,6 +43,7 @@ public abstract class BaseFillerViewHolder<PL extends IPullLayout,S extends IFil
 
     private View mEmptyView;
     private View mExceptionView;
+    private ILoadingView mLoadingView;
 
     private OnFillEventListener mOnFillEventListener;
 
@@ -58,17 +60,26 @@ public abstract class BaseFillerViewHolder<PL extends IPullLayout,S extends IFil
         mContext = context;
     }
 
-    public void setExtraComponents(View emptyView, View exceptionView) {
+    public BaseFillerViewHolder setExtraComponents(View emptyView, View exceptionView) {
         mEmptyView = emptyView;
         mExceptionView = exceptionView;
 
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
+        return this;
+    }
+
+    public BaseFillerViewHolder setLoadingView(ILoadingView loadingView){
+        mLoadingView = loadingView;
+        return this;
     }
 
     public void endAllAnim() {
         mPullLayout.endPullingUp();
         mPullLayout.endPullingDown();
+        if(mLoadingView!=null){
+            mLoadingView.hideLoading();
+        }
     }
 
     /**
@@ -91,10 +102,16 @@ public abstract class BaseFillerViewHolder<PL extends IPullLayout,S extends IFil
 
     public void beginPullingDown() {
         mPullLayout.beginPullingDown();
+        if (mLoadingView!=null){
+            mLoadingView.showLoading();
+        }
     }
 
     public void beginPullingUp() {
         mPullLayout.beginPullingUp();
+        if (mLoadingView!=null){
+            mLoadingView.showLoading();
+        }
     }
 
     //Event start

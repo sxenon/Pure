@@ -68,7 +68,7 @@ public class PrevAndNextFillPageStrategyForList<R> extends BaseFillPageStrategyF
         getListDataFillStrategy().onInitDataFetched(adapter, data);
         if (mOnFillEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onPrevDataFetched(data);
+            mOnFillEventListener.onPartialNextDataFetched(data);
         }
     }
 
@@ -76,7 +76,7 @@ public class PrevAndNextFillPageStrategyForList<R> extends BaseFillPageStrategyF
         getListDataFillStrategy().onInitDataFetched(adapter, data);
         if (mOnFillEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onPartialNextDataFetched(data);
+            mOnFillEventListener.onPrevDataFetched(data);
         }
     }
 
