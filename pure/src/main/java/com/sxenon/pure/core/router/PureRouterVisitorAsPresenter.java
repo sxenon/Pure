@@ -17,89 +17,36 @@
 package com.sxenon.pure.core.router;
 
 import android.Manifest;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.LifecycleRegistry;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
-import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.permission.PermissionHelper;
-import com.trello.rxlifecycle.LifecycleTransformer;
-import com.trello.rxlifecycle.OutsideLifecycleException;
-import com.trello.rxlifecycle.RxLifecycle;
 
 import java.util.Arrays;
 import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import rx.Observable;
-import rx.functions.Func1;
-import rx.subjects.BehaviorSubject;
 
 /**
  * RouterVisitor
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R> {
+public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R>, LifecycleOwner {
 
-    private RouterEvent currentEvent;
-    private final BehaviorSubject<RouterEvent> lifecycleSubject = BehaviorSubject.create();
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
     public static final String TAG = "PureRouterVisitorAsPresenter";
-    private final Func1<RouterEvent, RouterEvent> ROUTER_LIFECYCLE =
-            new Func1<RouterEvent, RouterEvent>() {
-                @Override
-                public RouterEvent call(RouterEvent lastEvent) {
-                    switch (lastEvent) {
-                        case CREATE:
-                            return RouterEvent.DESTROY;
-                        case RESUME:
-                            return RouterEvent.PAUSE;
-                        case PAUSE:
-                            return RouterEvent.STOP;
-                        case STOP:
-                            return RouterEvent.DESTROY;
-                        case DESTROY:
-                            throw new OutsideLifecycleException("Cannot bind to RootPresenter lifecycle when outside of it.");
-                        default:
-                            throw new UnsupportedOperationException("Binding to " + lastEvent + " not yet implemented");
-                    }
-                }
-            };
+    private LifecycleRegistry mLifecycleRegistry = new LifecycleRegistry(this);
 
     public PureRouterVisitorAsPresenter(R router) {
         super(router);
         permissionHelper = new PermissionHelper(router, this);
     }
-
-    //LifecycleProvider start
-    @Nonnull
-    @Override
-    public Observable<RouterEvent> lifecycle() {
-        return lifecycleSubject.asObservable();
-    }
-
-    /**
-     * RxLifecycle does not actually unsubscribe the sequence. Instead it terminates the sequence. The way in which it does so varies based on the type:
-     * Observable - emits onCompleted()
-     * Single and Completable - emits onError(CancellationException)
-     */
-    @Nonnull
-    @Override
-    public <T> LifecycleTransformer<T> bindUntilEvent(@Nonnull RouterEvent event) {
-        return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
-    }
-
-    @Nonnull
-    @Override
-    public <T> LifecycleTransformer<T> bindToLifecycle() {
-        //  return RxLifecycle.
-        return RxLifecycle.bind(lifecycleSubject, ROUTER_LIFECYCLE);
-    }
-    //LifecycleProvider end
 
     @Override
     public List<Event> getEventForSave() {
@@ -109,42 +56,42 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     //LifeCycle start
     @Override
     public void onCreate(List<Event> savedEventList) {
-        currentEvent = RouterEvent.CREATE;
-        GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterCreated(this, savedEventList);
-        lifecycleSubject.onNext(RouterEvent.CREATE);
+        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
+    }
+
+    @Override
+    public void onStart() {
+        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
     }
 
     @Override
     public void onResume() {
-        currentEvent = RouterEvent.RESUME;
-        GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterResumed(this);
-        lifecycleSubject.onNext(RouterEvent.RESUME);
+        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
     }
 
     @Override
     public void onPause() {
-        currentEvent = RouterEvent.PAUSE;
-        GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterPaused(this);
-        lifecycleSubject.onNext(RouterEvent.PAUSE);
+        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
     }
 
     @Override
     public void onStop() {
-        currentEvent = RouterEvent.STOP;
-        GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterStopped(this);
-        lifecycleSubject.onNext(RouterEvent.STOP);
+        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
     }
 
     @Override
     public void onDestroy() {
-        currentEvent = RouterEvent.DESTROY;
-        GlobalContext.INSTANCE.routerLifecycleCallbackDispatcher.dispatchRouterDestroyed(this);
-        lifecycleSubject.onNext(RouterEvent.DESTROY);
+        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
     }
 
     @Override
-    public RouterEvent getCurrentEvent() {
-        return currentEvent;
+    public void onSaveInstanceState(Bundle outState) {
+        mLifecycleRegistry.markState(Lifecycle.State.CREATED);
+    }
+
+    @Override
+    public Lifecycle getLifecycle() {
+        return mLifecycleRegistry;
     }
 
     //LifeCycle end

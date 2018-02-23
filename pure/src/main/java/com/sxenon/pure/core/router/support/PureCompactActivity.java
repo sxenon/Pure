@@ -54,6 +54,12 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.onStart();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         mPresenter.onResume();
@@ -69,6 +75,12 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
     protected void onStop() {
         super.onStop();
         mPresenter.onStop();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        mPresenter.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

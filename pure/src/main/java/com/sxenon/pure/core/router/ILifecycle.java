@@ -16,6 +16,8 @@
 
 package com.sxenon.pure.core.router;
 
+import android.os.Bundle;
+
 import com.sxenon.pure.core.Event;
 
 import java.util.List;
@@ -28,6 +30,8 @@ import java.util.List;
 interface ILifecycle {
     void onCreate(List<Event> savedEventList);
 
+    void onStart();
+
     void onResume();
 
     void onPause();
@@ -35,4 +39,6 @@ interface ILifecycle {
     void onStop();
 
     void onDestroy();
+
+    void onSaveInstanceState(Bundle outState);
 }
