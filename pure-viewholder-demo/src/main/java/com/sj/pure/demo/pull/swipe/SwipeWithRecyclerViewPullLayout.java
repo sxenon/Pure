@@ -16,8 +16,10 @@
 
 package com.sj.pure.demo.pull.swipe;
 
+import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 
 import com.sxenon.pure.core.viewholder.filler.IPullLayout;
 
@@ -25,26 +27,31 @@ import com.sxenon.pure.core.viewholder.filler.IPullLayout;
  * Created by suijun on 23/02/2018.
  */
 
-public class SwipeWithRecyclerViewPullLayout implements IPullLayout {
-    private SwipeRefreshLayout swipeRefreshLayout;
+public class SwipeWithRecyclerViewPullLayout extends SwipeRefreshLayout implements IPullLayout {
     private RecyclerView recyclerView;
     private ILoadMore loadMore;
 
-    /**
-     *
-     * @param swipeRefreshLayout only support refreshing
-     * @param recyclerView only support loading more
-     * @param loadMore actually,it should be a {@link RecyclerView.Adapter}
-     */
-    public SwipeWithRecyclerViewPullLayout(SwipeRefreshLayout swipeRefreshLayout, RecyclerView recyclerView,ILoadMore loadMore) {
-        this.swipeRefreshLayout = swipeRefreshLayout;
-        this.recyclerView = recyclerView;
+    public SwipeWithRecyclerViewPullLayout(Context context) {
+        super(context);
+    }
+
+    public SwipeWithRecyclerViewPullLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public SwipeWithRecyclerViewPullLayout setLoadMore(ILoadMore loadMore) {
         this.loadMore = loadMore;
+        return this;
+    }
+
+    public SwipeWithRecyclerViewPullLayout setRecyclerView(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+        return this;
     }
 
     @Override
     public void beginPullingDown() {
-        swipeRefreshLayout.setRefreshing(true);
+        setRefreshing(true);
     }
 
     @Override
@@ -59,17 +66,16 @@ public class SwipeWithRecyclerViewPullLayout implements IPullLayout {
 
     @Override
     public void endPullingDown() {
-        swipeRefreshLayout.setRefreshing(false);
+        setRefreshing(false);
     }
 
     @Override
     public void setVisibility(int visibility) {
-        swipeRefreshLayout.setVisibility(visibility);
-        recyclerView.setVisibility(visibility);
+        setVisibility(visibility);
     }
 
     void setDelegate(final SwipeRefreshLayout.OnRefreshListener onPullDownListener, EndlessRecyclerOnScrollListener onPullUpListener){
-        swipeRefreshLayout.setOnRefreshListener(onPullDownListener);
+        setOnRefreshListener(onPullDownListener);
         recyclerView.addOnScrollListener(onPullUpListener);
     }
 

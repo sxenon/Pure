@@ -55,7 +55,7 @@ public class SwipeWithRecyclerViewFillerViewHolder<R> extends BaseListFillerView
         });
     }
 
-    public void setDelegate(final SwipeRefreshLayout.OnRefreshListener onPullDownListener, final EndlessRecyclerOnScrollListener onPullUpListener, RecyclerView.LayoutManager layoutManager){
+    public void setDelegate(final SwipeRefreshLayout.OnRefreshListener onPullDownListener, final EndlessRecyclerOnScrollListener onPullUpListener){
         getPullLayout().setDelegate(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -63,7 +63,7 @@ public class SwipeWithRecyclerViewFillerViewHolder<R> extends BaseListFillerView
                 onPullUpListener.resetState();
                 onPullDownListener.onRefresh();
             }
-        }, new EndlessRecyclerOnScrollListener(layoutManager) {
+        }, new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 if(!getPullLayout().getLoadMore().hasLoadedAll()){
