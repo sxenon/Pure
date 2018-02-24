@@ -16,6 +16,7 @@
 
 package com.sxenon.pure.core.router;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
@@ -30,7 +31,7 @@ import java.util.List;
  * Created by Sui on 2017/2/5.
  */
 
-public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle, OnPermissionCallback {
+public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle,LifecycleOwner, OnPermissionCallback {
     boolean onBackPressed();
 
     List<Event> getEventForSave();

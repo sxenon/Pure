@@ -20,7 +20,7 @@ import com.sxenon.pure.core.adapter.IPureAdapter;
 
 import java.util.List;
 
-import cn.bingoogolapple.androidcommon.adapter.BGAAdapterViewAdapter;
+import cn.bingoogolapple.baseadapter.BGAAdapterViewAdapter;
 
 /**
  * BGAPureAdapterViewAdapter
@@ -28,6 +28,7 @@ import cn.bingoogolapple.androidcommon.adapter.BGAAdapterViewAdapter;
  */
 
 public class BGAPureAdapterViewAdapter<T> implements IPureAdapter<T> {
+
     private final BGAAdapterViewAdapter<T> bgaAdapterViewAdapter;
 
     BGAPureAdapterViewAdapter(BGAAdapterViewAdapter<T> bgaAdapterViewAdapter) {

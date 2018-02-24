@@ -57,6 +57,10 @@ public class BaseListFillerViewHolder<R, PL extends IPullLayout> extends BaseFil
         mAdapter = adapter;
     }
 
+    public IPureAdapter<R> getAdapter() {
+        return mAdapter;
+    }
+
     @Override
     public void onListDataFetched(List<R> data) {
         endAllAnim();
