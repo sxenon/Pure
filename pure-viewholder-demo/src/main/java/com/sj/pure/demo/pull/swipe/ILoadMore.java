@@ -21,7 +21,8 @@ package com.sj.pure.demo.pull.swipe;
  */
 
 public interface ILoadMore {
-    void startLoadingMore();
+    void beginLoadingMore();
+    void endLoadingMore();
     void onAllLoaded();
     boolean hasLoadedAll();
 }

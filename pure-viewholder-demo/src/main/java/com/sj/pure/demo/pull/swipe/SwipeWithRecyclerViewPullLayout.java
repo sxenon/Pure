@@ -28,10 +28,18 @@ import com.sxenon.pure.core.viewholder.filler.IPullLayout;
 public class SwipeWithRecyclerViewPullLayout implements IPullLayout {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+    private ILoadMore loadMore;
 
-    public SwipeWithRecyclerViewPullLayout(SwipeRefreshLayout swipeRefreshLayout, RecyclerView recyclerView) {
+    /**
+     *
+     * @param swipeRefreshLayout only support refreshing
+     * @param recyclerView only support loading more
+     * @param loadMore actually,it should be a {@link RecyclerView.Adapter}
+     */
+    public SwipeWithRecyclerViewPullLayout(SwipeRefreshLayout swipeRefreshLayout, RecyclerView recyclerView,ILoadMore loadMore) {
         this.swipeRefreshLayout = swipeRefreshLayout;
         this.recyclerView = recyclerView;
+        this.loadMore = loadMore;
     }
 
     @Override
@@ -41,12 +49,12 @@ public class SwipeWithRecyclerViewPullLayout implements IPullLayout {
 
     @Override
     public void beginPullingUp() {
-
+        loadMore.beginLoadingMore();
     }
 
     @Override
     public void endPullingUp() {
-
+        loadMore.endLoadingMore();
     }
 
     @Override
@@ -63,5 +71,9 @@ public class SwipeWithRecyclerViewPullLayout implements IPullLayout {
     void setDelegate(final SwipeRefreshLayout.OnRefreshListener onPullDownListener, EndlessRecyclerOnScrollListener onPullUpListener){
         swipeRefreshLayout.setOnRefreshListener(onPullDownListener);
         recyclerView.addOnScrollListener(onPullUpListener);
+    }
+
+    ILoadMore getLoadMore() {
+        return loadMore;
     }
 }

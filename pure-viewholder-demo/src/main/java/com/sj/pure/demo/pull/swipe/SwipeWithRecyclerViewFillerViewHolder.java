@@ -30,7 +30,6 @@ import java.util.List;
  */
 
 public class SwipeWithRecyclerViewFillerViewHolder<R> extends BaseListFillerViewHolder<R, SwipeWithRecyclerViewPullLayout> {
-    private ILoadMore loadMore;
 
     /**
      * Constructor
@@ -40,19 +39,18 @@ public class SwipeWithRecyclerViewFillerViewHolder<R> extends BaseListFillerView
      * @param fillPageStrategy   分页数据填充策略
      * @param dataSizeInFullPage 完整页数据个数
      */
-    public SwipeWithRecyclerViewFillerViewHolder(Context context, SwipeWithRecyclerViewPullLayout pullLayout, RefreshAndMoreFillPageStrategy<R> fillPageStrategy, int dataSizeInFullPage, final ILoadMore loadMore) {
+    public SwipeWithRecyclerViewFillerViewHolder(Context context, final SwipeWithRecyclerViewPullLayout pullLayout, RefreshAndMoreFillPageStrategy<R> fillPageStrategy, int dataSizeInFullPage) {
         super(context, pullLayout, fillPageStrategy, dataSizeInFullPage);
-        this.loadMore = loadMore;
         fillPageStrategy.setFillEventListener(new RefreshAndMoreFillPageStrategy.SimpleOnFillEventListener<R>() {
 
             @Override
             public void onPartialMoreDataFetched(List<R> data) {
-                loadMore.onAllLoaded();
+                pullLayout.getLoadMore().onAllLoaded();
             }
 
             @Override
             public void onNoMoreData() {
-                loadMore.onAllLoaded();
+                pullLayout.getLoadMore().onAllLoaded();
             }
         });
     }
@@ -62,15 +60,15 @@ public class SwipeWithRecyclerViewFillerViewHolder<R> extends BaseListFillerView
             @Override
             public void onRefresh() {
                 onBeginPullingDown();
-                loadMore.startLoadingMore();
-                onPullDownListener.onRefresh();
                 onPullUpListener.resetState();
+                onPullDownListener.onRefresh();
             }
         }, new EndlessRecyclerOnScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                if(!loadMore.hasLoadedAll()){
+                if(!getPullLayout().getLoadMore().hasLoadedAll()){
                     onBeginPullingUp();
+                    getPullLayout().getLoadMore().beginLoadingMore();
                     onPullUpListener.onLoadMore(page, totalItemsCount, view);
                 }
             }
@@ -80,6 +78,6 @@ public class SwipeWithRecyclerViewFillerViewHolder<R> extends BaseListFillerView
     @Override
     public void onEmpty() {
         super.onEmpty();
-        loadMore.hasLoadedAll();
+        getPullLayout().getLoadMore().onAllLoaded();
     }
 }
