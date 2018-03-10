@@ -1,9 +1,5 @@
 #Pure
-对于MVP、MVVM、MVPVM，Clean等等的框架模式，孰优孰劣，在这里不做评价，每个人都有自己的理解，甚至对于具体的某个模式，也有无数种实现，并不存在所谓最好的实现。
-
-这个项目只是我个人对MVP模式的一些理解，当然，也不仅仅是MVP。
-
-但无论是什么框架模式，无论是怎样的实现，都应该**只做应该做的最少的事**
+基于RxJava2.x+MVP+...
 
 详细文档会先写在CSDN上，Wiki上也会有。下面只是简要介绍一些关键的类与接口
 
@@ -31,6 +27,4 @@
 
 所有对M的请求结果，由IResultDispatcher来进行分发，自动选择合适的IResultHandler来处理(ISubmitResultHandler、IFetchListResultHandler、IFetchSingleResultHandler)，详见pure-result-demo，改写自NoHttp（https://github.com/yanzhenjie/NoHttp ）作者的一个Demo，在此表示感谢。
 
-##TODO
-1、待架构基本完善之后，构建2.x分支，RxJava部分的代码用 2.x替代1.x
 
