@@ -28,25 +28,26 @@ import android.widget.TextView;
 import com.sxenon.pure.core.util.Preconditions;
 import com.sxenon.pure.core.util.PureKeyboardUtil;
 
-import rx.functions.Action0;
-import rx.functions.Func1;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
-/**
+
+/*
  * Base implement for ISearchViewHolder
  * Created by Sui on 2016/11/12.
  */
 
 public class BaseSearchViewHolder implements ISearchViewHolder {
     private final EditText mEditText;
-    private Action0 mOnCancel;
-    private Func1<CharSequence, Boolean> mSearchAction;
+    private Consumer<View> mOnCancel;
+    private Function<CharSequence, Boolean> mSearchAction;
     private final View mCancelView;
 
-    public BaseSearchViewHolder(@NonNull EditText editText, @NonNull Func1<CharSequence, Boolean> searchAction) {
+    public BaseSearchViewHolder(@NonNull EditText editText, @NonNull Function<CharSequence, Boolean> searchAction) {
         this(editText, searchAction, null, null);
     }
 
-    public BaseSearchViewHolder(@NonNull EditText editText, @NonNull Func1<CharSequence, Boolean> searchAction, @Nullable View cancelView, @Nullable Action0 onCancel) {
+    public BaseSearchViewHolder(@NonNull EditText editText, @NonNull Function<CharSequence, Boolean> searchAction, @Nullable View cancelView, @Nullable Consumer<View> onCancel) {
         mEditText = editText;
         mCancelView = cancelView;
         mOnCancel = onCancel;
@@ -66,7 +67,11 @@ public class BaseSearchViewHolder implements ISearchViewHolder {
             mCancelView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Preconditions.checkNotNull(mOnCancel, "").call();
+                    try {
+                        Preconditions.checkNotNull(mOnCancel, "").accept(v);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -80,11 +85,11 @@ public class BaseSearchViewHolder implements ISearchViewHolder {
         return mCancelView;
     }
 
-    public void setCancelAction(Action0 onCancel) {
+    public void setCancelAction(Consumer<View> onCancel) {
         mOnCancel = onCancel;
     }
 
-    public void setSearchAction(@NonNull Func1<CharSequence, Boolean> searchAction) {
+    public void setSearchAction(@NonNull Function<CharSequence, Boolean> searchAction) {
         mSearchAction = searchAction;
     }
 
@@ -94,7 +99,12 @@ public class BaseSearchViewHolder implements ISearchViewHolder {
     }
 
     public boolean performSearch() {
-        return mSearchAction.call(mEditText.getText().toString());
+        try {
+            return mSearchAction.apply(mEditText.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void hideKeyBoard() {

@@ -29,7 +29,7 @@ import com.sj.pure.demo.pull.R;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.router.IRouter;
 
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 /**
  * Demo for VerificationCodeViewHolder
@@ -42,7 +42,7 @@ public class DemoVerificationCodeViewHolder extends RxVerificationCodeViewHolder
     private final Button mCodeBtn;
     private final TextView mCountDownTv;
 
-    public DemoVerificationCodeViewHolder(final IRouter container, int secondsInFuture, final Button codeBtn, final TextView countDownTv, final Action1<View> requestCodeAction) {
+    public DemoVerificationCodeViewHolder(final IRouter container, int secondsInFuture, final Button codeBtn, final TextView countDownTv, final Consumer<View> requestCodeAction) {
         super(container, secondsInFuture, new CountDownListener() {
             @Override
             public void onStart() {
@@ -65,7 +65,11 @@ public class DemoVerificationCodeViewHolder extends RxVerificationCodeViewHolder
         codeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestCodeAction.call(v);
+                try {
+                    requestCodeAction.accept(v);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         mContainer = container;

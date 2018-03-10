@@ -25,7 +25,7 @@ import java.util.List;
  * Boss直聘上 区域选择的效果实现
  * Created by Sui on 2017/8/29.
  */
-public class BossSubAreaInnerSelectStrategy extends BaseSelectStrategy {
+public class SubAreaInnerSelectStrategy extends BaseSelectStrategy {
 
     private int selectedCount = 0;
 

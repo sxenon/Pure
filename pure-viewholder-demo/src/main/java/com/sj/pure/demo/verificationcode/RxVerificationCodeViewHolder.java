@@ -19,38 +19,38 @@ package com.sj.pure.demo.verificationcode;
 import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
 
-import com.sxenon.pure.core.viewholder.submitter.ISubmitterViewHolder;
 import com.sxenon.pure.core.result.handler.ISubmitResultHandler;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.router.IRouterVisitor;
-import com.sxenon.pure.core.router.RouterEvent;
+import com.sxenon.pure.core.viewholder.submitter.ISubmitterViewHolder;
 
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.observers.ResourceObserver;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
- *
  * @param <T> Data to require code
  * @param <R> Result of code require
- *
- * Created by Sui on 2017/8/13.
+ *            <p>
+ *            Created by Sui on 2017/8/13.
  */
 
-public abstract class RxVerificationCodeViewHolder<T,R> implements ISubmitResultHandler<R>,ISubmitterViewHolder<T> {
+public abstract class RxVerificationCodeViewHolder<T, R> implements ISubmitResultHandler<R>, ISubmitterViewHolder<T> {
     private final int mSecondsInFuture;
     private final CountDownListener mCountDownListener;
     private final IRouter mRouter;
 
-    public RxVerificationCodeViewHolder(IRouter router, int secondsInFuture, CountDownListener countDownListener){
-        mSecondsInFuture =secondsInFuture;
-        mCountDownListener=countDownListener;
-        mRouter=router;
+    public RxVerificationCodeViewHolder(IRouter router, int secondsInFuture, CountDownListener countDownListener) {
+        mSecondsInFuture = secondsInFuture;
+        mCountDownListener = countDownListener;
+        mRouter = router;
     }
 
     @Override
@@ -58,30 +58,33 @@ public abstract class RxVerificationCodeViewHolder<T,R> implements ISubmitResult
         return mRouter.getContext();
     }
 
-    protected void startCountDown(){
-        final IRouterVisitor routerVisitor=mRouter.getPresenter();
+    protected void startCountDown() {
+        final IRouterVisitor routerVisitor = mRouter.getPresenter();
         //noinspection unchecked
+
         Observable.interval(0, 1, TimeUnit.SECONDS)
                 .take(mSecondsInFuture + 1)
-                .map(new Func1<Long, Long>() {
+                .map(new Function<Long, Long>() {
                     @Override
-                    public Long call(Long aLong) {
+                    public Long apply(Long aLong) throws Exception {
                         return mSecondsInFuture - aLong;
                     }
                 })
                 .subscribeOn(Schedulers.computation())
-                .doOnSubscribe(new Action0() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void call() {
+                    public void accept(Disposable disposable) throws Exception {
                         mCountDownListener.onStart();
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Long>() {
+                .subscribe(new ResourceObserver<Long>() {
                     @Override
-                    public void onCompleted() {
-                        if (isRouterOnActive(routerVisitor)){
-                            mCountDownListener.onFinish();
+                    public void onNext(Long aLong) {
+                        if (isRouterOnActive(routerVisitor)) {
+                            mCountDownListener.onTick(aLong);
+                        } else {
+                            dispose();
                         }
                     }
 
@@ -91,17 +94,16 @@ public abstract class RxVerificationCodeViewHolder<T,R> implements ISubmitResult
                     }
 
                     @Override
-                    public void onNext(Long aLong) {
-                        if (isRouterOnActive(routerVisitor)){
-                            mCountDownListener.onTick(aLong);
-                        }else {
-                            unsubscribe();
+                    public void onComplete() {
+                        if (isRouterOnActive(routerVisitor)) {
+                            mCountDownListener.onFinish();
                         }
                     }
                 });
+
     }
 
-    private boolean isRouterOnActive(IRouterVisitor routerVisitor){
+    private boolean isRouterOnActive(IRouterVisitor routerVisitor) {
         return routerVisitor.getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED);
     }
 

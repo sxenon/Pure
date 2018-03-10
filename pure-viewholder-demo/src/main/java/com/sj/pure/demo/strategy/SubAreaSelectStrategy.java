@@ -30,9 +30,9 @@ import java.util.List;
  */
 
 
-public class BossSubAreaSelectStrategy extends BaseSelectInRecyclerViewAdapterStrategy<BossSubAreaInnerSelectStrategy> {
+public class SubAreaSelectStrategy extends BaseSelectInRecyclerViewAdapterStrategy<SubAreaInnerSelectStrategy> {
 
-    public BossSubAreaSelectStrategy(BossSubAreaInnerSelectStrategy innerSelectStrategy) {
+    public SubAreaSelectStrategy(SubAreaInnerSelectStrategy innerSelectStrategy) {
         super(innerSelectStrategy);
     }
 
