@@ -18,7 +18,6 @@ package com.sxenon.pure.core.router;
 
 import android.Manifest;
 import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LifecycleRegistry;
 import android.content.Intent;
 import android.os.Bundle;

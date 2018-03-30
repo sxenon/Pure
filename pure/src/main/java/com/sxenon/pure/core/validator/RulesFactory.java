@@ -18,8 +18,7 @@ package com.sxenon.pure.core.validator;
 
 import android.widget.TextView;
 
-import io.reactivex.functions.Action;
-
+import com.sxenon.pure.core.Action0;
 
 /**
  * To create {@link Rule}s
@@ -27,7 +26,7 @@ import io.reactivex.functions.Action;
  */
 
 public class RulesFactory {
-    public static Rule createCharSequenceMaxLengthRule(final CharSequence charSequence, final int maxLength, final Action onFail) {
+    public static Rule createCharSequenceMaxLengthRule(final CharSequence charSequence, final int maxLength, final Action0 onFail) {
         return new Rule() {
             @Override
             public boolean isValid() {
@@ -37,17 +36,13 @@ public class RulesFactory {
             @Override
             public void onFail() {
                 if (onFail != null) {
-                    try {
-                        onFail.run();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    onFail.call();
                 }
             }
         };
     }
 
-    public static Rule createCharSequenceMinLengthRule(final CharSequence charSequence, final int minLength, final Action onFail) {
+    public static Rule createCharSequenceMinLengthRule(final CharSequence charSequence, final int minLength, final Action0 onFail) {
         return new Rule() {
             @Override
             public boolean isValid() {
@@ -57,18 +52,14 @@ public class RulesFactory {
             @Override
             public void onFail() {
                 if (onFail != null) {
-                    try {
-                        onFail.run();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    onFail.call();
                 }
             }
         };
     }
 
 
-    public static Rule createStringRegexRule(final String s, final String regex, final Action onFail) {
+    public static Rule createStringRegexRule(final String s, final String regex, final Action0 onFail) {
         return new Rule() {
             @Override
             public boolean isValid() {
@@ -77,25 +68,23 @@ public class RulesFactory {
 
             @Override
             public void onFail() {
-                try {
-                    onFail.run();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (onFail != null) {
+                    onFail.call();
                 }
             }
         };
     }
 
-    public static Rule createTextMaxLengthRule(final TextView textView, final int maxLength, final Action onFail) {
+    public static Rule createTextMaxLengthRule(final TextView textView, final int maxLength, final Action0 onFail) {
         return createCharSequenceMaxLengthRule(textView.getText(), maxLength, onFail);
     }
 
-    public static Rule createTextMinLengthRule(final TextView textView, final int minLength, final Action onFail) {
+    public static Rule createTextMinLengthRule(final TextView textView, final int minLength, final Action0 onFail) {
         return createCharSequenceMinLengthRule(textView.getText(), minLength, onFail);
     }
 
 
-    public static Rule createTextRegexRule(final TextView textView, final String regex, final Action onFail) {
+    public static Rule createTextRegexRule(final TextView textView, final String regex, final Action0 onFail) {
         return createStringRegexRule(textView.getText().toString().trim(), regex, onFail);
     }
 }

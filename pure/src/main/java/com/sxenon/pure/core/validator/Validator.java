@@ -16,11 +16,12 @@
 
 package com.sxenon.pure.core.validator;
 
+import com.sxenon.pure.core.Action0;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Action;
 import io.reactivex.observers.ResourceObserver;
 
 /**
@@ -44,7 +45,7 @@ public class Validator {
         return this;
     }
 
-    public void validate(final Action onSuccess) {
+    public void validate(final Action0 onSuccess) {
         Observable.fromIterable(ruleList).subscribe(new ResourceObserver<Rule>() {
             @Override
             public void onNext(Rule rule) {
@@ -62,7 +63,7 @@ public class Validator {
             @Override
             public void onComplete() {
                 try {
-                    onSuccess.run();
+                    onSuccess.call();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

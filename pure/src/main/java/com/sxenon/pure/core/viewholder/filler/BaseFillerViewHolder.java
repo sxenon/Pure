@@ -17,8 +17,6 @@
 package com.sxenon.pure.core.viewholder.filler;
 
 import android.content.Context;
-import android.os.Looper;
-import android.os.MessageQueue;
 import android.view.View;
 
 import com.sxenon.pure.core.ApiException;
