@@ -60,7 +60,8 @@ public interface IRouter<P extends PureRouterVisitorAsPresenter> extends IView<P
 
     boolean shouldShowRequestPermissionRationale(String permission);
 
-    void saveEventList(List<Event> eventList);
+    //Use ViewModel instead
+    //void saveEventList(List<Event> eventList);
 
     P bindPresenter();
 
@@ -70,9 +71,7 @@ public interface IRouter<P extends PureRouterVisitorAsPresenter> extends IView<P
     RouterType getRouterType();
 
     enum RouterType {
-        ACTIVITY,
         COMPACT_ACTIVITY,
         SUPPORT_FRAGMENT,
-        FRAGMENT,
     }
 }

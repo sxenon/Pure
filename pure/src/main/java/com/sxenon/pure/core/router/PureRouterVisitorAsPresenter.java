@@ -17,18 +17,13 @@
 package com.sxenon.pure.core.router;
 
 import android.Manifest;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleRegistry;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.permission.PermissionHelper;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * RouterVisitor
@@ -40,57 +35,10 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
     public static final String TAG = "PureRouterVisitorAsPresenter";
-    private LifecycleRegistry mLifecycleRegistry = new LifecycleRegistry(this);
 
     public PureRouterVisitorAsPresenter(R router) {
         super(router);
         permissionHelper = new PermissionHelper(router, this);
-    }
-
-    @Override
-    public List<Event> getEventForSave() {
-        return null;
-    }
-
-    //LifeCycle start
-    @Override
-    public void onCreate(List<Event> savedEventList) {
-        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE);
-    }
-
-    @Override
-    public void onStart() {
-        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START);
-    }
-
-    @Override
-    public void onResume() {
-        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
-    }
-
-    @Override
-    public void onPause() {
-        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE);
-    }
-
-    @Override
-    public void onStop() {
-        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP);
-    }
-
-    @Override
-    public void onDestroy() {
-        mLifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        mLifecycleRegistry.markState(Lifecycle.State.CREATED);
-    }
-
-    @Override
-    public Lifecycle getLifecycle() {
-        return mLifecycleRegistry;
     }
 
     //LifeCycle end

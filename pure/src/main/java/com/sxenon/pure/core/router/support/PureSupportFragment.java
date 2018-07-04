@@ -36,10 +36,8 @@ import java.util.List;
  */
 
 public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter> extends Fragment implements IFragment<P> {
-    private List<Event> mSavedEventList;
     private P mPresenter;
     private boolean mViewCreated;
-    private boolean hasPresenterInitialized;
     /**
      * 真正的对用户可见的状态！！！
      */
@@ -60,43 +58,9 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        mPresenter.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mPresenter.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mPresenter.onStop();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        mPresenter.onSaveInstanceState(outState);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //noinspection unchecked
-        saveEventList(mPresenter.getEventForSave());
         mViewCreated = false;
-        hasPresenterInitialized = false;
-        mPresenter.onDestroy();
     }
 
     @Override
@@ -115,20 +79,12 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
     }
 
     private void initPresenterIfNeeded() {
-        if (mVisible && !hasPresenterInitialized) {
-            mPresenter.onCreate(mSavedEventList);
-            hasPresenterInitialized = true;
-        }
+
     }
 
     @Override
     public P getPresenter() {
         return mPresenter;
-    }
-
-    @Override
-    public void saveEventList(List<Event> eventList) {
-        mSavedEventList = eventList;
     }
 
     @Override

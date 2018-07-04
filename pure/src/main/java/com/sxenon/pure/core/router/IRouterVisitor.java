@@ -16,25 +16,22 @@
 
 package com.sxenon.pure.core.router;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.IPresenter;
 import com.sxenon.pure.core.permission.OnPermissionCallback;
-
-import java.util.List;
 
 /**
  * Visitor for IRouter
  * Created by Sui on 2017/2/5.
  */
 
-public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, ILifecycle,LifecycleOwner, OnPermissionCallback {
+public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, OnPermissionCallback {
     boolean onBackPressed();
 
-    List<Event> getEventForSave();
+    //Use ViewModel instead
+    //List<Event> getEventForSave();
 
     void handleActivityResult(int requestCode, int resultCode, Intent data);
 

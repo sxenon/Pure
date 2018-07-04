@@ -49,46 +49,12 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
         super.onCreate(savedInstanceState);
         initView(savedInstanceState);
         mPresenter = bindPresenter();
-        mPresenter.onCreate(savedInstanceState == null ? null : GlobalContext.INSTANCE.savedEventList);
         GlobalContext.INSTANCE.activityHistoryManager.add(this);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mPresenter.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mPresenter.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mPresenter.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mPresenter.onStop();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        mPresenter.onSaveInstanceState(outState);
-        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //noinspection unchecked
-        saveEventList(mPresenter.getEventForSave());
-        mPresenter.onDestroy();
         GlobalContext.INSTANCE.activityHistoryManager.remove(this);
     }
 
@@ -101,11 +67,6 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
     @Override
     public P getPresenter() {
         return mPresenter;
-    }
-
-    @Override
-    public void saveEventList(List<Event> eventList) {
-        GlobalContext.INSTANCE.savedEventList = eventList;
     }
 
     @Override

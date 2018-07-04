@@ -34,5 +34,4 @@ public enum GlobalContext {
 
     public Application application;
     public final ActivityHistoryManager activityHistoryManager = new ActivityHistoryManager();
-    public List<Event> savedEventList;
 }
