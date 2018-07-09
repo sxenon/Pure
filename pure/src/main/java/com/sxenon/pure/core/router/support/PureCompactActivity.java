@@ -17,6 +17,8 @@
 package com.sxenon.pure.core.router.support;
 
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,13 +27,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
-import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.router.IActivity;
 import com.sxenon.pure.core.router.PureRouterVisitorAsPresenter;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -127,4 +127,13 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
         return true;
     }
 
+    @Override
+    public ViewModelProvider getViewModelProvider() {
+        return ViewModelProviders.of(this);
+    }
+
+    @Override
+    public ViewModelProvider getViewModelProvider(ViewModelProvider.Factory factory) {
+        return ViewModelProviders.of(this,factory);
+    }
 }

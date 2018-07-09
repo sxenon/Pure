@@ -30,9 +30,6 @@ import com.sxenon.pure.core.permission.OnPermissionCallback;
 public interface IRouterVisitor<R extends IRouter> extends IPresenter<R>, OnPermissionCallback {
     boolean onBackPressed();
 
-    //Use ViewModel instead
-    //List<Event> getEventForSave();
-
     void handleActivityResult(int requestCode, int resultCode, Intent data);
 
     void requestPermissions(@NonNull String[] permissions, int requestCode, Runnable runnable, boolean forceAccepting);

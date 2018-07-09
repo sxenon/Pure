@@ -17,6 +17,8 @@
 package com.sxenon.pure.core.router.support;
 
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,10 +40,6 @@ import java.util.List;
 public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter> extends Fragment implements IFragment<P> {
     private P mPresenter;
     private boolean mViewCreated;
-    /**
-     * 真正的对用户可见的状态！！！
-     */
-    private boolean mVisible;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -49,12 +47,6 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
         initView(view, savedInstanceState);
         mPresenter = bindPresenter();
         mViewCreated = true;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initPresenterIfNeeded();
     }
 
     @Override
@@ -66,20 +58,20 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        mVisible = mViewCreated && isVisibleToUser;
-        initPresenterIfNeeded();
+        /*
+      真正的对用户可见的状态！！！
+     */
+        boolean mVisible = mViewCreated && isVisibleToUser;
         PureCompactActivity activity = (PureCompactActivity) getActivity();
-        if (mVisible) {
-            activity.addToVisibleSet(this);
+        if ( mVisible ) {
+            if (activity != null) {
+                activity.addToVisibleSet(this);
+            }
         } else {
             if (activity != null) {
                 activity.removeFromVisibleSet(this);
             }
         }
-    }
-
-    private void initPresenterIfNeeded() {
-
     }
 
     @Override
@@ -125,6 +117,16 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
 
     public final boolean onBackPressed() {
         return mPresenter.onBackPressed();
+    }
+
+    @Override
+    public ViewModelProvider getViewModelProvider() {
+        return ViewModelProviders.of(this);
+    }
+
+    @Override
+    public ViewModelProvider getViewModelProvider(ViewModelProvider.Factory factory) {
+        return ViewModelProviders.of(this,factory);
     }
 
 }

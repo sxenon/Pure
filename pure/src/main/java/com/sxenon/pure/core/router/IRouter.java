@@ -17,6 +17,8 @@
 package com.sxenon.pure.core.router;
 
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -60,9 +62,6 @@ public interface IRouter<P extends PureRouterVisitorAsPresenter> extends IView<P
 
     boolean shouldShowRequestPermissionRationale(String permission);
 
-    //Use ViewModel instead
-    //void saveEventList(List<Event> eventList);
-
     P bindPresenter();
 
     @Override
@@ -74,4 +73,8 @@ public interface IRouter<P extends PureRouterVisitorAsPresenter> extends IView<P
         COMPACT_ACTIVITY,
         SUPPORT_FRAGMENT,
     }
+
+    ViewModelProvider getViewModelProvider();
+
+    ViewModelProvider getViewModelProvider(ViewModelProvider.Factory factory);
 }
