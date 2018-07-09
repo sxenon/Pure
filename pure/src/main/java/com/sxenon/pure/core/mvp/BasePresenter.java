@@ -27,23 +27,23 @@ import java.lang.ref.WeakReference;
  */
 
 public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
-    private final WeakReference<V> viewRef;
-    private final WeakReference<Context> contextRef;
+    private final V view;
+    private final Context mContext;
 
     public BasePresenter(V view) {
-        viewRef = new WeakReference<>(view);
-        contextRef = new WeakReference<>(view.getContext());
+        this.view = view;
+        mContext = view.getContext();
     }
 
     @Override
     public V getView() {
-        return viewRef.get();
+        return view;
     }
 
     @NonNull
     @Override
     public Context getContext() {
-        return contextRef.get();
+        return mContext;
     }
 
 }
