@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2018  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.result;
+package com.sxenon.pure.core.usecase;
 
-import com.sxenon.pure.core.result.handler.IResultHandler;
+import com.sxenon.pure.core.ApiException;
 
 /**
- * Dispatch result to its really handler
- * For Map,use its entrySet or just treat as single.
- * Please use  {@link BaseResultDispatcher}
- * Created by Sui on 2016/12/13.
+ * Interface for schedulers, see {@link UseCaseThreadPoolScheduler}.
  */
+public interface UseCaseScheduler {
 
-public interface IResultDispatcher extends IResultHandler {
+    void execute(Runnable runnable);
 
+    <V extends UseCase.ResponseValue> void notifyResponse(final V response,
+                                                          final UseCase.UseCaseCallback<V> useCaseCallback);
+
+    <V extends UseCase.ResponseValue> void onError(
+            final UseCase.UseCaseCallback<V> useCaseCallback, ApiException apiException);
 }

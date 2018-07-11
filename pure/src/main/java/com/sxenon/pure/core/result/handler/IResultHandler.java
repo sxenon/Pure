@@ -18,14 +18,6 @@ package com.sxenon.pure.core.result.handler;
 
 import com.sxenon.pure.core.ApiException;
 
-/**
- * Interface for common result handler
- * Direct subclasses:
- * {@link IFetchListResultHandler},{@link IFetchSingleResultHandler},{@link ISubmitResultHandler}
- * {@link com.sxenon.pure.core.mvp.IView}s should implement one of the above if need.
- * Created by Sui on 2016/11/20.
- */
-
 public interface IResultHandler {
     void onCancel();
 
