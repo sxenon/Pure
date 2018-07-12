@@ -19,7 +19,7 @@ package com.sxenon.pure.core.viewholder.filler.list.strategy;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
-import com.sxenon.pure.core.viewholder.filler.list.BaseFillPageStrategyForList;
+import com.sxenon.pure.core.viewholder.filler.list.BaseListStrategy;
 import com.sxenon.pure.core.viewholder.filler.list.IFillAdapterStrategy;
 
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.List;
  * Created by Sui on 2017/8/6.
  */
 
-public class RefreshAndMoreListStrategy<R> extends BaseFillPageStrategyForList<R> {
+public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
 
     private OnFillEventListener mOnFillEventListener;
 

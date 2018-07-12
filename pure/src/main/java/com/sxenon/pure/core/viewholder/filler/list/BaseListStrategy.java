@@ -17,18 +17,18 @@
 package com.sxenon.pure.core.viewholder.filler.list;
 
 /**
- * BaseFillPageStrategyForList
+ * BaseListStrategy
  * Created by Sui on 2017/9/3.
  */
 
-public abstract class BaseFillPageStrategyForList<R> implements IFillPageStrategyForList<R> {
+public abstract class BaseListStrategy<R> implements IFillPageStrategyForList<R> {
     private final IFillAdapterStrategy<R> mFillAdapterStrategy;
 
-    public BaseFillPageStrategyForList() {
+    public BaseListStrategy() {
         this(null);
     }
 
-    public BaseFillPageStrategyForList(IFillAdapterStrategy<R> fillAdapterStrategy) {
+    public BaseListStrategy(IFillAdapterStrategy<R> fillAdapterStrategy) {
         mFillAdapterStrategy = fillAdapterStrategy == null ? new DefaultFillAdapterStrategy<R>() : fillAdapterStrategy;
     }
 
