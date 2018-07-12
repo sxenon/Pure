@@ -18,17 +18,19 @@ package com.sxenon.pure.core.viewholder.filler.single;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.result.filler.ISingleResultFiller;
+import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 
 /**
- * BaseFillSingleStrategy
+ * ISingleStrategy
  * Created by Sui on 2017/9/3.
  */
 
-public abstract class BaseFillSingleStrategy<R> implements IFillSingleStrategy<R> {
+public interface ISingleStrategy<R> extends IFillPageStrategy {
+    void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
 
-    @Override
-    public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
-        pageInfo.currentPage = pageInfo.tempPage = -1;
-    }
+    void processEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
+
+    void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
+
 }

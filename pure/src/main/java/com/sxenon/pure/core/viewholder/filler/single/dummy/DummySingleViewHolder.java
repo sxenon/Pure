@@ -19,14 +19,14 @@ package com.sxenon.pure.core.viewholder.filler.single.dummy;
 import android.content.Context;
 
 import com.sxenon.pure.core.viewholder.filler.DummyPullLayout;
-import com.sxenon.pure.core.viewholder.filler.single.BaseSingleFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.single.BaseSingleViewHolder;
 
 /**
  * SingleData implement for DummyFillerViewHolder
  * Created by Sui on 2017/8/19.
  */
 
-public class DummySingleViewHolder<R> extends BaseSingleFillerViewHolder<R, DummyPullLayout> {
+public class DummySingleViewHolder<R> extends BaseSingleViewHolder<R, DummyPullLayout> {
     /**
      * Constructor
      *

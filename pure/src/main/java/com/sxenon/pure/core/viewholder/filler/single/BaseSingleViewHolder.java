@@ -28,7 +28,7 @@ import com.sxenon.pure.core.viewholder.filler.IPullLayout;
  * Created by Sui on 2017/8/19.
  */
 
-public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<PL,IFillSingleStrategy<R>> implements ISingleFillerViewHolder<R> {
+public class BaseSingleViewHolder<R, PL extends IPullLayout> extends BaseFillerViewHolder<PL,ISingleStrategy<R>> implements ISingleViewHolder<R> {
     private ISingleResultFiller<R> mSingleResultFiller;
     private R mData;
 
@@ -39,7 +39,7 @@ public class BaseSingleFillerViewHolder<R, PL extends IPullLayout> extends BaseF
      * @param pullLayout       刷新容器
      * @param fillPageStrategy 分页数据填充策略
      */
-    public BaseSingleFillerViewHolder(Context context, PL pullLayout, IFillSingleStrategy<R> fillPageStrategy) {
+    public BaseSingleViewHolder(Context context, PL pullLayout, ISingleStrategy<R> fillPageStrategy) {
         super(context, pullLayout, fillPageStrategy);
     }
 

@@ -25,6 +25,6 @@ import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
  * Created by Sui on 2017/8/19.
  */
 
-public interface ISingleFillerViewHolder<R> extends IFetchSingleResultHandler<R>, IFillerViewHolder {
+public interface ISingleViewHolder<R> extends IFetchSingleResultHandler<R>, IFillerViewHolder {
     void setSingleResultFiller(ISingleResultFiller<R> fetchSingleResultHandler);
 }

@@ -18,14 +18,14 @@ package com.sxenon.pure.core.viewholder.filler.single.dummy;
 
 import com.sxenon.pure.core.result.filler.ISingleResultFiller;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
-import com.sxenon.pure.core.viewholder.filler.single.BaseFillSingleStrategy;
+import com.sxenon.pure.core.viewholder.filler.single.BaseSingleStrategy;
 
 /**
  * DummySingleStrategy
  * Created by Sui on 2017/9/3.
  */
 
-public class DummySingleStrategy<R> extends BaseFillSingleStrategy<R> {
+public class DummySingleStrategy<R> extends BaseSingleStrategy<R> {
 
     @Override
     public void onPullDown(PageInfo pageInfo) {
