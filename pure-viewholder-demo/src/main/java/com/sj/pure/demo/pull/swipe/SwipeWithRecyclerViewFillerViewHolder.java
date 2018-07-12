@@ -21,7 +21,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.sxenon.pure.core.viewholder.filler.list.BaseListFillerViewHolder;
-import com.sxenon.pure.core.viewholder.filler.list.strategy.RefreshAndMoreFillPageStrategy;
+import com.sxenon.pure.core.viewholder.filler.list.strategy.RefreshAndMoreListStrategy;
 
 import java.util.List;
 
@@ -39,9 +39,9 @@ public class SwipeWithRecyclerViewFillerViewHolder<R> extends BaseListFillerView
      * @param fillPageStrategy   分页数据填充策略
      * @param dataSizeInFullPage 完整页数据个数
      */
-    public SwipeWithRecyclerViewFillerViewHolder(Context context, final SwipeWithRecyclerViewPullLayout pullLayout, RefreshAndMoreFillPageStrategy<R> fillPageStrategy, int dataSizeInFullPage) {
+    public SwipeWithRecyclerViewFillerViewHolder(Context context, final SwipeWithRecyclerViewPullLayout pullLayout, RefreshAndMoreListStrategy<R> fillPageStrategy, int dataSizeInFullPage) {
         super(context, pullLayout, fillPageStrategy, dataSizeInFullPage);
-        fillPageStrategy.setFillEventListener(new RefreshAndMoreFillPageStrategy.SimpleOnFillEventListener<R>() {
+        fillPageStrategy.setFillEventListener(new RefreshAndMoreListStrategy.SimpleOnFillEventListener<R>() {
 
             @Override
             public void onPartialMoreDataFetched(List<R> data) {

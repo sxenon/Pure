@@ -21,7 +21,7 @@ import android.util.Log;
 import com.sj.pure.demo.bean.RequestBean;
 import com.sj.pure.demo.bean.ResponseBean;
 import com.sxenon.pure.core.router.IRouter;
-import com.sxenon.pure.core.viewholder.filler.list.strategy.RefreshAndMoreFillPageStrategy;
+import com.sxenon.pure.core.viewholder.filler.list.strategy.RefreshAndMoreListStrategy;
 import com.sxenon.pure.core.viewholder.submitter.ISubmitterViewHolder;
 
 /**
@@ -33,7 +33,7 @@ public class DemoBgaFillerViewHolder extends BGAFillerViewHolder<ResponseBean> i
     private final IRouter mContainer;
 
     public DemoBgaFillerViewHolder(IRouter container, PureBGARefreshLayout refreshLayout,int dataSizeForFullPage){
-        super(container.getContext(), refreshLayout, new RefreshAndMoreFillPageStrategy<ResponseBean>(),dataSizeForFullPage);
+        super(container.getContext(), refreshLayout, new RefreshAndMoreListStrategy<ResponseBean>(),dataSizeForFullPage);
         mContainer =container;
     }
 

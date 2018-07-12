@@ -29,13 +29,13 @@ import java.util.List;
  * Created by Sui on 2017/8/6.
  */
 
-public class DummyFillPageStrategyForList<R> extends BaseFillPageStrategyForList<R> {
+public class DummyListStrategy<R> extends BaseFillPageStrategyForList<R> {
 
-    public DummyFillPageStrategyForList() {
+    public DummyListStrategy() {
         super();
     }
 
-    DummyFillPageStrategyForList(IFillAdapterStrategy<R> fillAdapterStrategy) {
+    DummyListStrategy(IFillAdapterStrategy<R> fillAdapterStrategy) {
         super(fillAdapterStrategy);
     }
 

@@ -29,16 +29,16 @@ import java.util.List;
  * Created by Sui on 2017/8/6.
  */
 
-public class PrevAndNextFillPageStrategyForList<R> extends BaseFillPageStrategyForList<R> {
+public class PrevAndNextListStrategy<R> extends BaseFillPageStrategyForList<R> {
     private final int mInitPage;
     private OnFillEventListener mOnFillEventListener;
 
-    public PrevAndNextFillPageStrategyForList(int initPage) {
+    public PrevAndNextListStrategy(int initPage) {
         super();
         mInitPage = initPage;
     }
 
-    public PrevAndNextFillPageStrategyForList(IFillAdapterStrategy<R> fillAdapterStrategy, int initPage) {
+    public PrevAndNextListStrategy(IFillAdapterStrategy<R> fillAdapterStrategy, int initPage) {
         super(fillAdapterStrategy);
         mInitPage = initPage;
     }

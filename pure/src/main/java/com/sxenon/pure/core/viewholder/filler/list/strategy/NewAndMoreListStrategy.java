@@ -29,14 +29,14 @@ import java.util.List;
  * Created by Sui on 2017/8/6.
  */
 
-public class NewAndMoreFillPageStrategy<R> extends BaseFillPageStrategyForList<R> {
+public class NewAndMoreListStrategy<R> extends BaseFillPageStrategyForList<R> {
     private OnFillEventListener mOnFillEventListener;
 
-    public NewAndMoreFillPageStrategy() {
+    public NewAndMoreListStrategy() {
         super();
     }
 
-    public NewAndMoreFillPageStrategy(IFillAdapterStrategy<R> fillAdapterStrategy) {
+    public NewAndMoreListStrategy(IFillAdapterStrategy<R> fillAdapterStrategy) {
         super(fillAdapterStrategy);
     }
 

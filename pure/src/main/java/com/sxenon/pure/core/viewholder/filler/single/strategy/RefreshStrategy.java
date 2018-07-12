@@ -21,11 +21,11 @@ import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.single.BaseFillSingleStrategy;
 
 /**
- * RefreshFillPageStrategyStrategy
+ * RefreshStrategy
  * Created by Sui on 2017/8/6.
  */
 
-public class RefreshFillPageStrategyStrategy<R> extends BaseFillSingleStrategy<R> {
+public class RefreshStrategy<R> extends BaseFillSingleStrategy<R> {
     private OnFillEventListener mOnFillEventListener;
 
     private void onInitialize() {

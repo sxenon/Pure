@@ -25,11 +25,11 @@ import com.sxenon.pure.core.viewholder.filler.single.BaseFillSingleStrategy;
  * Created by Sui on 2017/8/6.
  */
 
-public class PrevAndNextFillSingleStrategy<R> extends BaseFillSingleStrategy<R> {
+public class PrevAndNextStrategy<R> extends BaseFillSingleStrategy<R> {
     private final int mInitPage;
     private OnFillEventListener mOnFillEventListener;
 
-    public PrevAndNextFillSingleStrategy(int initPage) {
+    public PrevAndNextStrategy(int initPage) {
         super();
         mInitPage = initPage;
     }

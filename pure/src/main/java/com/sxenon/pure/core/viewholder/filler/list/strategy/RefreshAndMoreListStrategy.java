@@ -25,19 +25,19 @@ import com.sxenon.pure.core.viewholder.filler.list.IFillAdapterStrategy;
 import java.util.List;
 
 /**
- * RefreshAndMoreFillPageStrategy
+ * RefreshAndMoreListStrategy
  * Created by Sui on 2017/8/6.
  */
 
-public class RefreshAndMoreFillPageStrategy<R> extends BaseFillPageStrategyForList<R> {
+public class RefreshAndMoreListStrategy<R> extends BaseFillPageStrategyForList<R> {
 
     private OnFillEventListener mOnFillEventListener;
 
-    public RefreshAndMoreFillPageStrategy() {
+    public RefreshAndMoreListStrategy() {
         super();
     }
 
-    public RefreshAndMoreFillPageStrategy(IFillAdapterStrategy<R> fillAdapterStrategy) {
+    public RefreshAndMoreListStrategy(IFillAdapterStrategy<R> fillAdapterStrategy) {
         super(fillAdapterStrategy);
     }
 
