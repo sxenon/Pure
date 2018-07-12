@@ -18,14 +18,14 @@ package com.sxenon.pure.core.viewholder.filler.single.strategy;
 
 import com.sxenon.pure.core.result.filler.ISingleResultFiller;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
-import com.sxenon.pure.core.viewholder.filler.single.BaseFillPageStrategyForSingle;
+import com.sxenon.pure.core.viewholder.filler.single.BaseFillSingleStrategy;
 
 /**
- * RefreshFillPageStrategy
+ * RefreshFillPageStrategyStrategy
  * Created by Sui on 2017/8/6.
  */
 
-public class RefreshFillPageStrategy<R> extends BaseFillPageStrategyForSingle<R> {
+public class RefreshFillPageStrategyStrategy<R> extends BaseFillSingleStrategy<R> {
     private OnFillEventListener mOnFillEventListener;
 
     private void onInitialize() {

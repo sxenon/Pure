@@ -14,21 +14,36 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.single;
+package com.sxenon.pure.core.viewholder.filler.single.dummy;
 
-import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.result.filler.ISingleResultFiller;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.single.BaseFillSingleStrategy;
 
 /**
- * BaseFillPageStrategyForSingle
+ * DummyFillSingleStrategy
  * Created by Sui on 2017/9/3.
  */
 
-public abstract class BaseFillPageStrategyForSingle<R> implements IFillPageStrategyForSingle<R> {
+public class DummyFillSingleStrategy<R> extends BaseFillSingleStrategy<R> {
 
     @Override
-    public void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
-        pageInfo.currentPage = pageInfo.tempPage = -1;
+    public void onPullDown(PageInfo pageInfo) {
+
+    }
+
+    @Override
+    public void onPullUp(PageInfo pageInfo) {
+
+    }
+
+    @Override
+    public void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
+        singleResultFiller.onSingleDataFetched(data);
+    }
+
+    @Override
+    public void processEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
+        fillerViewHolder.onEmpty();
     }
 }

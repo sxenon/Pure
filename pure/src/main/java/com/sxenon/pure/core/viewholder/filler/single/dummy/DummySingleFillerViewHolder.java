@@ -34,6 +34,6 @@ public class DummySingleFillerViewHolder<R> extends BaseSingleFillerViewHolder<R
      * @param pullLayout 刷新容器
      */
     public DummySingleFillerViewHolder(Context context, DummyPullLayout pullLayout) {
-        super(context, pullLayout, new DummyFillPageStrategyForSingle<R>());
+        super(context, pullLayout, new DummyFillSingleStrategy<R>());
     }
 }

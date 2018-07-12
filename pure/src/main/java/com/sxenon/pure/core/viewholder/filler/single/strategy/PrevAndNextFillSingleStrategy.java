@@ -18,18 +18,18 @@ package com.sxenon.pure.core.viewholder.filler.single.strategy;
 
 import com.sxenon.pure.core.result.filler.ISingleResultFiller;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
-import com.sxenon.pure.core.viewholder.filler.single.BaseFillPageStrategyForSingle;
+import com.sxenon.pure.core.viewholder.filler.single.BaseFillSingleStrategy;
 
 /**
  * PrevAndNext implement for IFillPageStrategy
  * Created by Sui on 2017/8/6.
  */
 
-public class PrevAndNextFillPageStrategyForSingle<R> extends BaseFillPageStrategyForSingle<R> {
+public class PrevAndNextFillSingleStrategy<R> extends BaseFillSingleStrategy<R> {
     private final int mInitPage;
     private OnFillEventListener mOnFillEventListener;
 
-    public PrevAndNextFillPageStrategyForSingle(int initPage) {
+    public PrevAndNextFillSingleStrategy(int initPage) {
         super();
         mInitPage = initPage;
     }

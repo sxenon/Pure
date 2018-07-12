@@ -14,36 +14,23 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewholder.filler.single.dummy;
+package com.sxenon.pure.core.viewholder.filler.single;
 
+import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.result.filler.ISingleResultFiller;
+import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
-import com.sxenon.pure.core.viewholder.filler.single.BaseFillPageStrategyForSingle;
 
 /**
- * DummyFillPageStrategyForSingle
+ * IFillSingleStrategy
  * Created by Sui on 2017/9/3.
  */
 
-public class DummyFillPageStrategyForSingle<R> extends BaseFillPageStrategyForSingle<R> {
+public interface IFillSingleStrategy<R> extends IFillPageStrategy {
+    void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
 
-    @Override
-    public void onPullDown(PageInfo pageInfo) {
+    void processEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
 
-    }
+    void onException(IFillerViewHolder fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo);
 
-    @Override
-    public void onPullUp(PageInfo pageInfo) {
-
-    }
-
-    @Override
-    public void processSingle(IFillerViewHolder fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
-        singleResultFiller.onSingleDataFetched(data);
-    }
-
-    @Override
-    public void processEmptySingle(IFillerViewHolder fillerViewHolder, PageInfo pageInfo) {
-        fillerViewHolder.onEmpty();
-    }
 }
