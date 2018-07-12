@@ -23,7 +23,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.filler.list.IListFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.list.IListViewHolder;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -39,14 +39,14 @@ public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPure
 
     private final Object mLock = new Object();
     private final PureAbsListItemViewTypeEntity[] mItemViewTypeEntryArray;
-    private final IListFillerViewHolder<R> mContainer;
+    private final IListViewHolder<R> mContainer;
     private final List<R> mData = new ArrayList<>();
 
     /**
      * @param container              The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureAbsListAdapter(IListFillerViewHolder<R> container, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureAbsListAdapter(IListViewHolder<R> container, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
         if (itemViewTypeEntryArray.length == 0) {
             throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
         }
@@ -243,7 +243,7 @@ public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPure
         return mItemViewTypeEntryArray.length;
     }
 
-    public IListFillerViewHolder<R> getContainer() {
+    public IListViewHolder<R> getContainer() {
         return mContainer;
     }
 

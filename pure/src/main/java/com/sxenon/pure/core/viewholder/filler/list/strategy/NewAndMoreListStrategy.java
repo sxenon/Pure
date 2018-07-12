@@ -20,7 +20,7 @@ import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.list.BaseListStrategy;
-import com.sxenon.pure.core.viewholder.filler.list.IFillAdapterStrategy;
+import com.sxenon.pure.core.viewholder.filler.list.IAdapterStrategy;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
         super();
     }
 
-    public NewAndMoreListStrategy(IFillAdapterStrategy<R> fillAdapterStrategy) {
+    public NewAndMoreListStrategy(IAdapterStrategy<R> fillAdapterStrategy) {
         super(fillAdapterStrategy);
     }
 

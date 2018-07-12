@@ -16,25 +16,15 @@
 
 package com.sxenon.pure.core.viewholder.filler.list;
 
-import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.filler.IFillPageStrategy;
+import com.sxenon.pure.core.result.handler.IFetchListResultHandler;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 
-import java.util.List;
-
 /**
- * IFillPageStrategyForList
- * Created by Sui on 2017/9/3.
+ * FillerViewHolder for list data
+ * Created by Sui on 2017/8/19.
  */
 
-public interface IFillPageStrategyForList<R> extends IFillPageStrategy {
-    void processFullList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
-
-    void processPartialList(IFillerViewHolder fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
-
-    void processEmptyList(IFillerViewHolder fillerViewHolder, PageInfo pageInfo);
-
-    void onException(IFillerViewHolder fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo);
-
+public interface IListViewHolder<R> extends IFetchListResultHandler<R>, IFillerViewHolder {
+    void setAdapter(IPureAdapter<R> adapter);
 }

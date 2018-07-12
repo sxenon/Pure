@@ -18,7 +18,7 @@ package com.sxenon.pure.core.adapter.rv.select;
 
 import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapter;
 import com.sxenon.pure.core.adapter.rv.PureRecyclerViewItemViewTypeEntity;
-import com.sxenon.pure.core.viewholder.filler.list.IListFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.list.IListViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public abstract class PureRecyclerViewAdapterWithSelect<T> extends PureRecyclerV
      * @param container              The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureRecyclerViewAdapterWithSelect(IListFillerViewHolder<T> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray, ISelectInPureRecyclerViewAdapterStrategy<T> selectStrategy) {
+    public PureRecyclerViewAdapterWithSelect(IListViewHolder<T> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray, ISelectInPureRecyclerViewAdapterStrategy<T> selectStrategy) {
         super(container, itemViewTypeEntryArray);
         this.selectStrategy = selectStrategy;
     }

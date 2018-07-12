@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Sui on 2017/1/12.
  */
 
-public class DefaultFillAdapterStrategy<R> implements IFillAdapterStrategy<R> {
+public class DefaultAdapterStrategy<R> implements IAdapterStrategy<R> {
     @Override
     public void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
         adapter.addItemsFromEnd(data);

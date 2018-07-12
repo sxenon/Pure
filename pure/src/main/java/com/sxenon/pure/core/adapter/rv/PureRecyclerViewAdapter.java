@@ -22,7 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.filler.list.IListFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.list.IListViewHolder;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import java.util.List;
 
 public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<PureRecyclerViewViewHolder> implements IPureAdapter<R> {
     private final PureRecyclerViewItemViewTypeEntity[] mItemViewTypeEntryArray;
-    private final IListFillerViewHolder<R> mContainer;
+    private final IListViewHolder<R> mContainer;
     private final Object mLock = new Object();
     private List<R> mData = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<Pu
      * @param container              The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureRecyclerViewAdapter(IListFillerViewHolder<R> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureRecyclerViewAdapter(IListViewHolder<R> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
         if (itemViewTypeEntryArray.length == 0) {
             throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
         }
@@ -229,7 +229,7 @@ public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<Pu
         return mData.size();
     }
 
-    public IListFillerViewHolder<R> getContainer() {
+    public IListViewHolder<R> getContainer() {
         return mContainer;
     }
 

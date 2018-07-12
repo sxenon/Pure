@@ -18,7 +18,7 @@ package com.sxenon.pure.core.adapter.abs.select;
 
 import com.sxenon.pure.core.adapter.abs.PureAbsListAdapter;
 import com.sxenon.pure.core.adapter.abs.PureAbsListItemViewTypeEntity;
-import com.sxenon.pure.core.viewholder.filler.list.IListFillerViewHolder;
+import com.sxenon.pure.core.viewholder.filler.list.IListViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public abstract class PureAbsListAdapterWithSelect<T> extends PureAbsListAdapter
      * @param container              The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureAbsListAdapterWithSelect(IListFillerViewHolder<T> container, PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray, ISelectInPureAbsListAdapterStrategy<T> selectStrategy) {
+    public PureAbsListAdapterWithSelect(IListViewHolder<T> container, PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray, ISelectInPureAbsListAdapterStrategy<T> selectStrategy) {
         super(container, itemViewTypeEntryArray);
         this.selectStrategy = selectStrategy;
     }

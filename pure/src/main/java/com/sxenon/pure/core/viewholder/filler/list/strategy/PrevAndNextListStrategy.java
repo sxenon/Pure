@@ -20,7 +20,7 @@ import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.list.BaseListStrategy;
-import com.sxenon.pure.core.viewholder.filler.list.IFillAdapterStrategy;
+import com.sxenon.pure.core.viewholder.filler.list.IAdapterStrategy;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
         mInitPage = initPage;
     }
 
-    public PrevAndNextListStrategy(IFillAdapterStrategy<R> fillAdapterStrategy, int initPage) {
+    public PrevAndNextListStrategy(IAdapterStrategy<R> fillAdapterStrategy, int initPage) {
         super(fillAdapterStrategy);
         mInitPage = initPage;
     }

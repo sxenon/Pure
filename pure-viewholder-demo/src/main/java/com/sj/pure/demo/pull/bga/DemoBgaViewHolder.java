@@ -29,10 +29,10 @@ import com.sxenon.pure.core.viewholder.submitter.ISubmitterViewHolder;
  * Created by Sui on 2017/8/14.
  */
 
-public class DemoBgaFillerViewHolder extends BGAFillerViewHolder<ResponseBean> implements ISubmitterViewHolder<RequestBean> {
+public class DemoBgaViewHolder extends BGAViewHolder<ResponseBean> implements ISubmitterViewHolder<RequestBean> {
     private final IRouter mContainer;
 
-    public DemoBgaFillerViewHolder(IRouter container, PureBGARefreshLayout refreshLayout,int dataSizeForFullPage){
+    public DemoBgaViewHolder(IRouter container, PureBGARefreshLayout refreshLayout, int dataSizeForFullPage){
         super(container.getContext(), refreshLayout, new RefreshAndMoreListStrategy<ResponseBean>(),dataSizeForFullPage);
         mContainer =container;
     }
