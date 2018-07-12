@@ -26,14 +26,14 @@ import com.sxenon.pure.core.viewholder.filler.single.BaseSingleFillerViewHolder;
  * Created by Sui on 2017/8/19.
  */
 
-public class DummySingleFillerViewHolder<R> extends BaseSingleFillerViewHolder<R, DummyPullLayout> {
+public class DummySingleViewHolder<R> extends BaseSingleFillerViewHolder<R, DummyPullLayout> {
     /**
      * Constructor
      *
      * @param context    上下文
      * @param pullLayout 刷新容器
      */
-    public DummySingleFillerViewHolder(Context context, DummyPullLayout pullLayout) {
-        super(context, pullLayout, new DummyFillSingleStrategy<R>());
+    public DummySingleViewHolder(Context context, DummyPullLayout pullLayout) {
+        super(context, pullLayout, new DummySingleStrategy<R>());
     }
 }

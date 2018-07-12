@@ -21,11 +21,11 @@ import com.sxenon.pure.core.viewholder.filler.IFillerViewHolder;
 import com.sxenon.pure.core.viewholder.filler.single.BaseFillSingleStrategy;
 
 /**
- * DummyFillSingleStrategy
+ * DummySingleStrategy
  * Created by Sui on 2017/9/3.
  */
 
-public class DummyFillSingleStrategy<R> extends BaseFillSingleStrategy<R> {
+public class DummySingleStrategy<R> extends BaseFillSingleStrategy<R> {
 
     @Override
     public void onPullDown(PageInfo pageInfo) {
