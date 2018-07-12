@@ -22,7 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.filler.list.IListViewHolder;
+import com.sxenon.pure.core.viewmodule.filler.list.IListViewModule;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -34,9 +34,9 @@ import java.util.List;
  * Created by Sui on 2016/12/29.
  */
 
-public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<PureRecyclerViewViewHolder> implements IPureAdapter<R> {
+public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<PureRecyclerViewViewModule> implements IPureAdapter<R> {
     private final PureRecyclerViewItemViewTypeEntity[] mItemViewTypeEntryArray;
-    private final IListViewHolder<R> mContainer;
+    private final IListViewModule<R> mContainer;
     private final Object mLock = new Object();
     private List<R> mData = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<Pu
      * @param container              The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureRecyclerViewAdapter(IListViewHolder<R> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureRecyclerViewAdapter(IListViewModule<R> container, PureRecyclerViewItemViewTypeEntity[] itemViewTypeEntryArray) {
         if (itemViewTypeEntryArray.length == 0) {
             throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
         }
@@ -201,15 +201,15 @@ public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<Pu
     }
 
     @Override
-    public PureRecyclerViewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        PureRecyclerViewViewHolder viewHolder = null;
+    public PureRecyclerViewViewModule onCreateViewHolder(ViewGroup parent, int viewType) {
+        PureRecyclerViewViewModule viewHolder = null;
 
         PureRecyclerViewItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryArray[viewType];
         int resourceId = itemViewTypeEntity.getResourceId();
         View itemView = LayoutInflater.from(parent.getContext()).inflate(resourceId, parent, false);
-        Class<? extends PureRecyclerViewViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
+        Class<? extends PureRecyclerViewViewModule> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
         try {
-            Constructor<? extends PureRecyclerViewViewHolder> constructor = viewHolderClass.getConstructor(View.class, PureRecyclerViewAdapter.class);
+            Constructor<? extends PureRecyclerViewViewModule> constructor = viewHolderClass.getConstructor(View.class, PureRecyclerViewAdapter.class);
             viewHolder = constructor.newInstance(itemView, PureRecyclerViewAdapter.this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -219,7 +219,7 @@ public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<Pu
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onBindViewHolder(PureRecyclerViewViewHolder holder, int position) {
+    public void onBindViewHolder(PureRecyclerViewViewModule holder, int position) {
         holder.setIsRecyclable(true);
         holder.onSingleDataFetched(getValue(position));
     }
@@ -229,7 +229,7 @@ public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<Pu
         return mData.size();
     }
 
-    public IListViewHolder<R> getContainer() {
+    public IListViewModule<R> getContainer() {
         return mContainer;
     }
 

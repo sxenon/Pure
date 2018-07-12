@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.viewmodule.filler.single;
+
+import com.sxenon.pure.core.result.filler.ISingleResultFiller;
+import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
+import com.sxenon.pure.core.viewmodule.filler.IFillerViewModule;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * FillerViewHolder for single data
+ * Created by Sui on 2017/8/19.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewModule> getViewHolderClass();
-
-    int getResourceId();
+public interface ISingleViewModule<R> extends IFetchSingleResultHandler<R>, IFillerViewModule {
+    void setSingleResultFiller(ISingleResultFiller<R> fetchSingleResultHandler);
 }

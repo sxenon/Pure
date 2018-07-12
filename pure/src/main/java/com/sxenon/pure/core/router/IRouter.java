@@ -18,21 +18,17 @@ package com.sxenon.pure.core.router;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.mvp.IView;
-import com.sxenon.pure.core.viewholder.IViewHolder;
-
-import java.util.List;
+import com.sxenon.pure.core.viewmodule.IViewModule;
 
 /**
  * Treat Activity & Fragment as router
- * Architecture: IRouter-->{@link IViewHolder} with Business logic/ViewGroup-->View/Adapter
+ * Architecture: IRouter-->{@link IViewModule} with Business logic/ViewGroup-->View/Adapter
  * Created by Sui on 2016/11/20.
  */
 

@@ -1,1 +1,1 @@
-include ':pure', ':pure-okhttp3', ':pure-viewholder-demo', ':pure-not-compact-app'
+include ':pure', ':pure-okhttp3', ':pure-viewmodule-demo', ':pure-not-compact-app'

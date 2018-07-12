@@ -23,7 +23,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewholder.filler.list.IListViewHolder;
+import com.sxenon.pure.core.viewmodule.filler.list.IListViewModule;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -39,14 +39,14 @@ public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPure
 
     private final Object mLock = new Object();
     private final PureAbsListItemViewTypeEntity[] mItemViewTypeEntryArray;
-    private final IListViewHolder<R> mContainer;
+    private final IListViewModule<R> mContainer;
     private final List<R> mData = new ArrayList<>();
 
     /**
      * @param container              The viewHolder which contain the adapter
      * @param itemViewTypeEntryArray {@link #getItemViewType(int)}
      */
-    public PureAbsListAdapter(IListViewHolder<R> container, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
+    public PureAbsListAdapter(IListViewModule<R> container, @NonNull PureAbsListItemViewTypeEntity[] itemViewTypeEntryArray) {
         if (itemViewTypeEntryArray.length == 0) {
             throw new IllegalArgumentException("itemViewTypeEntryArray can`t be empty");
         }
@@ -218,20 +218,20 @@ public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPure
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        PureAbsListViewHolder viewHolder = null;
+        PureAbsListViewModule viewHolder = null;
         if (convertView == null) {
             PureAbsListItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryArray[getItemViewType(position)];
             convertView = LayoutInflater.from(mContainer.getContext()).inflate(itemViewTypeEntity.getResourceId(), null);
-            Class<? extends PureAbsListViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
+            Class<? extends PureAbsListViewModule> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
             try {
-                Constructor<? extends PureAbsListViewHolder> constructor = viewHolderClass.getConstructor(View.class, PureAbsListAdapter.class, Integer.class);
+                Constructor<? extends PureAbsListViewModule> constructor = viewHolderClass.getConstructor(View.class, PureAbsListAdapter.class, Integer.class);
                 viewHolder = constructor.newInstance(convertView, PureAbsListAdapter.this, position);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (PureAbsListViewHolder) convertView.getTag();
+            viewHolder = (PureAbsListViewModule) convertView.getTag();
         }
         //noinspection ConstantConditions,unchecked
         viewHolder.onSingleDataFetched(getItem(position));
@@ -243,7 +243,7 @@ public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPure
         return mItemViewTypeEntryArray.length;
     }
 
-    public IListViewHolder<R> getContainer() {
+    public IListViewModule<R> getContainer() {
         return mContainer;
     }
 

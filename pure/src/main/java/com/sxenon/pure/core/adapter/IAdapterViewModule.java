@@ -16,13 +16,16 @@
 
 package com.sxenon.pure.core.adapter;
 
+import com.sxenon.pure.core.result.filler.ISingleResultFiller;
+import com.sxenon.pure.core.viewmodule.IViewModule;
+
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Interface for adapter`s viewHolder
+ * Created by Sui on 2016/12/25.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewModule> getViewHolderClass();
+public interface IAdapterViewModule<R> extends ISingleResultFiller<R>, IViewModule {
+    int getPosition();
 
-    int getResourceId();
+    <A extends IPureAdapter> A getAdapter();
 }

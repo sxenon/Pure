@@ -12,7 +12,7 @@
             <option value="$PROJECT_DIR$/pure" />
             <option value="$PROJECT_DIR$/pure-not-compact-app" />
             <option value="$PROJECT_DIR$/pure-okhttp3" />
-            <option value="$PROJECT_DIR$/pure-viewholder-demo" />
+            <option value="$PROJECT_DIR$/pure-viewmodule-demo" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

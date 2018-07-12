@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.viewmodule.submitter;
+
+import com.sxenon.pure.core.request.IRequestSubmitter;
+import com.sxenon.pure.core.viewmodule.IViewModule;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Single data submitter
+ * Created by Sui on 2016/12/12.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewModule> getViewHolderClass();
+public interface ISubmitterViewModule<T> extends IRequestSubmitter<T>, IViewModule {
 
-    int getResourceId();
 }

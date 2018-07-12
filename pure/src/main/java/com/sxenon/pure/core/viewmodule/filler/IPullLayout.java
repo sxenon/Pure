@@ -14,15 +14,22 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.viewmodule.filler;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Layout for pull down or up
+ * Created by Sui on 2016/12/11.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewModule> getViewHolderClass();
+public interface IPullLayout {
+    void beginPullingDown();
 
-    int getResourceId();
+    void beginPullingUp();
+
+    void endPullingUp();
+
+    void endPullingDown();
+
+    void setVisibility(int visibility);
+
 }

@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.viewmodule.navigation.next;
+
+import com.sxenon.pure.core.viewmodule.IViewModule;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Like IOS Setting list item
+ * Created by Sui on 2016/11/9.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewModule> getViewHolderClass();
+public interface INextViewModule extends IViewModule {
 
-    int getResourceId();
 }

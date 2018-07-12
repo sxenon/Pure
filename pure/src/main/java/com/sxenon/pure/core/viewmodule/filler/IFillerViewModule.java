@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2017  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.adapter;
+package com.sxenon.pure.core.viewmodule.filler;
+
+import com.sxenon.pure.core.result.handler.IResultHandler;
+import com.sxenon.pure.core.viewmodule.IViewModule;
 
 /**
- * Interface for adapter`s itemView type wrapper
- * Created by Sui on 2017/1/2.
+ * Interface for FillerViewHolder
+ * Created by Sui on 2017/8/4.
  */
 
-public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewModule> getViewHolderClass();
+public interface IFillerViewModule extends IResultHandler, IViewModule {
+    void onEmpty();
 
-    int getResourceId();
+    void onNonEmpty();
 }
