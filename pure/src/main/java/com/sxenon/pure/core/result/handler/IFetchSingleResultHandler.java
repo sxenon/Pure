@@ -16,13 +16,11 @@
 
 package com.sxenon.pure.core.result.handler;
 
-import com.sxenon.pure.core.result.filler.ISingleResultFiller;
-
 /**
  * ResultHandler for fetching single data
  * Created by Sui on 2016/12/8.
  */
 
-public interface IFetchSingleResultHandler<R> extends ISingleResultFiller<R>, IResultHandler {
-
+public interface IFetchSingleResultHandler<R> extends  IResultHandler {
+    void onSingleDataFetched(R data);
 }

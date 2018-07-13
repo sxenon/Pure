@@ -16,7 +16,7 @@
 
 package com.sxenon.pure.core.viewmodule.pull.single.dummy;
 
-import com.sxenon.pure.core.result.filler.ISingleResultFiller;
+import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
 import com.sxenon.pure.core.viewmodule.pull.single.BaseSingleStrategy;
 
@@ -38,12 +38,12 @@ public class DummySingleStrategy<R> extends BaseSingleStrategy<R> {
     }
 
     @Override
-    public void processSingle(IPullViewModule fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
-        singleResultFiller.onSingleDataFetched(data);
+    public void processSingle(IPullViewModule pullViewHolder, R data, IFetchSingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
+        singleResultHandler.onSingleDataFetched(data);
     }
 
     @Override
-    public void processEmptySingle(IPullViewModule fillerViewHolder, PageInfo pageInfo) {
-        fillerViewHolder.onEmpty();
+    public void processEmptySingle(IPullViewModule pullViewModule, PageInfo pageInfo) {
+        pullViewModule.onEmpty();
     }
 }

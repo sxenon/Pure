@@ -17,7 +17,7 @@
 package com.sxenon.pure.core.viewmodule.pull.single;
 
 import com.sxenon.pure.core.ApiException;
-import com.sxenon.pure.core.result.filler.ISingleResultFiller;
+import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
 
 /**
@@ -28,7 +28,7 @@ import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
 public abstract class BaseSingleStrategy<R> implements ISingleStrategy<R> {
 
     @Override
-    public void onException(IPullViewModule fillerViewHolder, ApiException exception, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
+    public void onException(IPullViewModule pullViewModule, ApiException exception, IFetchSingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
         pageInfo.currentPage = pageInfo.tempPage = -1;
     }
 }

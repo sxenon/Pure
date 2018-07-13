@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.result.filler;
-
-import java.util.List;
+package com.sxenon.pure.core.viewmodule.pull;
 
 /**
- * IListResultFiller
- * Created by Sui on 2017/8/25.
+ * Event what for filler
+ * Created by Sui on 2017/8/4.
  */
 
-public interface IListResultFiller<R> {
-    void onListDataFetched(List<R> data);
+public class PullEventWhat {
+    public static final int WHAT_UNINITIALIZED = 1;
+    public static final int WHAT_NON_EMPTY = 2;
+    public static final int WHAT_EMPTY = 3;
+    public static final int WHAT_EXCEPTION = 4;
 }

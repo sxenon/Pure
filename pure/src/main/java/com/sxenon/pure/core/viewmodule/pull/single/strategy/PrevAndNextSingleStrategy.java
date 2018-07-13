@@ -16,7 +16,7 @@
 
 package com.sxenon.pure.core.viewmodule.pull.single.strategy;
 
-import com.sxenon.pure.core.result.filler.ISingleResultFiller;
+import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
 import com.sxenon.pure.core.viewmodule.pull.single.BaseSingleStrategy;
 
@@ -52,7 +52,7 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
         }
     }
 
-    private void onNextDataFetched(ISingleResultFiller<R> singleResultFiller,R data){
+    private void onNextDataFetched(IFetchSingleResultHandler<R> singleResultFiller,R data){
         singleResultFiller.onSingleDataFetched(data);
         if (mOnFillEventListener !=null){
             //noinspection unchecked
@@ -60,7 +60,7 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
         }
     }
 
-    private void onPrevDataFetched(ISingleResultFiller<R> singleResultFiller,R data){
+    private void onPrevDataFetched(IFetchSingleResultHandler<R> singleResultFiller,R data){
         singleResultFiller.onSingleDataFetched(data);
         if (mOnFillEventListener !=null){
             //noinspection unchecked
@@ -69,19 +69,19 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
     }
 
     @Override
-    public void processSingle(IPullViewModule fillerViewHolder, R data, ISingleResultFiller<R> singleResultFiller, PageInfo pageInfo) {
+    public void processSingle(IPullViewModule pullViewHolder, R data, IFetchSingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
         if (pageInfo.currentPage<pageInfo.tempPage){
-            onNextDataFetched(singleResultFiller, data);
+            onNextDataFetched(singleResultHandler, data);
         }else {
-            onPrevDataFetched(singleResultFiller, data);
+            onPrevDataFetched(singleResultHandler, data);
         }
         pageInfo.currentPage = pageInfo.tempPage;
     }
 
     @Override
-    public void processEmptySingle(IPullViewModule fillerViewHolder, PageInfo pageInfo) {
+    public void processEmptySingle(IPullViewModule pullViewModule, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
-            fillerViewHolder.onEmpty();
+            pullViewModule.onEmpty();
         } else {
             onNoNextData();
         }

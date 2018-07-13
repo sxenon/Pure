@@ -36,7 +36,7 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
     private final PL mPullLayout;
     private final Context mContext;
 
-    private int mEventWhat = FillEventWhat.WHAT_UNINITIALIZED;
+    private int mEventWhat = PullEventWhat.WHAT_UNINITIALIZED;
     private ApiException mApiException;
 
     private View mEmptyView;
@@ -118,7 +118,7 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
         event.what = mEventWhat;
         event.arg1 = pageInfo.currentPage;
 
-        if (event.what == FillEventWhat.WHAT_EXCEPTION) {
+        if (event.what == PullEventWhat.WHAT_EXCEPTION) {
             event.obj = mApiException;
         } else {
             event.obj = getData();
@@ -134,16 +134,16 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
         pageInfo.currentPage = pageInfo.tempPage = savedEvent.arg1;
         mEventWhat = savedEvent.what;
         switch (savedEvent.what) {
-            case FillEventWhat.WHAT_EMPTY:
+            case PullEventWhat.WHAT_EMPTY:
                 onEmpty();
                 break;
-            case FillEventWhat.WHAT_EXCEPTION:
+            case PullEventWhat.WHAT_EXCEPTION:
                 onApiException((ApiException) savedEvent.obj);
                 break;
-            case FillEventWhat.WHAT_UNINITIALIZED:
+            case PullEventWhat.WHAT_UNINITIALIZED:
                 toInitialize();
                 break;
-            case FillEventWhat.WHAT_NON_EMPTY:
+            case PullEventWhat.WHAT_NON_EMPTY:
                 restoreData(savedEvent.obj);
                 break;
         }
@@ -153,7 +153,7 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
     //Implement start
     @Override
     public void onNonEmpty() {
-        mEventWhat = FillEventWhat.WHAT_NON_EMPTY;
+        mEventWhat = PullEventWhat.WHAT_NON_EMPTY;
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
     }
@@ -170,7 +170,7 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
     @Override
     public void onApiException(ApiException apiException) {
         endAllAnim();
-        mEventWhat = FillEventWhat.WHAT_EXCEPTION;
+        mEventWhat = PullEventWhat.WHAT_EXCEPTION;
         mApiException = apiException;
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.VISIBLE);
@@ -181,7 +181,7 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
 
     @Override
     public void onEmpty() {
-        mEventWhat = FillEventWhat.WHAT_EMPTY;
+        mEventWhat = PullEventWhat.WHAT_EMPTY;
         pageInfo.currentPage = pageInfo.tempPage = -1;
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
         CommonUtils.setViewVisibility(mEmptyView, View.VISIBLE);

@@ -19,7 +19,7 @@ package com.sxenon.pure.core.viewmodule.pull.single;
 import android.content.Context;
 
 import com.sxenon.pure.core.ApiException;
-import com.sxenon.pure.core.result.filler.ISingleResultFiller;
+import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
 import com.sxenon.pure.core.viewmodule.pull.BasePullViewModule;
 import com.sxenon.pure.core.viewmodule.pull.IPullLayout;
 
@@ -29,7 +29,7 @@ import com.sxenon.pure.core.viewmodule.pull.IPullLayout;
  */
 
 public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullViewModule<PL,ISingleStrategy<R>> implements ISingleViewModule<R> {
-    private ISingleResultFiller<R> mSingleResultFiller;
+    private IFetchSingleResultHandler<R> mSingleResultFiller;
     private R mData;
 
     /**
@@ -47,7 +47,7 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
      * @param singleResultFiller 单一数据的Filler
      */
     @Override
-    public void setSingleResultFiller(ISingleResultFiller<R> singleResultFiller) {
+    public void setSingleResultFiller(IFetchSingleResultHandler<R> singleResultFiller) {
         mSingleResultFiller = singleResultFiller;
     }
 
