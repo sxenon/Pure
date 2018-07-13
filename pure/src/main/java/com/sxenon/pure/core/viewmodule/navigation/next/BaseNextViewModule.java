@@ -40,11 +40,7 @@ public class BaseNextViewModule implements INextViewModule {
         ((ViewGroup) mNextText.getParent()).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    onNext.call(v);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                onNext.call(v);
             }
         });
     }

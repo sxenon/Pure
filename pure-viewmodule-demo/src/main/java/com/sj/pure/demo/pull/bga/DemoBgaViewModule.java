@@ -18,18 +18,16 @@ package com.sj.pure.demo.pull.bga;
 
 import android.util.Log;
 
-import com.sj.pure.demo.bean.RequestBean;
 import com.sj.pure.demo.bean.ResponseBean;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.viewmodule.filler.list.strategy.RefreshAndMoreListStrategy;
-import com.sxenon.pure.core.viewmodule.submitter.ISubmitterViewModule;
 
 /**
  * Demo for real BgaFillerGroup
  * Created by Sui on 2017/8/14.
  */
 
-public class DemoBgaViewModule extends BGAViewModule<ResponseBean> implements ISubmitterViewModule<RequestBean> {
+public class DemoBgaViewModule extends BGAViewModule<ResponseBean> {
     private final IRouter mContainer;
 
     public DemoBgaViewModule(IRouter container, PureBGARefreshLayout refreshLayout, int dataSizeForFullPage){
@@ -45,10 +43,5 @@ public class DemoBgaViewModule extends BGAViewModule<ResponseBean> implements IS
 
     private void doSomething(){
         Log.i("Demo",mContainer.toString());
-    }
-
-    @Override
-    public RequestBean getDataForSubmit() {
-        return new RequestBean();
     }
 }

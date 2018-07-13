@@ -35,6 +35,7 @@ import com.sxenon.pure.core.util.PureKeyboardUtil;
 /*
  * Base implement for ISearchViewModule
  * Created by Sui on 2016/11/12.
+ * DataSource from self
  */
 
 public class BaseSearchViewModule implements ISearchViewModule {
@@ -67,11 +68,7 @@ public class BaseSearchViewModule implements ISearchViewModule {
             mCancelView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try {
-                        Preconditions.checkNotNull(mOnCancel, "").call(v);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    Preconditions.checkNotNull(mOnCancel, "").call(v);
                 }
             });
         }
@@ -99,12 +96,7 @@ public class BaseSearchViewModule implements ISearchViewModule {
     }
 
     public boolean performSearch() {
-        try {
-            return mSearchAction.call(mEditText.getText().toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        return mSearchAction.call(mEditText.getText().toString());
     }
 
     public void hideKeyBoard() {

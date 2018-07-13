@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.result.filler;
+package com.sxenon.pure.core.viewmodule.verificationcode;
 
 /**
- * ISubmitResultFiller
- * Created by Sui on 2017/8/25.
+ * CountDownListener for
+ * Created by Sui on 2017/8/13.
  */
 
-public interface ISubmitResultFiller<R> {
-    void onResultFetched(R result);
+public interface CountDownListener {
+    void onStart();
+    void onTick(long secondsUntilFinished);
+    void onFinish();
 }

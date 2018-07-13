@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017  sxenon
+ * Copyright (c) 2018  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.verificationcode;
+package com.sj.pure.demo;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,20 +30,12 @@ import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.usecase.UseCase;
 import com.sxenon.pure.core.usecase.UseCaseHandler;
 import com.sxenon.pure.core.viewmodule.IViewModule;
-
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.observers.ResourceObserver;
-import io.reactivex.schedulers.Schedulers;
+import com.sxenon.pure.core.viewmodule.verificationcode.RxVerificationCodeUseCase;
 
 /**
  * Demo for VerificationCodeViewHolder
  * Created by Sui on 2017/8/14.
+ * DataSource from Other
  */
 
 public class DemoVerificationCodeViewModule implements IViewModule, IResultHandler {

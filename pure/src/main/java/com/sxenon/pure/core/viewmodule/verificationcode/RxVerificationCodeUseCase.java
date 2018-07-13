@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sj.pure.demo.verificationcode;
+package com.sxenon.pure.core.viewmodule.verificationcode;
 
 import com.sxenon.pure.core.usecase.UseCase;
 
