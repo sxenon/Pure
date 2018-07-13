@@ -20,7 +20,7 @@ import android.util.Log;
 
 import com.sj.pure.demo.bean.ResponseBean;
 import com.sxenon.pure.core.router.IRouter;
-import com.sxenon.pure.core.viewmodule.filler.list.strategy.RefreshAndMoreListStrategy;
+import com.sxenon.pure.core.viewmodule.pull.list.strategy.RefreshAndMoreListStrategy;
 
 /**
  * Demo for real BgaFillerGroup

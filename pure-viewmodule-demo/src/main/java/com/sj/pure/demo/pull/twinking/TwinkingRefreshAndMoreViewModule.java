@@ -20,8 +20,8 @@ import android.content.Context;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.sxenon.pure.core.viewmodule.filler.list.BaseListViewModule;
-import com.sxenon.pure.core.viewmodule.filler.list.IListStrategy;
+import com.sxenon.pure.core.viewmodule.pull.list.BaseListViewModule;
+import com.sxenon.pure.core.viewmodule.pull.list.IListStrategy;
 
 /**
  * Wrap with TwinklingPullLayout

@@ -20,10 +20,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.provider.Settings;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.sj.pure.demo.pull.R;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.result.handler.IResultHandler;
 import com.sxenon.pure.core.router.IRouter;
@@ -46,30 +46,34 @@ public class DemoVerificationCodeViewModule implements IViewModule, IResultHandl
     private final int mSecondsInFuture;
 
     public DemoVerificationCodeViewModule(IRouter router, int secondsInFuture, final Button codeBtn, final TextView countDownTv) {
-
-        codeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startCountDown();
-            }
-        });
         mRouter = router;
         mCodeBtn = codeBtn;
         mCountDownTv = countDownTv;
         mSecondsInFuture = secondsInFuture;
     }
 
-
-    private void startCountDown() {
+    /*
+        点了发送验证码的按钮，成功发送，才会启动冷却。所以是被动的
+     */
+    public void startCountDown() {
         UseCaseHandler.getInstance().execute(new RxVerificationCodeUseCase(), new RxVerificationCodeUseCase.RequestValues(mSecondsInFuture), new UseCase.UseCaseCallback<RxVerificationCodeUseCase.ResponseValue>() {
             @Override
             public void onSuccess(RxVerificationCodeUseCase.ResponseValue response) {
                 switch (response.getState()) {
-                    case START:
+                    case START:{
+                        mCodeBtn.setEnabled(false);//在发送数据的时候设置为不能点击
+                        mCodeBtn.setBackgroundColor(Color.GRAY);//背景色设为灰色
+                    }
                         break;
-                    case FINISH:
+                    case FINISH:{
+                        mCountDownTv.setText(mRouter.getContext().getResources().getString(R.string.app_name));//随便填的，编译通过就行
+                        mCodeBtn.setEnabled(true);
+                        mCodeBtn.setBackgroundColor(Color.parseColor("#f97e7e"));
+                    }
                         break;
-                    case TICkING:
+                    case TICkING:{
+                        mCountDownTv.setText(String.valueOf(response.getSecondsUntilFinished()));
+                    }
                         break;
                     default:
                         break;

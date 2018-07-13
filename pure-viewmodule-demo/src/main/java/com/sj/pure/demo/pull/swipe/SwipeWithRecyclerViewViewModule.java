@@ -20,8 +20,8 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
-import com.sxenon.pure.core.viewmodule.filler.list.BaseListViewModule;
-import com.sxenon.pure.core.viewmodule.filler.list.strategy.RefreshAndMoreListStrategy;
+import com.sxenon.pure.core.viewmodule.pull.list.BaseListViewModule;
+import com.sxenon.pure.core.viewmodule.pull.list.strategy.RefreshAndMoreListStrategy;
 
 import java.util.List;
 

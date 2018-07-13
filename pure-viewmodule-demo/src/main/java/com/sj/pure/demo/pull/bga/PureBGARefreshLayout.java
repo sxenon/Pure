@@ -20,7 +20,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.sxenon.pure.core.viewmodule.filler.IPullLayout;
+import com.sxenon.pure.core.viewmodule.pull.IPullLayout;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 

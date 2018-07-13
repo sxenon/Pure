@@ -21,7 +21,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
-import com.sxenon.pure.core.viewmodule.filler.IPullLayout;
+import com.sxenon.pure.core.viewmodule.pull.IPullLayout;
 
 /**
  * Created by suijun on 23/02/2018.

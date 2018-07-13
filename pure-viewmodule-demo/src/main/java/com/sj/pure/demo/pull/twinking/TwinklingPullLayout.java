@@ -20,7 +20,7 @@ import android.util.Log;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.sxenon.pure.core.viewmodule.filler.IPullLayout;
+import com.sxenon.pure.core.viewmodule.pull.IPullLayout;
 
 /**
  * Adapter from https://github.com/lcodecorex/TwinklingRefreshLayout to IPullLayout

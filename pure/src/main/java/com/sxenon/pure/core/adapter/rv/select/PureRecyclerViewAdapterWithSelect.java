@@ -18,7 +18,7 @@ package com.sxenon.pure.core.adapter.rv.select;
 
 import com.sxenon.pure.core.adapter.rv.PureRecyclerViewAdapter;
 import com.sxenon.pure.core.adapter.rv.PureRecyclerViewItemViewTypeEntity;
-import com.sxenon.pure.core.viewmodule.filler.list.IListViewModule;
+import com.sxenon.pure.core.viewmodule.pull.list.IListViewModule;
 
 import java.util.ArrayList;
 import java.util.List;

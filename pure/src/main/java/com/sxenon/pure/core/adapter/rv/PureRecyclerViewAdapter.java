@@ -22,7 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.viewmodule.filler.list.IListViewModule;
+import com.sxenon.pure.core.viewmodule.pull.list.IListViewModule;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
