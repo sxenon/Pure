@@ -16,6 +16,7 @@
 
 package com.sj.pure.demo.verificationcode;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.provider.Settings;
@@ -23,71 +24,78 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.sj.pure.demo.bean.RequestBean;
-import com.sj.pure.demo.bean.ResponseBean;
-import com.sj.pure.demo.pull.R;
 import com.sxenon.pure.core.ApiException;
+import com.sxenon.pure.core.result.handler.IResultHandler;
 import com.sxenon.pure.core.router.IRouter;
+import com.sxenon.pure.core.usecase.UseCase;
+import com.sxenon.pure.core.usecase.UseCaseHandler;
+import com.sxenon.pure.core.viewmodule.IViewModule;
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.observers.ResourceObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Demo for VerificationCodeViewHolder
  * Created by Sui on 2017/8/14.
  */
 
-public class DemoVerificationCodeViewModule extends RxVerificationCodeViewModule<RequestBean, ResponseBean> {
+public class DemoVerificationCodeViewModule implements IViewModule, IResultHandler {
     private static final String TAG = "Demo";
-    private final IRouter mContainer;
     private final Button mCodeBtn;
     private final TextView mCountDownTv;
+    private final IRouter mRouter;
+    private final int mSecondsInFuture;
 
-    public DemoVerificationCodeViewModule(final IRouter container, int secondsInFuture, final Button codeBtn, final TextView countDownTv, final Consumer<View> requestCodeAction) {
-        super(container, secondsInFuture, new CountDownListener() {
-            @Override
-            public void onStart() {
-                codeBtn.setEnabled(false);//在发送数据的时候设置为不能点击
-                codeBtn.setBackgroundColor(Color.GRAY);//背景色设为灰色
-            }
+    public DemoVerificationCodeViewModule(IRouter router, int secondsInFuture, final Button codeBtn, final TextView countDownTv) {
 
-            @Override
-            public void onTick(long secondsUntilFinished) {
-                countDownTv.setText(String.valueOf(secondsUntilFinished));
-            }
-
-            @Override
-            public void onFinish() {
-                countDownTv.setText(container.getContext().getResources().getString(R.string.app_name));//随便填的，编译通过就行
-                codeBtn.setEnabled(true);
-                codeBtn.setBackgroundColor(Color.parseColor("#f97e7e"));
-            }
-        });
         codeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    requestCodeAction.accept(v);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                startCountDown();
             }
         });
-        mContainer = container;
+        mRouter = router;
         mCodeBtn = codeBtn;
         mCountDownTv = countDownTv;
+        mSecondsInFuture = secondsInFuture;
+    }
+
+
+    private void startCountDown() {
+        UseCaseHandler.getInstance().execute(new RxVerificationCodeUseCase(), new RxVerificationCodeUseCase.RequestValues(mSecondsInFuture), new UseCase.UseCaseCallback<RxVerificationCodeUseCase.ResponseValue>() {
+            @Override
+            public void onSuccess(RxVerificationCodeUseCase.ResponseValue response) {
+                switch (response.getState()) {
+                    case START:
+                        break;
+                    case FINISH:
+                        break;
+                    case TICkING:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(ApiException apiException) {
+                onApiException(apiException);
+            }
+        });
     }
 
     @Override
-    public void onResultFetched(ResponseBean result) {
-        if (result.isSuccess()){
-            startCountDown();
-        }
+    public Context getContext() {
+        return mCodeBtn.getContext();
     }
 
-    @Override
-    public RequestBean getDataForSubmit() {
-        return new RequestBean();
-    }
 
     @Override
     public void onCancel() {
@@ -100,6 +108,6 @@ public class DemoVerificationCodeViewModule extends RxVerificationCodeViewModule
         mCodeBtn.setEnabled(true);
         mCodeBtn.setBackgroundColor(Color.parseColor("#f97e7e"));
         //Suppose it is a network exception;
-        mContainer.startActivityForResult(new Intent(Settings.ACTION_WIRELESS_SETTINGS),1);
+        mRouter.startActivityForResult(new Intent(Settings.ACTION_WIRELESS_SETTINGS), 1);
     }
 }
