@@ -23,6 +23,6 @@ import java.util.List;
  * Created by Sui on 2016/12/8.
  */
 
-public interface IFetchListResultHandler<R> extends IResultHandler {
+public interface IListResultHandler<R> extends IResultHandler {
     void onListDataFetched(List<R> data);
 }

@@ -21,6 +21,6 @@ package com.sxenon.pure.core.result.handler;
  * Created by Sui on 2016/12/8.
  */
 
-public interface IFetchSingleResultHandler<R> extends  IResultHandler {
+public interface ISingleResultHandler<R> extends  IResultHandler {
     void onSingleDataFetched(R data);
 }

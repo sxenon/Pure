@@ -16,7 +16,7 @@
 
 package com.sxenon.pure.core.viewmodule.pull.single.strategy;
 
-import com.sxenon.pure.core.result.handler.IFetchSingleResultHandler;
+import com.sxenon.pure.core.result.handler.ISingleResultHandler;
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
 import com.sxenon.pure.core.viewmodule.pull.single.BaseSingleStrategy;
 
@@ -52,7 +52,7 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
         }
     }
 
-    private void onNextDataFetched(IFetchSingleResultHandler<R> singleResultFiller,R data){
+    private void onNextDataFetched(ISingleResultHandler<R> singleResultFiller, R data){
         singleResultFiller.onSingleDataFetched(data);
         if (mOnFillEventListener !=null){
             //noinspection unchecked
@@ -60,7 +60,7 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
         }
     }
 
-    private void onPrevDataFetched(IFetchSingleResultHandler<R> singleResultFiller,R data){
+    private void onPrevDataFetched(ISingleResultHandler<R> singleResultFiller, R data){
         singleResultFiller.onSingleDataFetched(data);
         if (mOnFillEventListener !=null){
             //noinspection unchecked
@@ -69,7 +69,7 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
     }
 
     @Override
-    public void processSingle(IPullViewModule pullViewHolder, R data, IFetchSingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
+    public void processSingle(IPullViewModule pullViewHolder, R data, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
         if (pageInfo.currentPage<pageInfo.tempPage){
             onNextDataFetched(singleResultHandler, data);
         }else {
