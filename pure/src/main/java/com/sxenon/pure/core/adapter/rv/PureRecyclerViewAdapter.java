@@ -34,7 +34,7 @@ import java.util.List;
  * Created by Sui on 2016/12/29.
  */
 
-public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<PureRecyclerViewViewModule> implements IPureAdapter<R> {
+public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<PureRecyclerViewViewHolder> implements IPureAdapter<R> {
     private final PureRecyclerViewItemViewTypeEntity[] mItemViewTypeEntryArray;
     private final IListViewModule<R> mContainer;
     private final Object mLock = new Object();
@@ -201,15 +201,15 @@ public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<Pu
     }
 
     @Override
-    public PureRecyclerViewViewModule onCreateViewHolder(ViewGroup parent, int viewType) {
-        PureRecyclerViewViewModule viewHolder = null;
+    public PureRecyclerViewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        PureRecyclerViewViewHolder viewHolder = null;
 
         PureRecyclerViewItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryArray[viewType];
         int resourceId = itemViewTypeEntity.getResourceId();
         View itemView = LayoutInflater.from(parent.getContext()).inflate(resourceId, parent, false);
-        Class<? extends PureRecyclerViewViewModule> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
+        Class<? extends PureRecyclerViewViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
         try {
-            Constructor<? extends PureRecyclerViewViewModule> constructor = viewHolderClass.getConstructor(View.class, PureRecyclerViewAdapter.class);
+            Constructor<? extends PureRecyclerViewViewHolder> constructor = viewHolderClass.getConstructor(View.class, PureRecyclerViewAdapter.class);
             viewHolder = constructor.newInstance(itemView, PureRecyclerViewAdapter.this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -219,7 +219,7 @@ public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<Pu
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onBindViewHolder(PureRecyclerViewViewModule holder, int position) {
+    public void onBindViewHolder(PureRecyclerViewViewHolder holder, int position) {
         holder.setIsRecyclable(true);
         holder.onSingleDataFetched(getValue(position));
     }

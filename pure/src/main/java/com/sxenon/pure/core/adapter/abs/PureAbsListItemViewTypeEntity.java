@@ -25,14 +25,14 @@ import com.sxenon.pure.core.adapter.IItemViewTypeEntity;
 
 public class PureAbsListItemViewTypeEntity implements IItemViewTypeEntity {
     private final int resourceId;
-    private final Class<? extends PureAbsListViewModule> viewHolderClass;
+    private final Class<? extends PureAbsListViewHolder> viewHolderClass;
 
-    public PureAbsListItemViewTypeEntity(int resourceId, Class<? extends PureAbsListViewModule> viewHolderClass) {
+    public PureAbsListItemViewTypeEntity(int resourceId, Class<? extends PureAbsListViewHolder> viewHolderClass) {
         this.resourceId = resourceId;
         this.viewHolderClass = viewHolderClass;
     }
 
-    public Class<? extends PureAbsListViewModule> getViewHolderClass() {
+    public Class<? extends PureAbsListViewHolder> getViewHolderClass() {
         return viewHolderClass;
     }
 

@@ -22,7 +22,7 @@ package com.sxenon.pure.core.adapter;
  */
 
 public interface IItemViewTypeEntity {
-    Class<? extends IAdapterViewModule> getViewHolderClass();
+    Class<? extends IAdapterViewHolder> getViewHolderClass();
 
     int getResourceId();
 }

@@ -25,9 +25,9 @@ import com.sxenon.pure.core.adapter.IItemViewTypeEntity;
 
 public class PureRecyclerViewItemViewTypeEntity implements IItemViewTypeEntity {
     private final int resourceId;
-    private final Class<? extends PureRecyclerViewViewModule> viewHolderClass;
+    private final Class<? extends PureRecyclerViewViewHolder> viewHolderClass;
 
-    public PureRecyclerViewItemViewTypeEntity(int resourceId, Class<? extends PureRecyclerViewViewModule> viewHolderClass) {
+    public PureRecyclerViewItemViewTypeEntity(int resourceId, Class<? extends PureRecyclerViewViewHolder> viewHolderClass) {
         this.resourceId = resourceId;
         this.viewHolderClass = viewHolderClass;
     }
@@ -36,7 +36,7 @@ public class PureRecyclerViewItemViewTypeEntity implements IItemViewTypeEntity {
         return resourceId;
     }
 
-    public Class<? extends PureRecyclerViewViewModule> getViewHolderClass() {
+    public Class<? extends PureRecyclerViewViewHolder> getViewHolderClass() {
         return viewHolderClass;
     }
 }

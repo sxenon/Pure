@@ -218,20 +218,20 @@ public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPure
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        PureAbsListViewModule viewHolder = null;
+        PureAbsListViewHolder viewHolder = null;
         if (convertView == null) {
             PureAbsListItemViewTypeEntity itemViewTypeEntity = mItemViewTypeEntryArray[getItemViewType(position)];
             convertView = LayoutInflater.from(mContainer.getContext()).inflate(itemViewTypeEntity.getResourceId(), null);
-            Class<? extends PureAbsListViewModule> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
+            Class<? extends PureAbsListViewHolder> viewHolderClass = itemViewTypeEntity.getViewHolderClass();
             try {
-                Constructor<? extends PureAbsListViewModule> constructor = viewHolderClass.getConstructor(View.class, PureAbsListAdapter.class, Integer.class);
+                Constructor<? extends PureAbsListViewHolder> constructor = viewHolderClass.getConstructor(View.class, PureAbsListAdapter.class, Integer.class);
                 viewHolder = constructor.newInstance(convertView, PureAbsListAdapter.this, position);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (PureAbsListViewModule) convertView.getTag();
+            viewHolder = (PureAbsListViewHolder) convertView.getTag();
         }
         //noinspection ConstantConditions,unchecked
         viewHolder.onSingleDataFetched(getItem(position));
