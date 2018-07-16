@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.router.support;
+package com.sxenon.pure.core.router.impl;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProvider;
@@ -29,10 +29,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.router.IActivity;
-import com.sxenon.pure.core.router.PureRouterVisitorAsPresenter;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * To be the purest wrapper for Activity
@@ -42,7 +38,6 @@ import java.util.Set;
 
 public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter> extends AppCompatActivity implements IActivity<P> {
     private P mPresenter;
-    private final Set<PureSupportFragment> mVisibleFragmentSet = new HashSet<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,27 +93,6 @@ public abstract class PureCompactActivity<P extends PureRouterVisitorAsPresenter
         if (!mPresenter.onActivityResult(requestCode, resultCode, data)) {
             //deliver to v4.fragment
             super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    void addToVisibleSet(PureSupportFragment pureSupportFragment) {
-        mVisibleFragmentSet.add(pureSupportFragment);
-    }
-
-    void removeFromVisibleSet(PureSupportFragment pureSupportFragment) {
-        mVisibleFragmentSet.remove(pureSupportFragment);
-    }
-
-    @Override
-    public final void onBackPressed() {
-        boolean handled = false;
-        for (PureSupportFragment visibleFragment : mVisibleFragmentSet) {
-            if (visibleFragment.onBackPressed()) {
-                handled = true;
-            }
-        }
-        if (!handled && !mPresenter.onBackPressed()) {
-            super.onBackPressed();
         }
     }
 

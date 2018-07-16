@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 sxenon
+ * Copyright (c) 2018  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.router;
+package com.sxenon.pure.core.router.impl;
 
 import android.Manifest;
 import android.content.Intent;
@@ -22,6 +22,8 @@ import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.permission.PermissionHelper;
+import com.sxenon.pure.core.router.IRouter;
+import com.sxenon.pure.core.router.IRouterVisitor;
 
 import java.util.Arrays;
 
@@ -30,7 +32,7 @@ import java.util.Arrays;
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R>{
+public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R> {
 
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
@@ -41,14 +43,7 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
         permissionHelper = new PermissionHelper(router, this);
     }
 
-    //LifeCycle end
-    @Override
-    public boolean onBackPressed() {
-        return false;
-    }
-
     //Permission start
-
     public void setPermissionEvent(int what, Runnable runnable, boolean forceAccepting) {
         permissionHelper.setPermissionEvent(what, runnable, forceAccepting);
     }
@@ -131,10 +126,11 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     public final void requestPermissionsAfterExplanation(@NonNull String[] permissions) {
         permissionHelper.requestPermissionsAfterExplanation(permissions);
     }
+    //Permission end
 
     @NonNull
     public IRouter getRouter() {
         return getView();
     }
-    //Permission end
+
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.router.support;
+package com.sxenon.pure.core.router.impl;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProvider;
@@ -26,11 +26,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.router.IFragment;
-import com.sxenon.pure.core.router.PureRouterVisitorAsPresenter;
-
-import java.util.List;
 
 /**
  * 做最纯净的Fragment二次封装
@@ -39,39 +35,12 @@ import java.util.List;
 
 public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter> extends Fragment implements IFragment<P> {
     private P mPresenter;
-    private boolean mViewCreated;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view, savedInstanceState);
         mPresenter = bindPresenter();
-        mViewCreated = true;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mViewCreated = false;
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        /*
-      真正的对用户可见的状态！！！
-     */
-        boolean mVisible = mViewCreated && isVisibleToUser;
-        PureCompactActivity activity = (PureCompactActivity) getActivity();
-        if ( mVisible ) {
-            if (activity != null) {
-                activity.addToVisibleSet(this);
-            }
-        } else {
-            if (activity != null) {
-                activity.removeFromVisibleSet(this);
-            }
-        }
     }
 
     @Override
@@ -113,10 +82,6 @@ public abstract class PureSupportFragment<P extends PureRouterVisitorAsPresenter
     @Override
     public final boolean startActivityForResultBySelf(int requestCode) {
         return true;
-    }
-
-    public final boolean onBackPressed() {
-        return mPresenter.onBackPressed();
     }
 
     @Override

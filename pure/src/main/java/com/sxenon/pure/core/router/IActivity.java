@@ -19,6 +19,8 @@ package com.sxenon.pure.core.router;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.sxenon.pure.core.router.impl.PureRouterVisitorAsPresenter;
+
 /**
  * Interface for Activity
  * Created by Sui on 2017/1/2.

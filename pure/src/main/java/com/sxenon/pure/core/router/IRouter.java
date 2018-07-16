@@ -24,6 +24,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.sxenon.pure.core.mvp.IView;
+import com.sxenon.pure.core.router.impl.PureRouterVisitorAsPresenter;
 import com.sxenon.pure.core.viewmodule.IViewModule;
 
 /**

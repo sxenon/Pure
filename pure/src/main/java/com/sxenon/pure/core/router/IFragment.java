@@ -20,6 +20,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.sxenon.pure.core.router.impl.PureRouterVisitorAsPresenter;
+
 /**
  * Interface for Fragment
  * Created by Sui on 2017/1/2.
