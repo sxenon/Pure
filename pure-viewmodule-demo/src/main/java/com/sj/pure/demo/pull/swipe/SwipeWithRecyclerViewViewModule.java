@@ -41,7 +41,7 @@ public class SwipeWithRecyclerViewViewModule<R> extends BaseListViewModule<R, Sw
      */
     public SwipeWithRecyclerViewViewModule(Context context, final SwipeWithRecyclerViewPullLayout pullLayout, RefreshAndMoreListStrategy<R> fillPageStrategy, int dataSizeInFullPage) {
         super(context, pullLayout, fillPageStrategy, dataSizeInFullPage);
-        fillPageStrategy.setFillEventListener(new RefreshAndMoreListStrategy.SimpleOnFillEventListener<R>() {
+        fillPageStrategy.setEventListener(new RefreshAndMoreListStrategy.SimpleEventListener<R>() {
 
             @Override
             public void onPartialMoreDataFetched(List<R> data) {

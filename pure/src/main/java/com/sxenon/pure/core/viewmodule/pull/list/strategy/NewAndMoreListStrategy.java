@@ -30,7 +30,7 @@ import java.util.List;
  */
 
 public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
-    private OnFillEventListener mOnFillEventListener;
+    private EventListener mEventListener;
 
     public NewAndMoreListStrategy() {
         super();
@@ -42,51 +42,51 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
 
     private void onFullMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
         getListDataFillStrategy().onMoreDataFetched(adapter, data);
-        if (mOnFillEventListener !=null){
+        if ( mEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onFullMoreDataFetched(data);
+            mEventListener.onFullMoreDataFetched(data);
         }
     }
 
     private void onPartialMoreDataFetched(IPureAdapter<R> adapter, List<R> data){
         getListDataFillStrategy().onMoreDataFetched(adapter, data);
-        if (mOnFillEventListener !=null){
+        if ( mEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onPartialMoreDataFetched(data);
+            mEventListener.onPartialMoreDataFetched(data);
         }
     }
 
     private void onNewDataFetched(IPureAdapter<R> adapter, List<R> data) {
         getListDataFillStrategy().onNewDataFetched(adapter, data);
-        if (mOnFillEventListener !=null){
+        if ( mEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onNewDataFetched(data);
+            mEventListener.onNewDataFetched(data);
         }
     }
 
     private void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
         getListDataFillStrategy().onInitDataFetched(adapter, data);
-        if (mOnFillEventListener !=null){
+        if ( mEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onInitDataFetched(data);
+            mEventListener.onInitDataFetched(data);
         }
     }
 
     private void onNoMoreData() {
-        if (mOnFillEventListener !=null){
-            mOnFillEventListener.onNoMoreData();
+        if ( mEventListener !=null){
+            mEventListener.onNoMoreData();
         }
     }
 
     private void onNoNewData() {
-        if (mOnFillEventListener !=null){
-            mOnFillEventListener.onNoNewData();
+        if ( mEventListener !=null){
+            mEventListener.onNoNewData();
         }
     }
 
     private void onInitialize() {
-        if (mOnFillEventListener !=null){
-            mOnFillEventListener.onInitialize();
+        if ( mEventListener !=null){
+            mEventListener.onInitialize();
         }
     }
 
@@ -145,11 +145,11 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
         pageInfo.currentPage = pageInfo.tempPage = -1;
     }
 
-    public void setFillEventListener(OnFillEventListener onFillEventListener) {
-        this.mOnFillEventListener = onFillEventListener;
+    public void setEventListener(EventListener eventListener) {
+        this.mEventListener = eventListener;
     }
 
-    public interface OnFillEventListener<R> {
+    public interface EventListener<R> {
         void onFullMoreDataFetched(List<R> data);
         void onPartialMoreDataFetched(List<R> data);
         void onNewDataFetched(List<R> data);
@@ -159,7 +159,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
         void onInitialize();
     }
 
-    public static class SimpleOnFillEventListener<R> implements OnFillEventListener<R> {
+    public static class SimpleEventListener<R> implements EventListener<R> {
 
         @Override
         public void onFullMoreDataFetched(List<R> data) {

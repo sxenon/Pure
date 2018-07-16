@@ -27,7 +27,7 @@ import com.sxenon.pure.core.viewmodule.pull.single.BaseSingleStrategy;
 
 public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
     private final int mInitPage;
-    private OnFillEventListener mOnFillEventListener;
+    private EventListener mEventListener;
 
     public PrevAndNextSingleStrategy(int initPage) {
         super();
@@ -35,36 +35,36 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
     }
 
     private void onInitialize() {
-        if (mOnFillEventListener !=null){
-            mOnFillEventListener.onInitialize();
+        if ( mEventListener !=null){
+            mEventListener.onInitialize();
         }
     }
 
     private void onNoPrevData(){
-        if (mOnFillEventListener !=null){
-            mOnFillEventListener.onNoPrevData();
+        if ( mEventListener !=null){
+            mEventListener.onNoPrevData();
         }
     }
 
     private void onNoNextData() {
-        if (mOnFillEventListener !=null){
-            mOnFillEventListener.onNoNextData();
+        if ( mEventListener !=null){
+            mEventListener.onNoNextData();
         }
     }
 
     private void onNextDataFetched(ISingleResultHandler<R> singleResultFiller, R data){
         singleResultFiller.onSingleData(data);
-        if (mOnFillEventListener !=null){
+        if ( mEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onNextDataFetched(data);
+            mEventListener.onNextDataFetched(data);
         }
     }
 
     private void onPrevDataFetched(ISingleResultHandler<R> singleResultFiller, R data){
         singleResultFiller.onSingleData(data);
-        if (mOnFillEventListener !=null){
+        if ( mEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onPrevDataFetched(data);
+            mEventListener.onPrevDataFetched(data);
         }
     }
 
@@ -105,11 +105,11 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
         pageInfo.tempPage = pageInfo.currentPage + 1;
     }
 
-    public void setFillEventListener(OnFillEventListener onFillEventListener) {
-        this.mOnFillEventListener = onFillEventListener;
+    public void setFillEventListener(EventListener eventListener) {
+        this.mEventListener = eventListener;
     }
 
-    public interface OnFillEventListener<R>{
+    public interface EventListener<R>{
         void onNextDataFetched(R data);
         void onPrevDataFetched(R data);
         void onNoPrevData();
@@ -117,7 +117,7 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
         void onInitialize();
     }
 
-    public static class SimpleOnFillEventListener<R> implements OnFillEventListener<R> {
+    public static class SimpleEventListener<R> implements EventListener<R> {
 
         @Override
         public void onNextDataFetched(R data) {

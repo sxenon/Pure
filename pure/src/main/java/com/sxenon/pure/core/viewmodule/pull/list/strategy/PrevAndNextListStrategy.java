@@ -31,7 +31,7 @@ import java.util.List;
 
 public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     private final int mInitPage;
-    private OnFillEventListener mOnPullEventListener;
+    private EventListener mOnPullEventListener;
 
     public PrevAndNextListStrategy(int initPage) {
         super();
@@ -135,11 +135,11 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
         pageInfo.currentPage = pageInfo.tempPage = -1;
     }
 
-    public void setFillEventListener(OnFillEventListener onFillEventListener) {
-        this.mOnPullEventListener = onFillEventListener;
+    public void setEventListener(EventListener eventListener) {
+        this.mOnPullEventListener = eventListener;
     }
 
-    public interface OnFillEventListener<R>{
+    public interface EventListener<R>{
         void onFullNextDataFetched(List<R> data);
         void onPartialNextDataFetched(List<R> data);
         void onPrevDataFetched(List<R> data);
@@ -148,7 +148,7 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
         void onInitialize();
     }
 
-    public static class SimpleOnFillEventListener<R> implements OnFillEventListener<R> {
+    public static class SimpleEventListener<R> implements EventListener<R> {
 
         @Override
         public void onFullNextDataFetched(List<R> data) {

@@ -26,11 +26,11 @@ import com.sxenon.pure.core.viewmodule.pull.single.BaseSingleStrategy;
  */
 
 public class RefreshSingleStrategy<R> extends BaseSingleStrategy<R> {
-    private OnFillEventListener mOnFillEventListener;
+    private EventListener mEventListener;
 
     private void onInitialize() {
-        if (mOnFillEventListener !=null){
-            mOnFillEventListener.onInitialize();
+        if ( mEventListener !=null){
+            mEventListener.onInitialize();
         }
     }
 
@@ -51,9 +51,9 @@ public class RefreshSingleStrategy<R> extends BaseSingleStrategy<R> {
     public void processSingle(IPullViewModule pullViewHolder, R data, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
         singleResultHandler.onSingleData(data);
         pageInfo.tempPage = pageInfo.currentPage = 0;
-        if (mOnFillEventListener !=null){
+        if ( mEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onInitDataFetched(data);
+            mEventListener.onInitDataFetched(data);
         }
     }
 
@@ -63,16 +63,16 @@ public class RefreshSingleStrategy<R> extends BaseSingleStrategy<R> {
         pageInfo.tempPage = pageInfo.currentPage =-1;
     }
 
-    public void setFillEventListener(OnFillEventListener onFillEventListener) {
-        this.mOnFillEventListener = onFillEventListener;
+    public void setFillEventListener(EventListener eventListener) {
+        this.mEventListener = eventListener;
     }
 
-    public interface OnFillEventListener<R> {
+    public interface EventListener<R> {
         void onInitialize();
         void onInitDataFetched(R data);
     }
 
-    public static class SimpleOnFillEventListener<R> implements OnFillEventListener<R> {
+    public static class SimpleEventListener<R> implements EventListener<R> {
 
         @Override
         public void onInitialize() {
