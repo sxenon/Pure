@@ -31,69 +31,69 @@ import java.util.List;
 
 public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     private final int mInitPage;
-    private OnFillEventListener mOnFillEventListener;
+    private OnFillEventListener mOnPullEventListener;
 
     public PrevAndNextListStrategy(int initPage) {
         super();
         mInitPage = initPage;
     }
 
-    public PrevAndNextListStrategy(IAdapterStrategy<R> fillAdapterStrategy, int initPage) {
-        super(fillAdapterStrategy);
+    public PrevAndNextListStrategy(IAdapterStrategy<R> adapterStrategy, int initPage) {
+        super(adapterStrategy);
         mInitPage = initPage;
     }
 
 
     private void onNoPrevData(){
-        if (mOnFillEventListener !=null){
-            mOnFillEventListener.onNoPrevData();
+        if ( mOnPullEventListener !=null){
+            mOnPullEventListener.onNoPrevData();
         }
     }
 
     private void onNoNextData() {
-        if (mOnFillEventListener !=null){
-            mOnFillEventListener.onNoNextData();
+        if ( mOnPullEventListener !=null){
+            mOnPullEventListener.onNoNextData();
         }
     }
 
     private void onFullNextDataFetched(IPureAdapter<R> adapter, List<R> data) {
         getListDataFillStrategy().onInitDataFetched(adapter, data);
-        if (mOnFillEventListener !=null){
+        if ( mOnPullEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onFullNextDataFetched(data);
+            mOnPullEventListener.onFullNextDataFetched(data);
         }
     }
 
     private void onPartialNextDataFetched(IPureAdapter<R> adapter, List<R> data){
         getListDataFillStrategy().onInitDataFetched(adapter, data);
-        if (mOnFillEventListener !=null){
+        if ( mOnPullEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onPartialNextDataFetched(data);
+            mOnPullEventListener.onPartialNextDataFetched(data);
         }
     }
 
     private void onPrevDataFetched(IPureAdapter<R> adapter, List<R> data){
         getListDataFillStrategy().onInitDataFetched(adapter, data);
-        if (mOnFillEventListener !=null){
+        if ( mOnPullEventListener !=null){
             //noinspection unchecked
-            mOnFillEventListener.onPrevDataFetched(data);
+            mOnPullEventListener.onPrevDataFetched(data);
         }
     }
 
     private void onInitialize() {
-        if (mOnFillEventListener !=null){
-            mOnFillEventListener.onInitialize();
+        if ( mOnPullEventListener !=null){
+            mOnPullEventListener.onInitialize();
         }
     }
 
     @Override
-    public void processPartialList(IPullViewModule fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         onPartialNextDataFetched(adapter,data);
         pageInfo.currentPage = pageInfo.tempPage;
     }
 
     @Override
-    public void processFullList(IPullViewModule fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.currentPage<pageInfo.tempPage){
             onFullNextDataFetched(adapter, data);
         }else {
@@ -103,9 +103,9 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void processEmptyList(IPullViewModule fillerViewHolder, PageInfo pageInfo) {
+    public void processEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
-            fillerViewHolder.onEmpty();
+            pullViewModule.onEmpty();
         } else {
             onNoNextData();
         }
@@ -130,13 +130,13 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void onException(IPullViewModule fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void onException(IPullViewModule pullViewModule, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
         adapter.clearAllItems();
         pageInfo.currentPage = pageInfo.tempPage = -1;
     }
 
     public void setFillEventListener(OnFillEventListener onFillEventListener) {
-        this.mOnFillEventListener = onFillEventListener;
+        this.mOnPullEventListener = onFillEventListener;
     }
 
     public interface OnFillEventListener<R>{

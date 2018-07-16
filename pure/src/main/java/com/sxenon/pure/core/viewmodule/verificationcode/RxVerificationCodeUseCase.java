@@ -50,6 +50,12 @@ public class RxVerificationCodeUseCase extends UseCase<RxVerificationCodeUseCase
         });
     }
 
+    public enum CountState{
+        START,
+        TICkING,
+        FINISH
+    }
+
     public static class RequestValues implements UseCase.RequestValues{
         private final int secondsInFuture;
 
@@ -60,12 +66,6 @@ public class RxVerificationCodeUseCase extends UseCase<RxVerificationCodeUseCase
         public int getSecondsInFuture() {
             return secondsInFuture;
         }
-    }
-
-    public enum CountState{
-        START,
-        TICkING,
-        FINISH
     }
 
     public static class ResponseValue implements UseCase.ResponseValue{

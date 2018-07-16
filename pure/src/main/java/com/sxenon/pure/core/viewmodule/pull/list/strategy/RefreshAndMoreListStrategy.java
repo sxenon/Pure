@@ -91,7 +91,7 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void processPartialList(IPullViewModule fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.tempPage == 0) {
             onInitDataFetched(adapter, data);
         } else {
@@ -101,7 +101,7 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void processFullList(IPullViewModule fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.tempPage == 0) {
             onInitDataFetched(adapter, data);
         } else {
@@ -111,9 +111,9 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void processEmptyList(IPullViewModule fillerViewHolder, PageInfo pageInfo) {
+    public void processEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
-            fillerViewHolder.onEmpty();
+            pullViewModule.onEmpty();
         } else {
             onNoMoreData();
         }
@@ -121,7 +121,7 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void onException(IPullViewModule fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void onException(IPullViewModule pullViewModule, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
         adapter.clearAllItems();
         pageInfo.currentPage = pageInfo.tempPage = -1;
     }

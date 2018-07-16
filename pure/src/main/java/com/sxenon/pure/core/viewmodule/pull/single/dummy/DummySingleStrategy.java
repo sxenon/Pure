@@ -39,7 +39,7 @@ public class DummySingleStrategy<R> extends BaseSingleStrategy<R> {
 
     @Override
     public void processSingle(IPullViewModule pullViewHolder, R data, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
-        singleResultHandler.onSingleDataFetched(data);
+        singleResultHandler.onSingleData(data);
     }
 
     @Override

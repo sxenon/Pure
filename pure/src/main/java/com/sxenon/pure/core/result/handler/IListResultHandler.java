@@ -24,5 +24,5 @@ import java.util.List;
  */
 
 public interface IListResultHandler<R> extends IResultHandler {
-    void onListDataFetched(List<R> data);
+    void onListData(List<R> data);
 }

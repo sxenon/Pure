@@ -44,11 +44,11 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
     }
 
     /**
-     * @param singleResultFiller 单一数据的Filler
+     * @param singleResultHandler 单一数据的Filler
      */
     @Override
-    public void setSingleResultFiller(ISingleResultHandler<R> singleResultFiller) {
-        mSingleResultFiller = singleResultFiller;
+    public void setSingleResultHandler(ISingleResultHandler<R> singleResultHandler) {
+        mSingleResultFiller = singleResultHandler;
     }
 
     @Override
@@ -60,24 +60,24 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
     public final void restoreData(Object data) {
         //noinspection unchecked
         mData = (R) data;
-        mSingleResultFiller.onSingleDataFetched(mData);
+        mSingleResultFiller.onSingleData(mData);
     }
 
     @Override
-    public void onSingleDataFetched(R data) {
+    public void onSingleData(R data) {
         mData = data;
         endAllAnim();
         if (data == null) {
-            getFillPageStrategy().processEmptySingle(this, getPageInfo());
+            getPullStrategy().processEmptySingle(this, getPageInfo());
         } else {
             onNonEmpty();
-            getFillPageStrategy().processSingle(this, data, mSingleResultFiller, getPageInfo());
+            getPullStrategy().processSingle(this, data, mSingleResultFiller, getPageInfo());
         }
     }
 
     @Override
     public void onApiException(ApiException apiException) {
         super.onApiException(apiException);
-        getFillPageStrategy().onException(this, apiException, mSingleResultFiller, getPageInfo());
+        getPullStrategy().onException(this, apiException, mSingleResultFiller, getPageInfo());
     }
 }

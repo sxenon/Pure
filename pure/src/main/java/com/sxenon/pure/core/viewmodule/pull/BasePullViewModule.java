@@ -32,7 +32,7 @@ import com.sxenon.pure.core.viewmodule.ILoadingView;
 public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullStrategy> implements IPullViewModule {
     private final IPullStrategy.PageInfo pageInfo = new IPullStrategy.PageInfo(-1, -1);
 
-    private final S mFillPageStrategy;
+    private final S mPullStrategy;
     private final PL mPullLayout;
     private final Context mContext;
 
@@ -50,11 +50,11 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
      *
      * @param context          上下文
      * @param pullLayout       刷新容器
-     * @param fillPageStrategy 分页数据填充策略
+     * @param pullStrategy 分页数据填充策略
      */
-    public BasePullViewModule(Context context, PL pullLayout, S fillPageStrategy) {
+    public BasePullViewModule(Context context, PL pullLayout, S pullStrategy) {
         mPullLayout = pullLayout;
-        mFillPageStrategy = fillPageStrategy;
+        mPullStrategy = pullStrategy;
         mContext = context;
     }
 
@@ -84,14 +84,14 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
      * For subclass call,see demo
      */
     protected final void onBeginPullingDown() {
-        mFillPageStrategy.onPullDown(pageInfo);
+        mPullStrategy.onPullDown(pageInfo);
     }
 
     /**
      * For subclass call,see demo
      */
     protected final void onBeginPullingUp() {
-        mFillPageStrategy.onPullUp(pageInfo);
+        mPullStrategy.onPullUp(pageInfo);
     }
 
     public void toInitialize() {
@@ -211,7 +211,7 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
         return mEmptyView;
     }
 
-    public int getFillEventWhat() {
+    public int getPullEventWhat() {
         return mEventWhat;
     }
 
@@ -228,8 +228,8 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
         return mApiException;
     }
 
-    public S getFillPageStrategy() {
-        return mFillPageStrategy;
+    public S getPullStrategy() {
+        return mPullStrategy;
     }
 
     public abstract Object getData();

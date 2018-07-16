@@ -40,18 +40,18 @@ public class DummyListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void processFullList(IPullViewModule fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         getListDataFillStrategy().onInitDataFetched(adapter, data);
     }
 
     @Override
-    public void processPartialList(IPullViewModule fillerViewHolder, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void processPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         getListDataFillStrategy().onInitDataFetched(adapter, data);
     }
 
     @Override
-    public void processEmptyList(IPullViewModule fillerViewHolder, PageInfo pageInfo) {
-        fillerViewHolder.onEmpty();
+    public void processEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo) {
+        pullViewModule.onEmpty();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class DummyListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void onException(IPullViewModule fillerViewHolder, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void onException(IPullViewModule pullViewModule, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo) {
 
     }
 }

@@ -22,5 +22,5 @@ package com.sxenon.pure.core.result.handler;
  */
 
 public interface ISingleResultHandler<R> extends  IResultHandler {
-    void onSingleDataFetched(R data);
+    void onSingleData(R data);
 }

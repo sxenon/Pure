@@ -62,16 +62,16 @@ public class BaseListViewModule<R, PL extends IPullLayout> extends BasePullViewM
     }
 
     @Override
-    public void onListDataFetched(List<R> data) {
+    public void onListData(List<R> data) {
         endAllAnim();
         if (data == null || data.isEmpty()) {
-            getFillPageStrategy().processEmptyList(this, getPageInfo());
+            getPullStrategy().processEmptyList(this, getPageInfo());
         } else {
             onNonEmpty();
             if (data.size()<mDataSizeInFullPage){
-                getFillPageStrategy().processPartialList(this,data,mAdapter,getPageInfo());
+                getPullStrategy().processPartialList(this,data,mAdapter,getPageInfo());
             }else {
-                getFillPageStrategy().processFullList(this, data, mAdapter, getPageInfo());
+                getPullStrategy().processFullList(this, data, mAdapter, getPageInfo());
             }
         }
     }
@@ -79,7 +79,7 @@ public class BaseListViewModule<R, PL extends IPullLayout> extends BasePullViewM
     @Override
     public void onApiException(ApiException apiException) {
         super.onApiException(apiException);
-        getFillPageStrategy().onException(this, apiException, mAdapter, getPageInfo());
+        getPullStrategy().onException(this, apiException, mAdapter, getPageInfo());
     }
 
     @Override

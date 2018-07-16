@@ -22,17 +22,17 @@ package com.sxenon.pure.core.viewmodule.pull.list;
  */
 
 public abstract class BaseListStrategy<R> implements IListStrategy<R> {
-    private final IAdapterStrategy<R> mFillAdapterStrategy;
+    private final IAdapterStrategy<R> adapterStrategy;
 
     public BaseListStrategy() {
         this(null);
     }
 
-    public BaseListStrategy(IAdapterStrategy<R> fillAdapterStrategy) {
-        mFillAdapterStrategy = fillAdapterStrategy == null ? new DefaultAdapterStrategy<R>() : fillAdapterStrategy;
+    public BaseListStrategy(IAdapterStrategy<R> adapterStrategy) {
+        this.adapterStrategy = adapterStrategy == null ? new DefaultAdapterStrategy<R>() : adapterStrategy;
     }
 
     public IAdapterStrategy<R> getListDataFillStrategy() {
-        return mFillAdapterStrategy;
+        return adapterStrategy;
     }
 }
