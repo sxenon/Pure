@@ -41,11 +41,11 @@ public class BaseListViewModule<R, PL extends IPullLayout> extends BasePullViewM
      *
      * @param context          上下文
      * @param pullLayout       刷新容器
-     * @param fillPageStrategy 分页数据填充策略
+     * @param listStrategy 分页数据填充策略
      * @param dataSizeInFullPage 完整页数据个数
      */
-    public BaseListViewModule(Context context, PL pullLayout, IListStrategy<R> fillPageStrategy, int dataSizeInFullPage) {
-        super(context, pullLayout, fillPageStrategy);
+    public BaseListViewModule(Context context, PL pullLayout, IListStrategy<R> listStrategy, int dataSizeInFullPage) {
+        super(context, pullLayout, listStrategy);
         mDataSizeInFullPage = dataSizeInFullPage;
     }
 

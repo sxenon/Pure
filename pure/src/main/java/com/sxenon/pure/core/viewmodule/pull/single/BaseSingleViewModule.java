@@ -29,7 +29,7 @@ import com.sxenon.pure.core.viewmodule.pull.IPullLayout;
  */
 
 public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullViewModule<PL,ISingleStrategy<R>> implements ISingleViewModule<R> {
-    private ISingleResultHandler<R> mSingleResultFiller;
+    private ISingleResultHandler<R> mSingleResultHandler;
     private R mData;
 
     /**
@@ -37,10 +37,10 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
      *
      * @param context          上下文
      * @param pullLayout       刷新容器
-     * @param fillPageStrategy 分页数据填充策略
+     * @param singleStrategy 分页数据填充策略
      */
-    public BaseSingleViewModule(Context context, PL pullLayout, ISingleStrategy<R> fillPageStrategy) {
-        super(context, pullLayout, fillPageStrategy);
+    public BaseSingleViewModule(Context context, PL pullLayout, ISingleStrategy<R> singleStrategy) {
+        super(context, pullLayout, singleStrategy);
     }
 
     /**
@@ -48,7 +48,7 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
      */
     @Override
     public void setSingleResultHandler(ISingleResultHandler<R> singleResultHandler) {
-        mSingleResultFiller = singleResultHandler;
+        mSingleResultHandler = singleResultHandler;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
     public final void restoreData(Object data) {
         //noinspection unchecked
         mData = (R) data;
-        mSingleResultFiller.onSingleData(mData);
+        mSingleResultHandler.onSingleData(mData);
     }
 
     @Override
@@ -71,13 +71,13 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
             getPullStrategy().processEmptySingle(this, getPageInfo());
         } else {
             onNonEmpty();
-            getPullStrategy().processSingle(this, data, mSingleResultFiller, getPageInfo());
+            getPullStrategy().processSingle(this, data, mSingleResultHandler, getPageInfo());
         }
     }
 
     @Override
     public void onApiException(ApiException apiException) {
         super.onApiException(apiException);
-        getPullStrategy().onException(this, apiException, mSingleResultFiller, getPageInfo());
+        getPullStrategy().onException(this, apiException, mSingleResultHandler, getPageInfo());
     }
 }
