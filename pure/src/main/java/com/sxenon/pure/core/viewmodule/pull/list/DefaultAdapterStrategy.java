@@ -27,17 +27,17 @@ import java.util.List;
 
 public class DefaultAdapterStrategy<R> implements IAdapterStrategy<R> {
     @Override
-    public void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    public void onMoreData(IPureAdapter<R> adapter, List<R> data) {
         adapter.addItemsFromEnd(data);
     }
 
     @Override
-    public void onNewDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    public void onNewData(IPureAdapter<R> adapter, List<R> data) {
         adapter.addItemsFromStart(data);
     }
 
     @Override
-    public void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    public void onInitData(IPureAdapter<R> adapter, List<R> data) {
         adapter.resetAllItems(data);
     }
 }

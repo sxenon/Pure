@@ -43,7 +43,7 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
     private View mExceptionView;
     private ILoadingView mLoadingView;
 
-    private OnFillEventListener mOnFillEventListener;
+    private EventListener mEventListener;
 
     /**
      * Constructor
@@ -162,8 +162,8 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
     public void onCancel() {
         endAllAnim();
         pageInfo.tempPage = pageInfo.currentPage;
-        if (mOnFillEventListener!=null){
-            mOnFillEventListener.onCancel();
+        if ( mEventListener !=null){
+            mEventListener.onCancel();
         }
     }
 
@@ -174,8 +174,8 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
         mApiException = apiException;
         CommonUtils.setViewVisibility(mEmptyView, View.GONE);
         CommonUtils.setViewVisibility(mExceptionView, View.VISIBLE);
-        if (mOnFillEventListener!=null){
-            mOnFillEventListener.onApiException(apiException);
+        if ( mEventListener !=null){
+            mEventListener.onApiException(apiException);
         }
     }
 
@@ -185,18 +185,18 @@ public abstract class BasePullViewModule<PL extends IPullLayout,S extends IPullS
         pageInfo.currentPage = pageInfo.tempPage = -1;
         CommonUtils.setViewVisibility(mExceptionView, View.GONE);
         CommonUtils.setViewVisibility(mEmptyView, View.VISIBLE);
-        if (mOnFillEventListener!=null){
-            mOnFillEventListener.onEmpty();
+        if ( mEventListener !=null){
+            mEventListener.onEmpty();
         }
     }
     //Implement end
 
 
-    public void setOnFillEventListener(OnFillEventListener mOnFillEventListener) {
-        this.mOnFillEventListener = mOnFillEventListener;
+    public void setEventListener(EventListener eventListener) {
+        this.mEventListener = eventListener;
     }
 
-    public interface OnFillEventListener{
+    public interface EventListener {
         void onEmpty();
         void onApiException(ApiException apiException);
         void onCancel();

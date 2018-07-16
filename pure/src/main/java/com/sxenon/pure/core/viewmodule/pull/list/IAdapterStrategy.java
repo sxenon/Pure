@@ -26,9 +26,9 @@ import java.util.List;
  */
 
 public interface IAdapterStrategy<R> {
-    void onMoreDataFetched(IPureAdapter<R> adapter, List<R> data);
+    void onMoreData(IPureAdapter<R> adapter, List<R> data);
 
-    void onNewDataFetched(IPureAdapter<R> adapter, List<R> data);
+    void onNewData(IPureAdapter<R> adapter, List<R> data);
 
-    void onInitDataFetched(IPureAdapter<R> adapter, List<R> data);
+    void onInitData(IPureAdapter<R> adapter, List<R> data);
 }

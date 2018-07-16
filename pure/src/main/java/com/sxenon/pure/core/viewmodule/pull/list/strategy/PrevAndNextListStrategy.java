@@ -57,7 +57,7 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onFullNextDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getListDataFillStrategy().onInitDataFetched(adapter, data);
+        getListDataFillStrategy().onInitData(adapter, data);
         if ( mOnPullEventListener !=null){
             //noinspection unchecked
             mOnPullEventListener.onFullNextDataFetched(data);
@@ -65,7 +65,7 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onPartialNextDataFetched(IPureAdapter<R> adapter, List<R> data){
-        getListDataFillStrategy().onInitDataFetched(adapter, data);
+        getListDataFillStrategy().onInitData(adapter, data);
         if ( mOnPullEventListener !=null){
             //noinspection unchecked
             mOnPullEventListener.onPartialNextDataFetched(data);
@@ -73,7 +73,7 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onPrevDataFetched(IPureAdapter<R> adapter, List<R> data){
-        getListDataFillStrategy().onInitDataFetched(adapter, data);
+        getListDataFillStrategy().onInitData(adapter, data);
         if ( mOnPullEventListener !=null){
             //noinspection unchecked
             mOnPullEventListener.onPrevDataFetched(data);

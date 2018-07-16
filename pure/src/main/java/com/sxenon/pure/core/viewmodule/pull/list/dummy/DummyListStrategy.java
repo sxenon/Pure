@@ -35,18 +35,18 @@ public class DummyListStrategy<R> extends BaseListStrategy<R> {
         super();
     }
 
-    DummyListStrategy(IAdapterStrategy<R> fillAdapterStrategy) {
-        super(fillAdapterStrategy);
+    DummyListStrategy(IAdapterStrategy<R> adapterStrategy) {
+        super(adapterStrategy);
     }
 
     @Override
     public void processFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
-        getListDataFillStrategy().onInitDataFetched(adapter, data);
+        getListDataFillStrategy().onInitData(adapter, data);
     }
 
     @Override
     public void processPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
-        getListDataFillStrategy().onInitDataFetched(adapter, data);
+        getListDataFillStrategy().onInitData(adapter, data);
     }
 
     @Override

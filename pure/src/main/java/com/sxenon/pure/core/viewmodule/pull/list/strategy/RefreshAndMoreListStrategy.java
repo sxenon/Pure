@@ -37,12 +37,12 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
         super();
     }
 
-    public RefreshAndMoreListStrategy(IAdapterStrategy<R> fillAdapterStrategy) {
-        super(fillAdapterStrategy);
+    public RefreshAndMoreListStrategy(IAdapterStrategy<R> adapterStrategy) {
+        super(adapterStrategy);
     }
 
     private void onFullMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getListDataFillStrategy().onMoreDataFetched(adapter, data);
+        getListDataFillStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onFullMoreDataFetched(data);
@@ -50,7 +50,7 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onPartialMoreDataFetched(IPureAdapter<R> adapter, List<R> data){
-        getListDataFillStrategy().onMoreDataFetched(adapter, data);
+        getListDataFillStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onPartialMoreDataFetched(data);
@@ -58,7 +58,7 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getListDataFillStrategy().onInitDataFetched(adapter, data);
+        getListDataFillStrategy().onInitData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onInitDataFetched(data);
