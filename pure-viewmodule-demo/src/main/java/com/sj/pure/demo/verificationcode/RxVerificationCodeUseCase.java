@@ -16,7 +16,7 @@
 
 package com.sj.pure.demo.verificationcode;
 
-import com.sxenon.pure.core.usecase.UseCase;
+import com.sxenon.pure.core.viewmodule.verificationcode.BaseVerificationCodeUseCase;
 import com.sxenon.pure.core.viewmodule.verificationcode.CountDownListener;
 
 import java.util.concurrent.TimeUnit;
@@ -29,65 +29,9 @@ import io.reactivex.functions.Function;
 import io.reactivex.observers.ResourceObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class RxVerificationCodeUseCase extends UseCase<RxVerificationCodeUseCase.RequestValues,RxVerificationCodeUseCase.ResponseValue> {
+public class RxVerificationCodeUseCase extends BaseVerificationCodeUseCase {
 
-    @Override
-    protected void executeUseCase(final RequestValues requestValues) {
-        startCountDown(requestValues.getSecondsInFuture(), new CountDownListener() {
-            @Override
-            public void onStart() {
-                getUseCaseCallback().onSuccess(new ResponseValue(CountState.START,requestValues.getSecondsInFuture()));
-            }
-
-            @Override
-            public void onTick(long secondsUntilFinished) {
-                getUseCaseCallback().onSuccess(new ResponseValue(CountState.TICkING,secondsUntilFinished));
-            }
-
-            @Override
-            public void onFinish() {
-                getUseCaseCallback().onSuccess(new ResponseValue(CountState.FINISH,0));
-            }
-        });
-    }
-
-    public enum CountState{
-        START,
-        TICkING,
-        FINISH
-    }
-
-    public static class RequestValues implements UseCase.RequestValues{
-        private final int secondsInFuture;
-
-        public RequestValues(int secondsInFuture) {
-            this.secondsInFuture = secondsInFuture;
-        }
-
-        public int getSecondsInFuture() {
-            return secondsInFuture;
-        }
-    }
-
-    public static class ResponseValue implements UseCase.ResponseValue{
-        private final CountState state;
-        private final long secondsUntilFinished;
-
-        public ResponseValue(CountState state, long secondsUntilFinished) {
-            this.state = state;
-            this.secondsUntilFinished = secondsUntilFinished;
-        }
-
-        public CountState getState() {
-            return state;
-        }
-
-        public long getSecondsUntilFinished() {
-            return secondsUntilFinished;
-        }
-    }
-
-    private void startCountDown(final int secondsInFuture, final CountDownListener countDownListener) {
+    protected void startCountDown(final int secondsInFuture, final CountDownListener countDownListener) {
 
         Observable.interval(0, 1, TimeUnit.SECONDS)
                 .take(secondsInFuture + 1)

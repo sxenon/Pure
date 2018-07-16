@@ -29,8 +29,8 @@ import com.sxenon.pure.core.usecase.UseCase;
 import com.sxenon.pure.core.usecase.UseCaseHandler;
 import com.sxenon.pure.core.viewmodule.verificationcode.BaseVerificationCodeViewModule;
 
-public class VerificationCodeViewModuleRxImpl extends BaseVerificationCodeViewModule {
-    public VerificationCodeViewModuleRxImpl(IRouter router, Button codeBtn, TextView countDownTv) {
+public class RxVerificationCodeViewModule extends BaseVerificationCodeViewModule {
+    public RxVerificationCodeViewModule(IRouter router, Button codeBtn, TextView countDownTv) {
         super(router, codeBtn, countDownTv);
     }
 
