@@ -41,7 +41,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onFullMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getStrategy().onMoreData(adapter, data);
+        getAdapterStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onFullMoreDataFetched(data);
@@ -49,7 +49,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onPartialMoreDataFetched(IPureAdapter<R> adapter, List<R> data){
-        getStrategy().onMoreData(adapter, data);
+        getAdapterStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onPartialMoreDataFetched(data);
@@ -57,7 +57,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onNewDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getStrategy().onNewData(adapter, data);
+        getAdapterStrategy().onNewData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onNewDataFetched(data);
@@ -65,7 +65,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getStrategy().onInitData(adapter, data);
+        getAdapterStrategy().onInitData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onInitDataFetched(data);

@@ -41,12 +41,12 @@ public class DummyListStrategy<R> extends BaseListStrategy<R> {
 
     @Override
     public void onFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
-        getStrategy().onInitData(adapter, data);
+        getAdapterStrategy().onInitData(adapter, data);
     }
 
     @Override
     public void onPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
-        getStrategy().onInitData(adapter, data);
+        getAdapterStrategy().onInitData(adapter, data);
     }
 
     @Override
