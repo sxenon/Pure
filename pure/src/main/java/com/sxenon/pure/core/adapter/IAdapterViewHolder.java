@@ -16,7 +16,7 @@
 
 package com.sxenon.pure.core.adapter;
 
-import com.sxenon.pure.core.result.handler.ISingleResultHandler;
+import com.sxenon.pure.core.response.ISingleResponseHandler;
 import com.sxenon.pure.core.viewmodule.IViewModule;
 
 /**
@@ -24,7 +24,7 @@ import com.sxenon.pure.core.viewmodule.IViewModule;
  * Created by Sui on 2016/12/25.
  */
 
-public interface IAdapterViewHolder<R> extends ISingleResultHandler<R>, IViewModule {
+public interface IAdapterViewHolder<R> extends ISingleResponseHandler<R>, IViewModule {
     int getPosition();
 
     <A extends IPureAdapter> A getAdapter();

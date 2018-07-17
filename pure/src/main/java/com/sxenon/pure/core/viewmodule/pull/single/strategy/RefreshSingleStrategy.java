@@ -16,7 +16,7 @@
 
 package com.sxenon.pure.core.viewmodule.pull.single.strategy;
 
-import com.sxenon.pure.core.result.handler.ISingleResultHandler;
+import com.sxenon.pure.core.response.ISingleResponseHandler;
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
 import com.sxenon.pure.core.viewmodule.pull.single.BaseSingleStrategy;
 
@@ -48,7 +48,7 @@ public class RefreshSingleStrategy<R> extends BaseSingleStrategy<R> {
     }
 
     @Override
-    public void onSingle(IPullViewModule pullViewHolder, R data, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
+    public void onSingle(IPullViewModule pullViewHolder, R data, ISingleResponseHandler<R> singleResultHandler, PageInfo pageInfo) {
         singleResultHandler.onSingle(data);
         pageInfo.tempPage = pageInfo.currentPage = 0;
         if ( mEventListener !=null){

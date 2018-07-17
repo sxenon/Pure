@@ -20,7 +20,7 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.sxenon.pure.core.result.handler.IResultHandler;
+import com.sxenon.pure.core.response.IResponseHandler;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.viewmodule.IViewModule;
 
@@ -30,7 +30,7 @@ import com.sxenon.pure.core.viewmodule.IViewModule;
  * See Demo
  */
 
-public abstract class BaseVerificationCodeViewModule implements IViewModule, IResultHandler {
+public abstract class BaseVerificationCodeViewModule implements IViewModule, IResponseHandler {
     private static final String TAG = "Demo";
     private final Button mCodeBtn;
     private final TextView mCountDownTv;

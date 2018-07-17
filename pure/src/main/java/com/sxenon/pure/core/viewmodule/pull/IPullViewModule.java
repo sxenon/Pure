@@ -16,7 +16,7 @@
 
 package com.sxenon.pure.core.viewmodule.pull;
 
-import com.sxenon.pure.core.result.handler.IResultHandler;
+import com.sxenon.pure.core.response.IResponseHandler;
 import com.sxenon.pure.core.viewmodule.IViewModule;
 
 /**
@@ -24,7 +24,7 @@ import com.sxenon.pure.core.viewmodule.IViewModule;
  * Created by Sui on 2017/8/4.
  */
 
-public interface IPullViewModule extends IResultHandler, IViewModule {
+public interface IPullViewModule extends IResponseHandler, IViewModule {
     void onEmpty();
 
     void onNonEmpty();

@@ -19,7 +19,6 @@ package com.sxenon.pure.core.viewmodule.pull.single;
 import android.content.Context;
 
 import com.sxenon.pure.core.ApiException;
-import com.sxenon.pure.core.result.handler.ISingleResultHandler;
 import com.sxenon.pure.core.viewmodule.pull.BasePullViewModule;
 import com.sxenon.pure.core.viewmodule.pull.IPullLayout;
 

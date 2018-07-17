@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017  sxenon
+ * Copyright (c) 2018  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.result.handler;
+package com.sxenon.pure.core.response;
 
-import java.util.List;
+import com.sxenon.pure.core.ApiException;
 
-/**
- * ResultHandler for fetching list data
- * Created by Sui on 2016/12/8.
- */
+public interface IResponseHandler {
+    void onCancel();
 
-public interface IListResultHandler<R> extends IResultHandler {
-    void onList(List<R> data);
+    void onApiException(ApiException apiException);
 }

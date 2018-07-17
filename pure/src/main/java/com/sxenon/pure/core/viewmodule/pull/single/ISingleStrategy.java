@@ -17,7 +17,7 @@
 package com.sxenon.pure.core.viewmodule.pull.single;
 
 import com.sxenon.pure.core.ApiException;
-import com.sxenon.pure.core.result.handler.ISingleResultHandler;
+import com.sxenon.pure.core.response.ISingleResponseHandler;
 import com.sxenon.pure.core.viewmodule.pull.IPullStrategy;
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
 
@@ -27,10 +27,10 @@ import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
  */
 
 public interface ISingleStrategy<R> extends IPullStrategy {
-    void onSingle(IPullViewModule pullViewHolder, R data, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo);
+    void onSingle(IPullViewModule pullViewHolder, R data, ISingleResponseHandler<R> singleResultHandler, PageInfo pageInfo);
 
     void onEmpty(IPullViewModule pullViewModule, PageInfo pageInfo);
 
-    void onException(IPullViewModule pullViewModule, ApiException exception, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo);
+    void onException(IPullViewModule pullViewModule, ApiException exception, ISingleResponseHandler<R> singleResultHandler, PageInfo pageInfo);
 
 }

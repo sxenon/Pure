@@ -17,7 +17,7 @@
 package com.sxenon.pure.core.viewmodule.pull.list;
 
 import com.sxenon.pure.core.adapter.IPureAdapter;
-import com.sxenon.pure.core.result.handler.IListResultHandler;
+import com.sxenon.pure.core.response.IListResponseHandler;
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
 
 /**
@@ -25,6 +25,6 @@ import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
  * Created by Sui on 2017/8/19.
  */
 
-public interface IListViewModule<R> extends IListResultHandler<R>, IPullViewModule {
+public interface IListViewModule<R> extends IListResponseHandler<R>, IPullViewModule {
     void setAdapter(IPureAdapter<R> adapter);
 }

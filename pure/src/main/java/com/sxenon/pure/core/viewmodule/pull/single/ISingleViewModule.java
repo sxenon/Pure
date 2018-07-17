@@ -16,7 +16,7 @@
 
 package com.sxenon.pure.core.viewmodule.pull.single;
 
-import com.sxenon.pure.core.result.handler.ISingleResultHandler;
+import com.sxenon.pure.core.response.ISingleResponseHandler;
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
 
 /**
@@ -24,6 +24,6 @@ import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
  * Created by Sui on 2017/8/19.
  */
 
-public interface ISingleViewModule<R> extends ISingleResultHandler<R>, IPullViewModule {
+public interface ISingleViewModule<R> extends ISingleResponseHandler<R>, IPullViewModule {
 
 }
