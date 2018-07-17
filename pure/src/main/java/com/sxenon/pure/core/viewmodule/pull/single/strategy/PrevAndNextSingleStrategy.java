@@ -52,16 +52,16 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
         }
     }
 
-    private void onNextDataFetched(ISingleResultHandler<R> singleResultFiller, R data){
-        singleResultFiller.onSingleData(data);
+    private void onNextDataFetched(ISingleResultHandler<R> singleResultHandler, R data){
+        singleResultHandler.onSingleData(data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onNextDataFetched(data);
         }
     }
 
-    private void onPrevDataFetched(ISingleResultHandler<R> singleResultFiller, R data){
-        singleResultFiller.onSingleData(data);
+    private void onPrevDataFetched(ISingleResultHandler<R> singleResultHandler, R data){
+        singleResultHandler.onSingleData(data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onPrevDataFetched(data);

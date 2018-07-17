@@ -36,12 +36,12 @@ public class SwipeWithRecyclerViewViewModule<R> extends BaseListViewModule<R, Sw
      *
      * @param context            上下文
      * @param pullLayout         刷新容器
-     * @param fillPageStrategy   分页数据填充策略
+     * @param listStrategy   分页数据填充策略
      * @param dataSizeInFullPage 完整页数据个数
      */
-    public SwipeWithRecyclerViewViewModule(Context context, final SwipeWithRecyclerViewPullLayout pullLayout, RefreshAndMoreListStrategy<R> fillPageStrategy, int dataSizeInFullPage) {
-        super(context, pullLayout, fillPageStrategy, dataSizeInFullPage);
-        fillPageStrategy.setEventListener(new RefreshAndMoreListStrategy.SimpleEventListener<R>() {
+    public SwipeWithRecyclerViewViewModule(Context context, final SwipeWithRecyclerViewPullLayout pullLayout, RefreshAndMoreListStrategy<R> listStrategy, int dataSizeInFullPage) {
+        super(context, pullLayout, listStrategy, dataSizeInFullPage);
+        listStrategy.setEventListener(new RefreshAndMoreListStrategy.SimpleEventListener<R>() {
 
             @Override
             public void onPartialMoreDataFetched(List<R> data) {
