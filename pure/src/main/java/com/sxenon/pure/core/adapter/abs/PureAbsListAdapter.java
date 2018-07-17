@@ -234,7 +234,7 @@ public abstract class PureAbsListAdapter<R> extends BaseAdapter implements IPure
             viewHolder = (PureAbsListViewHolder) convertView.getTag();
         }
         //noinspection ConstantConditions,unchecked
-        viewHolder.onSingle(getItem(position));
+        viewHolder.onSingleResponse(getItem(position));
         return convertView;
     }
 

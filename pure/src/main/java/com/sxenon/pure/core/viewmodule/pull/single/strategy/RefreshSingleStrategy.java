@@ -49,7 +49,7 @@ public class RefreshSingleStrategy<R> extends BaseSingleStrategy<R> {
 
     @Override
     public void onSingle(IPullViewModule pullViewHolder, R data, ISingleResponseHandler<R> singleResultHandler, PageInfo pageInfo) {
-        singleResultHandler.onSingle(data);
+        singleResultHandler.onSingleResponse(data);
         pageInfo.tempPage = pageInfo.currentPage = 0;
         if ( mEventListener !=null){
             //noinspection unchecked

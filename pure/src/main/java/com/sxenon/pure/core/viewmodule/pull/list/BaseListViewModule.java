@@ -62,16 +62,16 @@ public class BaseListViewModule<R, PL extends IPullLayout> extends BasePullViewM
     }
 
     @Override
-    public void onList(List<R> data) {
+    public void onListResponse(List<R> response) {
         endAllAnim();
-        if (data == null || data.isEmpty()) {
+        if ( response == null || response.isEmpty()) {
             getPullStrategy().onEmptyList(this, getPageInfo());
         } else {
             onNonEmpty();
-            if (data.size()<mDataSizeInFullPage){
-                getPullStrategy().onPartialList(this,data,mAdapter,getPageInfo());
+            if ( response.size()<mDataSizeInFullPage){
+                getPullStrategy().onPartialList(this, response,mAdapter,getPageInfo());
             }else {
-                getPullStrategy().onFullList(this, data, mAdapter, getPageInfo());
+                getPullStrategy().onFullList(this, response, mAdapter, getPageInfo());
             }
         }
     }

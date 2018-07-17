@@ -50,18 +50,18 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
     public final void restoreData(Object data) {
         //noinspection unchecked
         mData = (R) data;
-        onSingle(mData);
+        onSingleResponse(mData);
     }
 
     @Override
-    public void onSingle(R data) {
-        mData = data;
+    public void onSingleResponse(R response) {
+        mData = response;
         endAllAnim();
-        if (data == null) {
+        if ( response == null) {
             getPullStrategy().onEmpty(this, getPageInfo());
         } else {
             onNonEmpty();
-            getPullStrategy().onSingle(this, data, this, getPageInfo());
+            getPullStrategy().onSingle(this, response, this, getPageInfo());
         }
     }
 
