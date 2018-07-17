@@ -29,7 +29,6 @@ import com.sxenon.pure.core.viewmodule.pull.IPullLayout;
  */
 
 public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullViewModule<PL,ISingleStrategy<R>> implements ISingleViewModule<R> {
-    private ISingleResultHandler<R> mSingleResultHandler;
     private R mData;
 
     /**
@@ -43,14 +42,6 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
         super(context, pullLayout, singleStrategy);
     }
 
-    /**
-     * @param singleResultHandler 单一数据的Filler
-     */
-    @Override
-    public void setSingleResultHandler(ISingleResultHandler<R> singleResultHandler) {
-        mSingleResultHandler = singleResultHandler;
-    }
-
     @Override
     public final Object getData() {
         return mData;
@@ -60,7 +51,7 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
     public final void restoreData(Object data) {
         //noinspection unchecked
         mData = (R) data;
-        mSingleResultHandler.onSingle(mData);
+        onSingle(mData);
     }
 
     @Override
@@ -71,13 +62,13 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
             getPullStrategy().onEmpty(this, getPageInfo());
         } else {
             onNonEmpty();
-            getPullStrategy().onSingle(this, data, mSingleResultHandler, getPageInfo());
+            getPullStrategy().onSingle(this, data, this, getPageInfo());
         }
     }
 
     @Override
     public void onApiException(ApiException apiException) {
         super.onApiException(apiException);
-        getPullStrategy().onException(this, apiException, mSingleResultHandler, getPageInfo());
+        getPullStrategy().onException(this, apiException, this, getPageInfo());
     }
 }

@@ -25,5 +25,5 @@ import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
  */
 
 public interface ISingleViewModule<R> extends ISingleResultHandler<R>, IPullViewModule {
-    void setSingleResultHandler(ISingleResultHandler<R> singleResultHandler);
+
 }

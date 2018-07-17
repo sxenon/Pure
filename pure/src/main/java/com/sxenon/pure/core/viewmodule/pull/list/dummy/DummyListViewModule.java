@@ -32,7 +32,7 @@ public class DummyListViewModule<R> extends BaseListViewModule<R, DummyPullLayou
         super(context, new DummyPullLayout(), new DummyListStrategy<R>(),dataSizeInFullPage);
     }
 
-    public DummyListViewModule(Context context, IAdapterStrategy<R> fillAdapterStrategy, int dataSizeInFullPage) {
-        super(context, new DummyPullLayout(), new DummyListStrategy<>(fillAdapterStrategy),dataSizeInFullPage);
+    public DummyListViewModule(Context context, IAdapterStrategy<R> adapterStrategy, int dataSizeInFullPage) {
+        super(context, new DummyPullLayout(), new DummyListStrategy<>(adapterStrategy),dataSizeInFullPage);
     }
 }

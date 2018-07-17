@@ -31,9 +31,8 @@ public class DummySingleViewModule<R> extends BaseSingleViewModule<R, DummyPullL
      * Constructor
      *
      * @param context    上下文
-     * @param pullLayout 刷新容器
      */
-    public DummySingleViewModule(Context context, DummyPullLayout pullLayout) {
-        super(context, pullLayout, new DummySingleStrategy<R>());
+    public DummySingleViewModule(Context context) {
+        super(context, new DummyPullLayout(), new DummySingleStrategy<R>());
     }
 }
