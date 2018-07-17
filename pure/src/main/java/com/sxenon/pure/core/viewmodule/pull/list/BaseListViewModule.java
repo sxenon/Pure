@@ -62,7 +62,7 @@ public class BaseListViewModule<R, PL extends IPullLayout> extends BasePullViewM
     }
 
     @Override
-    public void onListData(List<R> data) {
+    public void onList(List<R> data) {
         endAllAnim();
         if (data == null || data.isEmpty()) {
             getPullStrategy().onEmptyList(this, getPageInfo());

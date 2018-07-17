@@ -221,7 +221,7 @@ public abstract class PureRecyclerViewAdapter<R> extends RecyclerView.Adapter<Pu
     @Override
     public void onBindViewHolder(PureRecyclerViewViewHolder holder, int position) {
         holder.setIsRecyclable(true);
-        holder.onSingleData(getValue(position));
+        holder.onSingle(getValue(position));
     }
 
     @Override

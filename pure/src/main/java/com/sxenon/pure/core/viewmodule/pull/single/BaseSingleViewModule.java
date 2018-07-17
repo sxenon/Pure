@@ -60,11 +60,11 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
     public final void restoreData(Object data) {
         //noinspection unchecked
         mData = (R) data;
-        mSingleResultHandler.onSingleData(mData);
+        mSingleResultHandler.onSingle(mData);
     }
 
     @Override
-    public void onSingleData(R data) {
+    public void onSingle(R data) {
         mData = data;
         endAllAnim();
         if (data == null) {
