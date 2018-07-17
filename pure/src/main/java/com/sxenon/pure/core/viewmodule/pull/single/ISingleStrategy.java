@@ -27,9 +27,9 @@ import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
  */
 
 public interface ISingleStrategy<R> extends IPullStrategy {
-    void processSingle(IPullViewModule pullViewHolder, R data, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo);
+    void onSingle(IPullViewModule pullViewHolder, R data, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo);
 
-    void processEmptySingle(IPullViewModule pullViewModule, PageInfo pageInfo);
+    void onEmpty(IPullViewModule pullViewModule, PageInfo pageInfo);
 
     void onException(IPullViewModule pullViewModule, ApiException exception, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo);
 

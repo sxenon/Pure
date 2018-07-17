@@ -41,24 +41,24 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
         super(adapterStrategy);
     }
 
-    private void onFullMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getListDataFillStrategy().onMoreData(adapter, data);
+    private void onFullMoreData(IPureAdapter<R> adapter, List<R> data) {
+        getStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onFullMoreDataFetched(data);
         }
     }
 
-    private void onPartialMoreDataFetched(IPureAdapter<R> adapter, List<R> data){
-        getListDataFillStrategy().onMoreData(adapter, data);
+    private void onPartialMoreData(IPureAdapter<R> adapter, List<R> data){
+        getStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onPartialMoreDataFetched(data);
         }
     }
 
-    private void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getListDataFillStrategy().onInitData(adapter, data);
+    private void onInitData(IPureAdapter<R> adapter, List<R> data) {
+        getStrategy().onInitData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onInitDataFetched(data);
@@ -91,27 +91,27 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void processPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void onPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.tempPage == 0) {
-            onInitDataFetched(adapter, data);
+            onInitData(adapter, data);
         } else {
-            onPartialMoreDataFetched(adapter,data);
+            onPartialMoreData(adapter,data);
         }
         pageInfo.currentPage = pageInfo.tempPage;
     }
 
     @Override
-    public void processFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void onFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.tempPage == 0) {
-            onInitDataFetched(adapter, data);
+            onInitData(adapter, data);
         } else {
-            onFullMoreDataFetched(adapter, data);
+            onFullMoreData(adapter, data);
         }
         pageInfo.currentPage = pageInfo.tempPage;
     }
 
     @Override
-    public void processEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo) {
+    public void onEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             pullViewModule.onEmpty();
         } else {

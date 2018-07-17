@@ -29,11 +29,11 @@ import java.util.List;
  */
 
 public interface IListStrategy<R> extends IPullStrategy {
-    void processFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
+    void onFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
 
-    void processPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
+    void onPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
 
-    void processEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo);
+    void onEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo);
 
     void onException(IPullViewModule pullViewModule, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo);
 

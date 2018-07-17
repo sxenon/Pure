@@ -48,7 +48,7 @@ public class RefreshSingleStrategy<R> extends BaseSingleStrategy<R> {
     }
 
     @Override
-    public void processSingle(IPullViewModule pullViewHolder, R data, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
+    public void onSingle(IPullViewModule pullViewHolder, R data, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
         singleResultHandler.onSingleData(data);
         pageInfo.tempPage = pageInfo.currentPage = 0;
         if ( mEventListener !=null){
@@ -58,7 +58,7 @@ public class RefreshSingleStrategy<R> extends BaseSingleStrategy<R> {
     }
 
     @Override
-    public void processEmptySingle(IPullViewModule pullViewModule, PageInfo pageInfo) {
+    public void onEmpty(IPullViewModule pullViewModule, PageInfo pageInfo) {
         pullViewModule.onEmpty();
         pageInfo.tempPage = pageInfo.currentPage =-1;
     }

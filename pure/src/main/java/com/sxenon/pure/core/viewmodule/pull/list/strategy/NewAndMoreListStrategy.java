@@ -41,7 +41,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onFullMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getListDataFillStrategy().onMoreData(adapter, data);
+        getStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onFullMoreDataFetched(data);
@@ -49,7 +49,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onPartialMoreDataFetched(IPureAdapter<R> adapter, List<R> data){
-        getListDataFillStrategy().onMoreData(adapter, data);
+        getStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onPartialMoreDataFetched(data);
@@ -57,7 +57,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onNewDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getListDataFillStrategy().onNewData(adapter, data);
+        getStrategy().onNewData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onNewDataFetched(data);
@@ -65,7 +65,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getListDataFillStrategy().onInitData(adapter, data);
+        getStrategy().onInitData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
             mEventListener.onInitDataFetched(data);
@@ -91,7 +91,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void processPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void onPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             onInitDataFetched(adapter, data);
         } else if (pageInfo.tempPage == pageInfo.currentPage) {//refresh
@@ -103,7 +103,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void processFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void onFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             onInitDataFetched(adapter, data);
         } else if (pageInfo.tempPage == pageInfo.currentPage) {//refresh
@@ -115,7 +115,7 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void processEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo) {
+    public void onEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             pullViewModule.onEmpty();
         } else if (pageInfo.tempPage == pageInfo.currentPage) {//refreshForAdd

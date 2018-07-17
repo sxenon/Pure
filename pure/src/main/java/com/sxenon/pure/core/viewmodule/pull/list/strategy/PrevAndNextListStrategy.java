@@ -57,7 +57,7 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onFullNextDataFetched(IPureAdapter<R> adapter, List<R> data) {
-        getListDataFillStrategy().onInitData(adapter, data);
+        getStrategy().onInitData(adapter, data);
         if ( mOnPullEventListener !=null){
             //noinspection unchecked
             mOnPullEventListener.onFullNextDataFetched(data);
@@ -65,7 +65,7 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onPartialNextDataFetched(IPureAdapter<R> adapter, List<R> data){
-        getListDataFillStrategy().onInitData(adapter, data);
+        getStrategy().onInitData(adapter, data);
         if ( mOnPullEventListener !=null){
             //noinspection unchecked
             mOnPullEventListener.onPartialNextDataFetched(data);
@@ -73,7 +73,7 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     }
 
     private void onPrevDataFetched(IPureAdapter<R> adapter, List<R> data){
-        getListDataFillStrategy().onInitData(adapter, data);
+        getStrategy().onInitData(adapter, data);
         if ( mOnPullEventListener !=null){
             //noinspection unchecked
             mOnPullEventListener.onPrevDataFetched(data);
@@ -87,13 +87,13 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void processPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void onPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         onPartialNextDataFetched(adapter,data);
         pageInfo.currentPage = pageInfo.tempPage;
     }
 
     @Override
-    public void processFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
+    public void onFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.currentPage<pageInfo.tempPage){
             onFullNextDataFetched(adapter, data);
         }else {
@@ -103,7 +103,7 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     }
 
     @Override
-    public void processEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo) {
+    public void onEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             pullViewModule.onEmpty();
         } else {

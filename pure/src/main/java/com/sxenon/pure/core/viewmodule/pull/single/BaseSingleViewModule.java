@@ -68,10 +68,10 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
         mData = data;
         endAllAnim();
         if (data == null) {
-            getPullStrategy().processEmptySingle(this, getPageInfo());
+            getPullStrategy().onEmpty(this, getPageInfo());
         } else {
             onNonEmpty();
-            getPullStrategy().processSingle(this, data, mSingleResultHandler, getPageInfo());
+            getPullStrategy().onSingle(this, data, mSingleResultHandler, getPageInfo());
         }
     }
 

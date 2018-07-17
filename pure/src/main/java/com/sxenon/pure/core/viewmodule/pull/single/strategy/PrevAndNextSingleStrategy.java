@@ -69,7 +69,7 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
     }
 
     @Override
-    public void processSingle(IPullViewModule pullViewHolder, R data, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
+    public void onSingle(IPullViewModule pullViewHolder, R data, ISingleResultHandler<R> singleResultHandler, PageInfo pageInfo) {
         if (pageInfo.currentPage<pageInfo.tempPage){
             onNextDataFetched(singleResultHandler, data);
         }else {
@@ -79,7 +79,7 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
     }
 
     @Override
-    public void processEmptySingle(IPullViewModule pullViewModule, PageInfo pageInfo) {
+    public void onEmpty(IPullViewModule pullViewModule, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
             pullViewModule.onEmpty();
         } else {

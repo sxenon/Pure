@@ -32,7 +32,7 @@ public abstract class BaseListStrategy<R> implements IListStrategy<R> {
         this.adapterStrategy = adapterStrategy == null ? new DefaultAdapterStrategy<R>() : adapterStrategy;
     }
 
-    public IAdapterStrategy<R> getListDataFillStrategy() {
+    public IAdapterStrategy<R> getStrategy() {
         return adapterStrategy;
     }
 }
