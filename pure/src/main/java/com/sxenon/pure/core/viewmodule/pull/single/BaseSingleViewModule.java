@@ -17,6 +17,7 @@
 package com.sxenon.pure.core.viewmodule.pull.single;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.viewmodule.pull.BasePullViewModule;
@@ -27,7 +28,7 @@ import com.sxenon.pure.core.viewmodule.pull.IPullLayout;
  * Created by Sui on 2017/8/19.
  */
 
-public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullViewModule<PL,ISingleStrategy<R>> implements ISingleViewModule<R> {
+public abstract class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullViewModule<PL,ISingleStrategy<R>> implements ISingleViewModule<R> {
     private R mData;
 
     /**
@@ -70,4 +71,6 @@ public class BaseSingleViewModule<R, PL extends IPullLayout> extends BasePullVie
         super.onApiException(apiException);
         getPullStrategy().onException(this, apiException, this, getPageInfo());
     }
+
+    protected abstract void fillViewByData(@NonNull R response);
 }
