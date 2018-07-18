@@ -83,13 +83,13 @@ public class BaseListViewModule<R, PL extends IPullLayout> extends BasePullViewM
     }
 
     @Override
-    public final Object getData() {
+    public final List<R> getData() {
         return mAdapter.getValues();
     }
 
     @Override
     public final void restoreData(Object data) {
         //noinspection unchecked
-        mAdapter.resetAllItems((List<R>) data);
+        onListResponse((List<R>) data);
     }
 }

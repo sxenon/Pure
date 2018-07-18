@@ -44,7 +44,7 @@ public class SwipeWithRecyclerViewViewModule<R> extends BaseListViewModule<R, Sw
         listStrategy.setEventListener(new RefreshAndMoreListStrategy.SimpleEventListener<R>() {
 
             @Override
-            public void onPartialMoreDataFetched(List<R> data) {
+            public void onPartialMoreData(List<R> data) {
                 pullLayout.getLoadMore().onAllLoaded();
             }
 

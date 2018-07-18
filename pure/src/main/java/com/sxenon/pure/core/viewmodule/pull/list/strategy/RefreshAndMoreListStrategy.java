@@ -45,7 +45,7 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
         getAdapterStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
-            mEventListener.onFullMoreDataFetched(data);
+            mEventListener.onFullMoreData(data);
         }
     }
 
@@ -53,7 +53,7 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
         getAdapterStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
-            mEventListener.onPartialMoreDataFetched(data);
+            mEventListener.onPartialMoreData(data);
         }
     }
 
@@ -131,8 +131,8 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     public interface EventListener<R>{
-        void onFullMoreDataFetched(List<R> data);
-        void onPartialMoreDataFetched(List<R> data);
+        void onFullMoreData(List<R> data);
+        void onPartialMoreData(List<R> data);
         void onInitDataFetched(List<R> data);
         void onNoMoreData();
         void onInitialize();
@@ -141,12 +141,12 @@ public class RefreshAndMoreListStrategy<R> extends BaseListStrategy<R> {
     public static class SimpleEventListener<R> implements EventListener<R> {
 
         @Override
-        public void onFullMoreDataFetched(List<R> data) {
+        public void onFullMoreData(List<R> data) {
 
         }
 
         @Override
-        public void onPartialMoreDataFetched(List<R> data) {
+        public void onPartialMoreData(List<R> data) {
 
         }
 

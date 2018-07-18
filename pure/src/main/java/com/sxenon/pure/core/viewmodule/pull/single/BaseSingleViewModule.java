@@ -59,17 +59,19 @@ public abstract class BaseSingleViewModule<R, PL extends IPullLayout> extends Ba
         mData = response;
         endAllAnim();
         if ( response == null) {
+            //onEmpty(); maybe no more,but no empty
             getPullStrategy().onEmpty(this, getPageInfo());
         } else {
             onNonEmpty();
-            getPullStrategy().onSingle(this, response, this, getPageInfo());
+            fillViewByData(response);
+            getPullStrategy().onSingle(this, response, getPageInfo());
         }
     }
 
     @Override
     public void onApiException(ApiException apiException) {
         super.onApiException(apiException);
-        getPullStrategy().onException(this, apiException, this, getPageInfo());
+        getPullStrategy().onException(this, apiException, getPageInfo());
     }
 
     protected abstract void fillViewByData(@NonNull R response);

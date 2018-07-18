@@ -56,27 +56,27 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
         }
     }
 
-    private void onFullNextDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    private void onFullNextData(IPureAdapter<R> adapter, List<R> data) {
         getAdapterStrategy().onInitData(adapter, data);
         if ( mOnPullEventListener !=null){
             //noinspection unchecked
-            mOnPullEventListener.onFullNextDataFetched(data);
+            mOnPullEventListener.onFullNextData(data);
         }
     }
 
-    private void onPartialNextDataFetched(IPureAdapter<R> adapter, List<R> data){
+    private void onPartialNextData(IPureAdapter<R> adapter, List<R> data){
         getAdapterStrategy().onInitData(adapter, data);
         if ( mOnPullEventListener !=null){
             //noinspection unchecked
-            mOnPullEventListener.onPartialNextDataFetched(data);
+            mOnPullEventListener.onPartialNextData(data);
         }
     }
 
-    private void onPrevDataFetched(IPureAdapter<R> adapter, List<R> data){
+    private void onPrevData(IPureAdapter<R> adapter, List<R> data){
         getAdapterStrategy().onInitData(adapter, data);
         if ( mOnPullEventListener !=null){
             //noinspection unchecked
-            mOnPullEventListener.onPrevDataFetched(data);
+            mOnPullEventListener.onPrevData(data);
         }
     }
 
@@ -88,16 +88,16 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
 
     @Override
     public void onPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
-        onPartialNextDataFetched(adapter,data);
+        onPartialNextData(adapter,data);
         pageInfo.currentPage = pageInfo.tempPage;
     }
 
     @Override
     public void onFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.currentPage<pageInfo.tempPage){
-            onFullNextDataFetched(adapter, data);
+            onFullNextData(adapter, data);
         }else {
-            onPrevDataFetched(adapter, data);
+            onPrevData(adapter, data);
         }
         pageInfo.currentPage = pageInfo.tempPage;
     }
@@ -140,9 +140,9 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     }
 
     public interface EventListener<R>{
-        void onFullNextDataFetched(List<R> data);
-        void onPartialNextDataFetched(List<R> data);
-        void onPrevDataFetched(List<R> data);
+        void onFullNextData(List<R> data);
+        void onPartialNextData(List<R> data);
+        void onPrevData(List<R> data);
         void onNoPrevData();
         void onNoNextData();
         void onInitialize();
@@ -151,17 +151,17 @@ public class PrevAndNextListStrategy<R> extends BaseListStrategy<R> {
     public static class SimpleEventListener<R> implements EventListener<R> {
 
         @Override
-        public void onFullNextDataFetched(List<R> data) {
+        public void onFullNextData(List<R> data) {
 
         }
 
         @Override
-        public void onPartialNextDataFetched(List<R> data) {
+        public void onPartialNextData(List<R> data) {
 
         }
 
         @Override
-        public void onPrevDataFetched(List<R> data) {
+        public void onPrevData(List<R> data) {
 
         }
 

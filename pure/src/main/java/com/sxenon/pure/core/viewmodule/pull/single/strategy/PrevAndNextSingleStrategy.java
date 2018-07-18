@@ -52,28 +52,26 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
         }
     }
 
-    private void onNextDataFetched(ISingleResponseHandler<R> singleResultHandler, R data){
-        singleResultHandler.onSingleResponse(data);
+    private void onNextDataFetched(R data){
         if ( mEventListener !=null){
             //noinspection unchecked
-            mEventListener.onNextDataFetched(data);
+            mEventListener.onNextData(data);
         }
     }
 
-    private void onPrevDataFetched(ISingleResponseHandler<R> singleResultHandler, R data){
-        singleResultHandler.onSingleResponse(data);
+    private void onPrevDataFetched(R data){
         if ( mEventListener !=null){
             //noinspection unchecked
-            mEventListener.onPrevDataFetched(data);
+            mEventListener.onPrevData(data);
         }
     }
 
     @Override
-    public void onSingle(IPullViewModule pullViewHolder, R data, ISingleResponseHandler<R> singleResultHandler, PageInfo pageInfo) {
+    public void onSingle(IPullViewModule pullViewHolder, R data, PageInfo pageInfo) {
         if (pageInfo.currentPage<pageInfo.tempPage){
-            onNextDataFetched(singleResultHandler, data);
+            onNextDataFetched(data);
         }else {
-            onPrevDataFetched(singleResultHandler, data);
+            onPrevDataFetched(data);
         }
         pageInfo.currentPage = pageInfo.tempPage;
     }
@@ -110,8 +108,8 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
     }
 
     public interface EventListener<R>{
-        void onNextDataFetched(R data);
-        void onPrevDataFetched(R data);
+        void onNextData(R data);
+        void onPrevData(R data);
         void onNoPrevData();
         void onNoNextData();
         void onInitialize();
@@ -120,12 +118,12 @@ public class PrevAndNextSingleStrategy<R> extends BaseSingleStrategy<R> {
     public static class SimpleEventListener<R> implements EventListener<R> {
 
         @Override
-        public void onNextDataFetched(R data) {
+        public void onNextData(R data) {
 
         }
 
         @Override
-        public void onPrevDataFetched(R data) {
+        public void onPrevData(R data) {
 
         }
 

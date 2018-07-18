@@ -40,35 +40,35 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
         super(adapterStrategy);
     }
 
-    private void onFullMoreDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    private void onFullMoreData(IPureAdapter<R> adapter, List<R> data) {
         getAdapterStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
-            mEventListener.onFullMoreDataFetched(data);
+            mEventListener.onFullMoreData(data);
         }
     }
 
-    private void onPartialMoreDataFetched(IPureAdapter<R> adapter, List<R> data){
+    private void onPartialMoreData(IPureAdapter<R> adapter, List<R> data){
         getAdapterStrategy().onMoreData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
-            mEventListener.onPartialMoreDataFetched(data);
+            mEventListener.onPartialMoreData(data);
         }
     }
 
-    private void onNewDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    private void onNewData(IPureAdapter<R> adapter, List<R> data) {
         getAdapterStrategy().onNewData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
-            mEventListener.onNewDataFetched(data);
+            mEventListener.onNewData(data);
         }
     }
 
-    private void onInitDataFetched(IPureAdapter<R> adapter, List<R> data) {
+    private void onInitData(IPureAdapter<R> adapter, List<R> data) {
         getAdapterStrategy().onInitData(adapter, data);
         if ( mEventListener !=null){
             //noinspection unchecked
-            mEventListener.onInitDataFetched(data);
+            mEventListener.onInitData(data);
         }
     }
 
@@ -93,11 +93,11 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     @Override
     public void onPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
-            onInitDataFetched(adapter, data);
+            onInitData(adapter, data);
         } else if (pageInfo.tempPage == pageInfo.currentPage) {//refresh
-            onNewDataFetched(adapter, data);
+            onNewData(adapter, data);
         } else {
-            onPartialMoreDataFetched(adapter,data);
+            onPartialMoreData(adapter,data);
         }
         pageInfo.currentPage = pageInfo.tempPage;
     }
@@ -105,11 +105,11 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     @Override
     public void onFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo) {
         if (pageInfo.currentPage == -1) {
-            onInitDataFetched(adapter, data);
+            onInitData(adapter, data);
         } else if (pageInfo.tempPage == pageInfo.currentPage) {//refresh
-            onNewDataFetched(adapter, data);
+            onNewData(adapter, data);
         } else {
-            onFullMoreDataFetched(adapter, data);
+            onFullMoreData(adapter, data);
         }
         pageInfo.currentPage = pageInfo.tempPage;
     }
@@ -150,10 +150,10 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     }
 
     public interface EventListener<R> {
-        void onFullMoreDataFetched(List<R> data);
-        void onPartialMoreDataFetched(List<R> data);
-        void onNewDataFetched(List<R> data);
-        void onInitDataFetched(List<R> data);
+        void onFullMoreData(List<R> data);
+        void onPartialMoreData(List<R> data);
+        void onNewData(List<R> data);
+        void onInitData(List<R> data);
         void onNoMoreData();
         void onNoNewData();
         void onInitialize();
@@ -162,22 +162,22 @@ public class NewAndMoreListStrategy<R> extends BaseListStrategy<R> {
     public static class SimpleEventListener<R> implements EventListener<R> {
 
         @Override
-        public void onFullMoreDataFetched(List<R> data) {
+        public void onFullMoreData(List<R> data) {
 
         }
 
         @Override
-        public void onPartialMoreDataFetched(List<R> data) {
+        public void onPartialMoreData(List<R> data) {
 
         }
 
         @Override
-        public void onNewDataFetched(List<R> data) {
+        public void onNewData(List<R> data) {
 
         }
 
         @Override
-        public void onInitDataFetched(List<R> data) {
+        public void onInitData(List<R> data) {
 
         }
 

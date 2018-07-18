@@ -26,7 +26,7 @@ import com.sxenon.pure.core.viewmodule.pull.single.BaseSingleViewModule;
  * Created by Sui on 2017/8/19.
  */
 
-public class DummySingleViewModule<R> extends BaseSingleViewModule<R, DummyPullLayout> {
+public abstract class DummySingleViewModule<R> extends BaseSingleViewModule<R, DummyPullLayout> {
     /**
      * Constructor
      *
