@@ -69,11 +69,6 @@ public class SwipeWithRecyclerViewPullLayout extends SwipeRefreshLayout implemen
         setRefreshing(false);
     }
 
-    @Override
-    public void setVisibility(int visibility) {
-        setVisibility(visibility);
-    }
-
     void setDelegate(final SwipeRefreshLayout.OnRefreshListener onPullDownListener, EndlessRecyclerOnScrollListener onPullUpListener){
         setOnRefreshListener(onPullDownListener);
         recyclerView.addOnScrollListener(onPullUpListener);
