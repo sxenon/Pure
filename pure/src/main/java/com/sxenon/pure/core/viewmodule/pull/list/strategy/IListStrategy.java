@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017  sxenon
+ * Copyright (c) 2018  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,27 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewmodule.pull.single;
+package com.sxenon.pure.core.viewmodule.pull.list.strategy;
 
 import com.sxenon.pure.core.ApiException;
+import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewmodule.pull.IPullStrategy;
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
 
+import java.util.List;
+
 /**
- * ISingleStrategy
+ * IListStrategy
  * Created by Sui on 2017/9/3.
  */
 
-public interface ISingleStrategy<R> extends IPullStrategy {
-    void onSingle(IPullViewModule pullViewHolder, R data, PageInfo pageInfo);
+public interface IListStrategy<R> extends IPullStrategy {
+    void onFullList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
 
-    void onEmpty(IPullViewModule pullViewModule, PageInfo pageInfo);
+    void onPartialList(IPullViewModule pullViewModule, List<R> data, IPureAdapter<R> adapter, PageInfo pageInfo);
 
-    void onException(IPullViewModule pullViewModule, ApiException exception, PageInfo pageInfo);
+    void onEmptyList(IPullViewModule pullViewModule, PageInfo pageInfo);
+
+    void onException(IPullViewModule pullViewModule, ApiException exception, IPureAdapter<R> adapter, PageInfo pageInfo);
 
 }

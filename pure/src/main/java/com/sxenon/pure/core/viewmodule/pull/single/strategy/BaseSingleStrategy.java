@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017  sxenon
+ * Copyright (c) 2018  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewmodule.pull.list;
+package com.sxenon.pure.core.viewmodule.pull.single.strategy;
 
-import com.sxenon.pure.core.adapter.IPureAdapter;
-
-import java.util.List;
+import com.sxenon.pure.core.ApiException;
+import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
+import com.sxenon.pure.core.viewmodule.pull.single.strategy.ISingleStrategy;
 
 /**
- * Strategy Interface for ListDataFiller
- * Created by Sui on 2017/1/12.
+ * BaseSingleStrategy
+ * Created by Sui on 2017/9/3.
  */
 
-public interface IAdapterStrategy<R> {
-    void onMoreData(IPureAdapter<R> adapter, List<R> data);
+public abstract class BaseSingleStrategy<R> implements ISingleStrategy<R> {
 
-    void onNewData(IPureAdapter<R> adapter, List<R> data);
-
-    void onInitData(IPureAdapter<R> adapter, List<R> data);
+    @Override
+    public void onException(IPullViewModule pullViewModule, ApiException exception, PageInfo pageInfo) {
+        pageInfo.currentPage = pageInfo.tempPage = -1;
+    }
 }

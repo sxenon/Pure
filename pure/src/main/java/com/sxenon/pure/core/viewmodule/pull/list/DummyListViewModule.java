@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017  sxenon
+ * Copyright (c) 2018  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewmodule.pull.list.dummy;
+package com.sxenon.pure.core.viewmodule.pull.list;
 
 import android.content.Context;
 
 import com.sxenon.pure.core.viewmodule.pull.DummyPullLayout;
-import com.sxenon.pure.core.viewmodule.pull.list.BaseListViewModule;
-import com.sxenon.pure.core.viewmodule.pull.list.IAdapterStrategy;
+import com.sxenon.pure.core.viewmodule.pull.list.strategy.adapter.IAdapterStrategy;
+import com.sxenon.pure.core.viewmodule.pull.list.strategy.DummyListStrategy;
 
 /**
  * UnSupport pull!

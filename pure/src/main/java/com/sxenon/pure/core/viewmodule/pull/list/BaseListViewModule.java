@@ -22,6 +22,7 @@ import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewmodule.pull.BasePullViewModule;
 import com.sxenon.pure.core.viewmodule.pull.IPullLayout;
+import com.sxenon.pure.core.viewmodule.pull.list.strategy.IListStrategy;
 
 import java.util.List;
 

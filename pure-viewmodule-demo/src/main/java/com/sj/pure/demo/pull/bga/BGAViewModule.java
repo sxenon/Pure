@@ -20,7 +20,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.sxenon.pure.core.viewmodule.pull.list.BaseListViewModule;
-import com.sxenon.pure.core.viewmodule.pull.list.IListStrategy;
+import com.sxenon.pure.core.viewmodule.pull.list.strategy.IListStrategy;
 
 import cn.bingoogolapple.baseadapter.BGAAdapterViewAdapter;
 import cn.bingoogolapple.baseadapter.BGARecyclerViewAdapter;

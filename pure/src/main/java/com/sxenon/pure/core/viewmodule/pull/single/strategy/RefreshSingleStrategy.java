@@ -17,7 +17,6 @@
 package com.sxenon.pure.core.viewmodule.pull.single.strategy;
 
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
-import com.sxenon.pure.core.viewmodule.pull.single.BaseSingleStrategy;
 
 /**
  * RefreshSingleStrategy

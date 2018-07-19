@@ -19,8 +19,7 @@ package com.sxenon.pure.core.viewmodule.pull.list.strategy;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
-import com.sxenon.pure.core.viewmodule.pull.list.BaseListStrategy;
-import com.sxenon.pure.core.viewmodule.pull.list.IAdapterStrategy;
+import com.sxenon.pure.core.viewmodule.pull.list.strategy.adapter.IAdapterStrategy;
 
 import java.util.List;
 

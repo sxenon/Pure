@@ -22,6 +22,7 @@ import android.support.annotation.NonNull;
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.viewmodule.pull.BasePullViewModule;
 import com.sxenon.pure.core.viewmodule.pull.IPullLayout;
+import com.sxenon.pure.core.viewmodule.pull.single.strategy.ISingleStrategy;
 
 /**
  * Single data implement for FillerViewHolder

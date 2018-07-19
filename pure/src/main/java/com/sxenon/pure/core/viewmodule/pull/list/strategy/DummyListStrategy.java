@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017  sxenon
+ * Copyright (c) 2018  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewmodule.pull.list.dummy;
+package com.sxenon.pure.core.viewmodule.pull.list.strategy;
 
 import com.sxenon.pure.core.ApiException;
 import com.sxenon.pure.core.adapter.IPureAdapter;
 import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
-import com.sxenon.pure.core.viewmodule.pull.list.BaseListStrategy;
-import com.sxenon.pure.core.viewmodule.pull.list.IAdapterStrategy;
+import com.sxenon.pure.core.viewmodule.pull.list.strategy.adapter.IAdapterStrategy;
 
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class DummyListStrategy<R> extends BaseListStrategy<R> {
         super();
     }
 
-    DummyListStrategy(IAdapterStrategy<R> adapterStrategy) {
+    public DummyListStrategy(IAdapterStrategy<R> adapterStrategy) {
         super(adapterStrategy);
     }
 

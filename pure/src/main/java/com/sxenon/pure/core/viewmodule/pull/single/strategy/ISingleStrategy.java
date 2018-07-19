@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017  sxenon
+ * Copyright (c) 2018  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewmodule.pull.list;
+package com.sxenon.pure.core.viewmodule.pull.single.strategy;
+
+import com.sxenon.pure.core.ApiException;
+import com.sxenon.pure.core.viewmodule.pull.IPullStrategy;
+import com.sxenon.pure.core.viewmodule.pull.IPullViewModule;
 
 /**
- * BaseListStrategy
+ * ISingleStrategy
  * Created by Sui on 2017/9/3.
  */
 
-public abstract class BaseListStrategy<R> implements IListStrategy<R> {
-    private final IAdapterStrategy<R> adapterStrategy;
+public interface ISingleStrategy<R> extends IPullStrategy {
+    void onSingle(IPullViewModule pullViewHolder, R data, PageInfo pageInfo);
 
-    public BaseListStrategy() {
-        this(null);
-    }
+    void onEmpty(IPullViewModule pullViewModule, PageInfo pageInfo);
 
-    public BaseListStrategy(IAdapterStrategy<R> adapterStrategy) {
-        this.adapterStrategy = adapterStrategy == null ? new DefaultAdapterStrategy<R>() : adapterStrategy;
-    }
+    void onException(IPullViewModule pullViewModule, ApiException exception, PageInfo pageInfo);
 
-    public IAdapterStrategy<R> getAdapterStrategy() {
-        return adapterStrategy;
-    }
 }

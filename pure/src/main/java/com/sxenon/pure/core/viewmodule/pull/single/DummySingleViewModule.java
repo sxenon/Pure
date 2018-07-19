@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017  sxenon
+ * Copyright (c) 2018  sxenon
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.viewmodule.pull.single.dummy;
+package com.sxenon.pure.core.viewmodule.pull.single;
 
 import android.content.Context;
 
 import com.sxenon.pure.core.viewmodule.pull.DummyPullLayout;
 import com.sxenon.pure.core.viewmodule.pull.single.BaseSingleViewModule;
+import com.sxenon.pure.core.viewmodule.pull.single.strategy.DummySingleStrategy;
 
 /**
  * SingleData implement for DummyFillerViewHolder
