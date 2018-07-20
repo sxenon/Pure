@@ -19,7 +19,7 @@ package com.sxenon.pure.core.mvp;
 import android.content.Context;
 
 /**
- * View for MVP,include common view and viewComponentGroup
+ * View for MVP
  * Created by Sui on 2016/11/21.
  */
 
