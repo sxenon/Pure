@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.router;
+package com.sxenon.pure.core.component;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.sxenon.pure.core.router.impl.PureRouterVisitorAsPresenter;
+import com.sxenon.pure.core.component.impl.PureComponentVisitorAsPresenter;
 
 /**
  * Interface for Fragment
  * Created by Sui on 2017/1/2.
  */
 
-public interface IFragment<P extends PureRouterVisitorAsPresenter> extends IRouter<P> {
+public interface IFragment<P extends PureComponentVisitorAsPresenter> extends IComponent<P> {
     void initView(View view, @Nullable Bundle savedInstanceState);
 }

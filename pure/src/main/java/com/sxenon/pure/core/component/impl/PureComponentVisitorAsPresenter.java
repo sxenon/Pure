@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.router.impl;
+package com.sxenon.pure.core.component.impl;
 
 import android.Manifest;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.sxenon.pure.core.component.IComponent;
+import com.sxenon.pure.core.component.IComponentVisitor;
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.permission.PermissionHelper;
-import com.sxenon.pure.core.router.IRouter;
-import com.sxenon.pure.core.router.IRouterVisitor;
 
 import java.util.Arrays;
 
@@ -32,15 +32,15 @@ import java.util.Arrays;
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends BasePresenter<R> implements IRouterVisitor<R> {
+public abstract class PureComponentVisitorAsPresenter<C extends IComponent> extends BasePresenter<C> implements IComponentVisitor<C> {
 
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
-    public static final String TAG = "PureRouterVisitorAsPresenter";
+    public static final String TAG = "PureComponentVisitorAsPresenter";
 
-    public PureRouterVisitorAsPresenter(R router) {
-        super(router);
-        permissionHelper = new PermissionHelper(router, this);
+    public PureComponentVisitorAsPresenter(C component) {
+        super(component);
+        permissionHelper = new PermissionHelper(component, this);
     }
 
     //Permission start
@@ -129,7 +129,7 @@ public abstract class PureRouterVisitorAsPresenter<R extends IRouter> extends Ba
     //Permission end
 
     @NonNull
-    public IRouter getRouter() {
+    public IComponent getRouter() {
         return getView();
     }
 

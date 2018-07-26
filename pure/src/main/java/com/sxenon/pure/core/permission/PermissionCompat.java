@@ -26,8 +26,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
+import com.sxenon.pure.core.component.IComponent;
 import com.sxenon.pure.core.global.IntentManager;
-import com.sxenon.pure.core.router.IRouter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class PermissionCompat {
      * can be used outside of activity.
      */
     @Nullable
-    public static String getFirstDeclinedPermission(@NonNull IRouter router, @NonNull String[] permissions) {
+    public static String getFirstDeclinedPermission(@NonNull IComponent router, @NonNull String[] permissions) {
         for (String permission : permissions) {
             if (isPermissionDeclined(router, permission)) {
                 return permission;
@@ -56,11 +56,11 @@ public class PermissionCompat {
     /**
      * @return list of permissions that the user declined or not yet granted.
      */
-    public static String[] getDeclinedPermissionArray(@NonNull IRouter router, @NonNull String[] permissions) {
+    public static String[] getDeclinedPermissionArray(@NonNull IComponent router, @NonNull String[] permissions) {
         return (String[]) getDeclinedPermissionList(router, permissions).toArray();
     }
 
-    public static List<String> getDeclinedPermissionList(@NonNull IRouter router, @NonNull String[] permissions) {
+    public static List<String> getDeclinedPermissionList(@NonNull IComponent router, @NonNull String[] permissions) {
         List<String> permissionsNeeded = new ArrayList<>();
         for (String permission : permissions) {
             if (isPermissionDeclined(router, permission) && isPermissionExisted(router, permission)) {
@@ -75,7 +75,7 @@ public class PermissionCompat {
      * <p/>
      * can be used outside of router.
      */
-    public static boolean isPermissionGranted(@NonNull IRouter router, @NonNull String permission) {
+    public static boolean isPermissionGranted(@NonNull IComponent router, @NonNull String permission) {
         return ContextCompat.checkSelfPermission(router.getContext(), permission) == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -84,14 +84,14 @@ public class PermissionCompat {
      * <p/>
      * can be used outside of router.
      */
-    public static boolean isPermissionDeclined(@NonNull IRouter router, @NonNull String permission) {
+    public static boolean isPermissionDeclined(@NonNull IComponent router, @NonNull String permission) {
         return ContextCompat.checkSelfPermission(router.getContext(), permission) != PackageManager.PERMISSION_GRANTED;
     }
 
     /**
      * @return true if explanation needed.
      */
-    public static boolean isExplanationNeeded(@NonNull IRouter router, @NonNull String permissionName) {
+    public static boolean isExplanationNeeded(@NonNull IComponent router, @NonNull String permissionName) {
         return router.shouldShowRequestPermissionRationale(permissionName);
     }
 
@@ -100,11 +100,11 @@ public class PermissionCompat {
      * <p/>
      * consider using {@link IntentManager#getViewApplicationDetailsIntent(Context)} to open settings screen
      */
-    public static boolean isPermissionPermanentlyDenied(@NonNull IRouter router, @NonNull String permission) {
+    public static boolean isPermissionPermanentlyDenied(@NonNull IComponent router, @NonNull String permission) {
         return isPermissionDeclined(router, permission) && !isExplanationNeeded(router, permission);
     }
 
-    public static List<String> getPermissionPermanentlyDeniedList(@NonNull IRouter router, @NonNull String[] permissions) {
+    public static List<String> getPermissionPermanentlyDeniedList(@NonNull IComponent router, @NonNull String[] permissions) {
         List<String> permissionPermanentlyDeniedList = new ArrayList<>();
         for (String permission : permissions) {
             if (isPermissionPermanentlyDenied(router, permission)) {
@@ -117,7 +117,7 @@ public class PermissionCompat {
     /**
      * @return true if permission exists in the manifest, false otherwise.
      */
-    public static boolean isPermissionExisted(@NonNull IRouter router, @NonNull String permission) {
+    public static boolean isPermissionExisted(@NonNull IComponent router, @NonNull String permission) {
         Context context = router.getContext();
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
@@ -142,7 +142,7 @@ public class PermissionCompat {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(context);
     }
 
-    public static boolean isSystemAlertGranted(@NonNull IRouter router) {
+    public static boolean isSystemAlertGranted(@NonNull IComponent router) {
         return isSystemAlertGranted(router.getContext());
     }
 

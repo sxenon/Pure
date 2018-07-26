@@ -19,7 +19,7 @@ package com.sj.pure.demo.pull.bga;
 import android.util.Log;
 
 import com.sj.pure.demo.bean.ResponseBean;
-import com.sxenon.pure.core.router.IRouter;
+import com.sxenon.pure.core.component.IComponent;
 import com.sxenon.pure.core.viewmodule.pull.list.strategy.RefreshAndMoreListStrategy;
 
 /**
@@ -28,9 +28,9 @@ import com.sxenon.pure.core.viewmodule.pull.list.strategy.RefreshAndMoreListStra
  */
 
 public class DemoBgaViewModule extends BGAViewModule<ResponseBean> {
-    private final IRouter mContainer;
+    private final IComponent mContainer;
 
-    public DemoBgaViewModule(IRouter container, PureBGARefreshLayout refreshLayout, int dataSizeForFullPage){
+    public DemoBgaViewModule(IComponent container, PureBGARefreshLayout refreshLayout, int dataSizeForFullPage){
         super(container.getContext(), refreshLayout, new RefreshAndMoreListStrategy<ResponseBean>(),dataSizeForFullPage);
         mContainer =container;
     }

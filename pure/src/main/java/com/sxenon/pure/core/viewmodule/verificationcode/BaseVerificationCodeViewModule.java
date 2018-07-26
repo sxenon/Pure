@@ -20,8 +20,8 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.sxenon.pure.core.component.IComponent;
 import com.sxenon.pure.core.response.IResponseHandler;
-import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.viewmodule.IViewModule;
 
 /**
@@ -34,9 +34,9 @@ public abstract class BaseVerificationCodeViewModule implements IViewModule, IRe
     private static final String TAG = "Demo";
     private final Button mCodeBtn;
     private final TextView mCountDownTv;
-    private final IRouter mRouter;
+    private final IComponent mRouter;
 
-    public BaseVerificationCodeViewModule(IRouter router, final Button codeBtn, final TextView countDownTv) {
+    public BaseVerificationCodeViewModule(IComponent router, final Button codeBtn, final TextView countDownTv) {
         mRouter = router;
         mCodeBtn = codeBtn;
         mCountDownTv = countDownTv;
@@ -48,7 +48,7 @@ public abstract class BaseVerificationCodeViewModule implements IViewModule, IRe
     public abstract void startCountDown(int secondsInFuture);
 
 
-    public IRouter getRouter() {
+    public IComponent getRouter() {
         return mRouter;
     }
 

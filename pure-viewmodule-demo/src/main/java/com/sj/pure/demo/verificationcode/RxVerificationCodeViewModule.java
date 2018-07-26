@@ -24,13 +24,13 @@ import android.widget.TextView;
 
 import com.sj.pure.demo.pull.R;
 import com.sxenon.pure.core.ApiException;
-import com.sxenon.pure.core.router.IRouter;
+import com.sxenon.pure.core.component.IComponent;
 import com.sxenon.pure.core.usecase.UseCase;
 import com.sxenon.pure.core.usecase.UseCaseHandler;
 import com.sxenon.pure.core.viewmodule.verificationcode.BaseVerificationCodeViewModule;
 
 public class RxVerificationCodeViewModule extends BaseVerificationCodeViewModule {
-    public RxVerificationCodeViewModule(IRouter router, Button codeBtn, TextView countDownTv) {
+    public RxVerificationCodeViewModule(IComponent router, Button codeBtn, TextView countDownTv) {
         super(router, codeBtn, countDownTv);
     }
 

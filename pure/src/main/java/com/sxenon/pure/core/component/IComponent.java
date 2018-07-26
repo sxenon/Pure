@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.router;
+package com.sxenon.pure.core.component;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProvider;
@@ -23,17 +23,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.sxenon.pure.core.component.impl.PureComponentVisitorAsPresenter;
 import com.sxenon.pure.core.mvp.IView;
-import com.sxenon.pure.core.router.impl.PureRouterVisitorAsPresenter;
 import com.sxenon.pure.core.viewmodule.IViewModule;
 
 /**
  * Treat Activity & Fragment as router
- * Architecture: IRouter-->{@link IViewModule} with Business logic/ViewGroup-->View/Adapter
+ * Architecture: IComponent-->{@link IViewModule} with Business logic/ViewGroup-->View/Adapter
  * Created by Sui on 2016/11/20.
  */
 
-public interface IRouter<P extends PureRouterVisitorAsPresenter> extends IView<P> {
+public interface IComponent<P extends PureComponentVisitorAsPresenter> extends IView<P> {
 
     void startActivity(Intent intent);
 

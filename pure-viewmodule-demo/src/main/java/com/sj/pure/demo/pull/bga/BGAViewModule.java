@@ -32,7 +32,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  */
 
 public class BGAViewModule<R> extends BaseListViewModule<R, PureBGARefreshLayout> {
-    private static final String TAG = "FillerGroup";
+    private static final String TAG = "BGAViewModule";
 
     public BGAViewModule(Context context, PureBGARefreshLayout refreshLayout, IListStrategy<R> fillPageStrategy, int dataSizeForFullPage) {
         super(context, refreshLayout, fillPageStrategy,dataSizeForFullPage);
@@ -47,6 +47,7 @@ public class BGAViewModule<R> extends BaseListViewModule<R, PureBGARefreshLayout
     }
 
     /**
+     * AOP
      * Don`t call {@link BGARefreshLayout#setDelegate(BGARefreshLayout.BGARefreshLayoutDelegate)} directly!
      */
     public void setDelegate(final BGARefreshLayout.BGARefreshLayoutDelegate delegate) {

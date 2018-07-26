@@ -32,5 +32,5 @@ public interface IViewModule {
      */
     Context getContext();
 
-    //IRouter getRouter();
+    //IComponent getRouter();
 }

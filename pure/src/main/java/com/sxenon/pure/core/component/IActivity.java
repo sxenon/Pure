@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.router;
+package com.sxenon.pure.core.component;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.sxenon.pure.core.router.impl.PureRouterVisitorAsPresenter;
+import com.sxenon.pure.core.component.impl.PureComponentVisitorAsPresenter;
 
 /**
  * Interface for Activity
  * Created by Sui on 2017/1/2.
  */
 
-public interface IActivity<P extends PureRouterVisitorAsPresenter> extends IRouter<P> {
+public interface IActivity<P extends PureComponentVisitorAsPresenter> extends IComponent<P> {
     void initView(@Nullable Bundle savedInstanceState);
 
     /**

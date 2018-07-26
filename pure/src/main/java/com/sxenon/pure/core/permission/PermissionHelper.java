@@ -26,7 +26,7 @@ import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.IntentManager;
-import com.sxenon.pure.core.router.IRouter;
+import com.sxenon.pure.core.component.IComponent;
 
 import java.util.List;
 
@@ -40,11 +40,11 @@ public class PermissionHelper {
     @NonNull
     private final OnPermissionCallback permissionCallback;
     @NonNull
-    private final IRouter router;
+    private final IComponent component;
     private final String KEY_FORCE_ACCEPTING = "forceAccepting";
 
-    public PermissionHelper(@NonNull IRouter router, @NonNull OnPermissionCallback permissionCallback) {
-        this.router = router;
+    public PermissionHelper(@NonNull IComponent component, @NonNull OnPermissionCallback permissionCallback) {
+        this.component = component;
         this.permissionCallback = permissionCallback;
     }
 
@@ -52,14 +52,14 @@ public class PermissionHelper {
         if (verifyPermissions(grantResults)) {
             permissionCallback.onPermissionGranted((Runnable) permissionEvent.obj);
         } else {
-            String[] declinedPermissions = PermissionCompat.getDeclinedPermissionArray(router, permissions);
-            List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(router, declinedPermissions);
+            String[] declinedPermissions = PermissionCompat.getDeclinedPermissionArray(component, permissions);
+            List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(component, declinedPermissions);
             if (!permissionPermanentlyDeniedList.isEmpty()) {
                 permissionCallback.onPermissionPermanentlyDeclined(permissionEvent.what, (String[]) permissionPermanentlyDeniedList.toArray());
             } else {
                 if (permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false)) {
                     if (!permissionCallback.shouldExplainPermissionBeforeRequest(permissionEvent.what, declinedPermissions)) {
-                        router.requestPermissionsCompact(declinedPermissions, permissionEvent.what, (Runnable) permissionEvent.obj, permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false));
+                        component.requestPermissionsCompact(declinedPermissions, permissionEvent.what, (Runnable) permissionEvent.obj, permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false));
                     }
                     return;
                 }
@@ -94,14 +94,14 @@ public class PermissionHelper {
     }
 
     public void requestPermissions(@NonNull String[] permissions, int what, Runnable runnable, boolean forceAccepting) {
-        List<String> permissionsNeeded = PermissionCompat.getDeclinedPermissionList(router, permissions);
+        List<String> permissionsNeeded = PermissionCompat.getDeclinedPermissionList(component, permissions);
         if (permissionsNeeded.isEmpty()) {
             runnable.run();
             return;
         }
 
         String[] permissionsNeedArray = (String[]) permissionsNeeded.toArray();
-        List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(router, permissionsNeedArray);
+        List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(component, permissionsNeedArray);
         if (!permissionPermanentlyDeniedList.isEmpty()) {
             permissionCallback.onPermissionPermanentlyDeclined(what, permissions);
             return;
@@ -109,7 +109,7 @@ public class PermissionHelper {
 
         setPermissionEvent(what, runnable, forceAccepting);
         if (!permissionCallback.shouldExplainPermissionBeforeRequest(what, permissionsNeedArray)) {
-            router.requestPermissionsCompact(permissionsNeedArray, what, runnable, forceAccepting);
+            component.requestPermissionsCompact(permissionsNeedArray, what, runnable, forceAccepting);
         }
     }
 
@@ -120,11 +120,11 @@ public class PermissionHelper {
      */
     @TargetApi(Build.VERSION_CODES.M)
     public boolean showSystemAlertAtOnce(int what, Runnable runnable) {
-        if (!PermissionCompat.isSystemAlertGranted(router)) {
+        if (!PermissionCompat.isSystemAlertGranted(component)) {
             permissionEvent = new Event();
             permissionEvent.what = what;
             permissionEvent.obj = runnable;
-            IntentManager.requestSystemAlertPermission(router, what);
+            IntentManager.requestSystemAlertPermission(component, what);
             return false;
         } else {
             runnable.run();
@@ -136,7 +136,7 @@ public class PermissionHelper {
      * to be called when explanation is presented to the user
      */
     public void requestPermissionsAfterExplanation(@NonNull String[] permissions) {
-        router.requestPermissionsCompact(permissions, permissionEvent.what, (Runnable) permissionEvent.obj, permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false));
+        component.requestPermissionsCompact(permissions, permissionEvent.what, (Runnable) permissionEvent.obj, permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false));
     }
 
     /**
