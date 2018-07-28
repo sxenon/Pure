@@ -24,13 +24,13 @@ import android.widget.TextView;
 
 import com.sj.pure.demo.pull.R;
 import com.sxenon.pure.core.ApiException;
-import com.sxenon.pure.core.component.IComponent;
+import com.sxenon.pure.core.controller.IController;
 import com.sxenon.pure.core.usecase.UseCase;
 import com.sxenon.pure.core.usecase.UseCaseHandler;
 import com.sxenon.pure.core.viewmodule.verificationcode.BaseVerificationCodeViewModule;
 
 public class RxVerificationCodeViewModule extends BaseVerificationCodeViewModule {
-    public RxVerificationCodeViewModule(IComponent router, Button codeBtn, TextView countDownTv) {
+    public RxVerificationCodeViewModule(IController router, Button codeBtn, TextView countDownTv) {
         super(router, codeBtn, countDownTv);
     }
 
@@ -48,7 +48,7 @@ public class RxVerificationCodeViewModule extends BaseVerificationCodeViewModule
                     }
                     break;
                     case FINISH:{
-                        getCountDownTv().setText(getRouter().getContext().getResources().getString(R.string.app_name));//随便填的，编译通过就行
+                        getCountDownTv().setText(getComponent().getContext().getResources().getString(R.string.app_name));//随便填的，编译通过就行
                         getCodeBtn().setEnabled(true);
                         getCodeBtn().setBackgroundColor(Color.parseColor("#f97e7e"));
                     }
@@ -75,6 +75,6 @@ public class RxVerificationCodeViewModule extends BaseVerificationCodeViewModule
         getCodeBtn().setEnabled(true);
         getCodeBtn().setBackgroundColor(Color.parseColor("#f97e7e"));
         //Suppose it is a network exception;
-        getRouter().startActivityForResult(new Intent(Settings.ACTION_WIRELESS_SETTINGS), 1);
+        getComponent().startActivityForResult(new Intent(Settings.ACTION_WIRELESS_SETTINGS), 1);
     }
 }

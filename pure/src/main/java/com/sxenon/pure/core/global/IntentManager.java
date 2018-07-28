@@ -24,7 +24,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 
-import com.sxenon.pure.core.component.IComponent;
+import com.sxenon.pure.core.controller.IController;
 
 import java.io.File;
 import java.util.List;
@@ -85,7 +85,7 @@ public class IntentManager {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static void requestSystemAlertPermission(IComponent router, int requestCode) {
+    public static void requestSystemAlertPermission(IController router, int requestCode) {
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + router.getContext().getPackageName()));
         router.startActivityForResult(intent, requestCode);
     }

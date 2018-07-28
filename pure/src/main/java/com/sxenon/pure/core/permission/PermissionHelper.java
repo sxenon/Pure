@@ -26,7 +26,7 @@ import android.support.annotation.NonNull;
 
 import com.sxenon.pure.core.Event;
 import com.sxenon.pure.core.global.IntentManager;
-import com.sxenon.pure.core.component.IComponent;
+import com.sxenon.pure.core.controller.IController;
 
 import java.util.List;
 
@@ -40,10 +40,10 @@ public class PermissionHelper {
     @NonNull
     private final OnPermissionCallback permissionCallback;
     @NonNull
-    private final IComponent component;
+    private final IController component;
     private final String KEY_FORCE_ACCEPTING = "forceAccepting";
 
-    public PermissionHelper(@NonNull IComponent component, @NonNull OnPermissionCallback permissionCallback) {
+    public PermissionHelper(@NonNull IController component, @NonNull OnPermissionCallback permissionCallback) {
         this.component = component;
         this.permissionCallback = permissionCallback;
     }

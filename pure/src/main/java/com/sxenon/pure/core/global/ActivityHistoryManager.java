@@ -18,7 +18,7 @@ package com.sxenon.pure.core.global;
 
 import android.util.Log;
 
-import com.sxenon.pure.core.component.IActivity;
+import com.sxenon.pure.core.controller.IActivity;
 
 import java.util.Iterator;
 import java.util.Stack;
