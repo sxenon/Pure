@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component.impl;
+package com.sxenon.pure.core.controller.impl;
 
 import android.Manifest;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.sxenon.pure.core.component.IComponent;
-import com.sxenon.pure.core.component.IComponentVisitor;
+import com.sxenon.pure.core.controller.IController;
+import com.sxenon.pure.core.controller.IControllerVisitor;
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.permission.PermissionHelper;
+import com.sxenon.pure.core.router.IRouter;
 
 import java.util.Arrays;
 
@@ -32,15 +33,20 @@ import java.util.Arrays;
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class PureComponentVisitorAsPresenter<C extends IComponent> extends BasePresenter<C> implements IComponentVisitor<C> {
+public abstract class AbsControllerVisitorAsPresenter<C extends IController> extends BasePresenter<C> implements IControllerVisitor<C> {
 
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
-    public static final String TAG = "PureComponentVisitorAsPresenter";
+    private IRouter router;
+    public static final String TAG = "AbsControllerVisitorAsPresenter";
 
-    public PureComponentVisitorAsPresenter(C component) {
+    public AbsControllerVisitorAsPresenter(C component) {
         super(component);
         permissionHelper = new PermissionHelper(component, this);
+    }
+
+    public void setRouter(IRouter router) {
+        this.router = router;
     }
 
     //Permission start
@@ -57,7 +63,7 @@ public abstract class PureComponentVisitorAsPresenter<C extends IComponent> exte
         if (permissionHelper.getPermissionEvent() == null) {
             throw new IllegalStateException("Please call requestPermissionsCompact in router(view) or requestPermissions in routerVisitor(presenter)");
         }
-        if (getRouter().requestPermissionsBySelf(requestCode)) {
+        if ( getComponent().requestPermissionsBySelf(requestCode)) {
             permissionHelper.onRequestPermissionsResult(permissions, grantResults);
             return true;
         }
@@ -73,7 +79,7 @@ public abstract class PureComponentVisitorAsPresenter<C extends IComponent> exte
         if (isRequestingSystemAlertPermission) {
             permissionHelper.onRequestSystemAlertPermissionResult(resultCode);
             isRequestingSystemAlertPermission = false;
-        } else if (getRouter().startActivityForResultBySelf(requestCode)) {
+        } else if ( getComponent().startActivityForResultBySelf(requestCode)) {
             handleActivityResult(requestCode, resultCode, data);
         } else {
             return false;
@@ -129,7 +135,7 @@ public abstract class PureComponentVisitorAsPresenter<C extends IComponent> exte
     //Permission end
 
     @NonNull
-    public IComponent getRouter() {
+    public IController getComponent() {
         return getView();
     }
 

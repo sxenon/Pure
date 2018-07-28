@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.sxenon.pure.core.component;
+package com.sxenon.pure.core.controller;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -23,11 +23,11 @@ import com.sxenon.pure.core.mvp.IPresenter;
 import com.sxenon.pure.core.permission.OnPermissionCallback;
 
 /**
- * Visitor for IComponent
+ * Visitor for IController
  * Created by Sui on 2017/2/5.
  */
 
-public interface IComponentVisitor<R extends IComponent> extends IPresenter<R>, OnPermissionCallback {
+public interface IControllerVisitor<R extends IController> extends IPresenter<R>, OnPermissionCallback {
 
     void handleActivityResult(int requestCode, int resultCode, Intent data);
 
