@@ -21,7 +21,7 @@
 
 ##3、IAdapterViewHolder、IPureAdapter、IItemViewTypeEntity
 
-相信从此可以告别冗长的Adapter，具体见com.sxenon.pure.core.component.adapter
+相信从此可以告别冗长的Adapter，具体见com.sxenon.pure.core.controller.adapter
 
 ##4、IResultDispatcher、IResultHandler
 

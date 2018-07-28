@@ -40,9 +40,9 @@ public abstract class AbsControllerVisitorAsPresenter<C extends IController> ext
     private IRouter router;
     public static final String TAG = "AbsControllerVisitorAsPresenter";
 
-    public AbsControllerVisitorAsPresenter(C component) {
-        super(component);
-        permissionHelper = new PermissionHelper(component, this);
+    public AbsControllerVisitorAsPresenter(C controller) {
+        super(controller);
+        permissionHelper = new PermissionHelper(controller, this);
     }
 
     public void setRouter(IRouter router) {
@@ -63,7 +63,7 @@ public abstract class AbsControllerVisitorAsPresenter<C extends IController> ext
         if (permissionHelper.getPermissionEvent() == null) {
             throw new IllegalStateException("Please call requestPermissionsCompact in router(view) or requestPermissions in routerVisitor(presenter)");
         }
-        if ( getComponent().requestPermissionsBySelf(requestCode)) {
+        if ( getController().requestPermissionsBySelf(requestCode)) {
             permissionHelper.onRequestPermissionsResult(permissions, grantResults);
             return true;
         }
@@ -79,7 +79,7 @@ public abstract class AbsControllerVisitorAsPresenter<C extends IController> ext
         if (isRequestingSystemAlertPermission) {
             permissionHelper.onRequestSystemAlertPermissionResult(resultCode);
             isRequestingSystemAlertPermission = false;
-        } else if ( getComponent().startActivityForResultBySelf(requestCode)) {
+        } else if ( getController().startActivityForResultBySelf(requestCode)) {
             handleActivityResult(requestCode, resultCode, data);
         } else {
             return false;
@@ -135,7 +135,7 @@ public abstract class AbsControllerVisitorAsPresenter<C extends IController> ext
     //Permission end
 
     @NonNull
-    public IController getComponent() {
+    public IController getController() {
         return getView();
     }
 

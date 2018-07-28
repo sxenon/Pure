@@ -40,11 +40,11 @@ public class PermissionHelper {
     @NonNull
     private final OnPermissionCallback permissionCallback;
     @NonNull
-    private final IController component;
+    private final IController controller;
     private final String KEY_FORCE_ACCEPTING = "forceAccepting";
 
-    public PermissionHelper(@NonNull IController component, @NonNull OnPermissionCallback permissionCallback) {
-        this.component = component;
+    public PermissionHelper(@NonNull IController controller, @NonNull OnPermissionCallback permissionCallback) {
+        this.controller = controller;
         this.permissionCallback = permissionCallback;
     }
 
@@ -52,14 +52,14 @@ public class PermissionHelper {
         if (verifyPermissions(grantResults)) {
             permissionCallback.onPermissionGranted((Runnable) permissionEvent.obj);
         } else {
-            String[] declinedPermissions = PermissionCompat.getDeclinedPermissionArray(component, permissions);
-            List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(component, declinedPermissions);
+            String[] declinedPermissions = PermissionCompat.getDeclinedPermissionArray(controller, permissions);
+            List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(controller, declinedPermissions);
             if (!permissionPermanentlyDeniedList.isEmpty()) {
                 permissionCallback.onPermissionPermanentlyDeclined(permissionEvent.what, (String[]) permissionPermanentlyDeniedList.toArray());
             } else {
                 if (permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false)) {
                     if (!permissionCallback.shouldExplainPermissionBeforeRequest(permissionEvent.what, declinedPermissions)) {
-                        component.requestPermissionsCompact(declinedPermissions, permissionEvent.what, (Runnable) permissionEvent.obj, permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false));
+                        controller.requestPermissionsCompact(declinedPermissions, permissionEvent.what, (Runnable) permissionEvent.obj, permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false));
                     }
                     return;
                 }
@@ -94,14 +94,14 @@ public class PermissionHelper {
     }
 
     public void requestPermissions(@NonNull String[] permissions, int what, Runnable runnable, boolean forceAccepting) {
-        List<String> permissionsNeeded = PermissionCompat.getDeclinedPermissionList(component, permissions);
+        List<String> permissionsNeeded = PermissionCompat.getDeclinedPermissionList(controller, permissions);
         if (permissionsNeeded.isEmpty()) {
             runnable.run();
             return;
         }
 
         String[] permissionsNeedArray = (String[]) permissionsNeeded.toArray();
-        List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(component, permissionsNeedArray);
+        List<String> permissionPermanentlyDeniedList = PermissionCompat.getPermissionPermanentlyDeniedList(controller, permissionsNeedArray);
         if (!permissionPermanentlyDeniedList.isEmpty()) {
             permissionCallback.onPermissionPermanentlyDeclined(what, permissions);
             return;
@@ -109,7 +109,7 @@ public class PermissionHelper {
 
         setPermissionEvent(what, runnable, forceAccepting);
         if (!permissionCallback.shouldExplainPermissionBeforeRequest(what, permissionsNeedArray)) {
-            component.requestPermissionsCompact(permissionsNeedArray, what, runnable, forceAccepting);
+            controller.requestPermissionsCompact(permissionsNeedArray, what, runnable, forceAccepting);
         }
     }
 
@@ -120,11 +120,11 @@ public class PermissionHelper {
      */
     @TargetApi(Build.VERSION_CODES.M)
     public boolean showSystemAlertAtOnce(int what, Runnable runnable) {
-        if (!PermissionCompat.isSystemAlertGranted(component)) {
+        if (!PermissionCompat.isSystemAlertGranted(controller)) {
             permissionEvent = new Event();
             permissionEvent.what = what;
             permissionEvent.obj = runnable;
-            IntentManager.requestSystemAlertPermission(component, what);
+            IntentManager.requestSystemAlertPermission(controller, what);
             return false;
         } else {
             runnable.run();
@@ -136,7 +136,7 @@ public class PermissionHelper {
      * to be called when explanation is presented to the user
      */
     public void requestPermissionsAfterExplanation(@NonNull String[] permissions) {
-        component.requestPermissionsCompact(permissions, permissionEvent.what, (Runnable) permissionEvent.obj, permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false));
+        controller.requestPermissionsCompact(permissions, permissionEvent.what, (Runnable) permissionEvent.obj, permissionEvent.data.getBoolean(KEY_FORCE_ACCEPTING, false));
     }
 
     /**

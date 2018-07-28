@@ -76,7 +76,7 @@ public abstract class AbsCompactActivity<P extends AbsControllerVisitorAsPresent
     }
 
     @Override
-    public final ControllerType getComponentType() {
+    public final ControllerType getControllerType() {
         return ControllerType.COMPACT_ACTIVITY;
     }
 

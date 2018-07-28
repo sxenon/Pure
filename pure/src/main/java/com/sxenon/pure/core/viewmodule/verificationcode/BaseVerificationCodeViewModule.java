@@ -34,10 +34,10 @@ public abstract class BaseVerificationCodeViewModule implements IViewModule, IRe
     private static final String TAG = "Demo";
     private final Button mCodeBtn;
     private final TextView mCountDownTv;
-    private final IController mRouter;
+    private final IController mController;
 
-    public BaseVerificationCodeViewModule(IController router, final Button codeBtn, final TextView countDownTv) {
-        mRouter = router;
+    public BaseVerificationCodeViewModule(IController controller, final Button codeBtn, final TextView countDownTv) {
+        mController = controller;
         mCodeBtn = codeBtn;
         mCountDownTv = countDownTv;
     }
@@ -48,8 +48,8 @@ public abstract class BaseVerificationCodeViewModule implements IViewModule, IRe
     public abstract void startCountDown(int secondsInFuture);
 
 
-    public IController getComponent() {
-        return mRouter;
+    public IController getController() {
+        return mController;
     }
 
     public Button getCodeBtn() {

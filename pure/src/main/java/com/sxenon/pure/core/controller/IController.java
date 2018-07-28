@@ -64,7 +64,7 @@ public interface IController<P extends AbsControllerVisitorAsPresenter> extends 
     @Override
     P getPresenter();
 
-    ControllerType getComponentType();
+    ControllerType getControllerType();
 
     enum ControllerType {
         COMPACT_ACTIVITY,

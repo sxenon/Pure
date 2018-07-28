@@ -48,7 +48,7 @@ public class RxVerificationCodeViewModule extends BaseVerificationCodeViewModule
                     }
                     break;
                     case FINISH:{
-                        getCountDownTv().setText(getComponent().getContext().getResources().getString(R.string.app_name));//随便填的，编译通过就行
+                        getCountDownTv().setText(getController().getContext().getResources().getString(R.string.app_name));//随便填的，编译通过就行
                         getCodeBtn().setEnabled(true);
                         getCodeBtn().setBackgroundColor(Color.parseColor("#f97e7e"));
                     }
@@ -75,6 +75,6 @@ public class RxVerificationCodeViewModule extends BaseVerificationCodeViewModule
         getCodeBtn().setEnabled(true);
         getCodeBtn().setBackgroundColor(Color.parseColor("#f97e7e"));
         //Suppose it is a network exception;
-        getComponent().startActivityForResult(new Intent(Settings.ACTION_WIRELESS_SETTINGS), 1);
+        getController().startActivityForResult(new Intent(Settings.ACTION_WIRELESS_SETTINGS), 1);
     }
 }

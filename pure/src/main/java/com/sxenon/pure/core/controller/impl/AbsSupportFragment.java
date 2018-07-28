@@ -65,7 +65,7 @@ public abstract class AbsSupportFragment<P extends AbsControllerVisitorAsPresent
     }
 
     @Override
-    public final ControllerType getComponentType() {
+    public final ControllerType getControllerType() {
         return ControllerType.SUPPORT_FRAGMENT;
     }
 
