@@ -37,42 +37,12 @@ import com.sxenon.pure.core.viewmodule.ILoadingView;
 
 public abstract class AbsSupportFragment<P extends AbsControllerVisitorAsPresenter> extends Fragment implements IFragment<P> {
     private P mPresenter;
-    private IRouter mRouter;
-    private ILoadingView mLoadingView;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view, savedInstanceState);
         mPresenter = bindPresenter();
-    }
-
-    /**
-     * 设置路由的实现
-     * 在每个具体项目的基类调用
-     * @param router
-     */
-    public void setRouter(IRouter router) {
-        this.mRouter = router;
-    }
-
-    /**
-     * 设置等待框的实现
-     * 在每个具体项目的基类调用
-     * @param loadingView
-     */
-    public void setLoadingView(ILoadingView loadingView){
-        mLoadingView = loadingView;
-    }
-
-    @Override
-    public IRouter getRouter() {
-        return mRouter;
-    }
-
-    @Override
-    public ILoadingView getLoadingView() {
-        return mLoadingView;
     }
 
     @Override
