@@ -23,7 +23,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.sxenon.pure.core.controller.impl.AbsControllerVisitorAsPresenter;
+import com.sxenon.pure.core.controller.impl.AbstractControllerVisitorAsPresenter;
 import com.sxenon.pure.core.mvp.IView;
 import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.viewmodule.ILoadingView;
@@ -35,7 +35,7 @@ import com.sxenon.pure.core.viewmodule.IViewModule;
  * Created by Sui on 2016/11/20.
  */
 
-public interface IController<P extends AbsControllerVisitorAsPresenter> extends IView<P> {
+public interface IController<P extends AbstractControllerVisitorAsPresenter> extends IView<P> {
 
     void startActivity(Intent intent);
 

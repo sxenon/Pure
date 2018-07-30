@@ -29,8 +29,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.controller.IActivity;
-import com.sxenon.pure.core.router.IRouter;
-import com.sxenon.pure.core.viewmodule.ILoadingView;
 
 /**
  * To be the purest wrapper for Activity
@@ -38,7 +36,7 @@ import com.sxenon.pure.core.viewmodule.ILoadingView;
  * Created by Sui on 2016/11/21.
  */
 
-public abstract class AbsCompactActivity<P extends AbsControllerVisitorAsPresenter> extends AppCompatActivity implements IActivity<P> {
+public abstract class AbstractCompactActivity<P extends AbstractControllerVisitorAsPresenter> extends AppCompatActivity implements IActivity<P> {
     private P mPresenter;
 
     @Override

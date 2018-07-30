@@ -27,15 +27,13 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.sxenon.pure.core.controller.IFragment;
-import com.sxenon.pure.core.router.IRouter;
-import com.sxenon.pure.core.viewmodule.ILoadingView;
 
 /**
  * 做最纯净的Fragment二次封装
  * Created by Sui on 2016/11/21.
  */
 
-public abstract class AbsSupportFragment<P extends AbsControllerVisitorAsPresenter> extends Fragment implements IFragment<P> {
+public abstract class AbstractSupportFragment<P extends AbstractControllerVisitorAsPresenter> extends Fragment implements IFragment<P> {
     private P mPresenter;
 
     @Override

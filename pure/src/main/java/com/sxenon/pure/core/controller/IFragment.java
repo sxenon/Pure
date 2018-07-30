@@ -20,13 +20,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.sxenon.pure.core.controller.impl.AbsControllerVisitorAsPresenter;
+import com.sxenon.pure.core.controller.impl.AbstractControllerVisitorAsPresenter;
 
 /**
  * Interface for Fragment
  * Created by Sui on 2017/1/2.
  */
 
-public interface IFragment<P extends AbsControllerVisitorAsPresenter> extends IController<P> {
+public interface IFragment<P extends AbstractControllerVisitorAsPresenter> extends IController<P> {
     void initView(View view, @Nullable Bundle savedInstanceState);
 }

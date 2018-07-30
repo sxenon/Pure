@@ -33,14 +33,14 @@ import java.util.Arrays;
  * Created by Sui on 2016/11/28.
  */
 
-public abstract class AbsControllerVisitorAsPresenter<C extends IController> extends BasePresenter<C> implements IControllerVisitor<C> {
+public abstract class AbstractControllerVisitorAsPresenter<C extends IController> extends BasePresenter<C> implements IControllerVisitor<C> {
 
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
 
-    public static final String TAG = "AbsControllerVisitorAsPresenter";
+    public static final String TAG = "AbstractControllerVisitorAsPresenter";
 
-    public AbsControllerVisitorAsPresenter(C controller) {
+    public AbstractControllerVisitorAsPresenter(C controller) {
         super(controller);
         permissionHelper = new PermissionHelper(controller, this);
     }

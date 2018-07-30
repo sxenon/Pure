@@ -19,14 +19,14 @@ package com.sxenon.pure.core.controller;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.sxenon.pure.core.controller.impl.AbsControllerVisitorAsPresenter;
+import com.sxenon.pure.core.controller.impl.AbstractControllerVisitorAsPresenter;
 
 /**
  * Interface for Activity
  * Created by Sui on 2017/1/2.
  */
 
-public interface IActivity<P extends AbsControllerVisitorAsPresenter> extends IController<P> {
+public interface IActivity<P extends AbstractControllerVisitorAsPresenter> extends IController<P> {
     void initView(@Nullable Bundle savedInstanceState);
 
     /**
