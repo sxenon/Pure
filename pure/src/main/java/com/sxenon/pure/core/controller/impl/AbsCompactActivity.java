@@ -29,6 +29,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.controller.IActivity;
+import com.sxenon.pure.core.router.IRouter;
+import com.sxenon.pure.core.viewmodule.ILoadingView;
 
 /**
  * To be the purest wrapper for Activity
@@ -38,6 +40,8 @@ import com.sxenon.pure.core.controller.IActivity;
 
 public abstract class AbsCompactActivity<P extends AbsControllerVisitorAsPresenter> extends AppCompatActivity implements IActivity<P> {
     private P mPresenter;
+    private IRouter mRouter;
+    private ILoadingView mLoadingView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +55,33 @@ public abstract class AbsCompactActivity<P extends AbsControllerVisitorAsPresent
     protected void onDestroy() {
         super.onDestroy();
         GlobalContext.INSTANCE.activityHistoryManager.remove(this);
+    }
+
+    /**
+     * 设置路由的实现
+     * 在每个具体项目的基类调用
+     * @param router
+     */
+    public void setRouter(IRouter router) {
+        this.mRouter = router;
+    }
+
+    /**
+     * 设置等待框的实现
+     * 在每个具体项目的基类调用
+     * @param loadingView
+     */
+    public void setLoadingView(ILoadingView loadingView){
+        mLoadingView = loadingView;
+    }
+
+
+    public IRouter getRouter() {
+        return mRouter;
+    }
+
+    public ILoadingView getLoadingView() {
+        return mLoadingView;
     }
 
     @NonNull

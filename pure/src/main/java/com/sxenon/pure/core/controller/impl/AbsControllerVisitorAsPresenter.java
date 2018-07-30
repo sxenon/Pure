@@ -37,7 +37,7 @@ public abstract class AbsControllerVisitorAsPresenter<C extends IController> ext
 
     private final PermissionHelper permissionHelper;
     private boolean isRequestingSystemAlertPermission;
-    private IRouter router;
+
     public static final String TAG = "AbsControllerVisitorAsPresenter";
 
     public AbsControllerVisitorAsPresenter(C controller) {
@@ -45,9 +45,7 @@ public abstract class AbsControllerVisitorAsPresenter<C extends IController> ext
         permissionHelper = new PermissionHelper(controller, this);
     }
 
-    public void setRouter(IRouter router) {
-        this.router = router;
-    }
+
 
     //Permission start
     public void setPermissionEvent(int what, Runnable runnable, boolean forceAccepting) {

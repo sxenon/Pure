@@ -27,6 +27,8 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.sxenon.pure.core.controller.IFragment;
+import com.sxenon.pure.core.router.IRouter;
+import com.sxenon.pure.core.viewmodule.ILoadingView;
 
 /**
  * 做最纯净的Fragment二次封装
@@ -35,12 +37,41 @@ import com.sxenon.pure.core.controller.IFragment;
 
 public abstract class AbsSupportFragment<P extends AbsControllerVisitorAsPresenter> extends Fragment implements IFragment<P> {
     private P mPresenter;
+    private IRouter mRouter;
+    private ILoadingView mLoadingView;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view, savedInstanceState);
         mPresenter = bindPresenter();
+    }
+
+    /**
+     * 设置路由的实现
+     * 在每个具体项目的基类调用
+     * @param router
+     */
+    public void setRouter(IRouter router) {
+        this.mRouter = router;
+    }
+
+    /**
+     * 设置等待框的实现
+     * 在每个具体项目的基类调用
+     * @param loadingView
+     */
+    public void setLoadingView(ILoadingView loadingView){
+        mLoadingView = loadingView;
+    }
+
+
+    public IRouter getRouter() {
+        return mRouter;
+    }
+
+    public ILoadingView getLoadingView() {
+        return mLoadingView;
     }
 
     @Override
