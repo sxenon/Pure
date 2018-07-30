@@ -27,7 +27,7 @@ import com.sxenon.pure.core.permission.OnPermissionCallback;
  * Created by Sui on 2017/2/5.
  */
 
-public interface IControllerVisitor<R extends IController> extends IPresenter<R>, OnPermissionCallback {
+public interface IControllerVisitor<C extends IController> extends IPresenter<C>, OnPermissionCallback {
 
     void handleActivityResult(int requestCode, int resultCode, Intent data);
 
