@@ -65,11 +65,12 @@ public abstract class AbsSupportFragment<P extends AbsControllerVisitorAsPresent
         mLoadingView = loadingView;
     }
 
-
+    @Override
     public IRouter getRouter() {
         return mRouter;
     }
 
+    @Override
     public ILoadingView getLoadingView() {
         return mLoadingView;
     }

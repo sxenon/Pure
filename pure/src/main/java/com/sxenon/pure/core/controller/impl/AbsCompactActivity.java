@@ -75,11 +75,12 @@ public abstract class AbsCompactActivity<P extends AbsControllerVisitorAsPresent
         mLoadingView = loadingView;
     }
 
-
+    @Override
     public IRouter getRouter() {
         return mRouter;
     }
 
+    @Override
     public ILoadingView getLoadingView() {
         return mLoadingView;
     }
