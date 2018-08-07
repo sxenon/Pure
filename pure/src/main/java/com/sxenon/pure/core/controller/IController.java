@@ -25,7 +25,6 @@ import android.support.annotation.Nullable;
 
 import com.sxenon.pure.core.controller.impl.AbstractControllerVisitorAsPresenter;
 import com.sxenon.pure.core.mvp.IView;
-import com.sxenon.pure.core.router.IRouter;
 import com.sxenon.pure.core.viewmodule.ILoadingView;
 import com.sxenon.pure.core.viewmodule.IViewModule;
 
@@ -65,8 +64,6 @@ public interface IController<P extends AbstractControllerVisitorAsPresenter> ext
 
     @Override
     P getPresenter();
-
-    IRouter getRouter();
 
     ILoadingView getLoadingView();
 

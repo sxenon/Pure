@@ -27,7 +27,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
-import com.sxenon.pure.core.global.GlobalContext;
 import com.sxenon.pure.core.controller.IActivity;
 
 /**
@@ -44,13 +43,6 @@ public abstract class AbstractCompactActivity<P extends AbstractControllerVisito
         super.onCreate(savedInstanceState);
         initView(savedInstanceState);
         mPresenter = bindPresenter();
-        GlobalContext.INSTANCE.activityHistoryManager.add(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        GlobalContext.INSTANCE.activityHistoryManager.remove(this);
     }
 
     @NonNull

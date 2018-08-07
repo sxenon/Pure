@@ -30,7 +30,6 @@ public interface IActivity<P extends AbstractControllerVisitorAsPresenter> exten
     void initView(@Nullable Bundle savedInstanceState);
 
     /**
-     * {@link com.sxenon.pure.core.global.ActivityHistoryManager#finishBackgroundActivitiesIfNeed(int)}
      *
      * @param finishForWhat finish background activities for what
      * @return should keep or not

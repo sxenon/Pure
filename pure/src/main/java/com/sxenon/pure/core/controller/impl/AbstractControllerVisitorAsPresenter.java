@@ -24,7 +24,6 @@ import com.sxenon.pure.core.controller.IController;
 import com.sxenon.pure.core.controller.IControllerVisitor;
 import com.sxenon.pure.core.mvp.BasePresenter;
 import com.sxenon.pure.core.permission.PermissionHelper;
-import com.sxenon.pure.core.router.IRouter;
 
 import java.util.Arrays;
 
